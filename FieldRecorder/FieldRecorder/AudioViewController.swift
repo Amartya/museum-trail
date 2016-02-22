@@ -20,7 +20,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
     var audioRecorderURL: NSURL?
-    var recordings: [NSURL]?
+    var recordings: [NSURL]? = []
     
     /** to record audio, we need the following
         1. specify a sound file URL
@@ -80,17 +80,22 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
                     volumeLevel.enabled = true
             
                     listRecordings()
-                    print(recordings)
-            
-                    try audioPlayer = AVAudioPlayer(contentsOfURL: (recordings?.first)!)
-                    audioPlayer?.delegate = self
-                    audioPlayer?.volume = volumeLevel.value
-                    audioPlayer?.play()
-            
-                    playButton.selected = true
+                    
+                    if let recordingToPlay = recordings!.first{
+                        try audioPlayer = AVAudioPlayer(contentsOfURL: recordingToPlay)
+                        audioPlayer?.delegate = self
+                        audioPlayer?.volume = volumeLevel.value
+                        audioPlayer?.play()
+                        playButton.selected = true
+                    }
+                    else{
+                        print(recordings)
+                    }
                 }
                 catch{
-                    print(error)
+                    let alertMessage = UIAlertController(title: "No Recordings", message:"No recordings are available!", preferredStyle: .Alert)
+                    alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
+                    presentViewController(alertMessage, animated: true, completion: nil)
                 }
             }
         }
@@ -184,13 +189,12 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         }
     }
     
-    func listRecordings() {
+    func listRecordings() -> [NSURL]{
         let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
         
         do {
             let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsDirectory, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
             self.recordings = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("m4a")})
-        
         }
         catch let error as NSError {
             print(error.localizedDescription)
@@ -198,6 +202,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         catch {
             print("something went wrong listing recordings")
         }
+        return self.recordings!
     }
     
     //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
@@ -217,4 +222,10 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             presentViewController(alertMessage, animated: true, completion: nil)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showAllRecordings"{
+            let destinationController = segue.destinationViewController as! RecordListViewController
+            destinationController.recordFiles = listRecordings()
+        }
+    }
 }
