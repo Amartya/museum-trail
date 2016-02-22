@@ -19,6 +19,7 @@ import UIKit
 class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
     var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
+    var directoryURL: NSURL?
     var audioRecorderURL: NSURL?
     var recordings: [NSURL]? = []
     
@@ -81,7 +82,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             
                     listRecordings()
                     
-                    if let recordingToPlay = recordings!.first{
+                    if let recordingToPlay = recordings!.last{
                         try audioPlayer = AVAudioPlayer(contentsOfURL: recordingToPlay)
                         audioPlayer?.delegate = self
                         audioPlayer?.volume = volumeLevel.value
@@ -112,10 +113,11 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
         }
         
+        audioRecorderURL = directoryURL!.URLByAppendingPathComponent("FieldMemo" + String(NSDate()) + ".m4a")
+        let audioSession = setupRecorder()
+        
         if let recorder = audioRecorder{
             if !recorder.recording {
-                let audioSession = AVAudioSession.sharedInstance()
-                
                 do{
                     try audioSession.setActive(true)
             
@@ -123,7 +125,9 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
                     recorder.record()
                     recordButton.setImage(UIImage(named: "stoprecording"), forState: UIControlState.Normal)
                     recordButton.selected = false
-                }
+                    
+                    //store recording url
+                    recordings?.append(audioRecorderURL!)                }
                 catch{
                     print(error)
                 }
@@ -155,7 +159,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         volumeLevel.enabled = false
         
         //ask for the document directory in the user's home directory
-        guard let directoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,inDomains: NSSearchPathDomainMask.UserDomainMask).first else{
+        guard let tempDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,inDomains: NSSearchPathDomainMask.UserDomainMask).first else{
             
             let alertMessage = UIAlertController(title: "Recording Failed", message: "Failed to get the document directory to record audio. Please try again or enable microphone access", preferredStyle: .Alert)
             
@@ -164,36 +168,12 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             
             return
         }
-        
-        audioRecorderURL = directoryURL.URLByAppendingPathComponent("FieldMemo.m4a" + String(NSDate()))
-        
-        /**iOS handles audio behavior of an app by using audio sessions. It acts as a middle man between your app and the system's media service. 
-         Through the shared audio session object, you tell the system how you're going to use audio in your app. 
-         The audio session provides answers to questions like: Should the system disable the existing music being played by the Music app? 
-         Should your app be allowed to record audio and music playback?
-         */
-        let audioSession = AVAudioSession.sharedInstance()
-        
-        do{
-            
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
-            
-            //initialize and prep the recorder
-            audioRecorder = try AVAudioRecorder(URL:audioRecorderURL!, settings: recordingSettings)
-            audioRecorder?.delegate = self
-            audioRecorder?.meteringEnabled = true
-            audioRecorder?.prepareToRecord()
-            
-        } catch{
-                print(error)
-        }
+        directoryURL = tempDirectoryURL
     }
     
     func listRecordings() -> [NSURL]{
-        let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-        
         do {
-            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(documentsDirectory, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
             self.recordings = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("m4a")})
         }
         catch let error as NSError {
@@ -204,6 +184,33 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         }
         return self.recordings!
     }
+    
+    /**iOS handles audio behavior of an app by using audio sessions. It acts as a middle man between your app and the system's media service.
+     Through the shared audio session object, you tell the system how you're going to use audio in your app.
+     The audio session provides answers to questions like: Should the system disable the existing music being played by the Music app?
+     Should your app be allowed to record audio and music playback?
+     */
+    func setupRecorder() -> AVAudioSession{
+        let audioSession = AVAudioSession.sharedInstance()
+        
+        do{
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
+            
+            //initialize and prep the recorder
+            audioRecorder = try AVAudioRecorder(URL:audioRecorderURL!, settings: recordingSettings)
+            audioRecorder?.delegate = self
+            audioRecorder?.meteringEnabled = true
+            audioRecorder?.prepareToRecord()
+            
+            //finally add the url to the audio recording urls array
+            recordings?.append(audioRecorderURL!)
+            
+        } catch{
+            print(error)
+        }
+        return audioSession
+    }
+    
     
     //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
