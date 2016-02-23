@@ -16,14 +16,19 @@ import UIKit
  and update the user interface when an audio file finishes playing. 
  */
 
+
 class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
-    var participant = Participant()
-    var audioPlayer: AVAudioPlayer?
-    var audioRecorder: AVAudioRecorder?
     var directoryURL: NSURL?
     var audioRecorderURL: NSURL?
-    var recordings: [NSURL]? = []
     
+    var audioPlayer: AVAudioPlayer?
+    var audioRecorder: AVAudioRecorder?
+
+    var recordings: [NSURL]? = []
+    var participant = Participant()
+    
+    
+    @IBOutlet weak var audioVisualizer: AudioVisualizer!
     /** to record audio, we need the following
         1. specify a sound file URL
         2. setup a shared audio session
@@ -32,7 +37,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     
     let recordingSettings: [String: AnyObject] =  [
         AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-        AVSampleRateKey: 44100.0,
+        AVSampleRateKey: 16000.0,
         AVNumberOfChannelsKey: 2,
         AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
     ]
@@ -87,6 +92,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
                         try audioPlayer = AVAudioPlayer(contentsOfURL: recordingToPlay)
                         audioPlayer?.delegate = self
                         audioPlayer?.volume = volumeLevel.value
+                        audioPlayer?.meteringEnabled = true
                         audioPlayer?.play()
                         playButton.selected = true
                     }
@@ -103,7 +109,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         }
     }
     
-    
+    //TODO - Ensure that the pause recording works
     @IBAction func toggleRecording(sender: UIButton) {
         //stop the audio player if it's currently playing
         if let player = audioPlayer{
@@ -131,6 +137,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
                     recorder.record()
                     recordButton.setImage(UIImage(named: "stoprecording"), forState: UIControlState.Normal)
                     recordButton.selected = false
+                    
                     
                     //store recording url
                     recordings?.append(audioRecorderURL!)                }
@@ -175,6 +182,61 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             return
         }
         directoryURL = tempDirectoryURL
+        
+        var _ = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "update", userInfo: nil, repeats: true)
+    }
+    
+    // must be internal or public.
+    func update() {
+        if let audioPlayer = audioPlayer{
+            if audioPlayer.playing{
+                var power: Double = 0.0;
+            
+                audioPlayer.updateMeters()
+            
+                for i in 0..<audioPlayer.numberOfChannels{
+                    power += Double(audioPlayer.averagePowerForChannel(i))
+                    power /= Double(audioPlayer.numberOfChannels)
+                }
+            
+                updateVisualizer(power, playing: true)
+            }
+        }
+        
+        if let audioRecorder = audioRecorder{
+            if audioRecorder.recording{
+                var power: Double = 0.0;
+            
+                audioRecorder.updateMeters()
+                let audioRecorderTemp = audioRecorder
+
+                for i in 0..<2{
+                    power += Double(audioRecorderTemp.averagePowerForChannel(i))
+                    power /= Double(2)
+                }
+            updateVisualizer(power, recording: true)
+            }
+        }   
+    }
+    
+    func updateVisualizer(power: Double, playing: Bool = false, recording: Bool = false){
+        let scale = CGFloat(AudioVisualizer.scale(power, baseMin: -150, baseMax: 0, limitMin: 0, limitMax: 1))
+        let radius = scale * 200
+        let center = CGPoint(x:audioVisualizer.bounds.width/2 + audioVisualizer.bounds.origin.x,
+            y:audioVisualizer.bounds.height/2 + audioVisualizer.bounds.origin.y)
+        
+        audioVisualizer.rect = CGRect(x: center.x - radius/2, y: center.y - radius/2,
+            width: radius, height: radius)
+
+        
+        if playing{
+            audioVisualizer.color = UIColor(red: scale, green: 0.5, blue: max(2*scale,1), alpha: 1.0)
+        }
+        else if recording{
+            audioVisualizer.color = UIColor(red: 0.25, green: scale, blue: max(2*scale,1), alpha: 1.0)
+        }
+
+        audioVisualizer.setNeedsDisplay()
     }
     
     func listRecordings() -> [NSURL]{
@@ -225,6 +287,12 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag{
+            audioRecorder?.stop()
+            //after stopping the recording, change the size of the visualizer to hide it behind the music icon
+            let center = CGPoint(x:audioVisualizer.bounds.width/2 + audioVisualizer.bounds.origin.x,
+                y:audioVisualizer.bounds.height/2 + audioVisualizer.bounds.origin.y)
+            audioVisualizer.rect = CGRect(x: center.x, y: center.y, width: 20, height: 20)
+            
             let alertMessage = UIAlertController(title: "Finished Recording", message: "Successfully recorded audio!", preferredStyle: .Alert)
             alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             presentViewController(alertMessage, animated: true, completion: nil)
@@ -233,7 +301,14 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     
     //part of the AVAudioPlayerDelegate protocol, but this is an optional as well.
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag:Bool) {
+            audioPlayer?.stop()
             playButton.selected = false
+        
+            //after stopping the recording, change the size of the visualizer to hide it behind the music icon
+            let center = CGPoint(x:audioVisualizer.bounds.width/2 + audioVisualizer.bounds.origin.x,
+                                 y:audioVisualizer.bounds.height/2 + audioVisualizer.bounds.origin.y)
+            audioVisualizer.rect = CGRect(x: center.x, y: center.y, width: 20, height: 20)
+        
             let alertMessage = UIAlertController(title: "Finish Playing", message:"Finished playing the recording!", preferredStyle: .Alert)
             alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
             presentViewController(alertMessage, animated: true, completion: nil)
