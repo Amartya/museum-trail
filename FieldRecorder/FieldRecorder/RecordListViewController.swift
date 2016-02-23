@@ -45,7 +45,7 @@ class RecordListViewController: UITableViewController {
         if fileData.count > 1 {
             cell.dateLabel.text = fileData[0]
             cell.participantLabel.text = fileData[1]
-            cell.fileNameLabel.text = fileData.joinWithSeparator("")
+            cell.fileNameLabel.text = fileData[1] + " " + fileData[2]
         }
         else{
             cell.dateLabel.text = fileData.joinWithSeparator("")
@@ -59,6 +59,11 @@ class RecordListViewController: UITableViewController {
 //        cell.imageView?.image = UIImage(named: "sound-icon")
         
         return cell
+    }
+    
+    //hides the status bar
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

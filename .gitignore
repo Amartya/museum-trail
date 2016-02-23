@@ -2,3 +2,4 @@
 *.xcbkptlist
 *.xcplayground
 *.xcworkspacedata
+/xcuserstate

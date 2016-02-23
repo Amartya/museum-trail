@@ -217,6 +217,10 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         return audioSession
     }
     
+    //hides the status bar
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
     
     //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {

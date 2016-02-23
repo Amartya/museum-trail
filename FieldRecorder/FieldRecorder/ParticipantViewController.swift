@@ -34,4 +34,9 @@ class ParticipantViewController: UIViewController{
             destinationController.participant = participant
         }
     }
+    
+    //hides the status bar
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
 }
