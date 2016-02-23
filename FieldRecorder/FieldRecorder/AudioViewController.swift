@@ -17,6 +17,7 @@ import UIKit
  */
 
 class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
+    var participant = Participant()
     var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
     var directoryURL: NSURL?
@@ -113,7 +114,12 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
         }
         
-        audioRecorderURL = directoryURL!.URLByAppendingPathComponent("FieldMemo" + String(NSDate()) + ".m4a")
+        let calendar = NSCalendar.currentCalendar()
+        let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)
+        
+        let fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
+        
+        audioRecorderURL = directoryURL!.URLByAppendingPathComponent(fileName)
         let audioSession = setupRecorder()
         
         if let recorder = audioRecorder{
@@ -174,7 +180,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     func listRecordings() -> [NSURL]{
         do {
             let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-            self.recordings = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("m4a")})
+            self.recordings = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("###Audio.m4a")})
         }
         catch let error as NSError {
             print(error.localizedDescription)

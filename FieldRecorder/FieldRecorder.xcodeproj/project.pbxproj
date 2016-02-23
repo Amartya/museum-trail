@@ -8,17 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083986221C78153C00EA9800 /* RecordListViewController.swift */; };
+		085705AB1C7BD00E0085DCFF /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085705AA1C7BD00E0085DCFF /* Recording.swift */; };
 		08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A108391C751C940006D1AD /* AppDelegate.swift */; };
 		08A1083F1C751C940006D1AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A1083D1C751C940006D1AD /* Main.storyboard */; };
 		08A108411C751C940006D1AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A108401C751C940006D1AD /* Assets.xcassets */; };
 		08A108441C751C940006D1AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A108421C751C940006D1AD /* LaunchScreen.storyboard */; };
 		08A1084E1C751F360006D1AD /* instrumental.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08A1084D1C751F360006D1AD /* instrumental.mp3 */; };
+		08EC56E81C7B9CF400029269 /* ParticipantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */; };
 		08EF6C901C753CBB00E7FDE9 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EF6C8F1C753CBB00E7FDE9 /* Participant.swift */; };
 		08EF6C921C76538900E7FDE9 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EF6C911C76538900E7FDE9 /* AudioViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		083986221C78153C00EA9800 /* RecordListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListViewController.swift; sourceTree = "<group>"; };
+		085705AA1C7BD00E0085DCFF /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		08A108361C751C940006D1AD /* FieldRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A108391C751C940006D1AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08A1083E1C751C940006D1AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		08A108431C751C940006D1AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08A108451C751C940006D1AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08A1084D1C751F360006D1AD /* instrumental.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = instrumental.mp3; sourceTree = "<group>"; };
+		08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantViewController.swift; sourceTree = "<group>"; };
 		08EF6C8F1C753CBB00E7FDE9 /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
 		08EF6C911C76538900E7FDE9 /* AudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -68,7 +72,9 @@
 				08A108451C751C940006D1AD /* Info.plist */,
 				08EF6C911C76538900E7FDE9 /* AudioViewController.swift */,
 				08EF6C8F1C753CBB00E7FDE9 /* Participant.swift */,
+				085705AA1C7BD00E0085DCFF /* Recording.swift */,
 				083986221C78153C00EA9800 /* RecordListViewController.swift */,
+				08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */,
 			);
 			path = FieldRecorder;
 			sourceTree = "<group>";
@@ -147,9 +153,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */,
+				085705AB1C7BD00E0085DCFF /* Recording.swift in Sources */,
 				083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */,
 				08EF6C901C753CBB00E7FDE9 /* Participant.swift in Sources */,
 				08EF6C921C76538900E7FDE9 /* AudioViewController.swift in Sources */,
+				08EC56E81C7B9CF400029269 /* ParticipantViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

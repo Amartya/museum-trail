@@ -11,10 +11,16 @@ import Foundation
 
 class Participant{
     var participantID:Int
-    var date:NSCalendar
+    var date:NSDate
     
     init(){
-        self.participantID = 0
-        self.date = NSCalendar.currentCalendar()
+        self.participantID = 100
+        self.date = NSDate()
+    }
+    
+    convenience init(participantId: Int, date: NSDate){
+        self.init()
+        self.participantID = participantId
+        self.date = date
     }
 }
