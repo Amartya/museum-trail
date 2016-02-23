@@ -310,11 +310,23 @@
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufn-qR-Rh6">
+                                <rect key="frame" x="260" y="312" width="81" height="34"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <state key="normal" title="Start Trail">
+                                    <color key="titleColor" red="0.24598158849999999" green="0.362849486" blue="0.60720486110000005" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="45h-Sg-1Vl" kind="show" id="F1D-HQ-pcS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="x6i-sI-B0q" firstAttribute="centerX" secondItem="EtY-p5-lHw" secondAttribute="centerX" id="2vX-nA-bQI"/>
+                            <constraint firstItem="ufn-qR-Rh6" firstAttribute="centerX" secondItem="EtY-p5-lHw" secondAttribute="centerX" id="7oq-gr-cVm"/>
                             <constraint firstItem="8bP-jT-SBP" firstAttribute="centerX" secondItem="EtY-p5-lHw" secondAttribute="centerX" id="GYa-ZT-iWR"/>
+                            <constraint firstItem="ufn-qR-Rh6" firstAttribute="top" secondItem="8bP-jT-SBP" secondAttribute="bottom" constant="21" id="Gxo-gx-TcT"/>
                             <constraint firstItem="x6i-sI-B0q" firstAttribute="top" secondItem="A9j-GH-UGB" secondAttribute="bottom" constant="162" id="cAQ-Q3-tjD"/>
                             <constraint firstItem="x6i-sI-B0q" firstAttribute="centerX" secondItem="EtY-p5-lHw" secondAttribute="centerX" id="dhf-8b-fBa"/>
                             <constraint firstItem="8bP-jT-SBP" firstAttribute="top" secondItem="x6i-sI-B0q" secondAttribute="bottom" constant="45" id="iNU-gb-vml"/>
@@ -337,6 +349,17 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sx7-Iu-4Ko" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-644" y="-955"/>
+        </scene>
+        <!--Trail View Controller-->
+        <scene sceneID="e53-uu-gLB">
+            <objects>
+                <viewController id="45h-Sg-1Vl" customClass="TrailViewController" customModule="FieldRecorder" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wDX-xN-sHj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-644" y="-197"/>
         </scene>
         <!--Record List View Controller-->
         <scene sceneID="9Pk-QF-s4L">
@@ -383,7 +406,7 @@
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="ucH-vG-xjv"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -401,7 +424,7 @@
                                                 <constraint firstAttribute="height" constant="21" id="zQA-NE-CIM"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="default">
                                                 <mask key="constraints">
@@ -435,7 +458,7 @@
                                                 <constraint firstAttribute="width" constant="376" id="is1-Uq-YFR"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="default">
                                                 <mask key="constraints">
