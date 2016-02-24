@@ -193,14 +193,14 @@
                                     <segue destination="kpL-6c-jhA" kind="showDetail" identifier="showAllRecordings" action="showViewController:sender:" id="Gkj-Lo-yz2"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfp-Nk-C16" customClass="AudioVisualizer" customModule="FieldRecorder" customModuleProvider="target">
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rfp-Nk-C16" customClass="AudioVisualizer" customModule="FieldRecorder" customModuleProvider="target">
                                 <rect key="frame" x="124" y="44" width="352" height="240"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Music-icon" translatesAutoresizingMaskIntoConstraints="NO" id="RJ8-Gn-mvB">
                                         <rect key="frame" x="112" y="56" width="128" height="128"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.88558792340000003" green="0.93590541910000002" blue="0.93590541910000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="352" id="2pN-6u-Ylf"/>
                                     <constraint firstItem="RJ8-Gn-mvB" firstAttribute="top" secondItem="Rfp-Nk-C16" secondAttribute="top" constant="56" id="5jB-iO-7Tx"/>
@@ -211,7 +211,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.88558792340000003" green="0.93590541910000002" blue="0.93590541910000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="p6s-4Q-gb0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="108" id="0Fh-1w-7Lq"/>
                             <constraint firstItem="p6s-4Q-gb0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="60" id="1B4-Nz-GVc"/>
@@ -304,7 +304,7 @@
                                 </constraints>
                             </view>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="sound-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Uqh-1U-UQq">
-                                <rect key="frame" x="203" y="259" width="30" height="30"/>
+                                <rect key="frame" x="197" y="239" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="Wem-me-604"/>
                                     <constraint firstAttribute="height" constant="30" id="cG6-rG-8iP"/>
@@ -317,7 +317,7 @@
                                 </variation>
                             </imageView>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="estimote" translatesAutoresizingMaskIntoConstraints="NO" id="ZOB-AL-nvC">
-                                <rect key="frame" x="234" y="314" width="17" height="30"/>
+                                <rect key="frame" x="197" y="294" width="17" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="9I6-dc-5gf"/>
                                     <constraint firstAttribute="width" constant="24" id="cFr-14-VDo"/>
@@ -330,7 +330,7 @@
                                 </variation>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8bP-jT-SBP">
-                                <rect key="frame" x="235" y="257" width="130" height="34"/>
+                                <rect key="frame" x="232" y="237" width="136" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <state key="normal" title="Start Recording">
                                     <color key="titleColor" red="0.24598158849999999" green="0.362849486" blue="0.60720486110000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -340,19 +340,19 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Participant ID" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="x6i-sI-B0q">
-                                <rect key="frame" x="238" y="182" width="124" height="30"/>
+                                <rect key="frame" x="197" y="162" width="206" height="30"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="fieldrecorder" translatesAutoresizingMaskIntoConstraints="NO" id="PEh-iG-GAL">
-                                <rect key="frame" x="232" y="136" width="136" height="16"/>
+                                <rect key="frame" x="232" y="116" width="136" height="16"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="16" id="9uk-1w-v7x"/>
                                     <constraint firstAttribute="width" constant="136" id="kbY-uq-RWJ"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufn-qR-Rh6">
-                                <rect key="frame" x="260" y="312" width="81" height="34"/>
+                                <rect key="frame" x="224" y="292" width="81" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <state key="normal" title="Start Trail">
                                     <color key="titleColor" red="0.24598158849999999" green="0.362849486" blue="0.60720486110000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -361,15 +361,15 @@
                                     <segue destination="45h-Sg-1Vl" kind="show" id="F1D-HQ-pcS"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNf-cu-88I">
-                                <rect key="frame" x="197" y="354" width="206" height="34"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNf-cu-88I">
+                                <rect key="frame" x="197" y="347" width="206" height="34"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <state key="normal" title="Start Recording and Trail">
-                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" white="0.33333333333333331" alpha="0.37630208333333331" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.85882352941176465" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.88558792340000003" green="0.93590541910000002" blue="0.93590541910000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ufn-qR-Rh6" firstAttribute="leading" secondItem="ZOB-AL-nvC" secondAttribute="trailing" constant="5" id="0P7-UI-9EZ"/>
                             <constraint firstItem="x6i-sI-B0q" firstAttribute="centerX" secondItem="EtY-p5-lHw" secondAttribute="centerX" id="2vX-nA-bQI"/>
@@ -446,10 +446,10 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="col-JO-vjW">
-                                <rect key="frame" x="288" y="412" width="24" height="11"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="col-JO-vjW">
+                                <rect key="frame" x="286" y="411" width="27" height="12"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgq-t1-sFE">
@@ -458,7 +458,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Show Trace" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YAb-Cj-GTq">
                                         <rect key="frame" x="260" y="14" width="79" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cu3-1C-Xep">
@@ -511,7 +511,7 @@
                                 </variation>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.88791918605472053" green="0.91751649225654452" blue="0.91751649225654452" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.88558792340000003" green="0.93590541910000002" blue="0.93590541910000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="hcq-RQ-xcf" firstAttribute="leading" secondItem="BXa-vd-DKT" secondAttribute="leadingMargin" id="2C3-Zn-iBh"/>
                             <constraint firstItem="hcq-RQ-xcf" firstAttribute="centerY" secondItem="BXa-vd-DKT" secondAttribute="centerY" id="7RY-fS-W65"/>
@@ -729,6 +729,7 @@
                                     <outlet property="dateLabel" destination="5r1-hY-kqf" id="g6q-nf-XWV"/>
                                     <outlet property="fileNameLabel" destination="clV-VV-g92" id="L0e-IO-UDQ"/>
                                     <outlet property="participantLabel" destination="NFl-ZB-QNH" id="m8K-Uk-l9B"/>
+                                    <outlet property="thumbnailImageView" destination="mR6-Gl-za4" id="ATD-OK-1EX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -756,7 +757,7 @@
         <image name="stop" width="156" height="155"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Trp-sY-1oe"/>
-        <segue reference="EVg-62-9Bv"/>
+        <segue reference="DeV-ww-WZe"/>
+        <segue reference="jQx-63-Aya"/>
     </inferredMetricsTieBreakers>
 </document>

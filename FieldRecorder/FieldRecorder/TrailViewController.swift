@@ -42,7 +42,6 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
         //set the location manager's delegate
         self.locationManager.delegate = self
         
-        
         /**
         Uncomment this block to get a list of all saved locations
         let fetchLocations = EILRequestFetchLocations()

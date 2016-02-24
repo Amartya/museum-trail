@@ -11,8 +11,9 @@ import Foundation
 import UIKit
 
 class RecordListViewController: UITableViewController {
-    
+
     var recordFiles:[NSURL] = []
+    var selectedURL: NSURL? = NSURL()
     
     func parseRecordingNamesForDisplay() -> [String] {
         var recordFileNames: [String] = []
@@ -51,10 +52,16 @@ class RecordListViewController: UITableViewController {
             cell.fileNameLabel.text = fileData.joinWithSeparator("")
         }
         
-        //cell.participantLabel.text = fileData.componentsSeparatedByString("###")
-        //fill the cell data
-//        cell.textLabel?.text = parseRecordingNamesForDisplay()[indexPath.row]
-//        cell.imageView?.image = UIImage(named: "sound-icon")
+        if let _ = self.selectedURL{
+            if let selectedURLIndex = self.recordFiles.indexOf(selectedURL!){
+                if indexPath.row == selectedURLIndex{
+                    cell.thumbnailImageView!.image = UIImage(named: "sound-icon-playing")
+                }
+                else{
+                    cell.thumbnailImageView!.image = UIImage(named: "sound-icon")
+                }
+            }
+        }
         
         return cell
     }

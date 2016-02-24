@@ -27,6 +27,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     var recordings: [NSURL]? = []
     var participant = Participant()
     
+    var selectedAudioFileURL: NSURL?
     
     @IBOutlet weak var audioVisualizer: AudioVisualizer!
     /** to record audio, we need the following
@@ -88,13 +89,13 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             
                     listRecordings()
                     
-                    if let recordingToPlay = recordings!.last{
+                    if let selectedToPlay = selectedAudioFileURL {
+                        try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
+                        playRecordingDelegate()
+                    }
+                    else if let recordingToPlay = recordings!.last{
                         try audioPlayer = AVAudioPlayer(contentsOfURL: recordingToPlay)
-                        audioPlayer?.delegate = self
-                        audioPlayer?.volume = volumeLevel.value
-                        audioPlayer?.meteringEnabled = true
-                        audioPlayer?.play()
-                        playButton.selected = true
+                        playRecordingDelegate()
                     }
                     else{
                         print(recordings)
@@ -108,6 +109,15 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
         }
     }
+    
+    func playRecordingDelegate(){
+        audioPlayer?.delegate = self
+        audioPlayer?.volume = volumeLevel.value
+        audioPlayer?.meteringEnabled = true
+        audioPlayer?.play()
+        playButton.selected = true
+    }
+    
     
     //TODO - Ensure that the pause recording works
     @IBAction func toggleRecording(sender: UIButton) {
@@ -123,9 +133,19 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         let calendar = NSCalendar.currentCalendar()
         let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)
         
-        let fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
+        var fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
+        
+        let allFilesNames = listRecordings().map({ (name: NSURL) -> String in return name.lastPathComponent!})
+        
+        //ensuring that if there's a collision in filenames, recordings are not lost
+        if allFilesNames.indexOf(fileName) != nil{
+            let fileNameComponents = fileName.componentsSeparatedByString("###")
+            fileName = fileNameComponents[0] + "###" + fileNameComponents[1] + "(" + NSUUID().UUIDString + ")" + "###Audio.m4a"
+        }
         
         audioRecorderURL = directoryURL!.URLByAppendingPathComponent(fileName)
+        
+        
         let audioSession = setupRecorder()
         
         if let recorder = audioRecorder{
@@ -183,6 +203,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         }
         directoryURL = tempDirectoryURL
         
+        //using the timer to read the input levels for the sound
         var _ = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "update", userInfo: nil, repeats: true)
     }
     
@@ -241,7 +262,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     
     func listRecordings() -> [NSURL]{
         do {
-            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: [NSURLCreationDateKey, NSURLContentModificationDateKey], options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
             self.recordings = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("###Audio.m4a")})
         }
         catch let error as NSError {
@@ -317,7 +338,12 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showAllRecordings"{
             let destinationController = segue.destinationViewController as! RecordListViewController
-            destinationController.recordFiles = listRecordings()
+            let allRecordings = listRecordings()
+
+            destinationController.recordFiles = allRecordings
+            if allRecordings.count > 0{
+                destinationController.selectedURL = allRecordings.last!
+            }
         }
     }
 }

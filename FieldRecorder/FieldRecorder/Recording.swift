@@ -13,4 +13,5 @@ class Recording: UITableViewCell{
     @IBOutlet var participantLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var fileNameLabel: UILabel!
+    @IBOutlet var thumbnailImageView: UIImageView!
 }
