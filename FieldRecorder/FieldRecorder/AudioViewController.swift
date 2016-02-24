@@ -16,6 +16,15 @@ import UIKit
  and update the user interface when an audio file finishes playing. 
  */
 
+public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+}
+
+public func <(lhs: NSDate, rhs: NSDate) -> Bool {
+    return lhs.compare(rhs) == .OrderedAscending
+}
+
+extension NSDate: Comparable { }
 
 class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
     var directoryURL: NSURL?
@@ -82,6 +91,21 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
      3. call the play method to play the sound file.
      */
     @IBAction func playRecording(sender: UIButton) {
+        if let selectedToPlay = selectedAudioFileURL {
+            do{
+                try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
+                
+                if !audioPlayer!.playing{
+                    playRecordingDelegate()
+                }
+            }
+            catch{
+                let alertMessage = UIAlertController(title: "Player Status", message:"No recordings are available, or were selected. Try the recordings list to see if there are any recordings saved.", preferredStyle: .Alert)
+                alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
+                presentViewController(alertMessage, animated: true, completion: nil)
+            }
+        }
+
         if let recorder = audioRecorder {
             if !recorder.recording {
                 do{
@@ -93,7 +117,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
                         try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
                         playRecordingDelegate()
                     }
-                    else if let recordingToPlay = recordings!.last{
+                    else if let recordingToPlay = recordings!.first{
                         try audioPlayer = AVAudioPlayer(contentsOfURL: recordingToPlay)
                         playRecordingDelegate()
                     }
@@ -172,7 +196,6 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
         }
         stopButton.enabled = true
-        playButton.enabled = false
         volumeLevel.enabled = false
     }
     
@@ -188,7 +211,6 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         
         //set the buttons to be deactivated initially
         stopButton.enabled = false
-        playButton.enabled = false
         volumeLevel.enabled = false
         
         //ask for the document directory in the user's home directory
@@ -260,10 +282,22 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         audioVisualizer.setNeedsDisplay()
     }
     
+    /**
+    returns the list of recordings in the file system in a sorted (by date desc) list
+    */
     func listRecordings() -> [NSURL]{
         do {
-            let urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: [NSURLCreationDateKey, NSURLContentModificationDateKey], options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-            self.recordings = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("###Audio.m4a")})
+            //get all audio files
+            var urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
+            urls = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("###Audio.m4a")})
+            
+            //get lastModified date for each of those files
+            let urlsAndDates = urls.map { url -> (NSURL, NSDate) in var lastModified : AnyObject?
+                                                                            _ = try? url.getResourceValue(&lastModified, forKey: NSURLContentModificationDateKey)
+                                                                                return (url, (lastModified)! as! NSDate)}
+            let sortedUrlsAndDate = urlsAndDates.sort {$0.1 == $1.1 ? $0.1 > $1.1 : $0.1 > $1.1 }
+            
+            self.recordings = sortedUrlsAndDate.map{url -> NSURL in return url.0}
         }
         catch let error as NSError {
             print(error.localizedDescription)
@@ -273,6 +307,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         }
         return self.recordings!
     }
+    
     
     /**iOS handles audio behavior of an app by using audio sessions. It acts as a middle man between your app and the system's media service.
      Through the shared audio session object, you tell the system how you're going to use audio in your app.
@@ -342,7 +377,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
 
             destinationController.recordFiles = allRecordings
             if allRecordings.count > 0{
-                destinationController.selectedURL = allRecordings.last!
+                destinationController.selectedURL = allRecordings.first!
             }
         }
     }

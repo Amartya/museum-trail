@@ -52,6 +52,14 @@ class RecordListViewController: UITableViewController {
             cell.fileNameLabel.text = fileData.joinWithSeparator("")
         }
         
+        setSoundIcon(indexPath, cell:cell)
+        
+        return cell
+    }
+    
+    //sets the icon displayed in a row to red OR b/w based on selected track
+    func setSoundIcon(indexPath: NSIndexPath, cell: Recording){
+        
         if let _ = self.selectedURL{
             if let selectedURLIndex = self.recordFiles.indexOf(selectedURL!){
                 if indexPath.row == selectedURLIndex{
@@ -62,8 +70,14 @@ class RecordListViewController: UITableViewController {
                 }
             }
         }
+    }
+    
+    //tells the delegate that the specified row is now selected.
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedURL = recordFiles[indexPath.row]
         
-        return cell
+        //call reload data to refresh the table view and the icon for each row (based on selection)
+        tableView.reloadData()
     }
     
     //hides the status bar
@@ -73,5 +87,12 @@ class RecordListViewController: UITableViewController {
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "goBackToRecorder"{
+            let destinationController = segue.destinationViewController as! AudioViewController
+            destinationController.selectedAudioFileURL = selectedURL
+        }
     }
 }

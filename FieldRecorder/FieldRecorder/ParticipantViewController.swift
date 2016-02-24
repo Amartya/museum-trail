@@ -33,9 +33,9 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     //this prevents a transition to the next screen if it returns false
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         if identifier == "showRecordingScreen" {
+            let initX = self.participantInput.center.x
+            
             if participantInput.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""{
-                let initX = self.participantInput.center.x
-                
                 //reset the text to show the placeholder text
                 self.participantInput.text = ""
                 
@@ -46,6 +46,22 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
                 
                 return false
             }
+            
+            //validating that a number was used as a participant id
+            if let _ = Int(participantInput.text!){
+                return true
+            }
+            else{
+                //reset the text to show the placeholder text
+                self.participantInput.text = ""
+                
+                UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                    self.participantInput.center = CGPoint(x:initX + 10, y: self.participantInput.center.y)
+                    }, completion: {(Bool)  in self.participantInput.center.x = initX})
+                
+                return false
+            }
+        
         }
         return true
     }
@@ -55,10 +71,9 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
             let destinationController = segue.destinationViewController as! AudioViewController
             
             
-            if participantInput.text != nil && participantInput.text != "" {
-                participant = Participant(participantId: Int(participantInput.text!)!, date: NSDate())
+            if let id = Int(participantInput.text!){
+                participant = Participant(participantId: id, date: NSDate())
             }
-            
             destinationController.participant = participant
         }
     }
