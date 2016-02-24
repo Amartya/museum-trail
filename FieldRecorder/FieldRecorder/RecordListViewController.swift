@@ -26,8 +26,6 @@ class RecordListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
     }
     
     // total number of rows in a section (a table view can have multiple sections but there is only one by default)
