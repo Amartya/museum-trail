@@ -24,7 +24,7 @@
                                     <navigationItem title="Audio Recorder" id="dha-WH-8P2">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="wQi-8F-vdQ">
                                             <connections>
-                                                <segue destination="i4y-L9-R7b" kind="show" id="jQx-63-Aya"/>
+                                                <segue destination="i4y-L9-R7b" kind="show" identifier="showParticipantScreen" id="jQx-63-Aya"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -199,15 +199,26 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Music-icon" translatesAutoresizingMaskIntoConstraints="NO" id="RJ8-Gn-mvB">
                                         <rect key="frame" x="112" y="56" width="128" height="128"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTy-zH-EFF">
+                                        <rect key="frame" x="155" y="212" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="shadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88558792340000003" green="0.93590541910000002" blue="0.93590541910000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="352" id="2pN-6u-Ylf"/>
                                     <constraint firstItem="RJ8-Gn-mvB" firstAttribute="top" secondItem="Rfp-Nk-C16" secondAttribute="top" constant="56" id="5jB-iO-7Tx"/>
+                                    <constraint firstItem="uTy-zH-EFF" firstAttribute="leading" secondItem="Rfp-Nk-C16" secondAttribute="leading" id="Nib-j9-cQf"/>
                                     <constraint firstAttribute="height" constant="240" id="XHj-PU-S34"/>
+                                    <constraint firstAttribute="trailing" secondItem="uTy-zH-EFF" secondAttribute="trailing" id="bgj-fW-uEB"/>
                                     <constraint firstItem="RJ8-Gn-mvB" firstAttribute="centerY" secondItem="Rfp-Nk-C16" secondAttribute="centerY" id="dsl-Dd-ekc"/>
+                                    <constraint firstAttribute="bottom" secondItem="uTy-zH-EFF" secondAttribute="bottom" constant="10" id="g7h-eZ-W1R"/>
                                     <constraint firstItem="RJ8-Gn-mvB" firstAttribute="centerX" secondItem="Rfp-Nk-C16" secondAttribute="centerX" id="jFF-Vc-ujW"/>
                                     <constraint firstItem="RJ8-Gn-mvB" firstAttribute="leading" secondItem="Rfp-Nk-C16" secondAttribute="leading" constant="112" id="lxg-20-0F1"/>
+                                    <constraint firstItem="uTy-zH-EFF" firstAttribute="centerX" secondItem="Rfp-Nk-C16" secondAttribute="centerX" id="nPW-eP-HWW"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -273,6 +284,7 @@
                     </view>
                     <connections>
                         <outlet property="audioVisualizer" destination="Rfp-Nk-C16" id="Bgw-EU-KVf"/>
+                        <outlet property="currentlySelectedLabel" destination="uTy-zH-EFF" id="P4g-an-V91"/>
                         <outlet property="playButton" destination="DLe-kt-gbX" id="Si3-mY-eyA"/>
                         <outlet property="recordButton" destination="p6s-4Q-gb0" id="FzD-1S-3OV"/>
                         <outlet property="stopButton" destination="DrY-84-tAl" id="dEN-vB-YRb"/>

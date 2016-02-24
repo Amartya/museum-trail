@@ -14,4 +14,15 @@ class Recording: UITableViewCell{
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var thumbnailImageView: UIImageView!
+    
+    static func recordingURLtoFileName(url: NSURL) -> String?{
+        let fileData = url.lastPathComponent?.componentsSeparatedByString("###")
+        
+        var fileName = ""
+        if fileData!.count >= 2{
+            fileName = fileData![1] + fileData![2]
+        }
+        
+        return fileName
+    }
 }

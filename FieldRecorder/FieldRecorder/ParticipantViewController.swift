@@ -21,8 +21,12 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         //this allows us to override the textFieldShouldReturn method
         self.participantInput.delegate = self
         
-        //only allowing numeric values
+        //defaulting to number keyboard
         participantInput.keyboardType = UIKeyboardType.NumbersAndPunctuation
+        
+        if participant.participantID != -999{
+            self.participantInput.text = String(participant.participantID)
+        }
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

@@ -14,7 +14,7 @@ class Participant{
     var date:NSDate
     
     init(){
-        self.participantID = 100
+        self.participantID = -999
         self.date = NSDate()
     }
     

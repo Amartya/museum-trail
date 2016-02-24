@@ -37,6 +37,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     var participant = Participant()
     
     var selectedAudioFileURL: NSURL?
+    var selectedAudioFileLabel: String = ""
     
     @IBOutlet weak var audioVisualizer: AudioVisualizer!
     /** to record audio, we need the following
@@ -44,14 +45,13 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         2. setup a shared audio session
         3. configure the audio recorder's init state (recording format, bitrate etc.)
     */
-    
     let recordingSettings: [String: AnyObject] =  [
         AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
         AVSampleRateKey: 16000.0,
         AVNumberOfChannelsKey: 2,
         AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
     ]
-    
+
     @IBOutlet var stopButton: UIButton!
     
     @IBOutlet var playButton: UIButton!
@@ -59,6 +59,8 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     @IBOutlet var recordButton: UIButton!
     
     @IBOutlet var volumeLevel: UISlider!
+    
+    @IBOutlet var currentlySelectedLabel: UILabel!
     
     @IBAction func stop(sender: UIButton) {
         //reset the recording button
@@ -154,31 +156,20 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
         }
         
-        let calendar = NSCalendar.currentCalendar()
-        let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)
+        //ensure that the playbutton is disabled and the file name is changed to the participant id for which the recording is being done
+        currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
+        playButton.enabled = false
         
-        var fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
-        
-        let allFilesNames = listRecordings().map({ (name: NSURL) -> String in return name.lastPathComponent!})
-        
-        //ensuring that if there's a collision in filenames, recordings are not lost
-        if allFilesNames.indexOf(fileName) != nil{
-            let fileNameComponents = fileName.componentsSeparatedByString("###")
-            fileName = fileNameComponents[0] + "###" + fileNameComponents[1] + "(" + NSUUID().UUIDString + ")" + "###Audio.m4a"
-        }
-        
-        audioRecorderURL = directoryURL!.URLByAppendingPathComponent(fileName)
-        
-        
-        let audioSession = setupRecorder()
-        
-        if let recorder = audioRecorder{
+        if let recorder = self.audioRecorder{
             if !recorder.recording {
+                let audioSession = AVAudioSession.sharedInstance()
+                
                 do{
                     try audioSession.setActive(true)
             
                     //begin recording
                     recorder.record()
+                    
                     recordButton.setImage(UIImage(named: "stoprecording"), forState: UIControlState.Normal)
                     recordButton.selected = false
                     
@@ -191,6 +182,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
             else{
                 recorder.pause()
+                resetAudioVisualizer()
                 recordButton.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
                 recordButton.selected = false
             }
@@ -211,6 +203,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         
         //set the buttons to be deactivated initially
         stopButton.enabled = false
+        playButton.enabled = false
         volumeLevel.enabled = false
         
         //ask for the document directory in the user's home directory
@@ -224,6 +217,23 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             return
         }
         directoryURL = tempDirectoryURL
+        
+        let tempRecordings = listRecordings()
+        if(tempRecordings.count > 0){
+            if selectedAudioFileLabel.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == "" {
+                currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
+                playButton.enabled = false
+            }
+            else{
+                currentlySelectedLabel?.text = selectedAudioFileLabel
+                playButton.enabled = true
+            }
+        }
+        else{
+            currentlySelectedLabel?.text?.removeAll()
+        }
+        
+        setupRecorder()
         
         //using the timer to read the input levels for the sound
         var _ = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "update", userInfo: nil, repeats: true)
@@ -282,6 +292,13 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         audioVisualizer.setNeedsDisplay()
     }
     
+    func resetAudioVisualizer(){
+        let center = CGPoint(x:audioVisualizer.bounds.width/2 + audioVisualizer.bounds.origin.x,
+            y:audioVisualizer.bounds.height/2 + audioVisualizer.bounds.origin.y)
+        audioVisualizer.rect = CGRect(x: center.x, y: center.y ,width: 0, height: 0)
+        audioVisualizer.setNeedsDisplay()
+    }
+    
     /**
     returns the list of recordings in the file system in a sorted (by date desc) list
     */
@@ -317,6 +334,21 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     func setupRecorder() -> AVAudioSession{
         let audioSession = AVAudioSession.sharedInstance()
         
+        let calendar = NSCalendar.currentCalendar()
+        let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)
+        
+        var fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
+        
+        let allFilesNames = listRecordings().map({ (name: NSURL) -> String in return name.lastPathComponent!})
+        
+        //ensuring that if there's a collision in filenames, recordings are not lost
+        if allFilesNames.indexOf(fileName) != nil{
+            let fileNameComponents = fileName.componentsSeparatedByString("###")
+            fileName = fileNameComponents[0] + "###" + fileNameComponents[1] + "(" + NSUUID().UUIDString + ")" + "###Audio.m4a"
+        }
+        
+        audioRecorderURL = directoryURL!.URLByAppendingPathComponent(fileName)
+        
         do{
             try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
             
@@ -345,9 +377,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         if flag{
             audioRecorder?.stop()
             //after stopping the recording, change the size of the visualizer to hide it behind the music icon
-            let center = CGPoint(x:audioVisualizer.bounds.width/2 + audioVisualizer.bounds.origin.x,
-                y:audioVisualizer.bounds.height/2 + audioVisualizer.bounds.origin.y)
-            audioVisualizer.rect = CGRect(x: center.x, y: center.y, width: 20, height: 20)
+            resetAudioVisualizer()
             
             let alertMessage = UIAlertController(title: "Finished Recording", message: "Successfully recorded audio!", preferredStyle: .Alert)
             alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
@@ -360,10 +390,8 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             audioPlayer?.stop()
             playButton.selected = false
         
-            //after stopping the recording, change the size of the visualizer to hide it behind the music icon
-            let center = CGPoint(x:audioVisualizer.bounds.width/2 + audioVisualizer.bounds.origin.x,
-                                 y:audioVisualizer.bounds.height/2 + audioVisualizer.bounds.origin.y)
-            audioVisualizer.rect = CGRect(x: center.x, y: center.y, width: 20, height: 20)
+            //after stopping the player, change the size of the visualizer to hide it behind the music icon
+            resetAudioVisualizer()
         
             let alertMessage = UIAlertController(title: "Finish Playing", message:"Finished playing the recording!", preferredStyle: .Alert)
             alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
@@ -371,14 +399,25 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showAllRecordings"{
-            let destinationController = segue.destinationViewController as! RecordListViewController
-            let allRecordings = listRecordings()
-
-            destinationController.recordFiles = allRecordings
-            if allRecordings.count > 0{
-                destinationController.selectedURL = allRecordings.first!
-            }
+        switch segue.identifier!{
+            case "showAllRecordings":
+                let destinationController = segue.destinationViewController as! RecordListViewController
+                let allRecordings = listRecordings()
+                
+                destinationController.recordFiles = allRecordings
+                if allRecordings.count > 0{
+                    destinationController.selectedURL = allRecordings.first!
+                }
+                
+                //store the participant id across screens
+                destinationController.participant = self.participant
+            
+            case "showParticipantScreen":
+                let destinationController = segue.destinationViewController as! ParticipantViewController
+                destinationController.participant = self.participant
+            
+            default:
+                print("unreachable segue detected")
         }
     }
 }

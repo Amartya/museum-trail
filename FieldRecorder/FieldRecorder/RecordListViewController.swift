@@ -11,9 +11,11 @@ import Foundation
 import UIKit
 
 class RecordListViewController: UITableViewController {
-
+    var participant = Participant()
+    
     var recordFiles:[NSURL] = []
     var selectedURL: NSURL? = NSURL()
+    var selectedFileName: String = ""
     
     func parseRecordingNamesForDisplay() -> [String] {
         var recordFileNames: [String] = []
@@ -76,6 +78,14 @@ class RecordListViewController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         selectedURL = recordFiles[indexPath.row]
         
+        let fileData = selectedURL?.lastPathComponent?.componentsSeparatedByString("###")
+        if fileData!.count > 1 {
+            selectedFileName = fileData![1] + " " + fileData![2]
+        }
+        else{
+            selectedFileName = (selectedURL?.lastPathComponent)!
+        }
+        
         //call reload data to refresh the table view and the icon for each row (based on selection)
         tableView.reloadData()
     }
@@ -93,6 +103,9 @@ class RecordListViewController: UITableViewController {
         if segue.identifier == "goBackToRecorder"{
             let destinationController = segue.destinationViewController as! AudioViewController
             destinationController.selectedAudioFileURL = selectedURL
+            destinationController.selectedAudioFileLabel = selectedFileName
+            
+            destinationController.participant = participant
         }
     }
 }
