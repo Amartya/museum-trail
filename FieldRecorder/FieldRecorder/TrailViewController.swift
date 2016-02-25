@@ -10,14 +10,15 @@ import UIKit
 
 //add the EILIndoorLocationManagerDelegate protocol to hook into the Estimote SDK
 class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
-
-    @IBOutlet var indoorLocationOutput: UILabel!
-    
     //add the location manager
     let locationManager = EILIndoorLocationManager()
     
     //location being tracked
     var location: EILLocation!
+    
+    var participant = Participant()
+    
+    @IBOutlet var indoorLocationOutput: UILabel!
     
     //view used to visualize position from Cartesian Estimote coords to iOS coods
     @IBOutlet weak var locationView: EILIndoorLocationView!
@@ -125,6 +126,13 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             
             //update position in the location view setup earlier
             self.locationView.updatePosition(position)    
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showParticipantFromTrail"{
+            let destinationController = segue.destinationViewController as! ParticipantViewController
+            destinationController.participant = self.participant
+        }
     }
     
     //hides the status bar

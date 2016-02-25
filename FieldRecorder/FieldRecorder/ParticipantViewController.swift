@@ -36,7 +36,7 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     
     //this prevents a transition to the next screen if it returns false
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        if identifier == "showRecordingScreen" {
+        if identifier == "showRecordingScreen" || identifier == "showTrailScreen" {
             let initX = self.participantInput.center.x
             
             if participantInput.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""{
@@ -71,13 +71,16 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let id = Int(participantInput.text!){
+            participant = Participant(participantId: id, date: NSDate())
+        }
+        
         if segue.identifier == "showRecordingScreen" {
             let destinationController = segue.destinationViewController as! AudioViewController
-            
-            
-            if let id = Int(participantInput.text!){
-                participant = Participant(participantId: id, date: NSDate())
-            }
+            destinationController.participant = participant
+        }
+        else if segue.identifier == "showTrailScreen" {
+            let destinationController = segue.destinationViewController as! TrailViewController
             destinationController.participant = participant
         }
     }

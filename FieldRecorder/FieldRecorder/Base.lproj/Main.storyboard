@@ -370,7 +370,7 @@
                                     <color key="titleColor" red="0.24598158849999999" green="0.362849486" blue="0.60720486110000005" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="45h-Sg-1Vl" kind="show" id="F1D-HQ-pcS"/>
+                                    <segue destination="45h-Sg-1Vl" kind="show" identifier="showTrailScreen" id="F1D-HQ-pcS"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNf-cu-88I">
@@ -452,7 +452,7 @@
                                     <navigationItem title="Museum Trail" id="yIH-qD-hek">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="bv1-zC-Vkq">
                                             <connections>
-                                                <segue destination="i4y-L9-R7b" kind="show" id="EVg-62-9Bv"/>
+                                                <segue destination="i4y-L9-R7b" kind="show" identifier="showParticipantFromTrail" id="EVg-62-9Bv"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -778,7 +778,7 @@
         <image name="stop" width="156" height="155"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jQx-63-Aya"/>
         <segue reference="DeV-ww-WZe"/>
+        <segue reference="EVg-62-9Bv"/>
     </inferredMetricsTieBreakers>
 </document>
