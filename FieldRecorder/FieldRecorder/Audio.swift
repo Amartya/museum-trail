@@ -2,72 +2,96 @@
 //  Audio.swift
 //  FieldRecorder
 //
-//  Created by Amartya on 2/17/16.
+//  Created by Amartya on 2/29/16.
 //  Copyright © 2016 Amartya. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import AVFoundation
 
-class FieldAudio  {
-    var player: AVAudioPlayer!
-    var recorder: AVAudioRecorder!
-    var recordFileURL: NSURL
+class Audio: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
+    var audioFileURL: NSURL?
+    var recordingSettings: [String: AnyObject]?
     
-    init() {
-        //get the path of our file
-        let recordedAudioFileName = "recording-\(NSDate()).m4a"
-        let documentsDirectory = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
-
-        recordFileURL = documentsDirectory.URLByAppendingPathComponent(recordedAudioFileName)
-        
-        player = AVAudioPlayer()
+    var audioPlayer: AVAudioPlayer?
+    var audioRecorder: AVAudioRecorder?
+    
+    
+    func setupRecorder() -> AVAudioSession{
+        let audioSession = AVAudioSession.sharedInstance()
         
         do{
-            try recorder = AVAudioRecorder(URL: recordFileURL, settings: RECORDERSETTINGS)
-            recorder.meteringEnabled = true
-            recorder.prepareToRecord()
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
+            
+            //initialize and prep the recorder
+            audioRecorder = try AVAudioRecorder(URL:audioFileURL!, settings: recordingSettings!)
+            audioRecorder?.delegate = self.audioRecorder?.delegate
+            audioRecorder?.meteringEnabled = true
+            audioRecorder?.prepareToRecord()
+            
+        } catch{
+            print(error)
         }
-        catch let error as NSError{
-            recorder = nil
-            print("Unable to initialize recording" + error.localizedDescription)
-        }
+        return audioSession
     }
     
     
-    func setSessionPlayAndRecord() {
-        let session = AVAudioSession.sharedInstance()
-        do {
-            try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
-        } catch let error as NSError {
-            print("could not set session category")
-            print(error.localizedDescription)
-        }
-        do {
-            try session.setActive(true)
-        } catch let error as NSError {
-            print("could not make session active")
-            print(error.localizedDescription)
+    func playAudio(alertTitle: String = "", alertMessage: String = ""){
+        if let audioRecorder = audioRecorder {
+            if !audioRecorder.recording {
+                do{
+                    if let selectedToPlay = self.audioFileURL {
+                        try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
+                        audioPlayer?.delegate = self.audioPlayer?.delegate
+                        audioPlayer?.meteringEnabled = true
+                        audioPlayer?.play()
+                    }
+                }
+                catch{
+                    let alertMessage = UIAlertController(title: alertTitle, message:alertMessage, preferredStyle: .Alert)
+                    alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
+                    presentViewController(alertMessage, animated: true, completion: nil)
+                }
+            }
         }
     }
     
-    func playRecord() {
-        var url:NSURL?
-        if self.recorder != nil {
-            url = self.recorder!.url
-        } else {
-            url = self.recordFileURL
-        }
-        print("playing \(url)")
-        
-        do {
-            self.player = try AVAudioPlayer(contentsOfURL: url!)
-            player!.prepareToPlay()
-            player!.play()
-        } catch let error as NSError {
-            self.player = nil
-            print(error.localizedDescription)
+    func toggleRecording(){
+        //stop the audio player if it's currently playing
+        if let player = audioPlayer{
+            if player.playing{
+                player.stop()
+            }
         }
         
+        if let recorder = self.audioRecorder{
+            if !recorder.recording {
+                let audioSession = AVAudioSession.sharedInstance()
+                
+                do{
+                    try audioSession.setActive(true)
+                    
+                    //begin recording
+                    recorder.record()
+                }
+                catch{
+                    print(error)
+                }
+            }
+            else{
+                recorder.pause()
+            }
+        }
+    }
+    
+    func pausePlayer(){
+        if let _ = audioPlayer{
+            audioPlayer?.pause()        }
+    }
+    
+    func adjustVolume(volume: Float){
+        if let _ = audioPlayer{
+            audioPlayer?.volume = volume
+        }
     }
 }

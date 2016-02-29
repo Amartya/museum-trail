@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0821D05B1C7C5D2A00804CE5 /* TrailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0821D05A1C7C5D2A00804CE5 /* TrailViewController.swift */; };
 		0821D05D1C7C5FCE00804CE5 /* AudioVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0821D05C1C7C5FCE00804CE5 /* AudioVisualizer.swift */; };
+		083958411C84F7AB0025A47C /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083958401C84F7AB0025A47C /* Audio.swift */; };
 		083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083986221C78153C00EA9800 /* RecordListViewController.swift */; };
 		085705AB1C7BD00E0085DCFF /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085705AA1C7BD00E0085DCFF /* Recording.swift */; };
 		08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A108391C751C940006D1AD /* AppDelegate.swift */; };
@@ -26,6 +27,7 @@
 		0821D0591C7C5C0100804CE5 /* ObjCBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
 		0821D05A1C7C5D2A00804CE5 /* TrailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailViewController.swift; sourceTree = "<group>"; };
 		0821D05C1C7C5FCE00804CE5 /* AudioVisualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizer.swift; sourceTree = "<group>"; };
+		083958401C84F7AB0025A47C /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
 		083986221C78153C00EA9800 /* RecordListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListViewController.swift; sourceTree = "<group>"; };
 		085705AA1C7BD00E0085DCFF /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		08A108361C751C940006D1AD /* FieldRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 		08A108381C751C940006D1AD /* FieldRecorder */ = {
 			isa = PBXGroup;
 			children = (
+				083958401C84F7AB0025A47C /* Audio.swift */,
 				0821D05C1C7C5FCE00804CE5 /* AudioVisualizer.swift */,
 				08A108391C751C940006D1AD /* AppDelegate.swift */,
 				08A1083D1C751C940006D1AD /* Main.storyboard */,
@@ -235,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				083958411C84F7AB0025A47C /* Audio.swift in Sources */,
 				0821D05D1C7C5FCE00804CE5 /* AudioVisualizer.swift in Sources */,
 				08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */,
 				085705AB1C7BD00E0085DCFF /* Recording.swift in Sources */,
