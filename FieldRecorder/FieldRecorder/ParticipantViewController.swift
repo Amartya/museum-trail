@@ -76,13 +76,20 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         }
         
         if segue.identifier == "showRecordingScreen" {
-            let destinationController = segue.destinationViewController as! AudioViewController
+            let navController = segue.destinationViewController as! UINavigationController
+            let destinationController = navController.viewControllers.first as! AudioViewController
             destinationController.participant = participant
         }
         else if segue.identifier == "showTrailScreen" {
-            let destinationController = segue.destinationViewController as! TrailViewController
+            let navController = segue.destinationViewController as! UINavigationController
+            let destinationController = navController.viewControllers.first as! TrailViewController
             destinationController.participant = participant
         }
+    }
+    
+    //hides the navigation bar once the view is about to load
+    override func viewWillAppear(animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     //hides the status bar

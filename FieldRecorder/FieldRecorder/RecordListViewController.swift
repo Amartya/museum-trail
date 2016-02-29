@@ -10,12 +10,13 @@
 import Foundation
 import UIKit
 
-class RecordListViewController: UITableViewController {
+class RecordListViewController: UITableViewController, UIPopoverControllerDelegate {
     var participant = Participant()
     
     var recordFiles:[NSURL] = []
     var selectedURL: NSURL? = NSURL()
     var selectedFileName: String = ""
+    
     
     func parseRecordingNamesForDisplay() -> [String] {
         var recordFileNames: [String] = []
@@ -34,6 +35,11 @@ class RecordListViewController: UITableViewController {
     // total number of rows in a section (a table view can have multiple sections but there is only one by default)
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return recordFiles.count
+    }
+    
+    @IBAction func airDrop(sender: AnyObject) {
+        let airDropController = UIActivityViewController.init(activityItems: [self.selectedURL!], applicationActivities: nil)
+        self.presentViewController(airDropController, animated: true, completion: nil)
     }
     
     //This method will be called every time a table row is displayed. By using the indexPath object, we can get the current row ( indexPath.row ).

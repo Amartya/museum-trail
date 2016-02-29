@@ -201,6 +201,8 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        
         //set the buttons to be deactivated initially
         stopButton.enabled = false
         playButton.enabled = false
@@ -401,7 +403,8 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier!{
             case "showAllRecordings":
-                let destinationController = segue.destinationViewController as! RecordListViewController
+                let navController = segue.destinationViewController as! UINavigationController
+                let destinationController = navController.viewControllers.first as! RecordListViewController
                 let allRecordings = listRecordings()
                 
                 destinationController.recordFiles = allRecordings
