@@ -27,12 +27,9 @@ public func <(lhs: NSDate, rhs: NSDate) -> Bool {
 extension NSDate: Comparable { }
 
 class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
-    var directoryURL: NSURL?
-    var audioRecorderURL: NSURL?
+    var fieldAudio = Audio()
     
-    var audioPlayer: AVAudioPlayer?
-    var audioRecorder: AVAudioRecorder?
-
+    var directoryURL: NSURL?
     var recordings: [NSURL]? = []
     var participant = Participant()
     
@@ -75,15 +72,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         stopButton.enabled = false
         volumeLevel.enabled = true
         
-        audioRecorder?.stop()
-        
-        let audioSession = AVAudioSession.sharedInstance()
-        do{
-            try audioSession.setActive(false)
-        }
-        catch{
-            print(error)
-        }
+        fieldAudio.stopRecording()
     }
     
     /**
@@ -93,62 +82,14 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
      3. call the play method to play the sound file.
      */
     @IBAction func playRecording(sender: UIButton) {
-        if let selectedToPlay = selectedAudioFileURL {
-            do{
-                try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
-                
-                if !audioPlayer!.playing{
-                    playRecordingDelegate()
-                }
-            }
-            catch{
-                let alertMessage = UIAlertController(title: "Player Status", message:"No recordings are available, or were selected. Try the recordings list to see if there are any recordings saved.", preferredStyle: .Alert)
-                alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
-                presentViewController(alertMessage, animated: true, completion: nil)
-            }
-        }
+        fieldAudio.playAudio("", alertMessage: "")
+    }
+    
 
-        if let recorder = audioRecorder {
-            if !recorder.recording {
-                do{
-                    volumeLevel.enabled = true
-            
-                    listRecordings()
-                    
-                    if let selectedToPlay = selectedAudioFileURL {
-                        try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
-                        playRecordingDelegate()
-                    }
-                    else if let recordingToPlay = recordings!.first{
-                        try audioPlayer = AVAudioPlayer(contentsOfURL: recordingToPlay)
-                        playRecordingDelegate()
-                    }
-                    else{
-                        print(recordings)
-                    }
-                }
-                catch{
-                    let alertMessage = UIAlertController(title: "No Recordings", message:"No recordings are available!", preferredStyle: .Alert)
-                    alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
-                    presentViewController(alertMessage, animated: true, completion: nil)
-                }
-            }
-        }
-    }
-    
-    func playRecordingDelegate(){
-        audioPlayer?.delegate = self
-        audioPlayer?.volume = volumeLevel.value
-        audioPlayer?.meteringEnabled = true
-        audioPlayer?.play()
-        playButton.selected = true
-    }
-    
-    
-    //TODO - Ensure that the pause recording works
+
     @IBAction func toggleRecording(sender: UIButton) {
         //stop the audio player if it's currently playing
-        if let player = audioPlayer{
+        if let player = fieldAudio.audioPlayer{
             if player.playing{
                 player.stop()
                 playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
@@ -160,41 +101,14 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
         playButton.enabled = false
         
-        if let recorder = self.audioRecorder{
-            if !recorder.recording {
-                let audioSession = AVAudioSession.sharedInstance()
-                
-                do{
-                    try audioSession.setActive(true)
-            
-                    //begin recording
-                    recorder.record()
-                    
-                    recordButton.setImage(UIImage(named: "stoprecording"), forState: UIControlState.Normal)
-                    recordButton.selected = false
-                    
-                    
-                    //store recording url
-                    recordings?.append(audioRecorderURL!)                }
-                catch{
-                    print(error)
-                }
-            }
-            else{
-                recorder.pause()
-                resetAudioVisualizer()
-                recordButton.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
-                recordButton.selected = false
-            }
-        }
+        fieldAudio.toggleRecording()
+        
         stopButton.enabled = true
         volumeLevel.enabled = false
     }
     
     @IBAction func changeVolume(sender: UISlider) {
-        if let _ = audioPlayer{
-            audioPlayer?.volume = sender.value
-        }
+        fieldAudio.adjustVolume(sender.value)
     }
     
     
@@ -218,9 +132,12 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             
             return
         }
-        directoryURL = tempDirectoryURL
         
-        let tempRecordings = listRecordings()
+        directoryURL = tempDirectoryURL
+        setupRecorder()
+        
+        let tempRecordings = fieldAudio.listRecordings()!
+        
         if(tempRecordings.count > 0){
             if selectedAudioFileLabel.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == "" {
                 currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
@@ -235,15 +152,13 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             currentlySelectedLabel?.text?.removeAll()
         }
         
-        setupRecorder()
-        
         //using the timer to read the input levels for the sound
         var _ = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "update", userInfo: nil, repeats: true)
     }
     
     // must be internal or public.
     func update() {
-        if let audioPlayer = audioPlayer{
+        if let audioPlayer = fieldAudio.audioPlayer{
             if audioPlayer.playing{
                 var power: Double = 0.0;
             
@@ -258,7 +173,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             }
         }
         
-        if let audioRecorder = audioRecorder{
+        if let audioRecorder = fieldAudio.audioRecorder{
             if audioRecorder.recording{
                 var power: Double = 0.0;
             
@@ -282,7 +197,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         
         audioVisualizer.rect = CGRect(x: center.x - radius/2, y: center.y - radius/2,
             width: radius, height: radius)
-
+        
         
         if playing{
             audioVisualizer.color = UIColor(red: scale, green: 0.5, blue: max(2*scale,1), alpha: 1.0)
@@ -290,7 +205,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         else if recording{
             audioVisualizer.color = UIColor(red: 0.25, green: scale, blue: max(2*scale,1), alpha: 1.0)
         }
-
+        
         audioVisualizer.setNeedsDisplay()
     }
     
@@ -301,72 +216,15 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
         audioVisualizer.setNeedsDisplay()
     }
     
-    /**
-    returns the list of recordings in the file system in a sorted (by date desc) list
-    */
-    func listRecordings() -> [NSURL]{
-        do {
-            //get all audio files
-            var urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-            urls = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("###Audio.m4a")})
-            
-            //get lastModified date for each of those files
-            let urlsAndDates = urls.map { url -> (NSURL, NSDate) in var lastModified : AnyObject?
-                                                                            _ = try? url.getResourceValue(&lastModified, forKey: NSURLContentModificationDateKey)
-                                                                                return (url, (lastModified)! as! NSDate)}
-            let sortedUrlsAndDate = urlsAndDates.sort {$0.1 == $1.1 ? $0.1 > $1.1 : $0.1 > $1.1 }
-            
-            self.recordings = sortedUrlsAndDate.map{url -> NSURL in return url.0}
-        }
-        catch let error as NSError {
-            print(error.localizedDescription)
-        }
-        catch {
-            print("something went wrong listing recordings")
-        }
-        return self.recordings!
-    }
-    
-    
-    /**iOS handles audio behavior of an app by using audio sessions. It acts as a middle man between your app and the system's media service.
-     Through the shared audio session object, you tell the system how you're going to use audio in your app.
-     The audio session provides answers to questions like: Should the system disable the existing music being played by the Music app?
-     Should your app be allowed to record audio and music playback?
-     */
-    func setupRecorder() -> AVAudioSession{
-        let audioSession = AVAudioSession.sharedInstance()
+    func setupRecorder(){
+        //set the recorder's settings
+        fieldAudio.recordingSettings = recordingSettings
+        fieldAudio.directoryURL = directoryURL
         
-        let calendar = NSCalendar.currentCalendar()
-        let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)
+        fieldAudio.audioFileURL = directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(self.participant))
         
-        var fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
-        
-        let allFilesNames = listRecordings().map({ (name: NSURL) -> String in return name.lastPathComponent!})
-        
-        //ensuring that if there's a collision in filenames, recordings are not lost
-        if allFilesNames.indexOf(fileName) != nil{
-            let fileNameComponents = fileName.componentsSeparatedByString("###")
-            fileName = fileNameComponents[0] + "###" + fileNameComponents[1] + "(" + NSUUID().UUIDString + ")" + "###Audio.m4a"
-        }
-        
-        audioRecorderURL = directoryURL!.URLByAppendingPathComponent(fileName)
-        
-        do{
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
-            
-            //initialize and prep the recorder
-            audioRecorder = try AVAudioRecorder(URL:audioRecorderURL!, settings: recordingSettings)
-            audioRecorder?.delegate = self
-            audioRecorder?.meteringEnabled = true
-            audioRecorder?.prepareToRecord()
-            
-            //finally add the url to the audio recording urls array
-            recordings?.append(audioRecorderURL!)
-            
-        } catch{
-            print(error)
-        }
-        return audioSession
+        //the recorder can be setup after the file url and the recording settings have been assigned
+        fieldAudio.setupRecorder()
     }
     
     //hides the status bar
@@ -377,7 +235,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag{
-            audioRecorder?.stop()
+            fieldAudio.audioRecorder?.stop()
             //after stopping the recording, change the size of the visualizer to hide it behind the music icon
             resetAudioVisualizer()
             
@@ -389,7 +247,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
     
     //part of the AVAudioPlayerDelegate protocol, but this is an optional as well.
     func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag:Bool) {
-            audioPlayer?.stop()
+            fieldAudio.audioPlayer?.stop()
             playButton.selected = false
         
             //after stopping the player, change the size of the visualizer to hide it behind the music icon
@@ -405,7 +263,7 @@ class AudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPla
             case "showAllRecordings":
                 let navController = segue.destinationViewController as! UINavigationController
                 let destinationController = navController.viewControllers.first as! RecordListViewController
-                let allRecordings = listRecordings()
+                let allRecordings = fieldAudio.listRecordings()!
                 
                 destinationController.recordFiles = allRecordings
                 if allRecordings.count > 0{
