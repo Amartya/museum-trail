@@ -84,6 +84,18 @@ class Audio: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
         }
     }
     
+    func stopRecording(){
+        audioRecorder?.stop()
+        
+        let audioSession = AVAudioSession.sharedInstance()
+        do{
+            try audioSession.setActive(false)
+        }
+        catch{
+            print(error)
+        }
+    }
+    
     func pausePlayer(){
         if let _ = audioPlayer{
             audioPlayer?.pause()        }
