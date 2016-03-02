@@ -73,8 +73,6 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         
         stopButton.enabled = false
         volumeLevel.enabled = true
-        
-        resetAudioVisualizer()
     }
     
 
@@ -83,6 +81,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
             if(audioPlayer.playing){
                 fieldAudio.pausePlayer()
                 playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+                resetAudioVisualizer()
             }
             else if let currentTime = fieldAudio.audioCurrentTime{
                 fieldAudio.audioPlayer?.playAtTime(currentTime)
@@ -90,10 +89,12 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
             }
         }
         else{
+        fieldAudio.audioPlayer?.delegate = self
             fieldAudio.playAudio()
             playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
         }
         
+        fieldAudio.audioPlayer?.delegate = self
     }
     
 
@@ -112,6 +113,8 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         playButton.enabled = false
         
         fieldAudio.toggleRecording()
+        
+        fieldAudio.audioRecorder?.delegate = self
         
         stopButton.enabled = true
         volumeLevel.enabled = false
@@ -145,6 +148,9 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         
         directoryURL = tempDirectoryURL
         setupRecorder()
+        
+        fieldAudio.audioPlayer?.delegate = self
+
         
         let tempRecordings = fieldAudio.listRecordings()!
         
@@ -242,6 +248,31 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         return true;
     }
     
+    //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+        fieldAudio.audioRecorder?.stop()
+        
+        if flag{
+            let alertMessage = UIAlertController(title: "Finished Recording", message: "Successfully recorded audio!", preferredStyle: .Alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(alertMessage, animated: true, completion: nil)
+            resetAudioVisualizer()
+        }
+    }
+    
+    //part of the AVAudioPlayerDelegate protocol, but this is an optional as well.
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        if flag{
+            let alertMessage = UIAlertController(title: "Finish Playing", message:"Finished playing the recording!", preferredStyle: .Alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
+            presentViewController(alertMessage, animated: true, completion: nil)
+
+            playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+            resetAudioVisualizer()
+        }
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         switch segue.identifier!{
             case "showAllRecordings":
@@ -264,31 +295,5 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
             default:
                 print("unreachable segue detected")
         }
-    }
-    
-    //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
-        if flag{
-            fieldAudio.audioRecorder?.stop()
-            //after stopping the recording, change the size of the visualizer to hide it behind the music icon
-            //
-            
-            let alertMessage = UIAlertController(title: "Finished Recording", message: "Successfully recorded audio!", preferredStyle: .Alert)
-            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(alertMessage, animated: true, completion: nil)
-        }
-    }
-    
-    //part of the AVAudioPlayerDelegate protocol, but this is an optional as well.
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag:Bool) {
-        fieldAudio.audioPlayer?.stop()
-        //playButton.selected = false
-        
-        //after stopping the player, change the size of the visualizer to hide it behind the music icon
-        //resetAudioVisualizer()
-        
-        let alertMessage = UIAlertController(title: "Finish Playing", message:"Finished playing the recording!", preferredStyle: .Alert)
-        alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
-        presentViewController(alertMessage, animated: true, completion: nil)
     }
 }

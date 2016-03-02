@@ -80,7 +80,6 @@ class Audio: UIViewController{
             
             //initialize and prep the recorder
             audioRecorder = try AVAudioRecorder(URL:audioFileURL!, settings: recordingSettings!)
-            audioRecorder?.delegate = self.audioRecorder?.delegate
             audioRecorder?.meteringEnabled = true
             //audioRecorder?.prepareToRecord()
             
@@ -102,7 +101,6 @@ class Audio: UIViewController{
                 do{
                     if let selectedToPlay = self.audioFileURL {
                         try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
-                        audioPlayer?.delegate = self.audioPlayer?.delegate
                         audioPlayer?.meteringEnabled = true
                         
                         audioPlayer?.play()
