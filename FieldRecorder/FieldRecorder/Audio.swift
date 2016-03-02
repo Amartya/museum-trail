@@ -9,13 +9,15 @@
 import Foundation
 import AVFoundation
 
-class Audio: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
+class Audio: UIViewController{
     var directoryURL: NSURL?
     var audioFileURL: NSURL?
     var recordingSettings: [String: AnyObject]?
     
     var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
+    
+    var audioCurrentTime: NSTimeInterval?
     
     func getAudioFileName(participant:Participant) -> String {
         //figure out a default recording file path
@@ -80,7 +82,7 @@ class Audio: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
             audioRecorder = try AVAudioRecorder(URL:audioFileURL!, settings: recordingSettings!)
             audioRecorder?.delegate = self.audioRecorder?.delegate
             audioRecorder?.meteringEnabled = true
-            audioRecorder?.prepareToRecord()
+            //audioRecorder?.prepareToRecord()
             
         } catch{
             print(error)
@@ -88,8 +90,13 @@ class Audio: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
         return audioSession
     }
     
-    
-    func playAudio(alertTitle: String = "", alertMessage: String = ""){
+    /**
+     to play audio, we need the following
+     1. initialize the audio player and assign a sound file to it.
+     2. designate an audio player delegate object, which handles interruptions as well as the playback-completed event.
+     3. call the play method to play the sound file.
+     */
+    func playAudio(){
         if let audioRecorder = audioRecorder {
             if !audioRecorder.recording {
                 do{
@@ -97,11 +104,13 @@ class Audio: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
                         try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
                         audioPlayer?.delegate = self.audioPlayer?.delegate
                         audioPlayer?.meteringEnabled = true
+                        
                         audioPlayer?.play()
                     }
+                    
                 }
                 catch{
-                    let alertMessage = UIAlertController(title: alertTitle, message:alertMessage, preferredStyle: .Alert)
+                    let alertMessage = UIAlertController(title: "Field Audio Player", message:"Issue finding or playing audio file, try a different recording using the list recording option", preferredStyle: .Alert)
                     alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
                     presentViewController(alertMessage, animated: true, completion: nil)
                 }
@@ -151,7 +160,9 @@ class Audio: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
     
     func pausePlayer(){
         if let _ = audioPlayer{
-            audioPlayer?.pause()        }
+            audioPlayer?.pause()
+            audioCurrentTime = audioPlayer!.currentTime
+        }
     }
     
     func adjustVolume(volume: Float){

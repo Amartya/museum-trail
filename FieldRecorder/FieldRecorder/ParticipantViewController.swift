@@ -77,7 +77,7 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         
         if segue.identifier == "showRecordingScreen" {
             let navController = segue.destinationViewController as! UINavigationController
-            let destinationController = navController.viewControllers.first as! AudioViewController
+            let destinationController = navController.viewControllers.first as! FullscreenAudioViewController
             destinationController.participant = participant
         }
         else if segue.identifier == "showTrailScreen" {
