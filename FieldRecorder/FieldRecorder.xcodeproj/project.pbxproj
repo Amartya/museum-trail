@@ -13,6 +13,7 @@
 		083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083986221C78153C00EA9800 /* RecordListViewController.swift */; };
 		0850238B1C88DBC3008F0B11 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238A1C88DBC3008F0B11 /* Utility.swift */; };
 		0850238D1C88E3AA008F0B11 /* EstimoteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238C1C88E3AA008F0B11 /* EstimoteLocation.swift */; };
+		0850238F1C88EE5C008F0B11 /* AudioTrailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */; };
 		085705AB1C7BD00E0085DCFF /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085705AA1C7BD00E0085DCFF /* Recording.swift */; };
 		08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A108391C751C940006D1AD /* AppDelegate.swift */; };
 		08A1083F1C751C940006D1AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A1083D1C751C940006D1AD /* Main.storyboard */; };
@@ -33,6 +34,7 @@
 		083986221C78153C00EA9800 /* RecordListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListViewController.swift; sourceTree = "<group>"; };
 		0850238A1C88DBC3008F0B11 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		0850238C1C88E3AA008F0B11 /* EstimoteLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimoteLocation.swift; sourceTree = "<group>"; };
+		0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTrailViewController.swift; sourceTree = "<group>"; };
 		085705AA1C7BD00E0085DCFF /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
 		08A108361C751C940006D1AD /* FieldRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A108391C751C940006D1AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				0821D0591C7C5C0100804CE5 /* ObjCBridge.h */,
 				0821D05A1C7C5D2A00804CE5 /* TrailViewController.swift */,
 				0850238A1C88DBC3008F0B11 /* Utility.swift */,
+				0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */,
 			);
 			path = FieldRecorder;
 			sourceTree = "<group>";
@@ -254,6 +257,7 @@
 				08EF6C901C753CBB00E7FDE9 /* Participant.swift in Sources */,
 				0821D05B1C7C5D2A00804CE5 /* TrailViewController.swift in Sources */,
 				08EF6C921C76538900E7FDE9 /* FullScreenAudioViewController.swift in Sources */,
+				0850238F1C88EE5C008F0B11 /* AudioTrailViewController.swift in Sources */,
 				08EC56E81C7B9CF400029269 /* ParticipantViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

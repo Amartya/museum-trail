@@ -9,6 +9,11 @@
 import Foundation
 import AVFoundation
 
+/** to record audio, we need the following
+ 1. specify a sound file URL
+ 2. setup a shared audio session
+ 3. configure the audio recorder's init state (recording format, bitrate etc.)
+ */
 class Audio: UIViewController{
     var directoryURL: NSURL?
     var audioFileURL: NSURL?

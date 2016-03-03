@@ -37,11 +37,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     var selectedAudioFileLabel: String = ""
     
     @IBOutlet weak var audioVisualizer: AudioVisualizer!
-    /** to record audio, we need the following
-        1. specify a sound file URL
-        2. setup a shared audio session
-        3. configure the audio recorder's init state (recording format, bitrate etc.)
-    */
+
     let recordingSettings: [String: AnyObject] =  [
         AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
         AVSampleRateKey: 16000.0,
