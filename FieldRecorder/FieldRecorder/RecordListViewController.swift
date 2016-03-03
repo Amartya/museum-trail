@@ -107,7 +107,7 @@ class RecordListViewController: UITableViewController, UIPopoverControllerDelega
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "goBackToRecorder"{
-            let destinationController = segue.destinationViewController as! AudioViewController
+            let destinationController = segue.destinationViewController as! FullscreenAudioViewController
             destinationController.selectedAudioFileURL = selectedURL
             destinationController.selectedAudioFileLabel = selectedFileName
             

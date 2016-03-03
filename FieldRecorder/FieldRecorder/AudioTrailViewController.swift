@@ -1,15 +1,18 @@
 //
-//  TrailViewController.swift
+//  AudioTrailViewController.swift
 //  FieldRecorder
 //
-//  Created by Amartya Banerjee on 2/23/16.
+//  Created by Amartya on 3/3/16.
 //  Copyright © 2016 Amartya. All rights reserved.
 //
-import Foundation
-import UIKit
 
-//add the EILIndoorLocationManagerDelegate protocol to hook into the Estimote SDK
-class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
+import Foundation
+import AVFoundation
+
+/*
+TODO save location data as a separate file
+*/
+class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
     //add the location manager
     let locationManager = EILIndoorLocationManager()
     
@@ -17,6 +20,89 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     var location: EILLocation!
     
     var participant = Participant()
+    
+    var fieldAudio = Audio()
+    
+    var directoryURL: NSURL?
+    var recordings: [NSURL]? = []
+    
+    var selectedAudioFileURL: NSURL?
+    var selectedAudioFileLabel: String = ""
+    
+    @IBOutlet weak var audioVisualizer: AudioVisualizer!
+    
+    let recordingSettings: [String: AnyObject] =  [
+        AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+        AVSampleRateKey: 16000.0,
+        AVNumberOfChannelsKey: 2,
+        AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
+    ]
+    
+    @IBOutlet var stopButton: UIButton!
+    
+    @IBOutlet var playButton: UIButton!
+    
+    @IBOutlet var recordButton: UIButton!
+    
+    @IBAction func stop(sender: UIButton) {
+        fieldAudio.stopRecording()
+        
+        //reset the recording button
+        recordButton.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
+        recordButton.selected = false
+        
+        //reset the play button
+        playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+        playButton.selected = false
+        playButton.enabled = true
+        
+        stopButton.enabled = false
+    }
+    
+    
+    @IBAction func playRecording(sender: UIButton) {
+        if let audioPlayer = fieldAudio.audioPlayer {
+            if(audioPlayer.playing){
+                fieldAudio.pausePlayer()
+                playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+            }
+            else if let currentTime = fieldAudio.audioCurrentTime{
+                fieldAudio.audioPlayer?.playAtTime(currentTime)
+                playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
+            }
+        }
+        else{
+            fieldAudio.audioPlayer?.delegate = self
+            fieldAudio.playAudio()
+            playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
+        }
+        
+        fieldAudio.audioPlayer?.delegate = self
+    }
+    
+    
+    @IBAction func toggleRecording(sender: UIButton) {
+        //stop the audio player if it's currently playing
+        if let player = fieldAudio.audioPlayer{
+            if player.playing{
+                player.stop()
+                playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+                playButton.selected = false
+            }
+        }
+        
+        //ensure that the playbutton is disabled and the file name is changed to the participant id for which the recording is being done
+        playButton.enabled = false
+        
+        setupRecorder()
+        
+        fieldAudio.toggleRecording()
+        
+        fieldAudio.audioRecorder?.delegate = self
+        
+        stopButton.enabled = true
+    }
+
     
     @IBOutlet var indoorLocationOutput: UILabel!
     
@@ -31,13 +117,31 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             self.locationView.showTrace = sender.on
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         traceSwitch.enabled = true
         
         setupIndoorLocation()
+        indoorLocationOutput.text = "fetching location data..."
+        
+        //set the buttons to be deactivated initially
+        stopButton.enabled = false
+        playButton.enabled = false
+        
+        fieldAudio.directoryURL = Utility.getAppDirectoryURL()
+    }
+    
+    func setupRecorder(){
+        //set the recorder's settings
+        fieldAudio.recordingSettings = recordingSettings
+        fieldAudio.directoryURL = Utility.getAppDirectoryURL()
+        
+        fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(self.participant))
+        
+        //the recorder can be setup after the file url and the recording settings have been assigned
+        fieldAudio.setupRecorder()
     }
     
     func setupIndoorLocation(){
@@ -134,11 +238,33 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
                 position.x, position.y, accuracy)
             
             //update position in the location view setup earlier
-            self.locationView.updatePosition(position)    
+            self.locationView.updatePosition(position)
+    }
+    
+    //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
+    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+        fieldAudio.audioRecorder?.stop()
+        
+        if flag{
+            let alertMessage = UIAlertController(title: "Finished Recording", message: "Successfully recorded audio!", preferredStyle: .Alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(alertMessage, animated: true, completion: nil)
+        }
+    }
+    
+    //part of the AVAudioPlayerDelegate protocol, but this is an optional as well.
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        if flag{
+            let alertMessage = UIAlertController(title: "Finish Playing", message:"Finished playing the recording!", preferredStyle: .Alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
+            presentViewController(alertMessage, animated: true, completion: nil)
+            
+            playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showParticipantFromTrail"{
+        if segue.identifier == "showParticipantFromAudioTrail"{
             let destinationController = segue.destinationViewController as! ParticipantViewController
             destinationController.participant = self.participant
         }

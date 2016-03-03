@@ -1,44 +1,23 @@
 //
-//  TrailViewController.swift
+//  EstimoteLocation.swift
 //  FieldRecorder
 //
-//  Created by Amartya Banerjee on 2/23/16.
+//  Created by Amartya on 3/3/16.
 //  Copyright © 2016 Amartya. All rights reserved.
 //
-import Foundation
-import UIKit
 
-//add the EILIndoorLocationManagerDelegate protocol to hook into the Estimote SDK
-class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
+import Foundation
+
+class EstimoteLocation: UIViewController, EILIndoorLocationManagerDelegate{
     //add the location manager
     let locationManager = EILIndoorLocationManager()
     
     //location being tracked
     var location: EILLocation!
     
-    var participant = Participant()
+    var locationView: EILIndoorLocationView!
     
-    @IBOutlet var indoorLocationOutput: UILabel!
-    
-    //view used to visualize position from Cartesian Estimote coords to iOS coods
-    @IBOutlet weak var locationView: EILIndoorLocationView!
-    
-    @IBOutlet weak var traceSwitch: UISwitch!
-    
-    //toggle trace display
-    @IBAction func showTrace(sender: UISwitch) {
-        if let _ = self.locationView{
-            self.locationView.showTrace = sender.on
-        }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        traceSwitch.enabled = true
-        
-        setupIndoorLocation()
-    }
+    var locationStr: String = ""
     
     func setupIndoorLocation(){
         //the app id and token are generated in the Estimote cloud
@@ -103,7 +82,7 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     
     func completeLocationViewerSetup(){
         //configure the location view
-        self.locationView.showTrace = traceSwitch.on
+        self.locationView.showTrace =  true
         self.locationView.rotateOnPositionUpdate = false
         self.locationView.drawLocation(self.location)
         
@@ -111,12 +90,12 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
         self.locationManager.startPositionUpdatesForLocation(self.location)
     }
     
-    func indoorLocationManager(manager: EILIndoorLocationManager,
+    @objc func indoorLocationManager(manager: EILIndoorLocationManager,
         didFailToUpdatePositionWithError error: NSError) {
             print("failed to update position: \(error)")
     }
     
-    func indoorLocationManager(manager: EILIndoorLocationManager,
+    @objc func indoorLocationManager(manager: EILIndoorLocationManager,
         didUpdatePosition position: EILOrientedPoint,
         withAccuracy positionAccuracy: EILPositionAccuracy,
         inLocation location: EILLocation) {
@@ -130,22 +109,10 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             default: print("positioning not working")
             }
             
-            indoorLocationOutput.text = String(format: "x: %5.2f, y: %5.2f, accuracy: %@",
-                position.x, position.y, accuracy)
+            locationStr = String(format: "x: %5.2f, y: %5.2f, orientation: %3.0f, accuracy: %@",
+                position.x, position.y, position.orientation, accuracy)
             
             //update position in the location view setup earlier
-            self.locationView.updatePosition(position)    
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showParticipantFromTrail"{
-            let destinationController = segue.destinationViewController as! ParticipantViewController
-            destinationController.participant = self.participant
-        }
-    }
-    
-    //hides the status bar
-    override func prefersStatusBarHidden() -> Bool {
-        return true;
+            self.locationView.updatePosition(position)
     }
 }
