@@ -112,6 +112,8 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
         playButton.enabled = false
         
+        setupRecorder()
+        
         fieldAudio.toggleRecording()
         
         fieldAudio.audioRecorder?.delegate = self
@@ -135,21 +137,9 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         playButton.enabled = false
         volumeLevel.enabled = false
         
-        let tempRecordings = fieldAudio.listRecordings()!
+        fieldAudio.directoryURL = Utility.getAppDirectoryURL()
         
-        if(tempRecordings.count > 0){
-            if selectedAudioFileLabel.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == "" {
-                currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
-                playButton.enabled = false
-            }
-            else{
-                currentlySelectedLabel?.text = selectedAudioFileLabel
-                playButton.enabled = true
-            }
-        }
-        else{
-            currentlySelectedLabel?.text?.removeAll()
-        }
+        setAudioFileLabel() 
         
         //using the timer to read the input levels for the sound
         var _ = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "update", userInfo: nil, repeats: true)
@@ -218,7 +208,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     func setupRecorder(){
         //set the recorder's settings
         fieldAudio.recordingSettings = recordingSettings
-        fieldAudio.directoryURL = setupAudioDirectory()
+        fieldAudio.directoryURL = Utility.getAppDirectoryURL()
         
         fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(self.participant))
         
@@ -226,23 +216,23 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         fieldAudio.setupRecorder()
     }
     
-    func setupAudioDirectory() -> NSURL?{
-        //ask for the document directory in the user's home directory
-        guard let tempDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,inDomains: NSSearchPathDomainMask.UserDomainMask).first else{
-            
-            let alertMessage = UIAlertController(title: "Recording Failed", message: "Failed to get the document directory to record audio. Please try again or enable microphone access", preferredStyle: .Alert)
-            
-            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(alertMessage, animated: true, completion: nil)
-            
-            return NSURL()
+    func setAudioFileLabel() {
+        let tempRecordings = fieldAudio.listRecordings()!
+        
+        if(tempRecordings.count > 0){
+            if selectedAudioFileLabel.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == "" {
+                currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
+                playButton.enabled = false
+            }
+            else{
+                currentlySelectedLabel?.text = selectedAudioFileLabel
+                playButton.enabled = true
+            }
         }
-        
-        directoryURL = tempDirectoryURL
-        
-        return directoryURL
+        else{
+            currentlySelectedLabel?.text?.removeAll()
+        }
     }
-    
     
     //hides the status bar
     override func prefersStatusBarHidden() -> Bool {
