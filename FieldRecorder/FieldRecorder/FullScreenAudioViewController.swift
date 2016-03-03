@@ -93,7 +93,6 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
             fieldAudio.playAudio()
             playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
         }
-        
     }
     
 
@@ -131,22 +130,11 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         stopButton.enabled = false
         playButton.enabled = false
         volumeLevel.enabled = false
-        
-        //ask for the document directory in the user's home directory
-        guard let tempDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,inDomains: NSSearchPathDomainMask.UserDomainMask).first else{
-            
-            let alertMessage = UIAlertController(title: "Recording Failed", message: "Failed to get the document directory to record audio. Please try again or enable microphone access", preferredStyle: .Alert)
-            
-            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(alertMessage, animated: true, completion: nil)
-            
-            return
-        }
-        
-        directoryURL = tempDirectoryURL
-        setupRecorder()
-        
+                
         let tempRecordings = fieldAudio.listRecordings()!
+        
+        
+        setupRecorder()
         
         if(tempRecordings.count > 0){
             if selectedAudioFileLabel.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == "" {
@@ -229,13 +217,31 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     func setupRecorder(){
         //set the recorder's settings
         fieldAudio.recordingSettings = recordingSettings
-        fieldAudio.directoryURL = directoryURL
+        fieldAudio.directoryURL = setupAudioDirectory()
         
-        fieldAudio.audioFileURL = directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(self.participant))
+        fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(self.participant))
         
         //the recorder can be setup after the file url and the recording settings have been assigned
         fieldAudio.setupRecorder()
     }
+    
+    func setupAudioDirectory() -> NSURL?{
+        //ask for the document directory in the user's home directory
+        guard let tempDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,inDomains: NSSearchPathDomainMask.UserDomainMask).first else{
+            
+            let alertMessage = UIAlertController(title: "Recording Failed", message: "Failed to get the document directory to record audio. Please try again or enable microphone access", preferredStyle: .Alert)
+            
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+            presentViewController(alertMessage, animated: true, completion: nil)
+            
+            return NSURL()
+        }
+        
+        directoryURL = tempDirectoryURL
+        
+        return directoryURL
+    }
+    
     
     //hides the status bar
     override func prefersStatusBarHidden() -> Bool {
