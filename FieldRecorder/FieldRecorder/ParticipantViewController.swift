@@ -11,6 +11,10 @@ import UIKit
 
 class ParticipantViewController: UIViewController, UITextFieldDelegate{
     
+    @IBOutlet weak var participantInputView: UIView!
+    
+
+    
     @IBOutlet var participantInput: UITextField!
     
     var participant = Participant()
@@ -27,6 +31,13 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         if participant.participantID != -999{
             self.participantInput.text = String(participant.participantID)
         }
+
+        let borderColor = UIColor.init(red:0.42, green:0.569, blue:0.6, alpha:1).CGColor
+        participantInputView.layer.borderColor = borderColor
+        participantInputView.layer.borderWidth = 2
+        participantInputView.layer.cornerRadius = 7
+        participantInputView.layer.masksToBounds = true
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

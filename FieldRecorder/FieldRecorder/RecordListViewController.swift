@@ -17,6 +17,7 @@ class RecordListViewController: UITableViewController, UIPopoverControllerDelega
     var selectedURL: NSURL? = NSURL()
     var selectedFileName: String = ""
     
+    @IBOutlet weak var shareBtn: UIBarButtonItem!
     
     func parseRecordingNamesForDisplay() -> [String] {
         var recordFileNames: [String] = []
@@ -30,6 +31,13 @@ class RecordListViewController: UITableViewController, UIPopoverControllerDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let _ = self.selectedURL{
+            shareBtn.enabled = true
+        }
+        else{
+            shareBtn.enabled = false
+        }
     }
     
     // total number of rows in a section (a table view can have multiple sections but there is only one by default)
