@@ -128,17 +128,24 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         
-        //set the buttons to be deactivated initially
-        stopButton.enabled = false
-        playButton.enabled = false
-        volumeLevel.enabled = false
-        
         fieldAudio.directoryURL = Utility.getAppDirectoryURL()
         
-        setAudioFileLabel() 
+        setAudioFileLabel()
         
         //using the timer to read the input levels for the sound
         var _ = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "update", userInfo: nil, repeats: true)
+
+        guard let _ = self.selectedAudioFileURL else{
+            stopButton.enabled = false
+            playButton.enabled = false
+            volumeLevel.enabled = false
+            return
+        }
+        
+        //set the buttons to be deactivated initially
+        stopButton.enabled = false
+        playButton.enabled = true
+        volumeLevel.enabled = true
     }
     
     // must be internal or public.
@@ -188,7 +195,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
             audioVisualizer.color = UIColor(red: scale, green: 0.5, blue: max(2*scale,1), alpha: 1.0)
         }
         else if recording{
-            audioVisualizer.color = UIColor(red: 0.25, green: scale, blue: max(2*scale,1), alpha: 1.0)
+            audioVisualizer.color = UIColor(red: 0.75, green: scale, blue: max(2*scale,0.75), alpha: 1.0)
         }
         
         audioVisualizer.setNeedsDisplay()

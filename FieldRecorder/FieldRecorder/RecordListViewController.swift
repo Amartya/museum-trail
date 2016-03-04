@@ -104,6 +104,36 @@ class RecordListViewController: UITableViewController, UIPopoverControllerDelega
         tableView.reloadData()
     }
     
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            
+            //remove the file from the app's directory
+            let fileManager = NSFileManager.defaultManager()
+            do {
+                try fileManager.removeItemAtPath(recordFiles[indexPath.row].path!)
+            }
+            catch let error as NSError {
+                print("Ooops! Something went wrong: \(error)")
+            }
+            
+            //remove from the array and tableview
+            recordFiles.removeAtIndex(indexPath.row)
+            tableView.reloadData()
+            
+            //disable the share button if all the files are deleted
+            if recordFiles.count == 0 {
+                shareBtn.enabled = false
+            }
+        }
+    }
+    
+    
     //hides the status bar
     override func prefersStatusBarHidden() -> Bool {
         return true;
