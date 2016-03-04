@@ -112,15 +112,7 @@ class RecordListViewController: UITableViewController, UIPopoverControllerDelega
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if (editingStyle == UITableViewCellEditingStyle.Delete) {
             // handle delete (by removing the data from your array and updating the tableview)
-            
-            //remove the file from the app's directory
-            let fileManager = NSFileManager.defaultManager()
-            do {
-                try fileManager.removeItemAtPath(recordFiles[indexPath.row].path!)
-            }
-            catch let error as NSError {
-                print("Ooops! Something went wrong: \(error)")
-            }
+            removeFileAtPath(recordFiles[indexPath.row])
             
             //remove from the array and tableview
             recordFiles.removeAtIndex(indexPath.row)
@@ -130,6 +122,16 @@ class RecordListViewController: UITableViewController, UIPopoverControllerDelega
             if recordFiles.count == 0 {
                 shareBtn.enabled = false
             }
+        }
+    }
+    
+    func removeFileAtPath(fileURL: NSURL){
+        let fileManager = NSFileManager.defaultManager()
+        do {
+            try fileManager.removeItemAtPath(fileURL.path!)
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
         }
     }
     
