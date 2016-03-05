@@ -79,13 +79,12 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
                 playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
                 resetAudioVisualizer()
             }
-            else if let currentTime = fieldAudio.audioCurrentTime{
-                fieldAudio.audioPlayer?.playAtTime(currentTime)
+            else{
+                fieldAudio.playAudio()
                 playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
             }
         }
         else{
-        fieldAudio.audioPlayer?.delegate = self
             fieldAudio.playAudio()
             playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
         }
@@ -146,6 +145,8 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         stopButton.enabled = false
         playButton.enabled = true
         volumeLevel.enabled = true
+        
+        fieldAudio.audioFileURL = selectedAudioFileURL
     }
     
     // must be internal or public.

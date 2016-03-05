@@ -100,26 +100,30 @@ class Audio: UIViewController{
      2. designate an audio player delegate object, which handles interruptions as well as the playback-completed event.
      3. call the play method to play the sound file.
      */
+    
     func playAudio(){
-        if let audioRecorder = audioRecorder {
-            if !audioRecorder.recording {
-                do{
-                    if let selectedToPlay = self.audioFileURL {
-                        try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
-                        audioPlayer?.meteringEnabled = true
-                        
-                        audioPlayer?.play()
-                    }
+        if let player = audioPlayer{
+            if !player.playing{
+                player.play()
+            }
+        }
+        else{
+            do{
+                if let selectedToPlay = self.audioFileURL {
+                    try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
+                    audioPlayer?.meteringEnabled = true
                     
+                    audioPlayer?.play()
                 }
-                catch{
-                    let alertMessage = UIAlertController(title: "Field Audio Player", message:"Issue finding or playing audio file, try a different recording using the list recording option", preferredStyle: .Alert)
-                    alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
-                    presentViewController(alertMessage, animated: true, completion: nil)
-                }
+            }
+            catch{
+                let alertMessage = UIAlertController(title: "Field Audio Player", message:"Issue finding or playing audio file, try a different recording using the list recording option", preferredStyle: .Alert)
+                alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
+                presentViewController(alertMessage, animated: true, completion: nil)
             }
         }
     }
+    
     
     func toggleRecording(){
         //stop the audio player if it's currently playing
