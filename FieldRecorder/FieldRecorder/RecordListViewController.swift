@@ -52,7 +52,7 @@ class RecordListViewController: UITableViewController, UIPopoverControllerDelega
     
     //This method will be called every time a table row is displayed. By using the indexPath object, we can get the current row ( indexPath.row ).
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cellIdentifier = "Cell"
+        let cellIdentifier = "recordingCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier,forIndexPath: indexPath) as! Recording
         
         let fileData = parseRecordingNamesForDisplay()[indexPath.row].componentsSeparatedByString("###")
