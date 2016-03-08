@@ -142,6 +142,20 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             let destinationController = segue.destinationViewController as! ParticipantViewController
             destinationController.participant = self.participant
         }
+        
+        else if segue.identifier == "showAllRecordings"{
+                let navController = segue.destinationViewController as! UINavigationController
+                let destinationController = navController.viewControllers.first as! FieldFileListViewController
+                let allTrails = Utility.getAppDirectoryURL()
+                
+                destinationController.files = allRecordings
+                if allRecordings.count > 0{
+                    destinationController.selectedURL = allRecordings.first!
+                }
+                
+                //store the participant id across screens
+                destinationController.participant = self.participant
+        }
     }
     
     //hides the status bar

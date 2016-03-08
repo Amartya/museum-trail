@@ -767,7 +767,7 @@
                                                 </mask>
                                             </variation>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="A9404DE0-E88D-4C48-BBA9-15B6F3E43CE6" translatesAutoresizingMaskIntoConstraints="NO" id="mR6-Gl-za4">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="A42508E4-69CE-481F-B6DC-9E88E0C98D7F" translatesAutoresizingMaskIntoConstraints="NO" id="mR6-Gl-za4">
                                             <rect key="frame" x="13" y="16" width="40" height="40"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="2FF-Wk-guZ"/>
@@ -885,17 +885,17 @@
             </objects>
             <point key="canvasLocation" x="894" y="-1627"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Trail List View Controller-->
         <scene sceneID="HBQ-Rv-ECH">
             <objects>
-                <tableViewController id="zKY-VI-PY3" sceneMemberID="viewController">
+                <tableViewController id="zKY-VI-PY3" customClass="TrailListViewController" customModule="FieldRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="qXl-N8-0Qb">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="trailCell" rowHeight="80" id="5Hr-FF-mjV">
-                                <rect key="frame" x="0.0" y="72" width="600" height="80"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="trailCell" rowHeight="80" id="5Hr-FF-mjV" customClass="Recording" customModule="FieldRecorder" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5Hr-FF-mjV" id="iht-qW-8jd">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
@@ -1037,6 +1037,9 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Share" style="done" id="3za-0Z-tcA"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="shareBtn" destination="3za-0Z-tcA" id="KlP-Lp-y76"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QED-2f-6wq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1285,7 +1288,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="A9404DE0-E88D-4C48-BBA9-15B6F3E43CE6" width="300" height="300">
+        <image name="A42508E4-69CE-481F-B6DC-9E88E0C98D7F" width="300" height="300">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -7368,8 +7371,8 @@ nAAFjKAABYynAAWMrwAFjLwABYzBAAWMwwAFjMUABYzKAAWM0gAFjNUABYzaAAWM4gAFjOUABYz3AAWM
         <image name="stop" width="156" height="155"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="KfO-dj-DXp"/>
-        <segue reference="70c-TJ-fNt"/>
+        <segue reference="qeF-4f-uJS"/>
         <segue reference="I42-pt-w9X"/>
+        <segue reference="70c-TJ-fNt"/>
     </inferredMetricsTieBreakers>
 </document>
