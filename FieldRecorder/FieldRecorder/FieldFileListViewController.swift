@@ -45,10 +45,10 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
     
     
     //sets the icon displayed in a row to red OR b/w based on selected track
-    func setSoundIcon(indexPath: NSIndexPath, cell: Recording){
+    func setTableViewIcon(indexPath: NSIndexPath, cell: Recording){
         if let _ = self.selectedURL{
             if let selectedURLIndex = self.files.indexOf(selectedURL!){
-                if indexPath.row == selectedURLIndex{
+                if indexPath.row == selectedURLIndex && String(self.dynamicType) == "RecordListViewController"{
                     cell.thumbnailImageView!.image = UIImage(named: "sound-icon-playing")
                 }
                 else{

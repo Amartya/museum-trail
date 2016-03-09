@@ -41,7 +41,7 @@ class TrailListViewController: FieldFileListViewController{
             cell.fileNameLabel.text = fileData.joinWithSeparator("")
         }
         
-        self.setSoundIcon(indexPath, cell:cell)
+        self.setTableViewIcon(indexPath, cell:cell)
         
         return cell
     }

@@ -14,7 +14,7 @@
 		0850238B1C88DBC3008F0B11 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238A1C88DBC3008F0B11 /* Utility.swift */; };
 		0850238D1C88E3AA008F0B11 /* EstimoteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238C1C88E3AA008F0B11 /* EstimoteLocation.swift */; };
 		0850238F1C88EE5C008F0B11 /* AudioTrailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */; };
-		085705AB1C7BD00E0085DCFF /* Recording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085705AA1C7BD00E0085DCFF /* Recording.swift */; };
+		085705AB1C7BD00E0085DCFF /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085705AA1C7BD00E0085DCFF /* TableCell.swift */; };
 		0861216A1C8E033400D39FBC /* FieldFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086121691C8E033400D39FBC /* FieldFileListViewController.swift */; };
 		0861216C1C8F796B00D39FBC /* TrailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0861216B1C8F796B00D39FBC /* TrailListViewController.swift */; };
 		08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A108391C751C940006D1AD /* AppDelegate.swift */; };
@@ -37,7 +37,7 @@
 		0850238A1C88DBC3008F0B11 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		0850238C1C88E3AA008F0B11 /* EstimoteLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimoteLocation.swift; sourceTree = "<group>"; };
 		0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTrailViewController.swift; sourceTree = "<group>"; };
-		085705AA1C7BD00E0085DCFF /* Recording.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recording.swift; sourceTree = "<group>"; };
+		085705AA1C7BD00E0085DCFF /* TableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
 		086121691C8E033400D39FBC /* FieldFileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldFileListViewController.swift; sourceTree = "<group>"; };
 		0861216B1C8F796B00D39FBC /* TrailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailListViewController.swift; sourceTree = "<group>"; };
 		08A108361C751C940006D1AD /* FieldRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,7 +99,7 @@
 				08A108451C751C940006D1AD /* Info.plist */,
 				08EF6C911C76538900E7FDE9 /* FullScreenAudioViewController.swift */,
 				08EF6C8F1C753CBB00E7FDE9 /* Participant.swift */,
-				085705AA1C7BD00E0085DCFF /* Recording.swift */,
+				085705AA1C7BD00E0085DCFF /* TableCell.swift */,
 				083986221C78153C00EA9800 /* RecordListViewController.swift */,
 				0861216B1C8F796B00D39FBC /* TrailListViewController.swift */,
 				086121691C8E033400D39FBC /* FieldFileListViewController.swift */,
@@ -165,6 +165,11 @@
 					08A108351C751C940006D1AD = {
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = HL7S2EUM3A;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -258,7 +263,7 @@
 				0821D05D1C7C5FCE00804CE5 /* AudioVisualizer.swift in Sources */,
 				0850238D1C88E3AA008F0B11 /* EstimoteLocation.swift in Sources */,
 				08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */,
-				085705AB1C7BD00E0085DCFF /* Recording.swift in Sources */,
+				085705AB1C7BD00E0085DCFF /* TableCell.swift in Sources */,
 				083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */,
 				0861216A1C8E033400D39FBC /* FieldFileListViewController.swift in Sources */,
 				08EF6C901C753CBB00E7FDE9 /* Participant.swift in Sources */,
@@ -382,7 +387,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = FieldRecorder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -396,7 +401,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = FieldRecorder/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldRecorder;
 				PRODUCT_NAME = "$(TARGET_NAME)";

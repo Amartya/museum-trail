@@ -18,6 +18,8 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     
     var participant = Participant()
     
+    var estimoteLocation = EstimoteLocation()
+    
     @IBOutlet var indoorLocationOutput: UILabel!
     
     //view used to visualize position from Cartesian Estimote coords to iOS coods
@@ -38,6 +40,10 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
         traceSwitch.enabled = true
         
         setupIndoorLocation()
+        
+        estimoteLocation.directoryURL = Utility.getAppDirectoryURL()
+        
+        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(self.participant))
     }
     
     func setupIndoorLocation(){
@@ -130,8 +136,16 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             default: print("positioning not working")
             }
             
-            indoorLocationOutput.text = String(format: "x: %5.2f, y: %5.2f, accuracy: %@",
+            let currPosition = String(format: "x: %5.2f, y: %5.2f, accuracy: %@",
                 position.x, position.y, accuracy)
+            indoorLocationOutput.text = currPosition
+            
+            do{
+             try currPosition.appendLineToURL(estimoteLocation.trailFileURL!)
+            }
+            catch{
+                print("error appending location data to file")
+            }
             
             //update position in the location view setup earlier
             self.locationView.updatePosition(position)    
@@ -142,19 +156,18 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             let destinationController = segue.destinationViewController as! ParticipantViewController
             destinationController.participant = self.participant
         }
-        
-        else if segue.identifier == "showAllRecordings"{
-                let navController = segue.destinationViewController as! UINavigationController
-                let destinationController = navController.viewControllers.first as! FieldFileListViewController
-                let allTrails = Utility.getAppDirectoryURL()
-                
-                destinationController.files = allRecordings
-                if allRecordings.count > 0{
-                    destinationController.selectedURL = allRecordings.first!
-                }
-                
-                //store the participant id across screens
-                destinationController.participant = self.participant
+        else if segue.identifier! == "showAllTrails"{
+            let navController = segue.destinationViewController as! UINavigationController
+            let destinationController = navController.viewControllers.first as! TrailListViewController
+            
+            destinationController.files = estimoteLocation.listTrails()!
+            
+            if destinationController.files.count > 0{
+                destinationController.selectedURL = destinationController.files.first!
+            }
+            
+            //store the participant id across screens
+            destinationController.participant = self.participant
         }
     }
     

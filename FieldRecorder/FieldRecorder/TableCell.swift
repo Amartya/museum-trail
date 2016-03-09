@@ -26,3 +26,21 @@ class Recording: UITableViewCell{
         return fileName
     }
 }
+
+class Trail: UITableViewCell{
+    @IBOutlet var participantLabel: UILabel!
+    @IBOutlet var dateLabel: UILabel!
+    @IBOutlet var fileNameLabel: UILabel!
+    @IBOutlet var thumbnailImageView: UIImageView!
+    
+    static func trailURLtoFileName(url: NSURL) -> String?{
+        let fileData = url.lastPathComponent?.componentsSeparatedByString("###")
+        
+        var fileName = ""
+        if fileData!.count >= 2{
+            fileName = fileData![1] + fileData![2]
+        }
+        
+        return fileName
+    }
+}
