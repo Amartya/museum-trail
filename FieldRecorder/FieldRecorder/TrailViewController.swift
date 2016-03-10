@@ -136,8 +136,8 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             default: print("positioning not working")
             }
             
-            let currPosition = String(format: "x: %5.2f, y: %5.2f, accuracy: %@",
-                position.x, position.y, accuracy)
+            let currPosition = String(format: "x: %5.2f, y: %5.2f, accuracy: %@, timeStamp: %@",
+                position.x, position.y, accuracy, Utility.getCurrentDeviceTimestamp())
             indoorLocationOutput.text = currPosition
             
             do{

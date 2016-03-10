@@ -43,7 +43,6 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
         return files.count
     }
     
-    
     //sets the icon displayed in a row to red OR b/w based on selected track
     func setTableViewIcon(indexPath: NSIndexPath, cell: AnyObject){
         var recordingCell = RecordingCell()
@@ -65,7 +64,7 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
                     recordingCell.thumbnailImageView!.image = UIImage(named: "sound-icon")
                 }
                 else if indexPath.row == selectedURLIndex && String(self.dynamicType) == "TrailListViewController"{
-                    trailCell.thumbnailImageView!.image = UIImage(named: "estimote")
+                    trailCell.thumbnailImageView!.image = UIImage(named: "estimote-selected")
                 }
                 else if String(self.dynamicType) == "TrailListViewController"{
                     trailCell.thumbnailImageView!.image = UIImage(named: "estimote")
@@ -140,7 +139,7 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidLoad() {
         self.tableView.rowHeight = 80.0
     }
 }

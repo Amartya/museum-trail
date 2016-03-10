@@ -45,4 +45,14 @@ class Utility: UIViewController{
     
         return tempDirectoryURL
     }
+    
+    static func getCurrentDeviceTimestamp() -> String {
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Hour, .Minute, .Second], fromDate: date)
+    
+        let dateCompArray = [components.hour, components.minute, components.second].flatMap { String($0) }
+        
+        return dateCompArray.joinWithSeparator(":")
+    }
 }

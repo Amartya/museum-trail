@@ -30,6 +30,27 @@ class RecordListViewController: FieldFileListViewController {
         self.presentViewController(airDropController, animated: true, completion: nil)
     }
     
+    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+            // handle delete (by removing the data from your array and updating the tableview)
+            self.removeFileAtPath(self.files[indexPath.row])
+            
+            //remove from the array and tableview
+            self.files.removeAtIndex(indexPath.row)
+            tableView.reloadData()
+            
+            //disable the share button if all the files are deleted
+            if self.files.count == 0 {
+                shareBtn.enabled = false
+            }
+        }
+    }
+
     //This method will be called every time a table row is displayed. By using the indexPath object, we can get the current row ( indexPath.row ).
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cellIdentifier = "recordingCell"
@@ -52,29 +73,6 @@ class RecordListViewController: FieldFileListViewController {
         
         return cell
     }
-
-    
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
-            // handle delete (by removing the data from your array and updating the tableview)
-            self.removeFileAtPath(self.files[indexPath.row])
-            
-            //remove from the array and tableview
-            self.files.removeAtIndex(indexPath.row)
-            tableView.reloadData()
-            
-            //disable the share button if all the files are deleted
-            if self.files.count == 0 {
-                shareBtn.enabled = false
-            }
-        }
-    }
-
-    
     
     //hides the status bar
     override func prefersStatusBarHidden() -> Bool {
