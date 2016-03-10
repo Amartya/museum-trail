@@ -45,14 +45,30 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
     
     
     //sets the icon displayed in a row to red OR b/w based on selected track
-    func setTableViewIcon(indexPath: NSIndexPath, cell: Recording){
+    func setTableViewIcon(indexPath: NSIndexPath, cell: AnyObject){
+        var recordingCell = RecordingCell()
+        var trailCell = TrailCell()
+        
+        if String(self.dynamicType) == "RecordListViewController"{
+            recordingCell = cell as! RecordingCell
+        }
+        else{
+            trailCell = cell as! TrailCell
+        }
+        
         if let _ = self.selectedURL{
             if let selectedURLIndex = self.files.indexOf(selectedURL!){
                 if indexPath.row == selectedURLIndex && String(self.dynamicType) == "RecordListViewController"{
-                    cell.thumbnailImageView!.image = UIImage(named: "sound-icon-playing")
+                    recordingCell.thumbnailImageView!.image = UIImage(named: "sound-icon-playing")
                 }
-                else{
-                    cell.thumbnailImageView!.image = UIImage(named: "sound-icon")
+                else if String(self.dynamicType) == "RecordListViewController"{
+                    recordingCell.thumbnailImageView!.image = UIImage(named: "sound-icon")
+                }
+                else if indexPath.row == selectedURLIndex && String(self.dynamicType) == "TrailListViewController"{
+                    trailCell.thumbnailImageView!.image = UIImage(named: "estimote")
+                }
+                else if String(self.dynamicType) == "TrailListViewController"{
+                    trailCell.thumbnailImageView!.image = UIImage(named: "estimote")
                 }
             }
         }
@@ -122,5 +138,9 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
             let destinationController = segue.destinationViewController as! TrailViewController
             destinationController.participant = participant
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.tableView.rowHeight = 80.0
     }
 }

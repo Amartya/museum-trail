@@ -26,7 +26,7 @@ class TrailListViewController: FieldFileListViewController{
     //This method will be called every time a table row is displayed. By using the indexPath object, we can get the current row ( indexPath.row ).
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
         let cellIdentifier = "trailCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier,forIndexPath: indexPath) as! Recording
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier,forIndexPath: indexPath) as! TrailCell
         
         let fileData = self.parseFileNamesForDisplay()[indexPath.row].componentsSeparatedByString("###")
         

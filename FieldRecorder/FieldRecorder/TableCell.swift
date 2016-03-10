@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class Recording: UITableViewCell{
+class RecordingCell: UITableViewCell{
     @IBOutlet var participantLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var fileNameLabel: UILabel!
@@ -25,9 +25,13 @@ class Recording: UITableViewCell{
         
         return fileName
     }
+    
+    override func didMoveToSuperview() {
+        self.layoutIfNeeded()
+    }
 }
 
-class Trail: UITableViewCell{
+class TrailCell: UITableViewCell{
     @IBOutlet var participantLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var fileNameLabel: UILabel!
@@ -42,5 +46,9 @@ class Trail: UITableViewCell{
         }
         
         return fileName
+    }
+    
+    override func didMoveToSuperview() {
+        self.layoutIfNeeded()
     }
 }
