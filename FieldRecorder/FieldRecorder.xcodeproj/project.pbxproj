@@ -23,7 +23,7 @@
 		08A108441C751C940006D1AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A108421C751C940006D1AD /* LaunchScreen.storyboard */; };
 		08A1084E1C751F360006D1AD /* instrumental.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08A1084D1C751F360006D1AD /* instrumental.mp3 */; };
 		08EC56E81C7B9CF400029269 /* ParticipantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */; };
-		08EF6C901C753CBB00E7FDE9 /* Participant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EF6C8F1C753CBB00E7FDE9 /* Participant.swift */; };
+		08EF6C901C753CBB00E7FDE9 /* ParticipantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EF6C8F1C753CBB00E7FDE9 /* ParticipantModel.swift */; };
 		08EF6C921C76538900E7FDE9 /* FullScreenAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EF6C911C76538900E7FDE9 /* FullScreenAudioViewController.swift */; };
 		B5FBB5D52444B354D1A734A7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F26C73102B04C6EE06D3CB75 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -48,7 +48,7 @@
 		08A108451C751C940006D1AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08A1084D1C751F360006D1AD /* instrumental.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = instrumental.mp3; sourceTree = "<group>"; };
 		08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantViewController.swift; sourceTree = "<group>"; };
-		08EF6C8F1C753CBB00E7FDE9 /* Participant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Participant.swift; sourceTree = "<group>"; };
+		08EF6C8F1C753CBB00E7FDE9 /* ParticipantModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantModel.swift; sourceTree = "<group>"; };
 		08EF6C911C76538900E7FDE9 /* FullScreenAudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenAudioViewController.swift; sourceTree = "<group>"; };
 		38366B89EDC2580BF5D08795 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		DFEFD57A885E7D5869A78CAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -98,7 +98,7 @@
 				08A108421C751C940006D1AD /* LaunchScreen.storyboard */,
 				08A108451C751C940006D1AD /* Info.plist */,
 				08EF6C911C76538900E7FDE9 /* FullScreenAudioViewController.swift */,
-				08EF6C8F1C753CBB00E7FDE9 /* Participant.swift */,
+				08EF6C8F1C753CBB00E7FDE9 /* ParticipantModel.swift */,
 				085705AA1C7BD00E0085DCFF /* TableCell.swift */,
 				083986221C78153C00EA9800 /* RecordListViewController.swift */,
 				0861216B1C8F796B00D39FBC /* TrailListViewController.swift */,
@@ -266,7 +266,7 @@
 				085705AB1C7BD00E0085DCFF /* TableCell.swift in Sources */,
 				083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */,
 				0861216A1C8E033400D39FBC /* FieldFileListViewController.swift in Sources */,
-				08EF6C901C753CBB00E7FDE9 /* Participant.swift in Sources */,
+				08EF6C901C753CBB00E7FDE9 /* ParticipantModel.swift in Sources */,
 				0821D05B1C7C5D2A00804CE5 /* TrailViewController.swift in Sources */,
 				08EF6C921C76538900E7FDE9 /* FullScreenAudioViewController.swift in Sources */,
 				0850238F1C88EE5C008F0B11 /* AudioTrailViewController.swift in Sources */,
