@@ -1,18 +1,16 @@
-
 //
-//  File.swift
+//  TrailListViewController.swift
 //  FieldRecorder
 //
-//  Created by Amartya Banerjee on 2/19/16.
+//  Created by Amartya on 3/8/16.
 //  Copyright © 2016 Amartya. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
-class RecordListViewController: FieldFileListViewController {
+
+class TrailListViewController: FieldFileListViewController{
     @IBOutlet weak var shareBtn: UIBarButtonItem!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +22,7 @@ class RecordListViewController: FieldFileListViewController {
             shareBtn.enabled = false
         }
     }
-
+    
     @IBAction func airDrop(sender: AnyObject) {
         let airDropController = UIActivityViewController.init(activityItems: [self.selectedURL!], applicationActivities: nil)
         self.presentViewController(airDropController, animated: true, completion: nil)
@@ -50,11 +48,11 @@ class RecordListViewController: FieldFileListViewController {
             }
         }
     }
-
+    
     //This method will be called every time a table row is displayed. By using the indexPath object, we can get the current row ( indexPath.row ).
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
-        let cellIdentifier = "recordingCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier,forIndexPath: indexPath) as! RecordingCell
+        let cellIdentifier = "trailCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier,forIndexPath: indexPath) as! TrailCell
         
         let fileData = self.parseFileNamesForDisplay()[indexPath.row].componentsSeparatedByString("###")
         
@@ -84,11 +82,8 @@ class RecordListViewController: FieldFileListViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "goBackToRecorder"{
-            let destinationController = segue.destinationViewController as! FullscreenAudioViewController
-            destinationController.selectedAudioFileURL = selectedURL
-            destinationController.selectedAudioFileLabel = selectedFileName
-            
+        if segue.identifier == "goBackToTrail"{
+            let destinationController = segue.destinationViewController as! TrailViewController
             destinationController.participant = participant
         }
     }

@@ -269,26 +269,23 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        switch segue.identifier!{
-            case "showAllRecordings":
+        if segue.identifier! == "showAllRecordings"{
                 let navController = segue.destinationViewController as! UINavigationController
                 let destinationController = navController.viewControllers.first as! RecordListViewController
                 let allRecordings = fieldAudio.listRecordings()!
                 
-                destinationController.recordFiles = allRecordings
+                destinationController.files = allRecordings
                 if allRecordings.count > 0{
                     destinationController.selectedURL = allRecordings.first!
                 }
                 
                 //store the participant id across screens
                 destinationController.participant = self.participant
+        }
             
-            case "showParticipantScreen":
+        else if segue.identifier! == "showParticipantScreen"{
                 let destinationController = segue.destinationViewController as! ParticipantViewController
                 destinationController.participant = self.participant
-            
-            default:
-                print("unreachable segue detected")
         }
     }
 }

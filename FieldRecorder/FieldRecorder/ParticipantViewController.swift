@@ -37,7 +37,6 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         participantInputView.layer.borderWidth = 2
         participantInputView.layer.cornerRadius = 7
         participantInputView.layer.masksToBounds = true
-        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

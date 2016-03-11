@@ -29,6 +29,8 @@ class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelega
     var selectedAudioFileURL: NSURL?
     var selectedAudioFileLabel: String = ""
     
+    var estimoteLocation = EstimoteLocation()
+    
     @IBOutlet weak var audioVisualizer: AudioVisualizer!
     
     let recordingSettings: [String: AnyObject] =  [
@@ -131,6 +133,10 @@ class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelega
         playButton.enabled = false
         
         fieldAudio.directoryURL = Utility.getAppDirectoryURL()
+        
+        estimoteLocation.directoryURL = fieldAudio.directoryURL
+        
+        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(self.participant))
     }
     
     func setupRecorder(){
@@ -234,9 +240,17 @@ class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelega
             default: print("positioning not working")
             }
             
-            indoorLocationOutput.text = String(format: "x: %5.2f, y: %5.2f, accuracy: %@",
-                position.x, position.y, accuracy)
+            let currPosition = String(format: "x: %5.2f, y: %5.2f, accuracy: %@, timeStamp: %@",
+                position.x, position.y, accuracy, Utility.getCurrentDeviceTimestamp())
+            indoorLocationOutput.text = currPosition
             
+            do{
+                try currPosition.appendLineToURL(estimoteLocation.trailFileURL!)
+            }
+            catch{
+                print("error appending location data to file")
+            }
+
             //update position in the location view setup earlier
             self.locationView.updatePosition(position)
     }
