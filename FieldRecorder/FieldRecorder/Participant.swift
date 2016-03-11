@@ -8,8 +8,10 @@
 
 import Foundation
 
+let participant = ParticipantModel()
 
-class Participant{
+//final class definition prevents sub-classing. We use the participant variable declared above as a Singleton model instance that is shared across various screens in this app
+final class ParticipantModel{
     var participantID:Int
     var date:NSDate
     
@@ -20,6 +22,11 @@ class Participant{
     
     convenience init(participantId: Int, date: NSDate){
         self.init()
+        self.participantID = participantId
+        self.date = date
+    }
+    
+    func setIdAndDate(participantId: Int, date: NSDate){
         self.participantID = participantId
         self.date = date
     }

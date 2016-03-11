@@ -31,7 +31,6 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     
     var directoryURL: NSURL?
     var recordings: [NSURL]? = []
-    var participant = Participant()
     
     var selectedAudioFileURL: NSURL?
     var selectedAudioFileLabel: String = ""
@@ -214,7 +213,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         fieldAudio.recordingSettings = recordingSettings
         fieldAudio.directoryURL = Utility.getAppDirectoryURL()
         
-        fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(self.participant))
+        fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(participant))
         
         //the recorder can be setup after the file url and the recording settings have been assigned
         fieldAudio.setupRecorder()
@@ -278,14 +277,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
                 if allRecordings.count > 0{
                     destinationController.selectedURL = allRecordings.first!
                 }
-                
-                //store the participant id across screens
-                destinationController.participant = self.participant
-        }
             
-        else if segue.identifier! == "showParticipantScreen"{
-                let destinationController = segue.destinationViewController as! ParticipantViewController
-                destinationController.participant = self.participant
         }
     }
 }

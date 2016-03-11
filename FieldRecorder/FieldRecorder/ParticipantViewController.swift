@@ -17,7 +17,6 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet var participantInput: UITextField!
     
-    var participant = Participant()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,23 +81,7 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let id = Int(participantInput.text!){
-            participant = Participant(participantId: id, date: NSDate())
-        }
-        
-        if segue.identifier == "showRecordingScreen" {
-            let navController = segue.destinationViewController as! UINavigationController
-            let destinationController = navController.viewControllers.first as! FullscreenAudioViewController
-            destinationController.participant = participant
-        }
-        else if segue.identifier == "showTrailScreen" {
-            let navController = segue.destinationViewController as! UINavigationController
-            let destinationController = navController.viewControllers.first as! TrailViewController
-            destinationController.participant = participant
-        }
-        else if segue.identifier == "showAudioTrail" {
-            let navController = segue.destinationViewController as! UINavigationController
-            let destinationController = navController.viewControllers.first as! AudioTrailViewController
-            destinationController.participant = participant
+            participant.setIdAndDate(id, date: NSDate())
         }
     }
     

@@ -82,9 +82,6 @@ class TrailListViewController: FieldFileListViewController{
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "goBackToTrail"{
-            let destinationController = segue.destinationViewController as! TrailViewController
-            destinationController.participant = participant
-        }
+       //
     }
 }

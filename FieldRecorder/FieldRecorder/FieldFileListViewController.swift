@@ -21,8 +21,6 @@ import Foundation
 import UIKit
 
 class FieldFileListViewController: UITableViewController, UIPopoverControllerDelegate {
-    var participant = Participant()
-    
     var files:[NSURL] = []
     var selectedURL: NSURL? = NSURL()
     var selectedFileName: String = ""
@@ -130,12 +128,6 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
             let destinationController = segue.destinationViewController as! FullscreenAudioViewController
             destinationController.selectedAudioFileURL = selectedURL
             destinationController.selectedAudioFileLabel = selectedFileName
-            
-            destinationController.participant = participant
-        }
-        else if segue.identifier == "goBackToTrail"{
-            let destinationController = segue.destinationViewController as! TrailViewController
-            destinationController.participant = participant
         }
     }
     

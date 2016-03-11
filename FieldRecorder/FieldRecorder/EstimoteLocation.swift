@@ -15,7 +15,7 @@ class EstimoteLocation{
     /**
      returns the list of trails in the file system in a sorted (by date desc) list
      */
-    func getTrailFileName(participant:Participant) -> String {
+    func getTrailFileName(participant:ParticipantModel) -> String {
         //figure out a default recording file path
         let calendar = NSCalendar.currentCalendar()
         let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)

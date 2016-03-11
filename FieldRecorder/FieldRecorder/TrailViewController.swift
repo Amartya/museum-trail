@@ -16,8 +16,6 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     //location being tracked
     var location: EILLocation!
     
-    var participant = Participant()
-    
     var estimoteLocation = EstimoteLocation()
     
     @IBOutlet var indoorLocationOutput: UILabel!
@@ -43,7 +41,7 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
         
         estimoteLocation.directoryURL = Utility.getAppDirectoryURL()
         
-        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(self.participant))
+        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(participant))
     }
     
     func setupIndoorLocation(){
@@ -152,11 +150,7 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showParticipantFromTrail"{
-            let destinationController = segue.destinationViewController as! ParticipantViewController
-            destinationController.participant = self.participant
-        }
-        else if segue.identifier! == "showAllTrails"{
+        if segue.identifier! == "showAllTrails"{
             let navController = segue.destinationViewController as! UINavigationController
             let destinationController = navController.viewControllers.first as! TrailListViewController
             
@@ -165,9 +159,6 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             if destinationController.files.count > 0{
                 destinationController.selectedURL = destinationController.files.first!
             }
-            
-            //store the participant id across screens
-            destinationController.participant = self.participant
         }
     }
     

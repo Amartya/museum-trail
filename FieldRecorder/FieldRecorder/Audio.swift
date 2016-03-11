@@ -24,7 +24,7 @@ class Audio: UIViewController{
     
     var audioCurrentTime: NSTimeInterval?
     
-    func getAudioFileName(participant:Participant) -> String {
+    func getAudioFileName(participant:ParticipantModel) -> String {
         //figure out a default recording file path
         let calendar = NSCalendar.currentCalendar()
         let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)

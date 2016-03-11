@@ -88,8 +88,6 @@ class RecordListViewController: FieldFileListViewController {
             let destinationController = segue.destinationViewController as! FullscreenAudioViewController
             destinationController.selectedAudioFileURL = selectedURL
             destinationController.selectedAudioFileLabel = selectedFileName
-            
-            destinationController.participant = participant
         }
     }
 }

@@ -19,8 +19,6 @@ class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelega
     //location being tracked
     var location: EILLocation!
     
-    var participant = Participant()
-    
     var fieldAudio = Audio()
     
     var directoryURL: NSURL?
@@ -136,7 +134,7 @@ class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelega
         
         estimoteLocation.directoryURL = fieldAudio.directoryURL
         
-        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(self.participant))
+        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(participant))
     }
     
     func setupRecorder(){
@@ -144,7 +142,7 @@ class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelega
         fieldAudio.recordingSettings = recordingSettings
         fieldAudio.directoryURL = Utility.getAppDirectoryURL()
         
-        fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(self.participant))
+        fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(participant))
         
         //the recorder can be setup after the file url and the recording settings have been assigned
         fieldAudio.setupRecorder()
@@ -278,10 +276,7 @@ class AudioTrailViewController: UIViewController, EILIndoorLocationManagerDelega
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showParticipantFromAudioTrail"{
-            let destinationController = segue.destinationViewController as! ParticipantViewController
-            destinationController.participant = self.participant
-        }
+        //
     }
     
     //hides the status bar
