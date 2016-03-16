@@ -55,4 +55,18 @@ class Utility: UIViewController{
         
         return dateCompArray.joinWithSeparator(":")
     }
+    
+    static func drawTopAndBottomBorder(borderColor: CGColor, textField: UITextField){
+        let bottomBorder = CALayer()
+        let topBorder = CALayer()
+        
+        topBorder.frame = CGRectMake(0.0, 0.0, textField.frame.size.width - 1, 1.0)
+        bottomBorder.frame = CGRectMake(0.0, textField.frame.size.height - 1, textField.frame.size.width - 1, 1.0)
+        
+        topBorder.backgroundColor = borderColor
+        bottomBorder.backgroundColor = borderColor
+        
+        textField.layer.addSublayer(topBorder)
+        textField.layer.addSublayer(bottomBorder)
+    }
 }

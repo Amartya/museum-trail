@@ -13,10 +13,14 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     
     @IBOutlet weak var participantInputView: UIView!
     
-
     
     @IBOutlet var participantInput: UITextField!
     
+    //makes the keyboard disappear while tapping outside the textfield 
+    //make sure that the view tapped is changed to be an instance of UIControl, instead of UIView in IB
+    @IBAction func dismissKeyboard(sender: AnyObject) {
+        participantInput.resignFirstResponder()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +34,10 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         if participant.participantID != -999{
             self.participantInput.text = String(participant.participantID)
         }
-
+        
+        //draw the border around the participant ID input
+        Utility.drawTopAndBottomBorder(UIColor.lightGrayColor().CGColor, textField: self.participantInput)
+        
         let borderColor = UIColor.init(red:0.42, green:0.569, blue:0.6, alpha:1).CGColor
         participantInputView.layer.borderColor = borderColor
         participantInputView.layer.borderWidth = 2

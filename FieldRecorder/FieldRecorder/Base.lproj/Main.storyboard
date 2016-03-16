@@ -328,11 +328,11 @@
                         <viewControllerLayoutGuide type="top" id="A9j-GH-UGB"/>
                         <viewControllerLayoutGuide type="bottom" id="3En-fH-uN5"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="EtY-p5-lHw">
+                    <view key="view" contentMode="scaleToFill" id="EtY-p5-lHw" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxG-Nj-EBz" userLabel="participantInput">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxG-Nj-EBz" userLabel="participantInput" customClass="UIControl">
                                 <rect key="frame" x="160" y="112" width="280" height="375"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fieldrecorder" translatesAutoresizingMaskIntoConstraints="NO" id="PEh-iG-GAL">
@@ -413,6 +413,7 @@
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="Enter Participant Number" textAlignment="center" minimumFontSize="18" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="x6i-sI-B0q">
                                         <rect key="frame" x="0.0" y="189" width="280" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="8SD-jV-GAQ"/>
                                             <constraint firstAttribute="width" constant="280" id="DJg-dZ-fFj"/>
@@ -420,6 +421,10 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                        <connections>
+                                            <action selector="dismissKeyboardFromForm:" destination="i4y-L9-R7b" eventType="touchUpOutside" id="PyA-I8-ECp"/>
+                                            <action selector="dt:" destination="i4y-L9-R7b" eventType="touchUpOutside" id="r4E-Wx-UJj"/>
+                                        </connections>
                                     </textField>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="estimote" translatesAutoresizingMaskIntoConstraints="NO" id="ZOB-AL-nvC">
                                         <rect key="frame" x="148" y="270" width="18" height="30"/>
@@ -482,6 +487,9 @@
                                         <exclude reference="VHz-jm-vGx"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <action selector="dismissKeyboardFromForm:" destination="i4y-L9-R7b" eventType="touchDragInside" id="H7h-hr-QDP"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -489,11 +497,14 @@
                             <constraint firstItem="lxG-Nj-EBz" firstAttribute="centerX" secondItem="EtY-p5-lHw" secondAttribute="centerX" id="OIf-fL-M2i"/>
                             <constraint firstItem="lxG-Nj-EBz" firstAttribute="centerY" secondItem="EtY-p5-lHw" secondAttribute="centerY" id="W3G-az-IqY"/>
                         </constraints>
+                        <connections>
+                            <action selector="dismissKeyboard:" destination="i4y-L9-R7b" eventType="touchUpInside" id="LRj-nt-Ocx"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="kB4-Mr-0WP"/>
                     <connections>
                         <outlet property="participantInput" destination="x6i-sI-B0q" id="rHz-bW-v68"/>
-                        <outlet property="participantInputView" destination="lxG-Nj-EBz" id="a4t-xY-JsX"/>
+                        <outlet property="participantInputView" destination="lxG-Nj-EBz" id="b2B-T5-KLa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sx7-Iu-4Ko" userLabel="First Responder" sceneMemberID="firstResponder"/>
