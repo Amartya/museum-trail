@@ -35,6 +35,8 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     var selectedAudioFileURL: NSURL?
     var selectedAudioFileLabel: String = ""
     
+    var timer = NSTimer()
+    
     @IBOutlet weak var audioVisualizer: AudioVisualizer!
 
     let recordingSettings: [String: AnyObject] =  [
@@ -131,8 +133,14 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         setAudioFileLabel()
         
         //using the timer to read the input levels for the sound
-        var _ = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: "update", userInfo: nil, repeats: true)
+        if !timer.valid{
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        }
 
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: #selector(pauseTimerOnEnteringBackground), name:UIApplicationWillResignActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(restartTimerOnLoad), name:UIApplicationWillEnterForegroundNotification, object: nil)
+        
         guard let _ = self.selectedAudioFileURL else{
             stopButton.enabled = false
             playButton.enabled = false
@@ -146,6 +154,16 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         volumeLevel.enabled = true
         
         fieldAudio.audioFileURL = selectedAudioFileURL
+    }
+    
+    func pauseTimerOnEnteringBackground(){
+        timer.invalidate()
+    }
+    
+    func restartTimerOnLoad(){
+        if !timer.valid{
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        }
     }
     
     // must be internal or public.
