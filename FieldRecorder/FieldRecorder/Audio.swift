@@ -27,9 +27,9 @@ class Audio: UIViewController{
     func getAudioFileName(participant:ParticipantModel) -> String {
         //figure out a default recording file path
         let calendar = NSCalendar.currentCalendar()
-        let today = calendar.components([.Year, .Month, .Day], fromDate: participant.date)
+        let today = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: participant.date)
         
-        var fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
+        var fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "-" + String(today.hour) + ":" + String(today.minute) + ":" + String(today.second) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
         
         let allFilesNames = listRecordings()!.map({ (name: NSURL) -> String in return name.lastPathComponent!})
         
