@@ -62,7 +62,7 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
          
          //try to fetch location from Estimote Cloud, otherwise, build location
          //N.B. the locationIdentifier is different from the name we give to the location using setLocationName
-        let fetchLocationRequest = EILRequestFetchLocation(locationIdentifier: "annenberg-hall-commons-koi")
+        let fetchLocationRequest = EILRequestFetchLocation(locationIdentifier: "china-hall")
         fetchLocationRequest.sendRequestWithCompletion { (location, error) in
             if let location = location {
                 self.location = location
@@ -71,28 +71,40 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             else {
                 let locationBuilder = EILLocationBuilder.init()
                 locationBuilder.setLocationBoundaryPoints([EILPoint(x: 0, y: 0), EILPoint(x: 0, y: 6.2), EILPoint(x: 9.78, y: 6.2), EILPoint(x: 9.78, y: 0)])
-                
+        
+                locationBuilder.setLocationBoundaryPoints([EILPoint(x: 0, y: 0), EILPoint(x: 0, y: 8.0), EILPoint(x: 8.0, y: 8.0), EILPoint(x: 14.0, y: 8.0),
+                                                           EILPoint(x: 19.0, y: 8.0), EILPoint(x: 23.0, y: 8.0), EILPoint(x: 27.0, y: 8.0), EILPoint(x: 34.0, y: 8.0),
+                                                           EILPoint(x: 34.0, y: 0), EILPoint(x: 25.0, y: 0.0), EILPoint(x: 15.0, y: 0.0), EILPoint(x: 8.0, y: 0.0)])
                 /**
-                Current list of the 6 beacons we have
+                Current list of the 12 beacons we have
                 1 - F0:34:B5:DC:9C:CE
                 2 - CA:9F:BB:01:B1:0A
                 3 - EA:1F:87:62:C6:B8
                 4 - D7:10:BB:1D:D9:18
                 5 - C0:DC:98:37:75:9D
                 6 - C3:15:A9:E0:2B:F3
+                7 - C3:0D:EB:D1:9B:87
+                8 - D6:55:C3:8E:93:C8
+                9 - E8:55:F8:AC:45:AA
+                10 - E5:45:02:F4:39:A0
+                11 - C1:8D:60:7F:D4:5E
+                12 - F3:99:71:AC:B4:20
                 */
-                locationBuilder.addBeaconWithIdentifier("F0:34:B5:DC:9C:CE", atBoundarySegmentIndex: 0, inDistance: 3.1, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("CA:9F:BB:01:B1:0A", atBoundarySegmentIndex: 1, inDistance: 4.89, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("EA:1F:87:62:C6:B8", atBoundarySegmentIndex: 2, inDistance: 3.1, fromSide: EILLocationBuilderSide.RightSide)
-                locationBuilder.addBeaconWithIdentifier("D7:10:BB:1D:D9:18", atBoundarySegmentIndex: 3, inDistance: 4.89, fromSide: EILLocationBuilderSide.RightSide)
+                locationBuilder.addBeaconWithIdentifier("F0:34:B5:DC:9C:CE", atBoundarySegmentIndex: 0, inDistance: 4.0, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeaconWithIdentifier("CA:9F:BB:01:B1:0A", atBoundarySegmentIndex: 1, inDistance: 4.0, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeaconWithIdentifier("EA:1F:87:62:C6:B8", atBoundarySegmentIndex: 2, inDistance: 3.0, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeaconWithIdentifier("D7:10:BB:1D:D9:18", atBoundarySegmentIndex: 3, inDistance: 2.5, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeaconWithIdentifier("C0:DC:98:37:75:9D", atBoundarySegmentIndex: 4, inDistance: 2.0, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeaconWithIdentifier("C3:15:A9:E0:2B:F3", atBoundarySegmentIndex: 5, inDistance: 2.0, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeaconWithIdentifier("C3:0D:EB:D1:9B:87", atBoundarySegmentIndex: 6, inDistance: 3.5, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeaconWithIdentifier("D6:55:C3:8E:93:C8", atBoundarySegmentIndex: 7, inDistance: 3.0, fromSide: EILLocationBuilderSide.RightSide)
+                locationBuilder.addBeaconWithIdentifier("E8:55:F8:AC:45:AA", atBoundarySegmentIndex: 8, inDistance: 4.5, fromSide: EILLocationBuilderSide.RightSide)
+                locationBuilder.addBeaconWithIdentifier("E5:45:02:F4:39:A0", atBoundarySegmentIndex: 9, inDistance: 5.0, fromSide: EILLocationBuilderSide.RightSide)
+                locationBuilder.addBeaconWithIdentifier("C1:8D:60:7F:D4:5E", atBoundarySegmentIndex: 10, inDistance: 5.0, fromSide: EILLocationBuilderSide.RightSide)
+                locationBuilder.addBeaconWithIdentifier("F3:99:71:AC:B4:20", atBoundarySegmentIndex: 11, inDistance: 4.0, fromSide: EILLocationBuilderSide.RightSide)
                 
-                /**currently commented out, to be changed at the Field
-                locationBuilder.addBeaconWithIdentifier("C0:DC:98:37:75:9D", atBoundarySegmentIndex: 3, inDistance: 4.89, fromSide: EILLocationBuilderSide.RightSide)
-                locationBuilder.addBeaconWithIdentifier("C3:15:A9:E0:2B:F3", atBoundarySegmentIndex: 3, inDistance: 4.89, fromSide: EILLocationBuilderSide.RightSide)
-                */
-                
-                locationBuilder.setLocationOrientation(63.0)
-                locationBuilder.setLocationName("Annenberg Hall Commons")
+                locationBuilder.setLocationOrientation(3.0)
+                locationBuilder.setLocationName("China Hall")
                 
                 self.location = locationBuilder.build()
                 
