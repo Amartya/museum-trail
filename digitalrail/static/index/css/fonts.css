@@ -1,0 +1,28 @@
+/**
+ * Cyrus Tang Hall of China 
+ * Digial Rail Design
+ *
+ * This project was funded by the National Science Foundation (grant IIS-1550051).
+ * Any opinions, findings and conclusions or recommendations expressed in this
+ * material are those of the author(s) and do not necessarily reflect the views
+ * of the National Science Foundation (NSF).
+ */
+
+
+@font-face {
+  font-family: "FFBauWeb";
+  src: url("http://chinahall.fieldmuseum.org/content/themes/tfm-dev/css//webfonts/2F32BF_0_unhinted_0.woff") format("woff");
+}
+
+@font-face {
+  font-family: "FFBauWebItalic";
+  src: url("http://chinahall.fieldmuseum.org/content/themes/tfm-dev/css//webfonts/2F32BF_1_unhinted_0.woff") format("woff");
+}
+
+
+@font-face {
+  font-family: 'FFBaoWebBold';
+  font-style: normal;
+  font-weight: 400;
+  src: local('FF Bao Web'), url('../fonts/FFBauWebBold.woff');
+}
