@@ -1,0 +1,78 @@
+$screen-width: 1920px;
+$screen-height: 502px;
+$background-color: #424242;
+$font-color: #fffae7;
+$line-color: #fffae7;
+
+$header-font: 'FFBaoWebBold';
+$body-font: 'FFBauWeb';
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);    
+}
+
+body {
+  color: $font-color;
+}
+
+#screen {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: $screen-width;
+  height: $screen-height;
+  background-color: $background-color;
+  font-family: $body-font, sans-serif;
+  font-size: 12pt;
+}
+
+#content {
+  position: absolute;
+  width: $screen-width - 38;
+  height: $screen-height - 58;
+  border: 2px solid $line-color;
+  margin: 29px 19px 29px 19px;
+  padding: 52px;
+}
+
+#left-column {
+  height: 100%;
+  width: 450px;
+}
+
+p {
+  font-family: $body-font, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.2px;
+  line-height: 27px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  word-spacing: -0.4px;
+  color: 'rgb(255, 255, 250)';
+  -moz-osx-font-smoothing: grayscale;  
+}
+
+p.large {
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 34px;
+  letter-spacing: -0.4px;
+  word-spacing: -0.4px;
+}
+
+
+h1 {
+  font-family: $header-font, sans-serif;
+  font-size: 35px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 44.8px;
+  -moz-osx-font-smoothing: grayscale;  
+  padding: 0;
+  margin: 0;
+}
