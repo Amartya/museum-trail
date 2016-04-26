@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import include,url
 from django.contrib import admin
 
-from . import views
+from  digitalrail.views import landingpage
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
+    url(r'^$', landingpage.index, name='index'),
     url(r'^admin/', admin.site.urls),
 ]
 

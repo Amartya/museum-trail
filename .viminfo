@@ -15,9 +15,9 @@ $
 
 # Command Line History (newest to oldest):
 :wq
+:q
 :Wq
 :q!
-:q
 :wq!
 
 # Search String History (newest to oldest):
@@ -60,37 +60,37 @@ $
 	from digitalrail  import views
 
 # File marks:
-'0  1  0  /etc/apache2/conf-available/servername.conf
-'1  125  0  ~/digitalrail/digitalrail/settings.py
-'2  7  42  ~/digitalrail/digitalrail/views.py
-'3  2  41  ~/digitalrail/digitalrail/views.py
-'4  19  2  ~/digitalrail/templates/landingpage/index.html
-'5  1  0  ~/digitalrail/digitalrail/urls.py
-'6  6  39  ~/digitalrail/digitalrail/views.py
-'7  1  0  ~/digitalrail/digitalrail/views/landingpage.py
-'8  19  0  ~/digitalrail/digitalrail/urls.py
-'9  22  18  ~/digitalrail/digitalrail/urls.py
+'0  22  14  ~/digitalrail/digitalrail/urls.py
+'1  1  0  ~/digitalrail/digitalrail/views/landingpage.py
+'2  1  0  ~/digitalrail/digitalrail/views.py
+'3  1  0  /etc/apache2/conf-available/servername.conf
+'4  125  0  ~/digitalrail/digitalrail/settings.py
+'5  7  42  ~/digitalrail/digitalrail/views.py
+'6  2  41  ~/digitalrail/digitalrail/views.py
+'7  19  2  ~/digitalrail/templates/landingpage/index.html
+'8  1  0  ~/digitalrail/digitalrail/urls.py
+'9  6  39  ~/digitalrail/digitalrail/views.py
 
 # Jumplist (newest first):
+-'  22  14  ~/digitalrail/digitalrail/urls.py
+-'  1  0  ~/digitalrail/digitalrail/urls.py
+-'  1  0  ~/digitalrail/digitalrail/views/landingpage.py
+-'  1  0  ~/digitalrail/digitalrail/views.py
 -'  1  0  /etc/apache2/conf-available/servername.conf
 -'  125  0  ~/digitalrail/digitalrail/settings.py
 -'  1  0  ~/digitalrail/digitalrail/settings.py
 -'  7  42  ~/digitalrail/digitalrail/views.py
--'  1  0  ~/digitalrail/digitalrail/views.py
 -'  2  41  ~/digitalrail/digitalrail/views.py
 -'  19  2  ~/digitalrail/templates/landingpage/index.html
 -'  1  0  ~/digitalrail/templates/landingpage/index.html
--'  1  0  ~/digitalrail/digitalrail/urls.py
 -'  6  39  ~/digitalrail/digitalrail/views.py
--'  1  0  ~/digitalrail/digitalrail/views/landingpage.py
 -'  19  0  ~/digitalrail/digitalrail/urls.py
--'  22  18  ~/digitalrail/digitalrail/urls.py
 -'  16  35  ~/digitalrail/digitalrail/urls.py
 -'  1  0  ~/digitalrail/digitalrail/views
 -'  18  16  ~/digitalrail/digitalrail/urls.py
 -'  24  0  ~/digitalrail/digitalrail/urls.py
 -'  26  0  ~/digitalrail/digitalrail/urls.py
--'  14  88  ~/digitalrail/digitalrail/views/landingpage.py
+-'  20  88  ~/digitalrail/digitalrail/views/landingpage.py
 -'  35  17  ~/digitalrail/digitalrail/settings.py
 -'  492  0  /var/log/apache2/error.log
 -'  1  0  /var/log/apache2/error.log
@@ -172,57 +172,10 @@ $
 
 # History of marks within files (newest to oldest):
 
-> /etc/apache2/conf-available/servername.conf
-	"	1	0
-	^	1	1
-	.	1	0
-	+	1	0
-
-> ~/digitalrail/digitalrail/settings.py
-	"	125	0
-	.	126	0
-	+	122	0
-	+	18	39
-	+	126	0
-	+	126	18
-	+	35	17
-	+	60	8
-	+	60	7
-	+	60	8
-	+	61	8
-	+	60	8
-	+	126	0
-
-> ~/digitalrail/digitalrail/views.py
-	"	7	42
-	^	7	43
-	.	7	42
-	+	19	0
-	+	1	11
-	+	1	36
-	+	6	46
-	+	7	4
-	+	3	47
-	+	7	47
-	+	2	0
-	+	7	42
-
-> ~/digitalrail/templates/landingpage/index.html
-	"	19	2
-	.	19	0
-	+	17	2
-	+	19	1
-	+	18	102
-	+	17	29
-	+	18	29
-	+	17	38
-	+	18	39
-	+	19	0
-
 > ~/digitalrail/digitalrail/urls.py
-	"	1	0
-	^	19	0
-	.	18	0
+	"	22	14
+	^	22	15
+	.	22	15
 	+	30	0
 	+	30	0
 	+	30	0
@@ -264,16 +217,69 @@ $
 	+	23	3
 	+	22	11
 	+	18	0
+	+	22	32
+	+	19	41
+	+	22	15
 
 > ~/digitalrail/digitalrail/views/landingpage.py
 	"	1	0
-	^	14	89
-	.	14	1
+	^	1	0
+	.	2	0
 	+	1	0
 	+	1	50
 	+	1	50
 	+	1	50
-	+	14	1
+	+	20	1
+	+	7	0
+	+	1	0
+	+	2	0
+
+> ~/digitalrail/digitalrail/views.py
+	"	1	0
+	^	7	43
+	.	7	42
+	+	19	0
+	+	1	11
+	+	1	36
+	+	6	46
+	+	7	4
+	+	3	47
+	+	7	47
+	+	2	0
+	+	7	42
+
+> /etc/apache2/conf-available/servername.conf
+	"	1	0
+	^	1	1
+	.	1	0
+	+	1	0
+
+> ~/digitalrail/digitalrail/settings.py
+	"	125	0
+	.	126	0
+	+	122	0
+	+	18	39
+	+	126	0
+	+	126	18
+	+	35	17
+	+	60	8
+	+	60	7
+	+	60	8
+	+	61	8
+	+	60	8
+	+	126	0
+
+> ~/digitalrail/templates/landingpage/index.html
+	"	19	2
+	.	19	0
+	+	17	2
+	+	19	1
+	+	18	102
+	+	17	29
+	+	18	29
+	+	17	38
+	+	18	39
+	+	19	0
 
 > /var/log/apache2/error.log
 	"	492	0

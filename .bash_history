@@ -209,3 +209,34 @@ service httpd restart
 service httpd2 restart 
 sudo systemctl restart apache2.service
 /etc/init.d/apache2 restart
+sudo apt-get update
+sudo apt-get upgrade
+clear
+ls
+source digitalrail/fieldenv/bin/activate
+clear
+sudo service apache2 restart
+echo "ServerName localhost"
+cd /etc/apache2/
+ls
+cd conf-available/
+ls
+sudo vi servername.conf
+sudo service apache2 restart
+sudo service apache2 reload
+sudo service apache2 restart
+sudo vi /etc/apache2/conf-available/servername.conf
+sudo a2enconf servername
+service apache2 reload
+sudo service apache2 restart
+clear
+ls
+cd ~
+ls
+git init
+git status
+git add .
+git status
+git commit -m "serving first Django webpage"
+git push
+clear
