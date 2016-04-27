@@ -1,11 +1,13 @@
 $screen-width: 1920px;
 $screen-height: 502px;
-$background-color: #424242;
-$font-color: #fffae7;
-$line-color: #fffae7;
+$background-color: #2b2303;
+$font-color: #E6E1D0;
+$line-color: #e1dfd0;
+$red-color: #bc4c4e;
 
-$header-font: 'FFBaoWebBold';
-$body-font: 'FFBauWeb';
+$header-font: 'BauOT-Bold';
+$body-font: 'BauOT-Medium';
+
 
 * {
   -webkit-box-sizing: border-box;
@@ -17,6 +19,9 @@ $body-font: 'FFBauWeb';
 
 body {
   color: $font-color;
+  font-family: $body-font, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
 }
 
 #screen {
@@ -31,48 +36,185 @@ body {
 }
 
 #content {
-  position: absolute;
-  width: $screen-width - 38;
-  height: $screen-height - 58;
-  border: 2px solid $line-color;
-  margin: 29px 19px 29px 19px;
-  padding: 52px;
+  width: $screen-width - 22;
+  height: $screen-height - 54;
+  border-top: 2px solid $line-color;
+  border-bottom: 2px solid $line-color;
+  margin: 13px 11px 0px 11px;
+  padding: 46px 10px;
+  background-image: url('../media/dragon-450.png');
+  background-repeat: no-repeat;
+  background-position: $screen-width - 525 center;
 }
 
-#left-column {
-  height: 100%;
-  width: 450px;
+
+#tray {
+  width: $screen-width - 22;
+  height: 28px;
+  border-bottom: 2px solid $line-color;
+  margin: 0px 11px 13px 11px;
 }
+
+#cross-bar-left {
+  width: 18px;
+  height: $screen-height - 16;
+  border-right: 2px solid $line-color;
+  margin: 8px 0px 8px 0px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#cross-bar-right {
+  width: 18px;
+  height: $screen-height - 16;
+  border-left: 2px solid $line-color;
+  margin: 8px 0px 8px 0px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
+#left-column {
+  width: 342px;
+  height: 100%;
+  margin-left: 40px;
+  margin-right: 40px;
+  display: inline-block;
+}
+
+#collection {
+  width: 342px;
+  height: 317px;
+}
+
+#timeline {
+  width: 342px;
+  height: 37px;
+}
+
+#timeline-bar {
+  width: 342px - 6;
+  height: 7px;
+  background-color: $line-color;
+  margin: 0 3px;
+}
+
+
+
+#top-level-menu {
+  padding-left: 30px;
+  padding-top: 0px;
+  width: 900px;
+  height: 100%;
+  border-left: 2px solid $line-color;
+  display: inline-block;
+  vertical-align: top;
+}
+
+
+#menu-instructions {
+  font-family: 'BauOT-MediumItalic', sans-serif;
+  font-size: 13px;
+  line-height: 130%;
+  padding-bottom: 10px;
+}
+
 
 p {
   font-family: $body-font, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 400;
   letter-spacing: -0.2px;
-  line-height: 27px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  line-height: 130%;
+  margin-top: 12px;
+  margin-bottom: 12px;
   word-spacing: -0.4px;
   color: 'rgb(255, 255, 250)';
   -moz-osx-font-smoothing: grayscale;  
 }
 
-p.large {
-  font-weight: 600;
-  font-size: 25px;
-  line-height: 34px;
-  letter-spacing: -0.4px;
-  word-spacing: -0.4px;
-}
-
 
 h1 {
   font-family: $header-font, sans-serif;
-  font-size: 35px;
-  font-weight: 400;
+  font-size: 26px;
   font-style: normal;
-  line-height: 44.8px;
+  font-weight: 400;
+  line-height: 120%;
   -moz-osx-font-smoothing: grayscale;  
   padding: 0;
   margin: 0;
 }
+
+.menu-item {
+  margin-top: 7px;
+  margin-bottom: 15px;
+  width: 360px;
+  display: inline-block;
+}
+
+.menu-item-thumbnail {
+  display: inline-block;
+  background-image: url('../../2-1_M2/assets/media/image/2.1_M2_B1.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 90px;
+  height: 90px;
+  margin: 0 5px;
+}
+
+.topic-label .menu-item-thumbnail {
+  width: 65px;
+  height: 65px;
+  margin-left: 17.5px;
+  margin-right: 17.5px;
+  border: 2px solid white;
+  background-size: 90%;
+}
+
+.menu-item-data {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.menu-item-case-number {
+  background-color: $red-color;
+  width: 20px;
+  height: 20px;
+  font-family: $body-font, sans-serif;
+  font-size: 8.5px;
+  padding: 2px;
+  position: relative;
+  top: -2px;
+  line-height: 100%;
+  display: inline-block;
+}
+
+.menu-item-title {
+  font-size: 14px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 110%;
+}
+
+.menu-item-time-period {
+  font-family: 'Avenir Next Regular', sans-serif;
+  font-size: 12px; 
+  line-height: 125%;
+}
+
+.menu-item-origin {
+  font-family: 'Avenir Next Regular', sans-serif;
+  font-size: 12px;
+  line-height: 125%;
+}
+
+.menu-item-id-list {
+  font-family: 'Avenir Next Regular', sans-serif;
+  font-size: 9.5px;
+  font-weight: 200;
+  color: #666;
+}
+
