@@ -1,3 +1,4 @@
 *.pyc
 fleldenv/
 .idea
+*.swf
