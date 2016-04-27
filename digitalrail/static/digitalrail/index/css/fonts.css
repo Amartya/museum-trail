@@ -7,22 +7,42 @@
  * material are those of the author(s) and do not necessarily reflect the views
  * of the National Science Foundation (NSF).
  */
-
-
 @font-face {
-  font-family: "FFBauWeb";
-  src: url("http://chinahall.fieldmuseum.org/content/themes/tfm-dev/css//webfonts/2F32BF_0_unhinted_0.woff") format("woff");
+  font-family: "Avenir Next Bold";
+  src: url("../fonts/AvenirNextLTPro-Bold.otf") format("opentype");
 }
 
 @font-face {
-  font-family: "FFBauWebItalic";
-  src: url("http://chinahall.fieldmuseum.org/content/themes/tfm-dev/css//webfonts/2F32BF_1_unhinted_0.woff") format("woff");
+  font-family: "Avenir Next Regular";
+  src: url("../fonts/AvenirNextLTPro-Regular.otf") format("opentype");
 }
 
+@font-face {
+  font-family: "BauOT-Bold";
+  src: url("../fonts/BauOT-Bold.otf") format("opentype");
+}
 
 @font-face {
-  font-family: 'FFBaoWebBold';
-  font-style: normal;
-  font-weight: 400;
-  src: local('FF Bao Web'), url('../fonts/FFBauWebBold.woff');
+  font-family: "BauOT-BoldItalic";
+  src: url("../fonts/BauOT-BoldItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-Italic";
+  src: url("../fonts/BauOT-Italic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-Medium";
+  src: url("../fonts/BauOT-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-MediumItalic";
+  src: url("../fonts/BauOT-MediumItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT";
+  src: url("../fonts/BauOT.otf") format("opentype");
 }
