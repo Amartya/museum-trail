@@ -1,4 +1,3 @@
-{% load staticfiles %}
 <!--
   Cyrus Tang Hall of China 
   Digial Rail Design
@@ -15,22 +14,93 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi">
   <meta name="format-detection" content="telephone=no">
-  <link href="{% static "index/css/main.css" %}" type="text/css" rel="stylesheet" />
-  <link href="{% static "index/css/fonts.css" %}" type="text/css" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/index/css/main.css">
+  <link rel="stylesheet" href="/static/index/css/fonts.css">
   <title>Case 201: Cyrus Tang Hall of China</title>
 </head>
 <body>
   <div id="screen">
     <div id="content">
       <div id="left-column">
-        <h1>A booming industry</h1>
-        <p class="large">
-          <b>
-          By the 13th century, Chinese ceramics were a major export item. Kilns produced many different forms, styles, and qualities for markets abroad and at home.
-          </b>
-        </p>
+        <div id="collection">
+          <h1>Bronze Age innovations</h1>
+          <p>
+            Major innovations, such as writing, high-fired ceramics, bronze casting, and the use of money, marked the early dynasties of China.
+          </p>
+        </div>
+
+        <div id="timeline">
+          <div id="timeline-bar"></div>
+        </div>
+
+      </div>
+
+
+      <div id="top-level-menu">
+        <div id="menu-instructions">
+          Tap an object to learn more.
+        </div>
+
+        <div class="menu-item detailed">
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number">14- 16</div>
+            <div class="menu-item-title">Oracle bones</div>
+            <div class="menu-item-time-period">Shang–Zhou period<br><span class='avenir'>(c. 1600–256 BC)</span></div>
+            <div class="menu-item-origin">China</div>
+            <div class="menu-item-id-list">235949, 117374, 235955A</div>
+          </div>
+        </div>
+
+        <div class="menu-item detailed">
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number">17- 18</div>
+            <div class="menu-item-title">Oracle bones<br>(inscriptions added later)</div>
+            <div class="menu-item-time-period">Shang Dynasty<br><span class='avenir'>(c. 1600–1046 BC)</span></div>
+            <div class="menu-item-origin">China</div>
+            <div class="menu-item-id-list">235949, 117374, 235955A</div>
+          </div>
+        </div>
+
+        <div class="menu-item detailed">
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number">17- 18</div>
+            <div class="menu-item-title">Oracle bones<br>(inscriptions added later)</div>
+            <div class="menu-item-time-period">Shang Dynasty<br><span class='avenir'>(c. 1600–1046 BC)</span></div>
+            <div class="menu-item-origin">China</div>
+            <div class="menu-item-id-list">235949, 117374, 235955A</div>
+          </div>
+        </div>
+        
+
+        <div class="menu-item detailed">
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number">17- 18</div>
+            <div class="menu-item-title">Oracle bones<br>(inscriptions added later)</div>
+            <div class="menu-item-time-period">Shang Dynasty<br><span class='avenir'>(c. 1600–1046 BC)</span></div>
+            <div class="menu-item-origin">China</div>
+            <div class="menu-item-id-list">235949, 117374, 235955A</div>
+          </div>
+        </div>
+        
+        <div class="menu-item detailed topic-label">
+          <div class="menu-item-thumbnail" style="background-image: url('/static/index/media/2-1_M2/assets/media/image/2.1_M2_B3.png');"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-title">More on oracle bones</div>
+          </div>
+        </div>
+
+
       </div>
     </div>
+    <div id="tray">
+    </div>
+
+    <div id="cross-bar-left"></div>
+    <div id="cross-bar-right"></div>
   </div>      
 
   <script type="text/javascript">
