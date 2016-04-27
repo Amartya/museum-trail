@@ -1,0 +1,68 @@
+{
+    "buttonID": "B2",
+    "caseNumber": "17-18",
+    "title": "Oracle bones<br>(inscriptions added later)",
+    "timePeriod": "SHANG DYNASTY<br><span class='avenir'>(c. 1600–1046 BC)</span>",
+    "timePeriodUppercase":false,
+    "date": "<br>Shang Dynasty<br>(c. 1600–1046 BC)",
+    "dateRange": [
+        -1600,
+        -1046
+    ],
+    "origin": "China",
+    "id": [
+        125459,
+        125461
+    ],
+    "thumbnail": "2.1_M2_B2.png",
+    "stories": [
+        {
+            "label": "Mechanics of oracle bone divination",
+            "content": "The two larger bones displayed above show how they were prepared for divination. The shoulder blades, or scapulae, from cattle or the front of turtle shells, or plastrons, were cleaned and one side polished. The other side had small pits bored in rows, as seen here, for the divination described in the next entry. Large numbers of prepared bones were given to the king as tribute."
+        },
+        {
+            "label": "The voice of the ancestors",
+            "content": "The pits bored in these bones allowed the king or his diviner to create a crack by inserting a heated thorn or piece of metal into the pit. The crack made a “puk” sound, which was the voice of the ancestor being questioned. The king then interpreted the shape of the crack as a lucky or auspicious answer to his question, or an unlucky or inauspicious answer. The Chinese charcter for the verb “to divine” (<span class='chinese'>卜</span>) mimics the shape of a crack on an oracle bone.",
+            "type": "slideshow",
+            "link": [
+                {
+                    "name": "2.1_M2_B2_S2_1.png",
+                    "caption": "The steps of an oracle bone divination",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "2.1_M2_B2_S2_2.png",
+                    "caption": "The steps of an oracle bone divination",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "2.1_M2_B2_S2_3.png",
+                    "caption": "The steps of an oracle bone divination",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "2.1_M2_B2_S2_4.png",
+                    "caption": "The steps of an oracle bone divination",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "2.1_M2_B2_S2_5.png",
+                    "caption": "The steps of an oracle bone divination",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                }
+            ],
+            "resizable": true,
+            "caption": ""
+        },
+        {
+            "label": "Interpreting the bones",
+            "content": "Oracle bones not only recorded the question asked of the ancestors, they also recorded the “prognostication” or forecast interpreted from the shape of the crack. Sometimes, they recorded the eventual outcome as well. For instance, if the king asked about the weather and interpreted the crack as auspicious, a later inscription, called the “verification,” might record whether the weather actually was good. Thousands of these oracle bone inscriptions have been recovered, giving scholars a picture of day-to-day life in the king’s household.",
+            "type": "image",
+            "link": "G2.1_M2_B2_S3.png",
+            "resizable": true,
+            "caption": "This illustration shows an oracle bone divination:  the “preface” recording date and diviner; positive and negative versions of a statement or “charge”; the forecast or “prognostication”; and the outcome, or “verification.”",
+            "credit":"©The Field Museum, Illustrator Sayaka Isowa"
+        }
+    ],
+    "isTopicLabel": false
+}

@@ -1,0 +1,90 @@
+{
+    "buttonID": "B1",
+    "caseNumber": "14-16",
+    "title": "Oracle bones",
+    "timePeriod": "SHANG DYNASTY<br><span class='avenir'>(c. 1600–1046 BC)</span>",
+    "timePeriodUppercase":false,
+    "date": "Shang Dynasty<br>(c. 1600–1046 BC)",
+    "dateRange": [
+        -1600,
+        -1046
+    ],
+    "origin": "China",
+    "id": [
+        121061,
+        121062,
+        121063
+    ],
+    "thumbnail": "2.1_M2_B1.png",
+    "stories": [
+        {
+            "label": "Oracle bones",
+            "content": "Most of the earliest writing in China hasn’t survived. Anything written on bamboo or fabric has long since disappeared. There is no way to tell exactly when or how writing emerged in China, but we do have evidence of a fully functioning writing system by the second half of the Shang Dynasty (c. 1600–1046 BC). These fragments of shell and bone only show a few characters, once part of longer inscriptions. These pieces were used in rituals to try to foretell the future, so they are known as “oracle bones.”",
+            "textWidth": 5,
+            "type": "slideshow",
+            "link": [
+                {
+                    "name": "G2.1_M2_B1_S1_1.png",
+                    "caption": "Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today.",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "G2.1_M2_B1_S1_2.png",
+                    "caption": "Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today.",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "G2.1_M2_B1_S1_3.png",
+                    "caption": "Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today.",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "G2.1_M2_B1_S1_4.png",
+                    "caption": "Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today.",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                },
+                {
+                    "name": "G2.1_M2_B1_S1_5.png",
+                    "caption": "Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today.",
+                    "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+                }
+            ]
+        },
+        {
+            "label": "What is divination?",
+            "content": "Divination, the art of prediciting the future, was part of the Shang political system and a demonstration of a king’s authority and spiritual power. The king used oracle bones like these to consult his ancestors and to ask them to serve as intemediaries to the high god, Di, and to the powers of rivers, mountains, rain, and thunder. A Shang king’s ability to contact supernatural powers reinforced his political power. The king’s authority depended in part on his ability to speak to his ancestors on behalf of the community.",
+            "type": "slideshow",
+            "link": [
+                {
+                    "name": "2-1_M2_B1_S2_Slide1.png",
+                    "caption": "The inscription translates as “Divine [i.e. “the diviner said”]: on the coming of the Yisi day, the King does not enter…”",
+                    "credit": "©The Field Museum, Photographer Gedi Jakovickas"
+                },
+                {
+                    "name": "2-1_M2_B1_S2_Slide2.png",
+                    "caption": "This inscription is difficult to read and has not been translated.",
+                    "textWidth":10,
+                    "credit": "©The Field Museum, Photographer Gedi Jakovickas"
+                },
+                {
+                    "name": "2-1_M2_B1_S2_Slide3.png",
+                    "caption": "The inscription reads, “…divine…will not <span class='italics'>bin</span>…<br>will not…” The character <span class='italics'>bin</span> is a common verb found in oracle bone inscriptions, but its meaning remains unclear.",
+                    "textWidth": 15,
+                    "credit": "©The Field Museum, Photographer Gedi Jakovickas"
+                }
+            ],
+            "caption": ""
+        },
+        {
+            "label": "The first recorded history",
+            "content": "During a divination, a Shang king or his diviner asked the king’s ancestors to fortell the outcome of hunts, the weather, travelling, births, the causes of disease, or the likelihood of war or disaster. The oracle bones recorded a statement, known as the “charge” and the response—a confirmation or denial—that the diviner (sometimes the king himself) interpreted. These dialogues created the first historical records in China.",
+            "textWidth": 10,
+            "type": "image",
+            "link": "G2.1_M2_B1_S3.png",
+            "resizable": true,
+            "caption": "This illustration shows an oracle bone divination:  the “preface” recording date and diviner; positive and negative versions of a statement or “charge”; the forecast or “prognostication”; and the outcome, or “verification.”",
+            "credit": "©The Field Museum, Illustrator Sayaka Isowa"
+        }
+    ],
+    "isTopicLabel": false
+}
