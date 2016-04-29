@@ -2,3 +2,5 @@
 fleldenv/
 .idea
 *.swf
+*.css.map
+.sass-cache
