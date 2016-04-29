@@ -16,6 +16,7 @@
   <meta name="format-detection" content="telephone=no">
   <link rel="stylesheet" href="/static/index/css/main.css">
   <link rel="stylesheet" href="/static/index/css/fonts.css">
+  <script src="/static/index/js/jquery-1.12.3.min.js"></script>
   <title>Case 201: Cyrus Tang Hall of China</title>
 </head>
 <body>
@@ -67,6 +68,7 @@
         </div>
 
         <div class="menu-item detailed">
+          <div class="menu-item-case-number left">14- 16</div>
           <div class="menu-item-thumbnail"></div>
           <div class="menu-item-data">
             <div class="menu-item-case-number">14- 16</div>
@@ -78,6 +80,7 @@
         </div>
 
         <div class="menu-item detailed">
+          <div class="menu-item-case-number left">17- 18</div>
           <div class="menu-item-thumbnail"></div>
           <div class="menu-item-data">
             <div class="menu-item-case-number">17- 18</div>
@@ -88,7 +91,10 @@
           </div>
         </div>
 
+        <br>
+
         <div class="menu-item detailed">
+          <div class="menu-item-case-number left">17- 18</div>
           <div class="menu-item-thumbnail"></div>
           <div class="menu-item-data">
             <div class="menu-item-case-number">17- 18</div>
@@ -101,6 +107,7 @@
         
 
         <div class="menu-item detailed">
+          <div class="menu-item-case-number left">17- 18</div>
           <div class="menu-item-thumbnail"></div>
           <div class="menu-item-data">
             <div class="menu-item-case-number">17- 18</div>
@@ -110,6 +117,8 @@
             <div class="menu-item-id-list">235949, 117374, 235955A</div>
           </div>
         </div>
+
+        <br>
         
         <div class="menu-item detailed topic-label">
           <div class="menu-item-thumbnail" style="background-image: url('/static/index/media/2-1_M2/assets/media/image/2.1_M2_B3.png');"></div>
@@ -126,7 +135,18 @@
 
     <div id="cross-bar-left"></div>
     <div id="cross-bar-right"></div>
-  </div>      
+  </div>
+  <script>
+
+    $('.menu-item').click(function() {
+      $('.menu-item-data').hide();  // .show();
+      $('.menu-item').width("118px");
+      $('.menu-item-case-number.left').css("opacity", "1.0");
+      $('#top-level-menu').width("245px");
+      //$('#top-level-menu').css("border-right", "2px solid");
+    });
+
+  </script>
 
   <script type="text/javascript">
     
