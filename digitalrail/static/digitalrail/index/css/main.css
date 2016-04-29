@@ -97,9 +97,12 @@ body {
   padding-top: 0px;
   width: 900px;
   height: 352px;
-  border-left: 2px solid #e1dfd0;
+  border-left: 2px solid;
   display: inline-block;
-  vertical-align: top; }
+  vertical-align: top;
+  transition: width 0.5s;
+  transition-delay: 2s;
+  border-color: #e1dfd0; }
 
 #menu-instructions {
   font-family: 'BauOT-MediumItalic', sans-serif;
@@ -133,7 +136,9 @@ h1 {
   margin-top: 7px;
   margin-bottom: 10px;
   width: 360px;
-  display: inline-block; }
+  display: inline-block;
+  transition: width 0.5s;
+  position: relative; }
 
 .menu-item-thumbnail {
   display: inline-block;
@@ -168,6 +173,13 @@ h1 {
   top: -2px;
   line-height: 100%;
   display: inline-block; }
+
+.menu-item-case-number.left {
+  position: absolute;
+  left: -5px;
+  opacity: 0;
+  transition: opacity 0.8s;
+  transition-delay: 0.3s; }
 
 .menu-item-title {
   font-size: 14px;
