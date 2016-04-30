@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -30,13 +31,43 @@ body {
   padding: 0px 7px;
   background-image: url("../media/dragon-450.png");
   background-repeat: no-repeat;
-  background-position: 1395px center; }
+  background-position: 1395px center;
+  position: relative; }
 
 #tray {
   width: 1898px;
   height: 28px;
   border-bottom: 2px solid #e1dfd0;
-  margin: 0px 11px 13px 11px; }
+  margin: 0px 11px 13px 11px;
+  position: relative; }
+
+#home-button {
+  width: 100px;
+  height: 26px;
+  font-family: "BauOT-Medium", sans-serif;
+  font-size: 13px;
+  line-height: 13px;
+  text-align: center;
+  position: absolute;
+  right: 7px;
+  bottom: 0px;
+  outline: none;
+  border-top: none;
+  border-bottom: none;
+  border-left: 2px solid;
+  border-right: none;
+  border-color: #e1dfd0;
+  color: #e1dfd0;
+  background-color: #bc4c4e;
+  background-image: url("../media/home-button.png");
+  background-repeat: no-repeat;
+  background-position: 17px center;
+  padding-left: 22px;
+  padding-top: 2px;
+  display: none; }
+
+#home-button:active {
+  opacity: 0.5; }
 
 #cross-bar-left {
   width: 18px;
@@ -91,7 +122,7 @@ body {
   border-left: 2px solid #e1dfd0;
   height: 6px; }
 
-#top-level-menu {
+#collection-panel {
   margin: 50px 0;
   padding-left: 34px;
   padding-top: 0px;
@@ -104,11 +135,53 @@ body {
   transition-delay: 2s;
   border-color: #e1dfd0; }
 
-#menu-instructions {
+.menu-instructions {
   font-family: 'BauOT-MediumItalic', sans-serif;
   font-size: 13px;
   line-height: 130%;
   padding-bottom: 10px; }
+
+#object-menu .menu-instructions {
+  margin-top: 35px;
+  font-size: 11px; }
+
+#object-menu {
+  width: 340px;
+  height: 352px;
+  position: absolute;
+  left: 710px;
+  top: 50px;
+  border-left: 2px solid #e1dfd0;
+  padding-left: 32px;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: -1; }
+
+#story-list {
+  padding-left: 15px;
+  margin: 0;
+  list-style: none; }
+
+#story-list li {
+  font-size: 16.5px;
+  padding: 17px 8px;
+  line-height: 130%;
+  font-weight: 500;
+  text-indent: -1.2em; }
+
+#story-list li:before {
+  content: "▶ ";
+  /*"• ";*/
+  position: relative;
+  left: -35px;
+  color: #b8a270;
+  transition: left 0.8s; }
+
+#story-list li.changed:before {
+  left: -8px; }
+
+#story-list li:active {
+  color: #b8a270; }
 
 p {
   font-family: "BauOT-Medium", sans-serif;
