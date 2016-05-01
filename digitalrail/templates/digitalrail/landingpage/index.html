@@ -131,22 +131,36 @@
       </div>
 
 
+      <!-- ALL CONTENT TO THE RIGHT OF THE COLLECTION MENU -->
+      <div id="right-panel">
 
-      <!-- OBJECT MENU -->
-      <div id="object-menu">
-        <div class="menu-item-data">
-          <div class="menu-item-case-number"></div>
-          <div class="menu-item-title"></div>
-          <div class="menu-item-time-period"></div>
-          <div class="menu-item-origin"></div>
-          <div class="menu-item-id-list"></div>
+        <!-- OBJECT MENU -->
+        <div id="object-menu">
+          <div class="menu-item-data">
+            <div class="menu-item-case-number"></div>
+            <div class="menu-item-title"></div>
+            <div class="menu-item-time-period"></div>
+            <div class="menu-item-origin"></div>
+            <div class="menu-item-id-list"></div>
+          </div>
+
+          <div class="menu-instructions">Tap below to learn more.</div>
+          <ul id="story-list"></ul>
         </div>
 
-        <div class="menu-instructions">Tap below to learn more.</div>
-        <ul id="story-list"></ul>
+        <!-- STORY PANEL -->
+        <div id="story-panel">
+          <h2 id="story-title"></h2>
+          <p id="story-content"></p>
+        </div>
+
+        <!-- STORY GALLERY -->
+        <div id="story-gallery">
+          <div id="image-credit"></div>
+          <div id="gallery-image"></div>
+          <div id="image-caption"></div>
+        </div>
       </div>
-
-
 
     </div>
     <div id="tray">
@@ -162,7 +176,11 @@
     var jsonPath = "/static/index/media/" + caseId + "/assets/json/";
     var imagePath = "/static/index/media/" + caseId + "/assets/media/image/";
     var railName = caseId;
+    var stories = {};
 
+    //--------------------------------------------------------------
+    // Load the collection data and top-level menu
+    //--------------------------------------------------------------
     $.getJSON(jsonPath + "collection.json", function(collectionData) {
       $('#header').html(collectionData['header']);
       $('#headerText').html(collectionData['headerText']);
@@ -172,6 +190,7 @@
         $.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {
           var parent = "#collection-menu-" + index;
           $(parent).data("buttonID", objectData['buttonID']);
+          $(parent + " .menu-item-case-number").show();
           $(parent + " .menu-item-case-number").html(objectData['caseNumber']);
           $(parent + " .menu-item-title").html(objectData['title']);
           $(parent + " .menu-item-time-period").html(objectData['date']);
@@ -180,6 +199,7 @@
           $(parent + " .menu-item-thumbnail").css('background-image', 'url(' + imagePath + objectData['thumbnail'] + ')');
           if (objectData['isTopicLabel']) {
             $(parent).addClass("topic-label");
+            $(parent + " .menu-item-case-number").hide();
           }
         });
       });
@@ -201,19 +221,27 @@
         $(parent + " .menu-item-id-list").html(objectData['id'].join(', '));
         var menuItems = [];
         $('#story-list').empty();
+        stories = {};
         $.each(objectData['stories'], function(index, storyData) {
-          $('#story-list').append( $("<li/>", { id: 'story-' + index, html: storyData['label'] }));
+          var storyLink = $("<li/>", { id: 'story-' + index, class: 'story-link', html: storyData['label'] });
+          $('#story-list').append( storyLink );
+          storyLink.click(expandStory);
+          stories['story-' + index] = storyData;
         });
       });
       $('#collection-panel .menu-item-data').hide(); 
       $('.menu-item').width("118px");
+      $('.menu-item').addClass("dimmed");
+      $(this).removeClass("dimmed");
       $('.menu-item-case-number.left').css("opacity", "1.0");
-      $('#object-menu').css("opacity", "1.0");
-      $('#object-menu').css("z-index", "100");
+      $('#right-panel').css("opacity", "1.0");
+      $('#right-panel').css("z-index", "100");
       window.setTimeout(function() {
         $('#story-list li').addClass("changed");
       }, 200);
       $('#home-button').show();
+      $('#story-panel').css("opacity", "0.0");
+      $('#story-gallery').css("opacity", "0.0");
     });
 
 
@@ -225,12 +253,33 @@
         $('#collection-panel .menu-item-data').show();
       }, 800);
       $('.menu-item').width("360px");
+      $('.menu-item').removeClass("dimmed");
       $('.menu-item-case-number.left').css("opacity", "0.0");
-      $('#object-menu').css("opacity", "0.0");
-      $('#object-menu').css("z-index", "-1");
-      $('#object-menu li').removeClass("changed");
+      $('#right-panel').css("opacity", "0.0");
+      $('#right-panel').css("z-index", "-1");
+      $('#story-panel').css("opacity", "0.0");
+      $('#story-gallery').css("opacity", "0.0");
       $('#home-button').hide();
     });
+
+    //--------------------------------------------------------------
+    // Story link callback
+    //--------------------------------------------------------------
+    function expandStory() {
+      var id = $(this).attr('id');
+      $('#story-title').html(stories[id]['label']);
+      $('#story-content').html(stories[id]['content']);
+      $('#story-list li').addClass("dimmed");
+      $(this).removeClass("dimmed");
+      $('#story-panel').css("opacity", "1.0");
+      $('#story-gallery').css("opacity", "0.0");
+      if (stories[id]['type'] == "image") {
+        $('#story-gallery').css("opacity", "1.0");
+        $('#gallery-image').css('background-image', 'url(' + imagePath + stories[id]['link'] + ')');
+        $('#image-credit').html(stories[id]['credit']);
+        $('#image-caption').html(stories[id]['caption']);
+      }
+    }
 
   </script>
 
