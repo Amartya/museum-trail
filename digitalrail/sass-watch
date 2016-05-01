@@ -1,0 +1,1 @@
+sass --watch static/digitalrail/index/css/scss:static/digitalrail/index/css
