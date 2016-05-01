@@ -12,6 +12,9 @@ body {
   font-size: 18px;
   font-weight: 400; }
 
+.italics {
+  font-family: 'BauOT-MediumItalic', sans-serif; }
+
 #screen {
   position: absolute;
   top: 0px;
@@ -145,17 +148,23 @@ body {
   margin-top: 35px;
   font-size: 11px; }
 
-#object-menu {
-  width: 340px;
-  height: 352px;
+#right-panel {
   position: absolute;
+  top: 0px;
   left: 710px;
-  top: 50px;
-  border-left: 2px solid #e1dfd0;
-  padding-left: 32px;
+  height: 444px;
+  width: 1179px;
   opacity: 0;
   transition: opacity 0.5s;
   z-index: -1; }
+
+#object-menu {
+  padding-left: 32px;
+  margin: 50px 0;
+  width: 340px;
+  height: 352px;
+  display: inline-block;
+  border-left: 2px solid #e1dfd0; }
 
 #story-list {
   padding-left: 15px;
@@ -163,7 +172,7 @@ body {
   list-style: none; }
 
 #story-list li {
-  font-size: 16.5px;
+  font-size: 17px;
   padding: 17px 8px;
   line-height: 130%;
   font-weight: 500;
@@ -171,17 +180,84 @@ body {
 
 #story-list li:before {
   content: "▶ ";
-  /*"• ";*/
+  /* "• "; */
+  background-image: url("../media/arrow-right.png");
+  background-position: top center;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
   position: relative;
   left: -35px;
-  color: #b8a270;
+  top: -2px;
+  /* color: #b8a270; */
+  color: transparent;
   transition: left 0.8s; }
 
 #story-list li.changed:before {
   left: -8px; }
 
+#story-list li.dimmed {
+  /* color: #6d6e71;*/
+  opacity: 0.3; }
+
 #story-list li:active {
   color: #b8a270; }
+
+#story-panel {
+  margin: 50px 20px;
+  width: 260px;
+  height: 352px;
+  display: inline-block;
+  vertical-align: top;
+  opacity: 0;
+  transition: opacity 0.5s; }
+
+h2#story-title {
+  font-size: 16.5px;
+  line-height: 135%;
+  font-weight: 500;
+  padding: 0;
+  margin: 0; }
+
+p#story-content {
+  font-size: 13px;
+  line-height: 140%; }
+
+#story-gallery {
+  display: inline-block;
+  vertical-align: top;
+  opacity: 0;
+  transition: opacity 0.5s;
+  width: 530px;
+  height: 444px;
+  position: relative; }
+
+#gallery-image {
+  width: 510px;
+  height: 350px;
+  background-color: #333;
+  margin: 30px 10px 0px 10px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; }
+
+#image-credit {
+  font-family: 'Avenir Next Regular', sans-serif;
+  font-size: 9.5px;
+  font-weight: 200;
+  color: #666;
+  position: absolute;
+  right: 12px;
+  top: 16px;
+  text-align: right; }
+
+#image-caption {
+  width: 510px;
+  height: 55px;
+  font-size: 12px;
+  line-height: 130%;
+  margin-left: 10px;
+  margin-top: 5px; }
 
 p {
   font-family: "BauOT-Medium", sans-serif;
@@ -212,6 +288,9 @@ h1 {
   display: inline-block;
   transition: width 0.5s;
   position: relative; }
+
+.menu-item.dimmed {
+  opacity: 0.5; }
 
 .menu-item-thumbnail {
   display: inline-block;
