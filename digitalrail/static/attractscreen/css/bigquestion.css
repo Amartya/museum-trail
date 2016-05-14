@@ -11,6 +11,9 @@ body {
   font-size: 18px;
   font-weight: 400; }
 
+::-webkit-scrollbar {
+  width: 0px; }
+
 #screen {
   position: absolute;
   top: 0px;
@@ -66,6 +69,7 @@ body {
   #img-clipper #hero-img {
     background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
     background-repeat: no-repeat;
+    background-size: contain;
     width: 300px;
     height: 300px;
     margin: auto; }
@@ -213,7 +217,8 @@ body {
       margin: auto;
       background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_large.png");
       background-repeat: no-repeat;
-      background-position: center; }
+      background-position: center;
+      background-size: contain; }
 
 #media-col:after {
   content: "";
