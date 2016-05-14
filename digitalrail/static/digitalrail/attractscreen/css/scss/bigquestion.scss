@@ -116,13 +116,12 @@ body {
   #hero-img{
     background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
     background-repeat: no-repeat;
+    background-size: contain;
     width: 300px;
     height: 300px;
     margin: auto;
   }
 }
-
-
 
 #question-container {
   display: flex;
