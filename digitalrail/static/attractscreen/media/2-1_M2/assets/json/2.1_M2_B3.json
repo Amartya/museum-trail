@@ -1,0 +1,27 @@
+{ 
+    "buttonID":"B3",
+    "title":"More on oracle bones",
+    "thumbnail":"2.1_M2_B3.png",
+    "id":[],
+    "stories":[
+            {
+                "label":"Supernatural protection",
+                "content":"In China’s early states, commoners might be conscripted into the army or drafted to help build city walls or palaces. However, they gained benefits from their community as well. Walled cities provided protection from bandits and rival groups. Rituals reinforced a sense of legitimacy and group identity. The oracle bones point to another, less tangible, benefit—the supernatural protection that a king could persuade his ancestors to provide for his people.",
+                "textWidth":10
+            },
+            {
+                "label":"The power of written records",
+                "content":"Oracle bone divination was practiced for centuries before the Shang rulers and their scribes began writing the charge, prognostication, and verification on them. By writing on the oracle bones, scribes created a lasting record of the divinations. The records of the oracle bones are sometimes described as a precursor to China’s immensely effective bureaucratic system, which emerged in later dynasties."
+            },
+            {
+                "label":"Discovering oracle bones",
+                "content":"Oracle bones weren’t discovered until 1899, when a scholar named Wang Yirong supposedly sent his servant to an apothecary for “dragon bones,” which were thought to cure malaria when ground into a powder. When his servant brought him the bones, he noticed they had a form of writing on them. He located the source of the dragon bones near Anyang and published a book of inscriptions found on the pieces. His discovery excited both scholars and collectors, and led to more excavations around Anyang, but also to a brisk trade in fake oracle bones.",
+                "type":"image",
+                "link":"2.1_M2_B3_S3.png",
+                "resizable":true,
+                "caption":"As scholars became interested in oracle bones in the early twentieth century, a brisk trade in fakes emerged.",
+                "credit":"© The Field Museum, A115184d Photographer Karen Bean"
+            }
+        ],
+    "isTopicLabel":true
+}
