@@ -53,6 +53,11 @@ body {
   -o-transition: transform 0.8s ease, opacity 1s ease;
   -webkit-backface-visibility: hidden; }
 
+#mask {
+  display: none;
+  opacity: 0.65;
+  background-color: #666666; }
+
 #img-container {
   display: flex;
   width: 640px;
@@ -105,7 +110,7 @@ body {
 .nav {
   height: 50px;
   cursor: pointer; }
-  .nav .nav-next {
+  .nav .nav-screen {
     padding-left: 10px;
     content: url("/static/common/media/nextarrow.png"); }
   .nav:active, .nav:hover {
@@ -119,8 +124,7 @@ body {
 
 #artifacts-col {
   position: relative;
-  width: 560px;
-  -webkit-overflow-scrolling: touch; }
+  width: 560px; }
   #artifacts-col #artifacts-wrapper {
     overflow-y: scroll;
     width: 100%;
@@ -139,17 +143,16 @@ body {
         background-color: #E1DDC6;
         border: 5px solid #888678; }
         #artifacts-col #artifacts-wrapper .artifact .artifact-img-clipper .artifact-img {
-          background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_small.png");
           background-repeat: no-repeat;
           width: 60px;
           height: 60px;
           margin: auto; }
       #artifacts-col #artifacts-wrapper .artifact .artifact-index {
-        width: 55px;
+        width: 60px;
         height: 25px;
         margin-left: 10px;
         background-color: #bc4c4e;
-        font-size: 10pt;
+        font-size: 7pt;
         font-family: "BauOT-Medium", sans-serif;
         margin-top: 10px;
         line-height: 25px;
@@ -159,15 +162,15 @@ body {
         flex-direction: column; }
       #artifacts-col #artifacts-wrapper .artifact .artifact-description {
         height: 25px;
-        width: 300px;
+        width: 270px;
         margin-left: 10px;
-        font-size: 22pt;
+        font-size: 20pt;
         font-family: "Avenir Next Regular", sans-serif;
         text-align: left;
         margin-top: 10px; }
       #artifacts-col #artifacts-wrapper .artifact .artifact-sub-description {
         height: 20px;
-        width: 300px;
+        width: 270px;
         margin-left: 10px;
         font-family: "Avenir Next Regular", sans-serif;
         text-align: left;
@@ -176,6 +179,15 @@ body {
           font-size: 12pt; }
         #artifacts-col #artifacts-wrapper .artifact .artifact-sub-description .line3 {
           font-size: 10pt; }
+      #artifacts-col #artifacts-wrapper .artifact .more-info-modal {
+        font-size: 20pt;
+        height: 100%;
+        line-height: 120px;
+        text-align: center; }
+        #artifacts-col #artifacts-wrapper .artifact .more-info-modal i {
+          margin: 0px 3px 0px 3px; }
+      #artifacts-col #artifacts-wrapper .artifact:active, #artifacts-col #artifacts-wrapper .artifact:hover {
+        cursor: pointer; }
     #artifacts-col #artifacts-wrapper .artifact.selected {
       opacity: 0.90; }
 
@@ -189,19 +201,25 @@ body {
   right: 0; }
 
 #detail-col {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  position: relative;
   width: 700px;
   overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
   font-size: 14pt;
   padding: 30px 30px 0px 30px; }
   #detail-col #detail-header {
+    position: fixed;
+    background-color: #333333;
+    top: 7px;
+    height: 50px;
+    width: 640px;
     margin-bottom: 20px;
-    font-size: 25pt; }
+    font-size: 25pt;
+    line-height: 50px;
+    text-align: center; }
+  #detail-col #detail-text {
+    margin-top: 25px;
+    height: 385px;
+    overflow-x: hidden;
+    overflow-y: scroll; }
 
 #media-col {
   position: relative;
@@ -233,12 +251,12 @@ body {
   -webkit-box-shadow: 0 7px 12px -8px black;
   box-shadow: 0 7px 12px -8px black; }
 
-#navigation-bar {
+#home-bar {
   display: none;
   cursor: pointer;
   position: fixed;
   top: 455px;
-  left: 230px;
+  left: 1800px;
   width: 100px;
   height: 40px;
   background-color: #bc4c4e;
@@ -246,14 +264,43 @@ body {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   font-family: "Avenir Next";
-  background-image: url("/static/common/media/home-button.png");
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  padding-left: 5px;
   line-height: 45px;
   text-align: center; }
-  #navigation-bar:active, #navigation-bar:hover {
+  #home-bar i {
+    padding-left: 5px;
+    padding-right: 5px; }
+  #home-bar:active, #home-bar:hover {
     opacity: 0.95; }
+
+#tab-bar {
+  display: none;
+  justify-content: space-around;
+  cursor: pointer;
+  position: fixed;
+  top: 455px;
+  left: 705px;
+  width: 410px;
+  height: 40px; }
+  #tab-bar .tab {
+    display: flex;
+    width: 125px;
+    background-color: #bc4c4e;
+    font-size: 12pt;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-family: "Avenir Next";
+    line-height: 40px;
+    text-align: center; }
+    #tab-bar .tab i {
+      margin-left: 3px;
+      margin-right: 3px;
+      width: 25px; }
+    #tab-bar .tab .tab-text {
+      padding-right: 10px;
+      max-width: 88px;
+      text-align: left; }
+    #tab-bar .tab:active, #tab-bar .tab:hover {
+      opacity: 0.95; }
 
 .right-page-hidden {
   -webkit-transform: translateX(1920px);
@@ -268,5 +315,43 @@ body {
   -o-transform: translateX(-1920px);
   -transform: translateX(-1920px);
   opacity: 0; }
+
+#info-menu-wrapper {
+  display: none;
+  position: absolute;
+  height: 150px; }
+
+#info-menu {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: 150px;
+  background: #E1DDC6;
+  padding: 3px;
+  border-radius: 5px;
+  color: #FFF;
+  position: absolute;
+  left: 50px; }
+  #info-menu .info-item {
+    cursor: pointer;
+    height: 40px;
+    background: #888678;
+    margin-bottom: 3px;
+    font-size: 10pt;
+    padding: 3px 5px 3px 5px; }
+    #info-menu .info-item:active, #info-menu .info-item:hover {
+      opacity: 0.95; }
+
+#info-menu:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #E1DDC6;
+  position: absolute;
+  top: 16px;
+  left: -10px; }
 
 /*# sourceMappingURL=bigquestion.css.map */

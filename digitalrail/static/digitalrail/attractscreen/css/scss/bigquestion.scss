@@ -102,6 +102,12 @@ body {
   @include x-browser-transition(transform 0.8s ease, opacity 1s ease);
 }
 
+#mask{
+  display: none;
+  opacity: 0.65;
+  background-color: #666666;
+}
+
 #img-container {
   display: flex;
   width: $screen-third;
@@ -158,7 +164,7 @@ body {
   height: 50px;
   cursor: pointer;
 
-  .nav-next{
+  .nav-screen {
     padding-left: 10px;
     content:url("/static/common/media/nextarrow.png");
   }
@@ -178,7 +184,7 @@ body {
 #artifacts-col{
   position: relative;
   width: 560px;
-  -webkit-overflow-scrolling: touch;
+
   #artifacts-wrapper{
     overflow-y:scroll;
     width: 100%;
@@ -200,7 +206,7 @@ body {
         border: 5px solid $outline-color;
 
         .artifact-img{
-          background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_small.png");
+          background-size:contain;
           background-repeat: no-repeat;
           width: 60px;
           height: 60px;
@@ -209,25 +215,27 @@ body {
       }
 
       .artifact-index{
-        width: 55px;
+        width: 60px;
         height: 25px;
         margin-left: 10px;
         background-color: $red-color;
-        font-size: 10pt;
+        font-size: 7pt;
         font-family: "BauOT-Medium", sans-serif;
         margin-top: 10px;
-        @include center-align(25px);
+
+        @include center-align(25px)
       }
 
       .description-wrapper{
         display: flex;
         flex-direction: column;
       }
+
       .artifact-description{
         height: 25px;
-        width: 300px;
+        width: 270px;
         margin-left: 10px;
-        font-size: 22pt;
+        font-size: 18pt;
         font-family: "Avenir Next Regular", sans-serif;
         text-align: left;
         margin-top: 10px;
@@ -235,7 +243,7 @@ body {
 
       .artifact-sub-description{
         height: 20px;
-        width: 300px;
+        width: 270px;
         margin-left: 10px;
         font-family: "Avenir Next Regular", sans-serif;
         text-align: left;
@@ -248,6 +256,21 @@ body {
         .line3{
           font-size: 10pt;
         }
+      }
+
+      .more-info-modal{
+        font-size: 20pt;
+        height: 100%;
+
+        @include center-align(120px);
+
+        i{
+          margin: 0px 3px 0px 3px;
+        }
+      }
+
+      &:active, &:hover{
+        cursor: pointer;
       }
     }
 
@@ -264,20 +287,28 @@ body {
 }
 
 #detail-col{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  position: relative;
   width: 700px;
   overflow-y:scroll;
-  -webkit-overflow-scrolling: touch;
   font-size: 14pt;
   padding: 30px 30px 0px 30px;
 
   #detail-header{
+    position: fixed;
+    background-color: $background-color;
+    top: 7px;
+    height: 50px;
+    width: 640px;
     margin-bottom: 20px;
     font-size: 25pt;
+
+    @include center-align(50px);
+  }
+
+  #detail-text{
+    margin-top: 25px;
+    height: 385px;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 }
 
@@ -293,7 +324,6 @@ body {
     align-items: center;
 
     .large-media{
-
       width: 600px;
       height: 80%;
       margin: auto;
@@ -317,28 +347,67 @@ body {
 }
 
 
-#navigation-bar{
+#home-bar {
   display: none;
   cursor: pointer;
   position: fixed;
   top: 455px;
-  left: 230px;
+  left: 1800px;
   width: 100px;
   height: 40px;
   background-color: $red-color;
   font-size: 12pt;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  font-family: "Avenir Next" ;
-  background-image: url("/static/common/media/home-button.png");
-  background-repeat: no-repeat;
-  background-position: 10px center;
-  padding-left: 5px;
+  font-family: "Avenir Next";
+
+  i{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 
   @include center-align(45px);
 
   &:active, &:hover{
     opacity: 0.95;
+  }
+}
+
+#tab-bar{
+  display: none;
+  justify-content: space-around;
+  cursor: pointer;
+  position: fixed;
+  top: 455px;
+  left: 705px;
+  width: 410px;
+  height: 40px;
+
+
+  .tab{
+    display: flex;
+    width: 125px;
+    background-color: $red-color;
+    font-size: 12pt;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-family: "Avenir Next";
+
+    i{
+      margin-left: 3px;
+      margin-right: 3px;
+      width: 25px;
+    }
+    .tab-text{
+      padding-right: 10px;
+      max-width: 88px;
+      text-align: left;
+    }
+
+    @include center-align(40px);
+    &:active, &:hover{
+      opacity: 0.95;
+    }
   }
 }
 
@@ -351,4 +420,49 @@ body {
 .left-page-hidden{
   @include x-browser-transform(translateX(-$screen-width));
   opacity: 0;
+}
+
+
+#info-menu-wrapper{
+  display:none;
+  position: absolute;
+  height: 150px;
+}
+
+#info-menu {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: 150px;
+  background: $line-color;
+  padding: 3px;
+  border-radius: 5px;
+  color: #FFF;
+  position: absolute;
+  left: 50px;
+
+  .info-item{
+    cursor: pointer;
+    height: 40px;
+    background: $outline-color;
+    margin-bottom: 3px;
+    font-size: 10pt;
+    padding: 3px 5px 3px 5px;
+    &:active, &:hover{
+      opacity: 0.95;
+    }
+  }
+}
+
+#info-menu:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid $line-color;
+  position: absolute;
+  top: 16px;
+  left: -10px;
 }

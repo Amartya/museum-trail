@@ -15,6 +15,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
     <link href="{% static "common/css/fonts.css" %}" type="text/css" rel="stylesheet" />
+    <link href="{% static "common/css/ionicons.min.css" %}" type="text/css" rel="stylesheet" />
     <link href="{% static "attractscreen/css/bigquestion.css" %}" type="text/css" rel="stylesheet" />
     <script src="{% static "common/js/jquery-1.12.3.min.js" %}"></script>
     <title>Case 201: Cyrus Tang Hall of China</title>
@@ -30,13 +31,21 @@
             </div>
             <div id="question-container">
               <div class="attract-text" id="main-question">
-                  What does the future hold?
+                  {% if question %}
+                    {{ question }}
+                  {% else %}
+                    What does the future hold?
+                  {% endif %}
               </div>
 
               <div class="attract-text" id="sub-question">
-                  ...and can you pay to find out
+                  {% if additional_prompt %}
+                    {{ additional_prompt }}
+                  {% else %}
+                    ...
+                  {% endif %}
                   <div class="nav">
-                      <img class="nav-next">
+                      <img class="nav-screen">
                   </div>
               </div>
 
@@ -45,30 +54,26 @@
             </div>
         </div>
 
+        <div class="page" id="mask"></div>
+
         <!--Three pane layout-->
         <div class="page right-page-hidden" id="detail-screen">
+            <div id="info-menu-wrapper" style="z-index: 5000;">
+                <div id="info-menu">
+                    <div class="info-item">Oracle Bones</div>
+                    <div class="info-item">What is divination?</div>
+                    <div class="info-item">The first recorded history</div>
+                </div>
+            </div>
+
             <!-- column1-->
             <div class="column" id="artifacts-col">
                 <div id="artifacts-wrapper">
-                    <div class="artifact">
+                    <!--<div class="artifact selected">
                         <div class ="artifact-img-clipper shadow">
                             <div class="artifact-img"></div>
                         </div>
-                        <div class="artifact-index"> 14-16</div>
-                        <div class="description-wrapper">
-                            <div class="artifact-description">Oracle Bones</div>
-                            <div class="artifact-sub-description">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="line3"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="artifact selected">
-                        <div class ="artifact-img-clipper shadow">
-                            <div class="artifact-img"></div>
-                        </div>
-                        <div class="artifact-index"> 17-18</div>
+                        <div class="artifact-index">17-18</div>
                         <div class="description-wrapper">
                             <div class="artifact-description">Oracle Bones</div>
                             <div class="artifact-sub-description">
@@ -77,69 +82,14 @@
                                 <div class="line3">(inscriptions added later)</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="artifact">
-                        <div class ="artifact-img-clipper shadow">
-                            <div class="artifact-img"></div>
-                        </div>
-                        <div class="artifact-index"> 19-21</div>
-                        <div class="description-wrapper">
-                            <div class="artifact-description">Pottery</div>
-                            <div class="artifact-sub-description">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="line3"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="artifact">
-                        <div class ="artifact-img-clipper shadow">
-                            <div class="artifact-img"></div>
-                        </div>
-                        <div class="artifact-index"> 22-23</div>
-                        <div class="description-wrapper">
-                            <div class="artifact-description">Cowrie Shells</div>
-                            <div class="artifact-sub-description">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="line3"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="artifact">
-                        <div class ="artifact-img-clipper shadow">
-                            <div class="artifact-img"></div>
-                        </div>
-                        <div class="artifact-index"> 14-16</div>
-                        <div class="description-wrapper">
-                            <div class="artifact-description">Oracle Bones</div>
-                            <div class="artifact-sub-description">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="line3"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="artifact">
-                        <div class ="artifact-img-clipper shadow">
-                            <div class="artifact-img"></div>
-                        </div>
-                        <div class="artifact-index"> 14-16</div>
-                        <div class="description-wrapper">
-                            <div class="artifact-description">Oracle Bones</div>
-                            <div class="artifact-sub-description">
-                                <div class="line1"></div>
-                                <div class="line2"></div>
-                                <div class="line3"></div>
-                            </div>
-                        </div>
-                    </div>
+                        <div class="more-info-modal"><i class="ion-ios-information"></i></div>
+                    </div>-->
                 </div>
             </div>
             <!-- column2-->
             <div class="column" id="detail-col">
                 <div id="detail-header">
-                    How does divining work ?
+                    Oracle Bones
                 </div>
                 <div id="detail-text">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
@@ -162,26 +112,126 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
             </div>
         </div>
 
-        <div id="navigation-bar">Home</div>
+        <div id="home-bar"><i class="icon ion-home"></i>Home</div>
+
+        <!--
+        <div id="tab-bar">
+            <div class="tab">
+                <i class="tab-icon icon ion-ios-paper-outline"></i>
+                <div class="tab-text">Oracle Bones</div>
+            </div>
+            <div class="tab">
+                <i class="icon ion-ios-paper-outline"></i>
+                <div class="tab-text">What is divination?</div>
+            </div>
+            <div class="tab">
+                <i class="icon ion-ios-paper-outline"></i>
+                <div class="tab-text">The first recorded history</div>
+            </div>
+        </div>-->
     </div>
 
 <script type="text/javascript">
     $( document ).ready(function() {
-        $('.page').on('click', '.nav-next', function(){
+        var caseId = "2-1_M2";
+        var jsonPath = "/static/attractscreen/media/" + caseId + "/assets/json/";
+        var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
+        var railName = caseId;
+        var stories = {};
+        var selectedArtifact = '';
 
+        //--------------------------------------------------------------
+        // Load the collection data and top-level menu
+        //--------------------------------------------------------------
+        $.getJSON(jsonPath + "collection.json", function(collectionData) {
+          $('#header').html(collectionData['header']);
+          $('#headerText').html(collectionData['headerText']);
+          railName = collectionData['railName'];
+
+          var tempArtifact = "<div class=\"artifact\"><div class =\"artifact-img-clipper shadow\">" +
+                  "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\">0-0</div>" +
+                  "<div class=\"description-wrapper\"><div class=\"artifact-description\">Oracle Bones</div>" +
+                  "<div class=\"artifact-sub-description\"><div class=\"line1\">Shang Dynasty (c. 1600 -1046 BC)</div> " +
+                  "<div class=\"line2\">China, Henan Province</div><div class=\"line3\">(inscriptions added later)</div>" +
+                  " </div> </div> <div class=\"more-info-modal\"><i class=\"ion-ios-information\"></i></div> </div>";
+
+            // set up the collection menu items
+          $.each(collectionData['collectionPanel'], function(index, val) {
+            $.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {
+                $('#artifacts-wrapper').append(tempArtifact);
+                $('#artifacts-wrapper').find('.artifact').last().attr('id', "artifact-" + index.toString());
+
+                $('#artifact-' + index.toString()).find('.artifact-img').css('background-image','url("/static/attractscreen/media/2-1_M2/assets/media/image/' + objectData['thumbnail'] + '\")');
+                $('#artifact-' + index.toString()).find('.artifact-index').text(objectData['caseNumber']);
+                $('#artifact-' + index.toString()).find('.artifact-description').text(objectData['title']);
+            });
+          });
+            selectedArtifact = "#artifact-0";
+        });
+
+
+        $('.page').on('click', '.nav-screen', function(){
             $('#attract-screen').addClass('left-page-hidden');
             $('#detail-screen').removeClass('right-page-hidden');
 
-            $('#navigation-bar').fadeIn(400);
+            $('#home-bar').fadeIn(400);
+
+            $(selectedArtifact).addClass('selected');
+
+            $(".artifact:not(.selected)").find('.artifact-sub-description').fadeOut(0);
+            $(".artifact:not(.selected)").find('.more-info-modal').fadeOut(0);
+
         });
 
-        $('#navigation-bar').click(function(){
-            $('#navigation-bar').fadeOut(0);
+        $('#home-bar').click(function(){
+            $('#home-bar').fadeOut(0);
+            $('#tab-bar').fadeOut(0);
 
             $('#detail-screen').addClass('right-page-hidden');
             $('#attract-screen').removeClass('left-page-hidden');
         });
+
+        $('.page').on('click', '.more-info-modal', function(){
+            var infoMenu = $("#info-menu-wrapper");
+
+            if(infoMenu.css("display") == "none"){
+                var left = $(this).position().left;
+                var top = $(this).position().top + 30;
+
+                infoMenu.parent().css({position: 'relative'});
+                infoMenu.css({top: top, left: left, position:'absolute'});
+
+                infoMenu.fadeIn(400);
+
+                $('#mask').css("z-index", 5000);
+                $('#mask').fadeIn(400);
+
+            }
+            else{
+                infoMenu.fadeOut(400);
+
+                $('#mask').css("z-index", -1);
+                $('#mask').fadeOut(400);
+            }
+
+        });
+
+        $('.page').on('click', '.info-item', function(){
+            $("#info-menu-wrapper").fadeOut(400);
+            $('#mask').fadeOut(400);
+
+            //TODO add code to change detail column dynamically
+            $('#detail-header').text($(this).text());
+        });
+
+        $('#screen').on('click', '#mask', function(){
+            $('#mask').fadeOut(400);
+            $("#info-menu-wrapper").fadeOut(400);
+        });
+
+
     });
+
 </script>
 </body>
 </html>
