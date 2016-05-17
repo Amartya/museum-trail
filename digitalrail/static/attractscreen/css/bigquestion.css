@@ -143,12 +143,13 @@ body {
         background-color: #E1DDC6;
         border: 5px solid #888678; }
         #artifacts-col #artifacts-wrapper .artifact .artifact-img-clipper .artifact-img {
+          background-size: contain;
           background-repeat: no-repeat;
           width: 60px;
           height: 60px;
           margin: auto; }
       #artifacts-col #artifacts-wrapper .artifact .artifact-index {
-        width: 60px;
+        width: 40px;
         height: 25px;
         margin-left: 10px;
         background-color: #bc4c4e;
@@ -162,9 +163,9 @@ body {
         flex-direction: column; }
       #artifacts-col #artifacts-wrapper .artifact .artifact-description {
         height: 25px;
-        width: 270px;
+        width: 275px;
         margin-left: 10px;
-        font-size: 20pt;
+        font-size: 16pt;
         font-family: "Avenir Next Regular", sans-serif;
         text-align: left;
         margin-top: 10px; }
@@ -173,17 +174,16 @@ body {
         width: 270px;
         margin-left: 10px;
         font-family: "Avenir Next Regular", sans-serif;
-        text-align: left;
-        margin-top: 10px; }
+        text-align: left; }
         #artifacts-col #artifacts-wrapper .artifact .artifact-sub-description .line1, #artifacts-col #artifacts-wrapper .artifact .artifact-sub-description .line2 {
           font-size: 12pt; }
         #artifacts-col #artifacts-wrapper .artifact .artifact-sub-description .line3 {
-          font-size: 10pt; }
+          font-size: 10pt;
+          color: #777; }
       #artifacts-col #artifacts-wrapper .artifact .more-info-modal {
         font-size: 20pt;
         height: 100%;
-        line-height: 120px;
-        text-align: center; }
+        margin: 10px 3px 0px 3px; }
         #artifacts-col #artifacts-wrapper .artifact .more-info-modal i {
           margin: 0px 3px 0px 3px; }
       #artifacts-col #artifacts-wrapper .artifact:active, #artifacts-col #artifacts-wrapper .artifact:hover {

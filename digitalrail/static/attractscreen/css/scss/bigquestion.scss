@@ -206,6 +206,7 @@ body {
         border: 5px solid $outline-color;
 
         .artifact-img{
+          background-size:contain;
           background-repeat: no-repeat;
           width: 60px;
           height: 60px;
@@ -214,7 +215,7 @@ body {
       }
 
       .artifact-index{
-        width: 60px;
+        width: 40px;
         height: 25px;
         margin-left: 10px;
         background-color: $red-color;
@@ -232,9 +233,9 @@ body {
 
       .artifact-description{
         height: 25px;
-        width: 270px;
+        width: 275px;
         margin-left: 10px;
-        font-size: 20pt;
+        font-size: 16pt;
         font-family: "Avenir Next Regular", sans-serif;
         text-align: left;
         margin-top: 10px;
@@ -246,7 +247,6 @@ body {
         margin-left: 10px;
         font-family: "Avenir Next Regular", sans-serif;
         text-align: left;
-        margin-top: 10px;
 
         .line1, .line2{
           font-size: 12pt;
@@ -254,14 +254,14 @@ body {
 
         .line3{
           font-size: 10pt;
+          color: #777;
         }
       }
 
       .more-info-modal{
         font-size: 20pt;
         height: 100%;
-
-        @include center-align(120px);
+        margin: 10px 3px 0px 3px;
 
         i{
           margin: 0px 3px 0px 3px;

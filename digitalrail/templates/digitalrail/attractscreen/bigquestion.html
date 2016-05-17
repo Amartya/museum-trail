@@ -140,36 +140,110 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
         var stories = {};
         var selectedArtifact = '';
 
-        //--------------------------------------------------------------
+        //-------------------------------------------------------------------
         // Load the collection data and top-level menu
-        //--------------------------------------------------------------
+        //-------------------------------------------------------------------
         $.getJSON(jsonPath + "collection.json", function(collectionData) {
           $('#header').html(collectionData['header']);
           $('#headerText').html(collectionData['headerText']);
           railName = collectionData['railName'];
 
-          var tempArtifact = "<div class=\"artifact\"><div class =\"artifact-img-clipper shadow\">" +
-                  "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\">0-0</div>" +
-                  "<div class=\"description-wrapper\"><div class=\"artifact-description\">Oracle Bones</div>" +
-                  "<div class=\"artifact-sub-description\"><div class=\"line1\">Shang Dynasty (c. 1600 -1046 BC)</div> " +
-                  "<div class=\"line2\">China, Henan Province</div><div class=\"line3\">(inscriptions added later)</div>" +
+          //strings to create dom structure for artifact column
+          var tempArtifactInitStr = "<div class=\"artifact\" ";
+          var tempArtifactEndStr = "><div class =\"artifact-img-clipper shadow\">" +
+                  "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\"></div>" +
+                  "<div class=\"description-wrapper\"><div class=\"artifact-description\"></div>" +
+                  "<div class=\"artifact-sub-description\"><div class=\"line1\"></div> " +
+                  "<div class=\"line2\"></div><div class=\"line3\"></div>" +
                   " </div> </div> <div class=\"more-info-modal\"><i class=\"ion-ios-information\"></i></div> </div>";
 
-            // set up the collection menu items
           $.each(collectionData['collectionPanel'], function(index, val) {
-            $.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {
-                $('#artifacts-wrapper').append(tempArtifact);
-                $('#artifacts-wrapper').find('.artifact').last().attr('id', "artifact-" + index.toString());
+              var myURL = jsonPath + railName + "_" + val + ".json";
 
-                $('#artifact-' + index.toString()).find('.artifact-img').css('background-image','url("/static/attractscreen/media/2-1_M2/assets/media/image/' + objectData['thumbnail'] + '\")');
-                $('#artifact-' + index.toString()).find('.artifact-index').text(objectData['caseNumber']);
-                $('#artifact-' + index.toString()).find('.artifact-description').text(objectData['title']);
-            });
+              $.ajax({
+                  url: myURL,
+                  dataType: 'json',
+                  async: false,
+                  success: function(objectData) {
+                      //set id of artifact element
+                      $('#artifacts-wrapper').append(tempArtifactInitStr + "id=artifact-" + val.toString() + tempArtifactEndStr);
+
+                      //set clipped small image of artifact on the left
+                      $('#artifact-' + val.toString()).find('.artifact-img').css('background-image','url("/static/attractscreen/media/2-1_M2/assets/media/image/' + objectData['thumbnail'] + '\")');
+
+                      setCaseNumber(objectData, val);
+
+                      setArtifactDescription(objectData, val);
+
+                      setArtifactDate(objectData, val);
+
+                      //set case id for objects
+                      $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
+
+                      if(index == 0){
+                        var stories = objectData['stories'];
+                        if(stories.length > 0){
+                            $('#detail-header').text(stories[0]['label']);
+                            $('#detail-text').text(stories[0]['content']);
+                        }
+                      }
+                  }
+              });
+
+              //getJSON is async, and can make the order of items with the
+              {#$.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {#}
+
+              //select the first artifact by default
+              $('#artifacts-col').find('.artifact').first().addClass('selected');
+              $('.artifact:not(.selected)').find('.more-info-modal').css('display','none');
+
           });
-            selectedArtifact = "#artifact-0";
         });
 
+        //-------------------------------------------------------------------
+        // Sets the case number (e.g. 16-17, 18-19) for each artifact in col1
+        //-------------------------------------------------------------------
+        function setCaseNumber(objectData, val){
+            if(objectData['isTopicLabel'] == false){
+              $('#artifact-' + val.toString()).find('.artifact-index').text(objectData['caseNumber'].replace(/ /g,''));
+            }
+            else{
+              $('#artifact-' + val.toString()).find('.artifact-index').fadeOut(0);
+            }
+        }
 
+        //-------------------------------------------------------------------
+        // Sets the artifact description in the first column
+        //-------------------------------------------------------------------
+        function setArtifactDescription(objectData, val){
+            if(objectData['title'].indexOf('<br>')>=0){
+                $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title'].split('<br>')[0]);
+                $('#artifact-' + val.toString()).find('.line1').text(objectData['title'].split('<br>')[1]);
+
+                $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
+                $('#artifact-' + val.toString()).find('.line3').text(objectData['id']);
+            }
+            else{
+                $('#artifact-' + val.toString()).find('.line1').fadeOut(0);
+                $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title']);
+            }
+        }
+
+        //-------------------------------------------------------------------
+        // Sets the artifact era/date info. in the first column
+        //-------------------------------------------------------------------
+        function setArtifactDate(objectData, val){
+            if(objectData['date'] === undefined){
+                $('#artifact-' + val.toString()).find('.line2').fadeOut(0);
+            }
+            else{
+                $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
+            }
+        }
+
+        //-------------------------------------------------------------------
+        // Callback for moving from the attract screen to the 3-pane screen
+        //-------------------------------------------------------------------
         $('.page').on('click', '.nav-screen', function(){
             $('#attract-screen').addClass('left-page-hidden');
             $('#detail-screen').removeClass('right-page-hidden');
@@ -180,9 +254,11 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
 
             $(".artifact:not(.selected)").find('.artifact-sub-description').fadeOut(0);
             $(".artifact:not(.selected)").find('.more-info-modal').fadeOut(0);
-
         });
 
+        //-------------------------------------------------------------------
+        // Callback for going back to home/attract screen
+        //-------------------------------------------------------------------
         $('#home-bar').click(function(){
             $('#home-bar').fadeOut(0);
             $('#tab-bar').fadeOut(0);
@@ -191,6 +267,9 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
             $('#attract-screen').removeClass('left-page-hidden');
         });
 
+        //-------------------------------------------------------------------
+        // Callback to show the popover menu for a artifact
+        //-------------------------------------------------------------------
         $('.page').on('click', '.more-info-modal', function(){
             var infoMenu = $("#info-menu-wrapper");
 
@@ -216,6 +295,34 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
 
         });
 
+        //-------------------------------------------------------------------
+        // Callback to set detail & media screen contents from artifact column
+        //-------------------------------------------------------------------
+        $('.page').on('click', '.artifact', function(){
+            var selectedItem = $(this);
+            $.getJSON(jsonPath + railName + "_" + $(this).first().attr('id').split('-')[1] + ".json", function(objectData) {
+                if(objectData['stories'].length > 0){
+                   var selectedArtifact = objectData['stories'][0];
+
+                   $('#detail-header').fadeOut(function() {
+                       $(this).text(selectedArtifact['label']).fadeIn(400);
+                   });
+
+                   $('#detail-text').fadeOut(function() {
+                       $(this).text(selectedArtifact['content']).fadeIn(400);
+                   });
+                }
+                $('.artifact').removeClass('selected');
+                selectedItem.addClass('selected');
+
+                $('.more-info-modal').css('display', 'none');
+                selectedItem.find('.more-info-modal').css('display','block');
+            });
+        });
+
+        //-------------------------------------------------------------------
+        // Callback to set detail screen contents from popover
+        //-------------------------------------------------------------------
         $('.page').on('click', '.info-item', function(){
             $("#info-menu-wrapper").fadeOut(400);
             $('#mask').fadeOut(400);
