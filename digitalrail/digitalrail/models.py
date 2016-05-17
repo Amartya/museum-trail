@@ -3,7 +3,8 @@ from django.db import models
 
 class Question(models.Model):
     def __unicode__(self):
-        return 'Question: ' + self.question_text
+        return 'RailId: ' + str(self.rail_id) + ' Question: ' + self.question_text
+    rail_id = models.IntegerField(default=0)
     question_text = models.CharField(max_length=500)
     pub_date = models.DateTimeField('date published')
     active = models.BooleanField(default=False)

@@ -191,6 +191,13 @@ body {
     height: 488px;
     padding-bottom: 25px;
 
+    .sub-question-wrapper {
+      display: none;
+      width: 100%;
+      height: 50px;
+      padding-left: 150px;
+    }
+
     .artifact{
       opacity: 0.40;
       display: flex;
