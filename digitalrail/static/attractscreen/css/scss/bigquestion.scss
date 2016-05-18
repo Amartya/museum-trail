@@ -191,6 +191,27 @@ body {
     height: 488px;
     padding-bottom: 25px;
 
+    .sub-question-wrapper {
+      display: none;
+      width: 100%;
+      height: 100px;
+      padding-left: 150px;
+      margin-top: -20px;
+      font-size: 12pt;
+      border-top: 1px solid #333;
+      -webkit-box-shadow: 0px -4px 3px #444;
+      -moz-box-shadow:    0px -4px 3px #444;
+      box-shadow:         0px -4px 3px #444;
+      background-color: #555;
+
+      .sub-question-item{
+        height: 33px;
+        padding: 3px 0px 3px 3px;
+        text-align: justify;
+        line-height: 30px;
+      }
+    }
+
     .artifact{
       opacity: 0.40;
       display: flex;
@@ -259,23 +280,13 @@ body {
         }
       }
 
-      .more-info-modal{
-        font-size: 20pt;
-        height: 100%;
-        margin: 10px 3px 0px 3px;
-
-        i{
-          margin: 0px 3px 0px 3px;
-        }
-      }
-
       &:active, &:hover{
         cursor: pointer;
       }
     }
 
     .artifact.selected{
-      opacity: 0.90;
+      opacity: 1.0;
     }
   }
 }

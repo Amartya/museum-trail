@@ -142,6 +142,10 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
         var stories = {};
         var selectedArtifact = '';
 
+
+        $('#detail-screen').removeClass('right-page-hidden');
+        $('#attract-screen').addClass('left-page-hidden');
+
         //-------------------------------------------------------------------
         // Load the collection data and top-level menu
         //-------------------------------------------------------------------
@@ -152,13 +156,14 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
 
           //strings to create dom structure for artifact column
           var tempArtifactInitStr = "<div class=\"artifact\" ";
-          var tempArtifactEndStr = "><div class =\"artifact-img-clipper shadow\">" +
+          var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
                   "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\"></div>" +
                   "<div class=\"description-wrapper\"><div class=\"artifact-description\"></div>" +
                   "<div class=\"artifact-sub-description\"><div class=\"line1\"></div> " +
                   "<div class=\"line2\"></div><div class=\"line3\"></div>" +
-                  " </div> </div> <div class=\"more-info-modal\"><i class=\"ion-ios-information\"></i></div></div> " +
-                  "<div class=\"sub-question-wrapper\" id=\"></div>";
+                  " </div> </div> </div> " + "<div class=\"sub-question-wrapper\""
+
+          var tempArtifactEndStr = "></div>";
 
           $.each(collectionData['collectionPanel'], function(index, val) {
               var myURL = jsonPath + railName + "_" + val + ".json";
@@ -169,7 +174,8 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
                   async: false,
                   success: function(objectData) {
                       //set id of artifact element
-                      $('#artifacts-wrapper').append(tempArtifactInitStr + "id=artifact-" + val.toString() + tempArtifactEndStr);
+                      $('#artifacts-wrapper').append(tempArtifactInitStr + "id=artifact-" + val.toString() + tempArtifactMidStr +
+                      "id=sub-question-wrapper-" + val.toString() + tempArtifactEndStr);
 
                       //set clipped small image of artifact on the left
                       $('#artifact-' + val.toString()).find('.artifact-img').css('background-image','url("/static/attractscreen/media/2-1_M2/assets/media/image/' + objectData['thumbnail'] + '\")');
@@ -180,8 +186,15 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
 
                       setArtifactDate(objectData, val);
 
+                      setArtifactLabel(objectData, val);
+
                       //set case id for objects
-                      $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
+                      if(objectData['id'].length == 0 ){
+                        $('#artifact-' + val.toString()).find('.line3').fadeOut(0);
+                      }
+                      else{
+                        $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
+                      }
 
                       if(index == 0){
                         var stories = objectData['stories'];
@@ -198,8 +211,6 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
 
               //select the first artifact by default
               $('#artifacts-col').find('.artifact').first().addClass('selected');
-              $('.artifact:not(.selected)').find('.more-info-modal').css('display','none');
-
           });
         });
 
@@ -245,6 +256,48 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
         }
 
         //-------------------------------------------------------------------
+        // Sets the labels in the collapsible menu for each artifact
+        //-------------------------------------------------------------------
+        function setArtifactLabel(objectData, val){
+            var artifact = $('#artifact-' + val.toString());
+            var subQuestionWrapper = $('#sub-question-wrapper-' + val.toString());
+
+            if(artifact.find('.line1').css('display') != "none"){
+                subQuestionWrapper.css('margin-top', '15px');
+            }
+            else if(artifact.find('.line1').css('display') == "none" &&
+                    artifact.find('.line2').css('display') == "none"){
+                subQuestionWrapper.css('margin-top', '-35px');
+            }
+
+            for(var i=0; i<objectData['stories'].length; i++){
+                subQuestionWrapper.append("<div class=\"sub-question-item\" id=\"" + val.toString()
+                        + "-item-" + i.toString() + "\">"+ objectData['stories'][i]['label']
+                        + "<i class=\"ion-ios-checkmark\"></i></div>");
+            }
+        }
+
+        //-------------------------------------------------------------------
+        // Sets the state (white font)for a label in the collapsible menu
+        //-------------------------------------------------------------------
+        $('.page').on('click','.sub-question-item', function(){
+            $('.sub-question-item').removeClass('selected');
+            $('.sub-question-item').find('i').fadeOut(0);
+
+            $(this).addClass('selected');
+            showSelectedLabelIcon($(this));
+
+            console.log($(this));
+        });
+
+        //-------------------------------------------------------------------
+        // Sets the checkmark icon next to the labels in the collapsible menu
+        //-------------------------------------------------------------------
+        function showSelectedLabelIcon(selectedLabel){
+            selectedLabel.find('i').fadeIn(400);
+        }
+
+        //-------------------------------------------------------------------
         // Callback for moving from the attract screen to the 3-pane screen
         //-------------------------------------------------------------------
         $('.page').on('click', '.nav-screen', function(){
@@ -271,56 +324,40 @@ Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulv
         });
 
         //-------------------------------------------------------------------
-        // Callback to show the popover menu for a artifact
-        //-------------------------------------------------------------------
-        $('.page').on('click', '.more-info-modal', function(){
-            var infoMenu = $("#info-menu-wrapper");
-
-            if(infoMenu.css("display") == "none"){
-                var left = $(this).position().left;
-                var top = $(this).position().top + 30;
-
-                infoMenu.parent().css({position: 'relative'});
-                infoMenu.css({top: top, left: left, position:'absolute'});
-
-                infoMenu.fadeIn(400);
-
-                $('#mask').css("z-index", 5000);
-                $('#mask').fadeIn(400);
-
-            }
-            else{
-                infoMenu.fadeOut(400);
-
-                $('#mask').css("z-index", -1);
-                $('#mask').fadeOut(400);
-            }
-
-        });
-
-        //-------------------------------------------------------------------
         // Callback to set detail & media screen contents from artifact column
         //-------------------------------------------------------------------
         $('.page').on('click', '.artifact', function(){
-            $('.sub-question-wrapper').slideDown(400);
             var selectedItem = $(this);
+            var collectionNum = $(this).first().attr('id').split('-')[1]; //e.g. B1, B2, B3 etc.
+
+            var firstSubQuestionItem = '#' + collectionNum.toString() + '-item-0';
+            var subQuestionWrapper = $('#sub-question-wrapper-' + collectionNum);
+
+            console.log($(firstSubQuestionItem));
+            $('.sub-question-item').removeClass('selected');
+            $('.sub-question-item').find('i').fadeOut(0);
+            subQuestionWrapper.find(firstSubQuestionItem).addClass('selected');
+            showSelectedLabelIcon(subQuestionWrapper.find(firstSubQuestionItem));
+
+            if(subQuestionWrapper.css('display') == "none"){
+                $('.sub-question-wrapper').slideUp(400);
+                subQuestionWrapper.slideDown(400);
+            }
+
             $.getJSON(jsonPath + railName + "_" + $(this).first().attr('id').split('-')[1] + ".json", function(objectData) {
                 if(objectData['stories'].length > 0){
                    var selectedArtifact = objectData['stories'][0];
 
-                   $('#detail-header').fadeOut(function() {
-                       $(this).text(selectedArtifact['label']).fadeIn(400);
+                   $('#detail-header').fadeOut(0, function() {
+                       $(this).text(selectedArtifact['label']).fadeIn(500);
                    });
 
-                   $('#detail-text').fadeOut(function() {
-                       $(this).text(selectedArtifact['content']).fadeIn(400);
+                   $('#detail-text').fadeOut(0, function() {
+                       $(this).text(selectedArtifact['content']).fadeIn(500);
                    });
                 }
                 $('.artifact').removeClass('selected');
                 selectedItem.addClass('selected');
-
-                $('.more-info-modal').css('display', 'none');
-                selectedItem.find('.more-info-modal').css('display','block');
             });
         });
 
