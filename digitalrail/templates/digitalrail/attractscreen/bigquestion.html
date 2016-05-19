@@ -17,14 +17,11 @@
     <link href="{% static "common/css/fonts.css" %}" type="text/css" rel="stylesheet" />
     <link href="{% static "common/css/ionicons.min.css" %}" type="text/css" rel="stylesheet" />
     <link href="{% static "attractscreen/css/bigquestion.css" %}" type="text/css" rel="stylesheet" />
-    <link href="{% static "common/css/bjqs.css"%}" type="text/css" rel="stylesheet" />
     <script src="{% static "common/js/jquery-1.12.3.min.js" %}"></script>
-    <script src="{% static "common/js/bjqs-1.3.min.js" %}"></script>
     <title>Case 201: Cyrus Tang Hall of China</title>
 </head>
 <body>
-<div class="slideshow large-media-wrapper" id="B1-media-slideshow-0"><ul class="bjqs"><li><img src="/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_1.png" title="Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today."></li><li><img src="/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_2.png" title="Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today."></li><li><img src="/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_3.png" title="Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today."></li><li><img src="/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_4.png" title="Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today."></li><li><img src="/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_5.png" title="Characters on oracle bones transformed over time. Many are still recognizable in characters used in China today."></li></ul></div>
-    <div id="screen" style="display: none;">
+    <div id="screen">
         <!--Attract Screen-->
         <div class="page" id="attract-screen">
             <div id="img-container">
@@ -72,50 +69,28 @@
             <!-- column1-->
             <div class="column" id="artifacts-col">
                 <div id="artifacts-wrapper">
-                    <!--<div class="artifact selected">
-                        <div class ="artifact-img-clipper shadow">
-                            <div class="artifact-img"></div>
-                        </div>
-                        <div class="artifact-index">17-18</div>
-                        <div class="description-wrapper">
-                            <div class="artifact-description">Oracle Bones</div>
-                            <div class="artifact-sub-description">
-                                <div class="line1">Shang Dynasty (c. 1600 -1046 BC)</div>
-                                <div class="line2">China, Henan Province</div>
-                                <div class="line3">(inscriptions added later)</div>
-                            </div>
-                        </div>
-                        <!--<div class="more-info-modal"><i class="ion-ios-information"></i></div>
-                        <div class="sub-question-wrapper"></div>
-                    </div>-->
                 </div>
             </div>
             <!-- column2-->
             <div class="column" id="detail-col">
                 <div id="detail-story-wrapper"></div>
             </div>
+
             <!-- column3-->
             <div class="column" id="media-col">
+                <div class="large-media-wrapper">
+                    <div class="media-prev"><i class="ion-ios-arrow-back"></i></div>
+                    <div id="selected-media-wrapper">
+                        <div id="selected-media"></div>
+                        <div id="selected-media-status">Page 1 of 5</div>
+                        <div id="selected-media-caption"></div>
+                    </div>
+                    <div class="media-next"><i class="ion-ios-arrow-forward"></i></div>
+                </div>
             </div>
         </div>
 
         <div id="home-bar"><i class="icon ion-home"></i>Home</div>
-
-        <!--
-        <div id="tab-bar">
-            <div class="tab">
-                <i class="tab-icon icon ion-ios-paper-outline"></i>
-                <div class="tab-text">Oracle Bones</div>
-            </div>
-            <div class="tab">
-                <i class="icon ion-ios-paper-outline"></i>
-                <div class="tab-text">What is divination?</div>
-            </div>
-            <div class="tab">
-                <i class="icon ion-ios-paper-outline"></i>
-                <div class="tab-text">The first recorded history</div>
-            </div>
-        </div>-->
     </div>
 
 <script type="text/javascript">
@@ -130,14 +105,6 @@
 
         $('#detail-screen').removeClass('right-page-hidden');
         $('#attract-screen').addClass('left-page-hidden');
-
-        $('#B1-media-slideshow-0').bjqs({
-            animtype      : 'slide',
-            height        : 320,
-            width         : 620,
-            responsive    : true,
-            randomstart   : true
-        });
 
         //-------------------------------------------------------------------
         // Load the collection data and top-level menu
@@ -205,24 +172,22 @@
                               $('#detail-story-wrapper').append(headerDiv);
                               $('#detail-story-wrapper').append(textDiv);
 
-                              var mediaId = val.toString() + "-media-" + stories[i].type + "-" + i.toString();
+                              var mediaId = val.toString() + "-media-" + i.toString();
                               if(stories[i].type == "slideshow"){
-                                  var mediaContentDiv = "<div class=\"slideshow large-media-wrapper\" id=\"" + mediaId + "\"></div>";
-                                  $('#media-col').append(mediaContentDiv);
-                                  $('#' + mediaId).append("<ul class=\"bjqs\">");
+                                  var mediaContentDiv = "<div class=\"slideshow\" id=\"" + mediaId + "\"></div>";
+                                  $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
+                                  $('#' + mediaId).append("<ul class=\"slide\">");
 
                                   for(var j=0; j<=stories[i].link.length; j++ ){
                                     if(!(stories[i].link[j]===undefined)){
-                                        var liItem = "<li><img src=\"" + imagePath + stories[i].link[j].name +
-                                            "\" title=\"" + stories[i].link[j].caption + "\"></li>";
-                                        $('#' + mediaId).find('.bjqs').append(liItem);
+                                        var liItem = "<li title=\"" + stories[i].link[j].caption + "\">"+ imagePath + stories[i].link[j].name + "</li>";
+                                        $('#' + mediaId).find('.slide').append(liItem);
                                     }
-
                                   }
                               }
                               else if(stories[i].type == "image"){
-                                  var mediaContentDiv = "<div class=\"image large-media-wrapper\" id=\"" + mediaId + "\"></div>";
-                                  $('#media-col').append(mediaContentDiv);
+                                  var mediaContentDiv = "<div class=\"image\" id=\"" + mediaId + "\"></div>";
+                                  $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
                               }
                           }
                       }
@@ -231,14 +196,15 @@
 
               //getJSON is async, and can make the order of items with the
               {#$.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {#}
-
-              //select the first artifact by default
-              var firstArtifactId = '#' + $('#artifacts-col').find('.artifact').first().attr('id');
-              var firstSubQuestionWrapperId = '#' + 'sub-question-wrapper-' + firstArtifactId.split('-')[1];
-              var firstSubQuestionId = '#' + firstArtifactId.split('-')[1] + '-item-0';
-
-              selectArtifactAndStory(firstArtifactId, firstSubQuestionWrapperId, firstSubQuestionId);
           });
+            //select the first artifact by default
+            var firstArtifactId = '#' + $('#artifacts-col').find('.artifact').first().attr('id');
+            var firstSubQuestionWrapperId = '#' + 'sub-question-wrapper-' + firstArtifactId.split('-')[1];
+            var firstSubQuestionId = '#' + firstArtifactId.split('-')[1] + '-item-0';
+
+            selectArtifactAndStory(firstArtifactId, firstSubQuestionWrapperId, firstSubQuestionId);
+
+            displayMedia();
         });
 
         function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
@@ -259,6 +225,25 @@
             }
         }
 
+        function displayMedia(){
+            var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+            var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+            if($(mediaId).hasClass('slideshow')){
+                var imgURL = 'url(\"' + $(mediaId).find('li').first().text() + "\")";
+                var caption = $(mediaId).find('li').first().attr("title");
+
+                $('#selected-media').css('background-image',imgURL);
+                $('#selected-media-caption').text(caption);
+                $('#media-nav-wrapper').fadeIn(200);
+
+
+                console.log($(mediaId).find('li').first().text());
+            }
+            else{
+                $('#media-nav-wrapper').fadeOut(0);
+            }
+        }
         //-------------------------------------------------------------------
         // Sets the case number (e.g. 16-17, 18-19) for each artifact in col1
         //-------------------------------------------------------------------
@@ -342,6 +327,8 @@
             }, 1000, "swing", function(){
                 preventScrollEvent = false;
             });
+
+            displayMedia();
         });
 
         //-------------------------------------------------------------------
@@ -408,6 +395,8 @@
             }, 1000, "swing", function(){
                 preventScrollEvent = false;
             });
+
+            displayMedia();
         });
 
         //-------------------------------------------------------------------
@@ -435,6 +424,14 @@
                     }
                 }
             }
+        });
+
+        $('.large-media-wrapper').on('click','.media-next', function(){
+
+        });
+
+        $('.large-media-wrapper').on('click','.media-prev', function(){
+
         });
     });
 
