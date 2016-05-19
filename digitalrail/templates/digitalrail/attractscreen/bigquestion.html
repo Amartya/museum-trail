@@ -127,6 +127,8 @@
         var railName = caseId;
         var stories = {};
         var selectedArtifact = '';
+        var preventScrollEvent = false;
+
 
 
         $('#detail-screen').removeClass('right-page-hidden');
@@ -215,6 +217,9 @@
         });
 
         function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
+            $('.artifact').removeClass('selected');
+            $('.sub-question-item').removeClass('selected');
+
             if($(subQuestionWrapperID).css('display') == "none"){
                 $('.sub-question-wrapper').slideUp(400);
                 $(subQuestionWrapperID).slideDown(400);
@@ -222,7 +227,11 @@
 
             $(artifactId).addClass('selected');
             $(subQuestionId).addClass('selected');
-            $(subQuestionId).find('i').fadeIn(400);
+
+            if($(subQuestionId).find('i').css('display') == "none"){
+                $('.sub-question-item').find('i').fadeOut(0);
+                $(subQuestionId).find('i').fadeIn(400);
+            }
         }
 
         //-------------------------------------------------------------------
@@ -292,6 +301,8 @@
         // Sets the state (white font)for a label in the collapsible menu
         //-------------------------------------------------------------------
         $('.page').on('click','.sub-question-item', function(){
+            preventScrollEvent = true;
+
             $('.sub-question-item').removeClass('selected');
             $('.sub-question-item').find('i').fadeOut(0);
 
@@ -303,7 +314,9 @@
 
             $('#detail-col').animate({
                 scrollTop: $(targetDiv).position().top
-            }, 1000, "swing");
+            }, 1000, "swing", function(){
+                preventScrollEvent = false;
+            });
         });
 
         //-------------------------------------------------------------------
@@ -343,7 +356,12 @@
         // Callback to set detail & media screen contents from artifact column
         //-------------------------------------------------------------------
         $('.page').on('click', '.artifact', function(){
+            preventScrollEvent = true;
+
+            $('.artifact').removeClass('selected');
             var selectedItem = $(this);
+            selectedItem.addClass('selected');
+
             var collectionNum = $(this).first().attr('id').split('-')[1]; //e.g. B1, B2, B3 etc.
 
             var firstSubQuestionItem = '#' + collectionNum.toString() + '-item-0';
@@ -362,14 +380,36 @@
             var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
             $('#detail-col').animate({
                 scrollTop: $(targetDiv).position().top
-            }, 1000, "swing");
+            }, 1000, "swing", function(){
+                preventScrollEvent = false;
+            });
         });
 
         //-------------------------------------------------------------------
-        // Callback to check for scroll
+        // Callback to check for scroll and highlighting the
+        // correct artifact and the sub-question for it
         //-------------------------------------------------------------------
         $( '#detail-col' ).scroll(function() {
-          //console.log($(this).scrollTop());
+            if(!preventScrollEvent){
+                var detailHeaders = $('#detail-col').find('.detail-header');
+
+                for(var i=0; i<detailHeaders.length; i++){
+                    var $this = $(detailHeaders[i]);
+
+                    if ( $this.position().top + $this.height() > $('#detail-col').scrollTop()
+                            && $this.position().top < $('#detail-col').scrollTop()+$('#detail-col').height() ) {
+
+                        var collectionID = $this.attr('id').split('-')[0];
+                        var storyID = $this.attr('id').split('-')[3];
+                        var artifactId = "#artifact-" + collectionID;
+                        var subQuestionWrapperID = "#sub-question-wrapper-" + collectionID;
+                        var subQuestionId = "#" + collectionID + '-item-' + storyID;
+
+                        selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId);
+                        break;
+                    }
+                }
+            }
         });
     });
 
