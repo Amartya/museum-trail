@@ -268,14 +268,14 @@ body {
       #media-col .large-media-wrapper #selected-media-wrapper #selected-media-status {
         height: 5%;
         font-size: 8pt;
-        padding-left: 15%;
-        padding-right: 15%;
+        padding-left: 30px;
+        padding-right: 30px;
         text-align: center; }
       #media-col .large-media-wrapper #selected-media-wrapper #selected-media-caption {
         height: 5%;
-        padding-left: 15%;
-        padding-right: 15%;
-        text-align: justify; }
+        padding-left: 30px;
+        padding-right: 30px;
+        text-align: center; }
     #media-col .large-media-wrapper .media-prev, #media-col .large-media-wrapper .media-next {
       font-size: 20pt;
       padding-left: 25px;
