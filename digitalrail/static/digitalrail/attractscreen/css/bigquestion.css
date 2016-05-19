@@ -223,21 +223,18 @@ body {
   overflow-y: scroll;
   font-size: 14pt;
   padding: 30px 30px 0px 30px; }
-  #detail-col #detail-header {
-    position: fixed;
+  #detail-col .detail-header {
     background-color: #333333;
-    top: 7px;
     height: 50px;
     width: 640px;
     margin-bottom: 20px;
     font-size: 25pt;
     line-height: 50px;
     text-align: center; }
-  #detail-col #detail-text {
+  #detail-col .detail-text {
     margin-top: 25px;
     height: 385px;
-    overflow-x: hidden;
-    overflow-y: scroll; }
+    overflow-x: hidden; }
 
 #media-col {
   position: relative;
