@@ -90,10 +90,7 @@
             </div>
             <!-- column2-->
             <div class="column" id="detail-col">
-                <div class="detail-story-wrapper">
-                    <div class="detail-header"></div>
-                    <div class="detail-text"></div>
-                </div>
+                <div id="detail-story-wrapper"></div>
             </div>
             <!-- column3-->
             <div class="column" id="media-col">
@@ -167,7 +164,9 @@
                       "id=sub-question-wrapper-" + val.toString() + tempArtifactEndStr);
 
                       //set clipped small image of artifact on the left
-                      $('#artifact-' + val.toString()).find('.artifact-img').css('background-image','url("/static/attractscreen/media/2-1_M2/assets/media/image/' + objectData['thumbnail'] + '\")');
+                      $('#artifact-' + val.toString()).find('.artifact-img').css('background-image',
+                              'url("/static/attractscreen/media/2-1_M2/assets/media/image/' +
+                              objectData['thumbnail'] + '\")');
 
                       setCaseNumber(objectData, val);
 
@@ -185,13 +184,20 @@
                         $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
                       }
 
-                      if(index == 0){
-                        var stories = objectData['stories'];
+                      var stories = objectData['stories'];
 
-                        if(stories.length > 0){
-                            $('.detail-header').text(stories[0]['label']);
-                            $('.detail-text').text(stories[0]['content']);
-                        }
+                      for(var i=0; i<=stories.length; i++){
+                          if(!(stories[i] === undefined)){
+                              var storyHeaderId = val.toString() + "-detail-story-" + i.toString();
+                              var storyTextId = val.toString() + "-detail-story-" + i.toString();
+
+                              var headerDiv = "<div class=\"detail-header\" id=\"" + storyHeaderId + "\">" +
+                                                stories[i].label + "<div>";
+                              var textDiv = "<div class=\"detail-text\" id=\"" + storyTextId + "\">" +
+                                                stories[i].content + "<div>";
+                              $('#detail-story-wrapper').append(headerDiv);
+                              $('#detail-story-wrapper').append(textDiv);
+                          }
                       }
                   }
               });
@@ -209,7 +215,6 @@
         });
 
         function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
-            console.log(artifactId, subQuestionWrapperID, subQuestionId);
             if($(subQuestionWrapperID).css('display') == "none"){
                 $('.sub-question-wrapper').slideUp(400);
                 $(subQuestionWrapperID).slideDown(400);
@@ -292,6 +297,13 @@
 
             $(this).addClass('selected');
             showSelectedLabelIcon($(this));
+
+            var targetDiv = '#' + $(this).attr('id').split('-')[0] +  "-detail-story-" +
+                            $(this).attr('id').split('-')[2];
+
+            $('#detail-col').animate({
+                scrollTop: $(targetDiv).position().top
+            }, 1000, "swing");
         });
 
         //-------------------------------------------------------------------
@@ -347,21 +359,17 @@
                 subQuestionWrapper.slideDown(400);
             }
 
-            $.getJSON(jsonPath + railName + "_" + $(this).first().attr('id').split('-')[1] + ".json", function(objectData) {
-                if(objectData['stories'].length > 0){
-                   var selectedArtifact = objectData['stories'][0];
+            var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
+            $('#detail-col').animate({
+                scrollTop: $(targetDiv).position().top
+            }, 1000, "swing");
+        });
 
-                   $('#detail-header').fadeOut(0, function() {
-                       $(this).text(selectedArtifact['label']).fadeIn(500);
-                   });
-
-                   $('#detail-text').fadeOut(0, function() {
-                       $(this).text(selectedArtifact['content']).fadeIn(500);
-                   });
-                }
-                $('.artifact').removeClass('selected');
-                selectedItem.addClass('selected');
-            });
+        //-------------------------------------------------------------------
+        // Callback to check for scroll
+        //-------------------------------------------------------------------
+        $( '#detail-col' ).scroll(function() {
+          //console.log($(this).scrollTop());
         });
     });
 
