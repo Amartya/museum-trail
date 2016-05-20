@@ -245,7 +245,7 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
   align-items: center; }
-  #media-col .slide {
+  #media-col .slide, #media-col .media-image {
     display: none; }
   #media-col .large-media-wrapper {
     width: 100%;

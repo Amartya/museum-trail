@@ -79,13 +79,13 @@
             <!-- column3-->
             <div class="column" id="media-col">
                 <div class="large-media-wrapper">
-                    <div class="media-prev"><i class="ion-ios-arrow-back"></i></div>
+                    <div class="media-nav media-prev"><i class="ion-ios-arrow-back"></i></div>
                     <div id="selected-media-wrapper">
-                        <div id="selected-media"></div>
-                        <div id="selected-media-status">Page 1 of 5</div>
+                        <div id="selected-media" data-index="0"></div>
+                        <div id="selected-media-status"></div>
                         <div id="selected-media-caption"></div>
                     </div>
-                    <div class="media-next"><i class="ion-ios-arrow-forward"></i></div>
+                    <div class="media-nav media-next"><i class="ion-ios-arrow-forward"></i></div>
                 </div>
             </div>
         </div>
@@ -103,8 +103,8 @@
         var selectedArtifact = '';
         var preventScrollEvent = false;
 
-        $('#detail-screen').removeClass('right-page-hidden');
-        $('#attract-screen').addClass('left-page-hidden');
+        //$('#detail-screen').removeClass('right-page-hidden');
+        //$('#attract-screen').addClass('left-page-hidden');
 
         //-------------------------------------------------------------------
         // Load the collection data and top-level menu
@@ -186,8 +186,13 @@
                                   }
                               }
                               else if(stories[i].type == "image"){
-                                  var mediaContentDiv = "<div class=\"image\" id=\"" + mediaId + "\"></div>";
+                                  var mediaContentDiv = "<div class=\"media-image\" id=\"" + mediaId + "\"></div>";
+                                  var imgPath = imagePath + stories[i].link;
+                                  var imgCaption = stories[i].caption;
+
                                   $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
+                                  $('#' + mediaId).text(imgPath);
+                                  $('#' + mediaId).data('caption', imgCaption);
                               }
                           }
                       }
@@ -234,14 +239,19 @@
                 var caption = $(mediaId).find('li').first().attr("title");
 
                 $('#selected-media').css('background-image',imgURL);
+                $('#selected-media').data("index", 0);
+
+                $('#selected-media-status').text('1 of ' + $(mediaId).find('li').length);
                 $('#selected-media-caption').text(caption);
                 $('#media-nav-wrapper').fadeIn(200);
-
-
-                console.log($(mediaId).find('li').first().text());
             }
             else{
-                $('#media-nav-wrapper').fadeOut(0);
+                var imgURL = 'url(\"' + $(mediaId).text()+ "\")";
+                $('.media-nav').fadeOut(200);
+                $('#selected-media-status').fadeOut(200);
+
+                $('#selected-media').css('background-image',imgURL);
+                $('#selected-media-caption').text($(mediaId).data('caption'));
             }
         }
         //-------------------------------------------------------------------
@@ -427,12 +437,58 @@
         });
 
         $('.large-media-wrapper').on('click','.media-next', function(){
+            var imgURLList = getImageList();
+            var imgCaptionList = getCaptionList();
+            var nextImgIndex = ($('#selected-media').data('index') + 1) % imgURLList.length;
 
+            $('#selected-media').css('background-image',imgURLList[nextImgIndex]);
+            $('#selected-media-caption').text(imgCaptionList[nextImgIndex]);
+            $('#selected-media').data('index', nextImgIndex);
+
+            $('#selected-media-status').text((nextImgIndex+1).toString() + ' of ' + imgURLList.length);
         });
 
         $('.large-media-wrapper').on('click','.media-prev', function(){
+            var imgURLList = getImageList();
+            var imgCaptionList = getCaptionList();
+            var prevImgIndex = ($('#selected-media').data('index') - 1);
+            if(prevImgIndex < 0){
+                prevImgIndex = imgURLList.length - 1;
+            }
 
+            $('#selected-media').css('background-image',imgURLList[prevImgIndex]);
+            $('#selected-media-caption').text(imgCaptionList[prevImgIndex]);
+            $('#selected-media').data('index', prevImgIndex);
+
+            $('#selected-media-status').text((prevImgIndex+1).toString() + ' of ' + imgURLList.length);
         });
+
+        function getImageList(){
+            var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+            var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+            var imgURLList = [];
+            $(mediaId).find('li').each(function() {
+                imgURLList.push('url(\"' +$( this ).text()+ '\")');
+
+            });
+
+            return imgURLList;
+        }
+
+        function getCaptionList(){
+            var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+            var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+            var imgCaptionList = [];
+            $(mediaId).find('li').each(function() {
+                imgCaptionList.push($( this ).attr('title'));
+            });
+
+            return imgCaptionList;
+        }
+
+
     });
 
 </script>
