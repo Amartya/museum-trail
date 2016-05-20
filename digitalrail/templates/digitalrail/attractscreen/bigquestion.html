@@ -394,9 +394,12 @@
         $('.page').on('click', '.artifact', function(){
             preventScrollEvent = true;
 
+            $('.artifact-sub-description').fadeOut(0);
+
             $('.artifact').removeClass('selected');
             var selectedItem = $(this);
             selectedItem.addClass('selected');
+            selectedItem.find('.artifact-sub-description').fadeIn(200);
 
             var collectionNum = $(this).first().attr('id').split('-')[1]; //e.g. B1, B2, B3 etc.
 
