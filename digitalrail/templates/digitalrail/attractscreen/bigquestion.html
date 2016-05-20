@@ -234,24 +234,38 @@
             var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
             var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
 
-            if($(mediaId).hasClass('slideshow')){
-                var imgURL = 'url(\"' + $(mediaId).find('li').first().text() + "\")";
-                var caption = $(mediaId).find('li').first().attr("title");
+            if($(mediaId).length){
+                if($(mediaId).hasClass('slideshow')){
+                    var imgURL = 'url(\"' + $(mediaId).find('li').first().text() + "\")";
+                    var caption = $(mediaId).find('li').first().attr("title");
 
-                $('#selected-media').css('background-image',imgURL);
-                $('#selected-media').data("index", 0);
+                    $('#selected-media').css('background-image',imgURL);
+                    $('#selected-media').data("index", 0);
 
-                $('#selected-media-status').text('1 of ' + $(mediaId).find('li').length);
-                $('#selected-media-caption').text(caption);
-                $('#media-nav-wrapper').fadeIn(200);
+                    $('#selected-media-status').text('1 of ' + $(mediaId).find('li').length);
+                    $('#selected-media-caption').text(caption);
+
+                    $('.media-nav').fadeIn(200);
+                    $('#selected-media-status').fadeIn(200);
+                    $('#selected-media-caption').fadeIn(200);
+                }
+                else{
+                    var imgURL = 'url(\"' + $(mediaId).text()+ "\")";
+                    $('.media-nav').fadeOut(200);
+                    $('#selected-media-status').fadeOut(200);
+
+                    $('#selected-media').css('background-image',imgURL);
+                    $('#selected-media-caption').text($(mediaId).data('caption'));
+                    $('#selected-media-caption').fadeIn(200);
+                }
             }
             else{
-                var imgURL = 'url(\"' + $(mediaId).text()+ "\")";
-                $('.media-nav').fadeOut(200);
-                $('#selected-media-status').fadeOut(200);
+                $('.media-nav').css('display', 'none');
+                $('#selected-media-caption').css('display', 'none');
+                $('#selected-media-status').css('display', 'none');
 
-                $('#selected-media').css('background-image',imgURL);
-                $('#selected-media-caption').text($(mediaId).data('caption'));
+                var dragonImgURL = "url(/static/attractscreen/media/dragon-450.png)";
+                $('#selected-media').css('background-image',dragonImgURL);
             }
         }
         //-------------------------------------------------------------------

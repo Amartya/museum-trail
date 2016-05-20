@@ -310,7 +310,7 @@ body {
   font-size: 12pt;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  font-family: "Avenir Next";
+  font-family: "Avenir Next Regular", sans-serif;
   line-height: 45px;
   text-align: center; }
   #home-bar i {
