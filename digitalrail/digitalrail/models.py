@@ -9,6 +9,8 @@ class Question(models.Model):
     pub_date = models.DateTimeField('date published')
     active = models.BooleanField(default=False)
     additional_prompt = models.CharField(max_length=500)
+    selected_story_id = models.CharField(max_length=50)
+    related_img_filename = models.CharField(max_length=100)
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

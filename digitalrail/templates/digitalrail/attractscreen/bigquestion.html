@@ -29,29 +29,25 @@
                   <div id="hero-img"></div>
               </div>
             </div>
-            <div id="question-container">
+            <div id="question-container" data-question-index="0">
               <div class="attract-text" id="main-question">
-                  {% if question %}
-                    {{ question }}
+                  {% if first_question %}
+                    {{ first_question }}
                   {% else %}
                     What does the future hold?
                   {% endif %}
               </div>
 
               <div class="attract-text" id="sub-question">
-                  {% if additional_prompt %}
-                    {{ additional_prompt }}
+                  {% if first_additional_prompt %}
+                    {{ first_additional_prompt }}
                   {% else %}
                     ...
                   {% endif %}
-                  <div class="nav">
-                      <img class="nav-screen">
-                  </div>
-              </div>
-
-              <div class="navigation-next">
+                  <div class="nav"><img class="nav-screen" data-next-story-id=""></div>
               </div>
             </div>
+            <div id="cycle-questions">other questions <i class="ion ion-loop"></i></div>
         </div>
 
         <div class="page" id="mask"></div>
@@ -93,421 +89,471 @@
         <div id="home-bar"><i class="icon ion-home"></i>Home</div>
     </div>
 
-<script type="text/javascript">
-    $( document ).ready(function() {
-        var caseId = "2-1_M2";
-        var jsonPath = "/static/attractscreen/media/" + caseId + "/assets/json/";
-        var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
-        var railName = caseId;
-        var stories = {};
-        var selectedArtifact = '';
-        var preventScrollEvent = false;
+    <div id="question-content">
+        <ul>
+            {% for i in question_list %}
+                <li data-question="{{i.question}}" data-additional-prompt="{{i.additional_prompt}}"
+                    data-selected-story="{{i.story_id}}" data-img-filename="{{i.img_filename}}"></li>
+            {% endfor %}
+        </ul>
+    </div>
 
-        //$('#detail-screen').removeClass('right-page-hidden');
-        //$('#attract-screen').addClass('left-page-hidden');
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var caseId = "2-1_M2";
+            var jsonPath = "/static/attractscreen/media/" + caseId + "/assets/json/";
+            var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
+            var railName = caseId;
+            var stories = {};
+            var selectedArtifact = '';
+            var preventScrollEvent = false;
 
-        //-------------------------------------------------------------------
-        // Load the collection data and top-level menu
-        //-------------------------------------------------------------------
-        $.getJSON(jsonPath + "collection.json", function(collectionData) {
-          $('#header').html(collectionData['header']);
-          $('#headerText').html(collectionData['headerText']);
-          railName = collectionData['railName'];
+            //$('#detail-screen').removeClass('right-page-hidden');
+            //$('#attract-screen').addClass('left-page-hidden');
 
-          //strings to create dom structure for artifact column
-          var tempArtifactInitStr = "<div class=\"artifact\" ";
-          var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
-                  "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\"></div>" +
-                  "<div class=\"description-wrapper\"><div class=\"artifact-description\"></div>" +
-                  "<div class=\"artifact-sub-description\"><div class=\"line1\"></div> " +
-                  "<div class=\"line2\"></div><div class=\"line3\"></div>" +
-                  " </div> </div> </div> " + "<div class=\"sub-question-wrapper\""
+            //-------------------------------------------------------------------
+            // Load the collection data and top-level menu
+            //-------------------------------------------------------------------
+            $.getJSON(jsonPath + "collection.json", function(collectionData) {
+              $('#header').html(collectionData['header']);
+              $('#headerText').html(collectionData['headerText']);
+              railName = collectionData['railName'];
 
-          var tempArtifactEndStr = "></div>";
+              //strings to create dom structure for artifact column
+              var tempArtifactInitStr = "<div class=\"artifact\" ";
+              var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
+                      "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\"></div>" +
+                      "<div class=\"description-wrapper\"><div class=\"artifact-description\"></div>" +
+                      "<div class=\"artifact-sub-description\"><div class=\"line1\"></div> " +
+                      "<div class=\"line2\"></div><div class=\"line3\"></div>" +
+                      " </div> </div> </div> " + "<div class=\"sub-question-wrapper\""
 
-          $.each(collectionData['collectionPanel'], function(index, val) {
-              var myURL = jsonPath + railName + "_" + val + ".json";
+              var tempArtifactEndStr = "></div>";
 
-              $.ajax({
-                  url: myURL,
-                  dataType: 'json',
-                  async: false,
-                  success: function(objectData) {
-                      //set id of artifact element
-                      $('#artifacts-wrapper').append(tempArtifactInitStr + "id=artifact-" + val.toString() + tempArtifactMidStr +
-                      "id=sub-question-wrapper-" + val.toString() + tempArtifactEndStr);
+              $.each(collectionData['collectionPanel'], function(index, val) {
+                  var myURL = jsonPath + railName + "_" + val + ".json";
 
-                      //set clipped small image of artifact on the left
-                      $('#artifact-' + val.toString()).find('.artifact-img').css('background-image',
-                              'url("/static/attractscreen/media/2-1_M2/assets/media/image/' +
-                              objectData['thumbnail'] + '\")');
+                  $.ajax({
+                      url: myURL,
+                      dataType: 'json',
+                      async: false,
+                      success: function(objectData) {
+                          //set id of artifact element
+                          $('#artifacts-wrapper').append(tempArtifactInitStr + "id=artifact-" + val.toString() + tempArtifactMidStr +
+                          "id=sub-question-wrapper-" + val.toString() + tempArtifactEndStr);
 
-                      setCaseNumber(objectData, val);
+                          //set clipped small image of artifact on the left
+                          $('#artifact-' + val.toString()).find('.artifact-img').css('background-image',
+                                  'url("/static/attractscreen/media/2-1_M2/assets/media/image/' +
+                                  objectData['thumbnail'] + '\")');
 
-                      setArtifactDescription(objectData, val);
+                          setCaseNumber(objectData, val);
 
-                      setArtifactDate(objectData, val);
+                          setArtifactDescription(objectData, val);
 
-                      setArtifactLabel(objectData, val);
+                          setArtifactDate(objectData, val);
 
-                      //set case id for objects
-                      if(objectData['id'].length == 0 ){
-                        $('#artifact-' + val.toString()).find('.line3').fadeOut(0);
-                      }
-                      else{
-                        $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
-                      }
+                          setArtifactLabel(objectData, val);
 
-                      var stories = objectData['stories'];
+                          //set case id for objects
+                          if(objectData['id'].length == 0 ){
+                            $('#artifact-' + val.toString()).find('.line3').fadeOut(0);
+                          }
+                          else{
+                            $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
+                          }
 
-                      for(var i=0; i<=stories.length; i++){
-                          if(!(stories[i] === undefined)){
-                              var storyHeaderId = val.toString() + "-detail-story-" + i.toString();
-                              var storyTextId = val.toString() + "-detail-story-" + i.toString();
+                          var stories = objectData['stories'];
 
-                              var headerDiv = "<div class=\"detail-header\" id=\"" + storyHeaderId + "\">" +
-                                                stories[i].label + "<div>";
-                              var textDiv = "<div class=\"detail-text\" id=\"" + storyTextId + "\">" +
-                                                stories[i].content + "<div>";
-                              $('#detail-story-wrapper').append(headerDiv);
-                              $('#detail-story-wrapper').append(textDiv);
+                          for(var i=0; i<=stories.length; i++){
+                              if(!(stories[i] === undefined)){
+                                  var storyHeaderId = val.toString() + "-detail-story-" + i.toString();
+                                  var storyTextId = val.toString() + "-detail-story-" + i.toString();
 
-                              var mediaId = val.toString() + "-media-" + i.toString();
-                              if(stories[i].type == "slideshow"){
-                                  var mediaContentDiv = "<div class=\"slideshow\" id=\"" + mediaId + "\"></div>";
-                                  $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
-                                  $('#' + mediaId).append("<ul class=\"slide\">");
+                                  var headerDiv = "<div class=\"detail-header\" id=\"" + storyHeaderId + "\">" +
+                                                    stories[i].label + "<div>";
+                                  var textDiv = "<div class=\"detail-text\" id=\"" + storyTextId + "\">" +
+                                                    stories[i].content + "<div>";
+                                  $('#detail-story-wrapper').append(headerDiv);
+                                  $('#detail-story-wrapper').append(textDiv);
 
-                                  for(var j=0; j<=stories[i].link.length; j++ ){
-                                    if(!(stories[i].link[j]===undefined)){
-                                        var liItem = "<li title=\"" + stories[i].link[j].caption + "\">"+ imagePath + stories[i].link[j].name + "</li>";
-                                        $('#' + mediaId).find('.slide').append(liItem);
-                                    }
+                                  var mediaId = val.toString() + "-media-" + i.toString();
+                                  if(stories[i].type == "slideshow"){
+                                      var mediaContentDiv = "<div class=\"slideshow\" id=\"" + mediaId + "\"></div>";
+                                      $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
+                                      $('#' + mediaId).append("<ul class=\"slide\">");
+
+                                      for(var j=0; j<=stories[i].link.length; j++ ){
+                                        if(!(stories[i].link[j]===undefined)){
+                                            var liItem = "<li title=\"" + stories[i].link[j].caption + "\">"+ imagePath + stories[i].link[j].name + "</li>";
+                                            $('#' + mediaId).find('.slide').append(liItem);
+                                        }
+                                      }
                                   }
-                              }
-                              else if(stories[i].type == "image"){
-                                  var mediaContentDiv = "<div class=\"media-image\" id=\"" + mediaId + "\"></div>";
-                                  var imgPath = imagePath + stories[i].link;
-                                  var imgCaption = stories[i].caption;
+                                  else if(stories[i].type == "image"){
+                                      var mediaContentDiv = "<div class=\"media-image\" id=\"" + mediaId + "\"></div>";
+                                      var imgPath = imagePath + stories[i].link;
+                                      var imgCaption = stories[i].caption;
 
-                                  $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
-                                  $('#' + mediaId).text(imgPath);
-                                  $('#' + mediaId).data('caption', imgCaption);
+                                      $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
+                                      $('#' + mediaId).text(imgPath);
+                                      $('#' + mediaId).data('caption', imgCaption);
+                                  }
                               }
                           }
                       }
-                  }
+                  });
+
+                  //getJSON is async, and can make the order of items with the
+                  {#$.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {#}
               });
+                //select the first artifact by default
+                var firstArtifactId = '#' + $('#artifacts-col').find('.artifact').first().attr('id');
+                var firstSubQuestionWrapperId = '#' + 'sub-question-wrapper-' + firstArtifactId.split('-')[1];
+                var firstSubQuestionId = '#' + firstArtifactId.split('-')[1] + '-item-0';
 
-              //getJSON is async, and can make the order of items with the
-              {#$.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {#}
-          });
-            //select the first artifact by default
-            var firstArtifactId = '#' + $('#artifacts-col').find('.artifact').first().attr('id');
-            var firstSubQuestionWrapperId = '#' + 'sub-question-wrapper-' + firstArtifactId.split('-')[1];
-            var firstSubQuestionId = '#' + firstArtifactId.split('-')[1] + '-item-0';
+                selectArtifactAndStory(firstArtifactId, firstSubQuestionWrapperId, firstSubQuestionId);
 
-            selectArtifactAndStory(firstArtifactId, firstSubQuestionWrapperId, firstSubQuestionId);
-
-            displayMedia();
-        });
-
-        function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
-            $('.artifact').removeClass('selected');
-            $('.sub-question-item').removeClass('selected');
-
-            if($(subQuestionWrapperID).css('display') == "none"){
-                $('.sub-question-wrapper').slideUp(400);
-                $(subQuestionWrapperID).slideDown(400);
-            }
-
-            $(artifactId).addClass('selected');
-            $(subQuestionId).addClass('selected');
-
-            if($(subQuestionId).find('i').css('display') == "none"){
-                $('.sub-question-item').find('i').fadeOut(0);
-                $(subQuestionId).find('i').fadeIn(400);
-            }
-        }
-
-        function displayMedia(){
-            var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
-            var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
-
-            if($(mediaId).length){
-                if($(mediaId).hasClass('slideshow')){
-                    var imgURL = 'url(\"' + $(mediaId).find('li').first().text() + "\")";
-                    var caption = $(mediaId).find('li').first().attr("title");
-
-                    $('#selected-media').css('background-image',imgURL);
-                    $('#selected-media').data("index", 0);
-
-                    $('#selected-media-status').text('1 of ' + $(mediaId).find('li').length);
-                    $('#selected-media-caption').text(caption);
-
-                    $('.media-nav').fadeIn(200);
-                    $('#selected-media-status').fadeIn(200);
-                    $('#selected-media-caption').fadeIn(200);
-                }
-                else{
-                    var imgURL = 'url(\"' + $(mediaId).text()+ "\")";
-                    $('.media-nav').fadeOut(200);
-                    $('#selected-media-status').fadeOut(200);
-
-                    $('#selected-media').css('background-image',imgURL);
-                    $('#selected-media-caption').text($(mediaId).data('caption'));
-                    $('#selected-media-caption').fadeIn(200);
-                }
-            }
-            else{
-                $('.media-nav').css('display', 'none');
-                $('#selected-media-caption').css('display', 'none');
-                $('#selected-media-status').css('display', 'none');
-
-                var dragonImgURL = "url(/static/attractscreen/media/dragon-450.png)";
-                $('#selected-media').css('background-image',dragonImgURL);
-            }
-        }
-        //-------------------------------------------------------------------
-        // Sets the case number (e.g. 16-17, 18-19) for each artifact in col1
-        //-------------------------------------------------------------------
-        function setCaseNumber(objectData, val){
-            if(objectData['isTopicLabel'] == false){
-              $('#artifact-' + val.toString()).find('.artifact-index').text(objectData['caseNumber'].replace(/ /g,''));
-            }
-            else{
-              $('#artifact-' + val.toString()).find('.artifact-index').fadeOut(0);
-            }
-        }
-
-        //-------------------------------------------------------------------
-        // Sets the artifact description in the first column
-        //-------------------------------------------------------------------
-        function setArtifactDescription(objectData, val){
-            if(objectData['title'].indexOf('<br>')>=0){
-                $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title'].split('<br>')[0]);
-                $('#artifact-' + val.toString()).find('.line1').text(objectData['title'].split('<br>')[1]);
-
-                $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
-                $('#artifact-' + val.toString()).find('.line3').text(objectData['id']);
-            }
-            else{
-                $('#artifact-' + val.toString()).find('.line1').fadeOut(0);
-                $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title']);
-            }
-        }
-
-        //-------------------------------------------------------------------
-        // Sets the artifact era/date info. in the first column
-        //-------------------------------------------------------------------
-        function setArtifactDate(objectData, val){
-            if(objectData['date'] === undefined){
-                $('#artifact-' + val.toString()).find('.line2').fadeOut(0);
-            }
-            else{
-                $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
-            }
-        }
-
-        //-------------------------------------------------------------------
-        // Sets the labels in the collapsible menu for each artifact
-        //-------------------------------------------------------------------
-        function setArtifactLabel(objectData, val){
-            var artifact = $('#artifact-' + val.toString());
-            var subQuestionWrapper = $('#sub-question-wrapper-' + val.toString());
-
-            if(artifact.find('.line1').css('display') != "none"){
-                subQuestionWrapper.css('margin-top', '15px');
-            }
-            else if(artifact.find('.line1').css('display') == "none" &&
-                    artifact.find('.line2').css('display') == "none"){
-                subQuestionWrapper.css('margin-top', '-35px');
-            }
-
-            for(var i=0; i<objectData['stories'].length; i++){
-                subQuestionWrapper.append("<div class=\"sub-question-item\" id=\"" + val.toString()
-                        + "-item-" + i.toString() + "\">"+ objectData['stories'][i]['label']
-                        + "<i class=\"ion-ios-checkmark\"></i></div>");
-            }
-        }
-
-        //-------------------------------------------------------------------
-        // Sets the state (white font)for a label in the collapsible menu
-        //-------------------------------------------------------------------
-        $('.page').on('click','.sub-question-item', function(){
-            preventScrollEvent = true;
-
-            $('.sub-question-item').removeClass('selected');
-            $('.sub-question-item').find('i').fadeOut(0);
-
-            $(this).addClass('selected');
-            showSelectedLabelIcon($(this));
-
-            var targetDiv = '#' + $(this).attr('id').split('-')[0] +  "-detail-story-" +
-                            $(this).attr('id').split('-')[2];
-
-            $('#detail-col').animate({
-                scrollTop: $(targetDiv).position().top
-            }, 1000, "swing", function(){
-                preventScrollEvent = false;
+                displayMedia();
             });
 
-            displayMedia();
-        });
+            function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
+                $('.artifact').removeClass('selected');
+                $('.sub-question-item').removeClass('selected');
 
-        //-------------------------------------------------------------------
-        // Sets the checkmark icon next to the labels in the collapsible menu
-        //-------------------------------------------------------------------
-        function showSelectedLabelIcon(selectedLabel){
-            selectedLabel.find('i').fadeIn(400);
-        }
+                if($(subQuestionWrapperID).css('display') == "none"){
+                    $('.sub-question-wrapper').slideUp(400);
+                    $(subQuestionWrapperID).slideDown(400);
+                }
 
-        //-------------------------------------------------------------------
-        // Callback for moving from the attract screen to the 3-pane screen
-        //-------------------------------------------------------------------
-        $('.page').on('click', '.nav-screen', function(){
-            $('#attract-screen').addClass('left-page-hidden');
-            $('#detail-screen').removeClass('right-page-hidden');
+                $(artifactId).addClass('selected');
+                $(subQuestionId).addClass('selected');
 
-            $('#home-bar').fadeIn(400);
-
-            $(selectedArtifact).addClass('selected');
-
-            $(".artifact:not(.selected)").find('.artifact-sub-description').fadeOut(0);
-            $(".artifact:not(.selected)").find('.more-info-modal').fadeOut(0);
-        });
-
-        //-------------------------------------------------------------------
-        // Callback for going back to home/attract screen
-        //-------------------------------------------------------------------
-        $('#home-bar').click(function(){
-            $('#home-bar').fadeOut(0);
-            $('#tab-bar').fadeOut(0);
-
-            $('#detail-screen').addClass('right-page-hidden');
-            $('#attract-screen').removeClass('left-page-hidden');
-        });
-
-        //-------------------------------------------------------------------
-        // Callback to set detail & media screen contents from artifact column
-        //-------------------------------------------------------------------
-        $('.page').on('click', '.artifact', function(){
-            preventScrollEvent = true;
-
-            $('.artifact-sub-description').fadeOut(0);
-
-            $('.artifact').removeClass('selected');
-            var selectedItem = $(this);
-            selectedItem.addClass('selected');
-            selectedItem.find('.artifact-sub-description').fadeIn(200);
-
-            var collectionNum = $(this).first().attr('id').split('-')[1]; //e.g. B1, B2, B3 etc.
-
-            var firstSubQuestionItem = '#' + collectionNum.toString() + '-item-0';
-            var subQuestionWrapper = $('#sub-question-wrapper-' + collectionNum);
-
-            $('.sub-question-item').removeClass('selected');
-            $('.sub-question-item').find('i').fadeOut(0);
-            subQuestionWrapper.find(firstSubQuestionItem).addClass('selected');
-            showSelectedLabelIcon(subQuestionWrapper.find(firstSubQuestionItem));
-
-            if(subQuestionWrapper.css('display') == "none"){
-                $('.sub-question-wrapper').slideUp(400);
-                subQuestionWrapper.slideDown(400);
+                if($(subQuestionId).find('i').css('display') == "none"){
+                    $('.sub-question-item').find('i').fadeOut(0);
+                    $(subQuestionId).find('i').fadeIn(400);
+                }
             }
 
-            var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
-            $('#detail-col').animate({
-                scrollTop: $(targetDiv).position().top
-            }, 1000, "swing", function(){
-                preventScrollEvent = false;
-            });
+            function displayMedia(){
+                var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+                var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
 
-            displayMedia();
-        });
+                if($(mediaId).length){
+                    if($(mediaId).hasClass('slideshow')){
+                        var imgURL = 'url(\"' + $(mediaId).find('li').first().text() + "\")";
+                        var caption = $(mediaId).find('li').first().attr("title");
 
-        //-------------------------------------------------------------------
-        // Callback to check for scroll and highlighting the
-        // correct artifact and the sub-question for it
-        //-------------------------------------------------------------------
-        $( '#detail-col' ).scroll(function() {
-            if(!preventScrollEvent){
-                var detailHeaders = $('#detail-col').find('.detail-header');
+                        $('#selected-media').css('background-image',imgURL);
+                        $('#selected-media').data("index", 0);
 
-                for(var i=0; i<detailHeaders.length; i++){
-                    var $this = $(detailHeaders[i]);
+                        $('#selected-media-status').text('1 of ' + $(mediaId).find('li').length);
+                        $('#selected-media-caption').text(caption);
 
-                    if ( $this.position().top + $this.height() > $('#detail-col').scrollTop()
-                            && $this.position().top < $('#detail-col').scrollTop()+$('#detail-col').height() ) {
+                        $('.media-nav').fadeIn(200);
+                        $('#selected-media-status').fadeIn(200);
+                        $('#selected-media-caption').fadeIn(200);
+                    }
+                    else{
+                        var imgURL = 'url(\"' + $(mediaId).text()+ "\")";
+                        $('.media-nav').fadeOut(200);
+                        $('#selected-media-status').fadeOut(200);
 
-                        var collectionID = $this.attr('id').split('-')[0];
-                        var storyID = $this.attr('id').split('-')[3];
-                        var artifactId = "#artifact-" + collectionID;
-                        var subQuestionWrapperID = "#sub-question-wrapper-" + collectionID;
-                        var subQuestionId = "#" + collectionID + '-item-' + storyID;
-
-                        selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId);
-                        break;
+                        $('#selected-media').css('background-image',imgURL);
+                        $('#selected-media-caption').text($(mediaId).data('caption'));
+                        $('#selected-media-caption').fadeIn(200);
                     }
                 }
+                else{
+                    $('.media-nav').css('display', 'none');
+                    $('#selected-media-caption').css('display', 'none');
+                    $('#selected-media-status').css('display', 'none');
+
+                    var dragonImgURL = "url(/static/attractscreen/media/dragon-450.png)";
+                    $('#selected-media').css('background-image',dragonImgURL);
+                }
             }
-        });
-
-        $('.large-media-wrapper').on('click','.media-next', function(){
-            var imgURLList = getImageList();
-            var imgCaptionList = getCaptionList();
-            var nextImgIndex = ($('#selected-media').data('index') + 1) % imgURLList.length;
-
-            $('#selected-media').css('background-image',imgURLList[nextImgIndex]);
-            $('#selected-media-caption').text(imgCaptionList[nextImgIndex]);
-            $('#selected-media').data('index', nextImgIndex);
-
-            $('#selected-media-status').text((nextImgIndex+1).toString() + ' of ' + imgURLList.length);
-        });
-
-        $('.large-media-wrapper').on('click','.media-prev', function(){
-            var imgURLList = getImageList();
-            var imgCaptionList = getCaptionList();
-            var prevImgIndex = ($('#selected-media').data('index') - 1);
-            if(prevImgIndex < 0){
-                prevImgIndex = imgURLList.length - 1;
+            //-------------------------------------------------------------------
+            // Sets the case number (e.g. 16-17, 18-19) for each artifact in col1
+            //-------------------------------------------------------------------
+            function setCaseNumber(objectData, val){
+                if(objectData['isTopicLabel'] == false){
+                  $('#artifact-' + val.toString()).find('.artifact-index').text(objectData['caseNumber'].replace(/ /g,''));
+                }
+                else{
+                  $('#artifact-' + val.toString()).find('.artifact-index').fadeOut(0);
+                }
             }
 
-            $('#selected-media').css('background-image',imgURLList[prevImgIndex]);
-            $('#selected-media-caption').text(imgCaptionList[prevImgIndex]);
-            $('#selected-media').data('index', prevImgIndex);
+            //-------------------------------------------------------------------
+            // Sets the artifact description in the first column
+            //-------------------------------------------------------------------
+            function setArtifactDescription(objectData, val){
+                if(objectData['title'].indexOf('<br>')>=0){
+                    $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title'].split('<br>')[0]);
+                    $('#artifact-' + val.toString()).find('.line1').text(objectData['title'].split('<br>')[1]);
 
-            $('#selected-media-status').text((prevImgIndex+1).toString() + ' of ' + imgURLList.length);
+                    $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
+                    $('#artifact-' + val.toString()).find('.line3').text(objectData['id']);
+                }
+                else{
+                    $('#artifact-' + val.toString()).find('.line1').fadeOut(0);
+                    $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title']);
+                }
+            }
+
+            //-------------------------------------------------------------------
+            // Sets the artifact era/date info. in the first column
+            //-------------------------------------------------------------------
+            function setArtifactDate(objectData, val){
+                if(objectData['date'] === undefined){
+                    $('#artifact-' + val.toString()).find('.line2').fadeOut(0);
+                }
+                else{
+                    $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
+                }
+            }
+
+            //-------------------------------------------------------------------
+            // Sets the labels in the collapsible menu for each artifact
+            //-------------------------------------------------------------------
+            function setArtifactLabel(objectData, val){
+                var artifact = $('#artifact-' + val.toString());
+                var subQuestionWrapper = $('#sub-question-wrapper-' + val.toString());
+
+                if(artifact.find('.line1').css('display') != "none"){
+                    subQuestionWrapper.css('margin-top', '15px');
+                }
+                else if(artifact.find('.line1').css('display') == "none" &&
+                        artifact.find('.line2').css('display') == "none"){
+                    subQuestionWrapper.css('margin-top', '-35px');
+                }
+
+                for(var i=0; i<objectData['stories'].length; i++){
+                    subQuestionWrapper.append("<div class=\"sub-question-item\" id=\"" + val.toString()
+                            + "-item-" + i.toString() + "\">"+ objectData['stories'][i]['label']
+                            + "<i class=\"ion-ios-checkmark\"></i></div>");
+                }
+            }
+
+            //-------------------------------------------------------------------
+            // Sets the state (white font)for a label in the collapsible menu
+            //-------------------------------------------------------------------
+            $('.page').on('click','.sub-question-item', function(){
+                preventScrollEvent = true;
+
+                $('.sub-question-item').removeClass('selected');
+                $('.sub-question-item').find('i').fadeOut(0);
+
+                $(this).addClass('selected');
+                showSelectedLabelIcon($(this));
+
+                var targetDiv = '#' + $(this).attr('id').split('-')[0] +  "-detail-story-" +
+                                $(this).attr('id').split('-')[2];
+
+                $('#detail-col').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                });
+
+                displayMedia();
+            });
+
+            //-------------------------------------------------------------------
+            // Sets the checkmark icon next to the labels in the collapsible menu
+            //-------------------------------------------------------------------
+            function showSelectedLabelIcon(selectedLabel){
+                selectedLabel.find('i').fadeIn(400);
+            }
+
+            //-------------------------------------------------------------------
+            // Callback for moving from the attract screen to the 3-pane screen
+            //-------------------------------------------------------------------
+            $('.page').on('click', '.nav-screen, .attract-text', function(){
+                $('#attract-screen').addClass('left-page-hidden');
+                $('#detail-screen').removeClass('right-page-hidden');
+
+                $('#home-bar').fadeIn(400);
+
+                //console.log($('.nav-screen').data('next-story-id'));
+
+
+                $(selectedArtifact).addClass('selected');
+
+                $(".artifact:not(.selected)").find('.artifact-sub-description').fadeOut(0);
+                $(".artifact:not(.selected)").find('.more-info-modal').fadeOut(0);
+            });
+
+            //-------------------------------------------------------------------
+            // Callback for going back to home/attract screen
+            //-------------------------------------------------------------------
+            $('#home-bar').click(function(){
+                $('#home-bar').fadeOut(0);
+                $('#tab-bar').fadeOut(0);
+
+                $('#detail-screen').addClass('right-page-hidden');
+                $('#attract-screen').removeClass('left-page-hidden');
+            });
+
+            //-------------------------------------------------------------------
+            // Callback to set detail & media screen contents from artifact column
+            //-------------------------------------------------------------------
+            $('.page').on('click', '.artifact', function(){
+                preventScrollEvent = true;
+
+                $('.artifact-sub-description').fadeOut(0);
+
+                $('.artifact').removeClass('selected');
+                var selectedItem = $(this);
+                selectedItem.addClass('selected');
+                selectedItem.find('.artifact-sub-description').fadeIn(200);
+
+                var collectionNum = $(this).first().attr('id').split('-')[1]; //e.g. B1, B2, B3 etc.
+
+                var firstSubQuestionItem = '#' + collectionNum.toString() + '-item-0';
+                var subQuestionWrapper = $('#sub-question-wrapper-' + collectionNum);
+
+                $('.sub-question-item').removeClass('selected');
+                $('.sub-question-item').find('i').fadeOut(0);
+                subQuestionWrapper.find(firstSubQuestionItem).addClass('selected');
+                showSelectedLabelIcon(subQuestionWrapper.find(firstSubQuestionItem));
+
+                if(subQuestionWrapper.css('display') == "none"){
+                    $('.sub-question-wrapper').slideUp(400);
+                    subQuestionWrapper.slideDown(400);
+                }
+
+                var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
+                $('#detail-col').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                });
+
+                displayMedia();
+            });
+
+            //-------------------------------------------------------------------
+            // Callback to check for scroll and highlighting the
+            // correct artifact and the sub-question for it
+            //-------------------------------------------------------------------
+            $( '#detail-col' ).scroll(function() {
+                if(!preventScrollEvent){
+                    var detailHeaders = $('#detail-col').find('.detail-header');
+
+                    for(var i=0; i<detailHeaders.length; i++){
+                        var $this = $(detailHeaders[i]);
+
+                        if ( $this.position().top + $this.height() > $('#detail-col').scrollTop()
+                                && $this.position().top < $('#detail-col').scrollTop()+$('#detail-col').height() ) {
+
+                            var collectionID = $this.attr('id').split('-')[0];
+                            var storyID = $this.attr('id').split('-')[3];
+                            var artifactId = "#artifact-" + collectionID;
+                            var subQuestionWrapperID = "#sub-question-wrapper-" + collectionID;
+                            var subQuestionId = "#" + collectionID + '-item-' + storyID;
+
+                            selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId);
+                            break;
+                        }
+                    }
+                }
+            });
+
+            $('.large-media-wrapper').on('click','.media-next', function(){
+                var imgURLList = getImageList();
+                var imgCaptionList = getCaptionList();
+                var nextImgIndex = ($('#selected-media').data('index') + 1) % imgURLList.length;
+
+                $('#selected-media').css('background-image',imgURLList[nextImgIndex]);
+                $('#selected-media-caption').text(imgCaptionList[nextImgIndex]);
+                $('#selected-media').data('index', nextImgIndex);
+
+                $('#selected-media-status').text((nextImgIndex+1).toString() + ' of ' + imgURLList.length);
+            });
+
+            $('.large-media-wrapper').on('click','.media-prev', function(){
+                var imgURLList = getImageList();
+                var imgCaptionList = getCaptionList();
+                var prevImgIndex = ($('#selected-media').data('index') - 1);
+                if(prevImgIndex < 0){
+                    prevImgIndex = imgURLList.length - 1;
+                }
+
+                $('#selected-media').css('background-image',imgURLList[prevImgIndex]);
+                $('#selected-media-caption').text(imgCaptionList[prevImgIndex]);
+                $('#selected-media').data('index', prevImgIndex);
+
+                $('#selected-media-status').text((prevImgIndex+1).toString() + ' of ' + imgURLList.length);
+            });
+
+            function getImageList(){
+                var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+                var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+                var imgURLList = [];
+                $(mediaId).find('li').each(function() {
+                    imgURLList.push('url(\"' +$( this ).text()+ '\")');
+
+                });
+
+                return imgURLList;
+            }
+
+            function getCaptionList(){
+                var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+                var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+                var imgCaptionList = [];
+                $(mediaId).find('li').each(function() {
+                    imgCaptionList.push($( this ).attr('title'));
+                });
+                return imgCaptionList;
+            }
+
+            var questionTimer = setInterval(function(){changeQuestion()}, 6000);
+
+            function changeQuestion(){
+                var questionContent = $('#question-content').find('li');
+                var questionArr = [];
+                var additionalPromptArr = [];
+                var storyIDArr = [];
+                var imgFileName = [];
+
+                for(var i=0; i<questionContent.length; i++ ){
+                    questionArr.push($(questionContent[i]).data('question'));
+                    additionalPromptArr.push($(questionContent[i]).data('additional-prompt'));
+                    storyIDArr.push($(questionContent[i]).data('selected-story'));
+                    imgFileName.push($(questionContent[i]).data('img-filename'));
+                }
+
+                var nextQuestionIndex =  ($('#question-container').data('question-index') + 1) % questionArr.length;
+
+                $('#main-question').fadeOut(0);
+                $('#main-question').text(questionArr[nextQuestionIndex]);
+                $('#main-question').fadeIn(600);
+
+                $('#sub-question').fadeOut(0);
+                $('#sub-question').empty();
+                $('#sub-question').text(additionalPromptArr[nextQuestionIndex]);
+                $('#sub-question').append('<div class="nav"><img class="nav-screen"></div>');
+                $('#sub-question').fadeIn(600);
+
+                $('#hero-img').fadeOut(0);
+                $('#hero-img').css('background-image', 'url(\"' + imagePath + imgFileName[nextQuestionIndex] + '\")');
+                $('#hero-img').fadeIn(600);
+
+                $('.nav-screen').data('next-story-id', storyIDArr[nextQuestionIndex]);
+                $('#question-container').data('question-index', nextQuestionIndex);
+            }
+
+            $('.page').on('click', '#cycle-questions', function(){
+                clearInterval(questionTimer);
+                changeQuestion();
+                questionTimer = setInterval(function(){changeQuestion()}, 6000)
+            });
         });
-
-        function getImageList(){
-            var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
-            var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
-
-            var imgURLList = [];
-            $(mediaId).find('li').each(function() {
-                imgURLList.push('url(\"' +$( this ).text()+ '\")');
-
-            });
-
-            return imgURLList;
-        }
-
-        function getCaptionList(){
-            var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
-            var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
-
-            var imgCaptionList = [];
-            $(mediaId).find('li').each(function() {
-                imgCaptionList.push($( this ).attr('title'));
-            });
-
-            return imgCaptionList;
-        }
-
-
-    });
-
-</script>
+    </script>
 </body>
 </html>

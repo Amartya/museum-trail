@@ -1,27 +1,65 @@
-{ 
-    "buttonID":"B3",
-    "title":"More on oracle bones",
-    "thumbnail":"2.1_M2_B3.png",
-    "id":[],
-    "stories":[
-            {
-                "label":"Supernatural protection",
-                "content":"In China’s early states, commoners might be conscripted into the army or drafted to help build city walls or palaces. However, they gained benefits from their community as well. Walled cities provided protection from bandits and rival groups. Rituals reinforced a sense of legitimacy and group identity. The oracle bones point to another, less tangible, benefit—the supernatural protection that a king could persuade his ancestors to provide for his people.",
-                "textWidth":10
-            },
-            {
-                "label":"The power of written records",
-                "content":"Oracle bone divination was practiced for centuries before the Shang rulers and their scribes began writing the charge, prognostication, and verification on them. By writing on the oracle bones, scribes created a lasting record of the divinations. The records of the oracle bones are sometimes described as a precursor to China’s immensely effective bureaucratic system, which emerged in later dynasties."
-            },
-            {
-                "label":"Discovering oracle bones",
-                "content":"Oracle bones weren’t discovered until 1899, when a scholar named Wang Yirong supposedly sent his servant to an apothecary for “dragon bones,” which were thought to cure malaria when ground into a powder. When his servant brought him the bones, he noticed they had a form of writing on them. He located the source of the dragon bones near Anyang and published a book of inscriptions found on the pieces. His discovery excited both scholars and collectors, and led to more excavations around Anyang, but also to a brisk trade in fake oracle bones.",
-                "type":"image",
-                "link":"2.1_M2_B3_S3.png",
-                "resizable":true,
-                "caption":"As scholars became interested in oracle bones in the early twentieth century, a brisk trade in fakes emerged.",
-                "credit":"© The Field Museum, A115184d Photographer Karen Bean"
-            }
-        ],
-    "isTopicLabel":true
+{
+    "buttonID": "B3",
+    "caseNumber": "4-6",
+    "title": "Calabashes",
+    "date": "Western Africa (calabash gourd, paint, ash, straw)",
+    "timePeriodUppercase":false,
+    "thumbnail": "calabashes.png",
+    "id": [],
+    "stories": [
+        {
+            "label": "Status symbols",
+            "content": "African artists work to make things that are useful as well as beautiful. Plain calabash dishes and utensils are used everyday, but when a calabash is decorated it becomes a work of art and a symbol of wealth. The craftsmen and women who make them are therefore highly respected. The techniques for making and decorating calabashes have changed very little over the centuries, and craftsmen traditionally pass down techniques through their families generation after generation.",
+            "textWidth": 5,
+            "type": "slideshow",
+            "link": [
+                {
+                    "name": "Calabash_supplementalImage1.jpg",
+                    "caption": "",
+                    "credit": "en.wikipedia.org"
+                },
+                {
+                    "name": "Calabash_supplementalImage2.jpg",
+                    "caption": "",
+                    "credit": "en.wikipedia.org"
+                },
+                {
+                    "name": "Calabash_supplementalImage3.jpg",
+                    "caption": "",
+                    "credit": "en.wikipedia.org"
+                }
+            ]
+        },
+        {
+            "label": "How are gourds transformed into art?",
+            "content": "First the calabashes are soaked in water until the insides are rotten. Then the inner fruit is removed and the outer shells are dried. The calabashes are then carved into the desired shape and decorated. Several techniques are used to decorate calabashes throughout Africa. Pyroengraving is a technique practiced in Cameroon and Mali, usually by women, in which red-hot leaf-shaped points with wooden handles are used to burn designs into the gourd. Craftsmen in Mali and Ethiopia sometimes decorate calabashes with basketry fibers like straw or strips of bamboo. In West Africa artists, usually men, paint calabashes with a dark paint. When the paint has dried, the artist carves the surface of the calabash around the design he wants.",
+            "type": "slideshow",
+            "link": [
+                {
+                    "name": "PaintedCalabash.png",
+                    "caption": "Painted calabash.",
+                    "credit": "©The Field Museum, Photographer Jessica Roberts"
+                },
+                {
+                    "name": "IncisedCalabash.png",
+                    "caption": "Incised calabash.",
+                    "textWidth":10,
+                    "credit": "©The Field Museum, Photographer Jessica Roberts"
+                },
+                {
+                    "name": "WovenCalabash.png",
+                    "caption": "Woven calabash.",
+                    "textWidth": 15,
+                    "credit": "©The Field Museum, Photographer Jessica Roberts"
+                }
+            ],
+            "caption": ""
+        },
+        {
+            "label": "Art imitates life",
+            "content": "Artists use many different designs on their calabashes. Often they are animals common in the area where they live: giraffes, elephants, lizards, snakes, and antelopes. Sometimes they use human figures or geometrical patterns. One common geometrical pattern is a series of concentric circles symbolizing Mout Kilamanjaro, the highest mountain in Africa.",
+            "textWidth": 10
+        }
+    ],
+    "isTopicLabel": false
 }

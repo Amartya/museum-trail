@@ -15,18 +15,48 @@ def index(request):
 
 
 def bigquestion(request):
-    first_question = Question.objects.filter(rail_id=0, active=True).order_by('-pub_date')[0]
-    question_data = {}
-    question_data['question'] = first_question.question_text
-    question_data['additional_prompt'] = first_question.additional_prompt
+    all_questions = Question.objects.filter(rail_id=0, active=True).order_by('-pub_date')
 
-    return render(request, 'digitalrail/attractscreen/bigquestion.html', question_data)
+    if all_questions.count > 0:
+        first_question = all_questions[0]
+
+        question_data = {}
+        question_data['first_question'] = first_question.question_text
+        question_data['first_additional_prompt'] = first_question.additional_prompt
+
+        question_list = []
+        for q in all_questions:
+            temp_question = {'question': q.question_text, 'additional_prompt': q.additional_prompt,
+                             'story_id': q.selected_story_id, 'img_filename': q.related_img_filename}
+            question_list.append(temp_question)
+
+        question_data['question_list'] = question_list
+
+        return render(request, 'digitalrail/attractscreen/bigquestion.html', question_data)
+    else:
+        question_data={'question': 'What does the future hold?', 'additional_prompt': '...and can you pay to find out'}
+        return render(request, 'digitalrail/fox/bigquestion.html', question_data)
 
 def fox(request):
-    first_question = Question.objects.filter(rail_id=1, active=True).order_by('-pub_date')[0]
-    question_data = {}
-    question_data['question'] = first_question.question_text
-    question_data['additional_prompt'] = first_question.additional_prompt
+    all_questions = Question.objects.filter(rail_id=1, active=True).order_by('-pub_date')
 
-    print('FOX')
-    return render(request, 'digitalrail/fox/fox.html', question_data)
+    if all_questions.count > 0:
+        first_question = all_questions[0]
+
+        question_data = {}
+        question_data['first_question'] = first_question.question_text
+        question_data['first_additional_prompt'] = first_question.additional_prompt
+
+        question_list = []
+        for q in all_questions:
+            temp_question = {'question': q.question_text, 'additional_prompt': q.additional_prompt,
+                             'story_id': q.selected_story_id, 'img_filename': q.related_img_filename}
+            question_list.append(temp_question)
+
+        question_data['question_list'] = question_list
+
+        return render(request, 'digitalrail/fox/fox.html', question_data)
+    else:
+        question_data = {'question': 'What does the future hold?',
+                         'additional_prompt': '...and can you pay to find out'}
+        return render(request, 'digitalrail/fox/fox.html', question_data)
