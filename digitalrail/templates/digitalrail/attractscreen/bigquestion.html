@@ -108,8 +108,8 @@
             var selectedArtifact = '';
             var preventScrollEvent = false;
 
-            //$('#detail-screen').removeClass('right-page-hidden');
-            //$('#attract-screen').addClass('left-page-hidden');
+            $('#detail-screen').removeClass('right-page-hidden');
+            $('#attract-screen').addClass('left-page-hidden');
 
             //-------------------------------------------------------------------
             // Load the collection data and top-level menu
@@ -553,6 +553,21 @@
                 changeQuestion();
                 questionTimer = setInterval(function(){changeQuestion()}, 6000)
             });
+
+            function goToStory(){
+                var storyID = "artifact-1-story-2";
+                var artifactNum = storyID.split('-')[1];
+                var storyNum = storyID.split('-')[3];
+
+                console.log(artifactNum);
+                console.log(storyNum);
+                var artifactId = $('.artifact')[artifactNum].attr('id');
+                var subQuestionWrapperID = $('.sub-question-wrapper')[artifactNum].attr('id');
+                var subQuestionId = $('.sub-question-wrapper')[artifactNum].find('sub-question-item')[storyNum].attr('id');
+                selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId);
+            }
+
+            goToStory();
         });
     </script>
 </body>
