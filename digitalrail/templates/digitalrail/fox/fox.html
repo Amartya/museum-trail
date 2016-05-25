@@ -44,7 +44,7 @@
                   {% else %}
                     ...
                   {% endif %}
-                  <div class="nav"><img class="nav-screen" data-next-story-id=""></div>
+                  <div class="nav" id="next-story" data-next-story-id="{{first_selected_story_id}}"><img class="nav-screen"></div>
               </div>
             </div>
             <div id="cycle-questions">other questions <i class="ion ion-loop"></i></div>
@@ -371,16 +371,43 @@
             //-------------------------------------------------------------------
             // Callback for moving from the attract screen to the 3-pane screen
             //-------------------------------------------------------------------
-            $('.page').on('click', '.nav-screen, .attract-text', function(){
+            $('.page').on('click', '.nav-screen, .attract-text', function(event){
+                event.stopPropagation();
+
                 $('#attract-screen').addClass('left-page-hidden');
                 $('#detail-screen').removeClass('right-page-hidden');
 
-                $('#home-bar').fadeIn(400);
+                preventScrollEvent = true;
 
-                $(selectedArtifact).addClass('selected');
+                var nextStoryId = ""
+                var artifactId = ""
+                var storyNum = ""
+                try{
+                    nextStoryId = $('#next-story').data('next-story-id');
+                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);
+                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);
+                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];
+                }
+                catch(err){
+                    nextStoryId =  "artifact-0-story-0";
+                    var artifact = $('.artifact').first().attr('id');
+                    artifactId = artifact.split('-')[1];
+                    storyNum = "0";
+                }
 
-                $(".artifact:not(.selected)").find('.artifact-sub-description').fadeOut(0);
-                $(".artifact:not(.selected)").find('.more-info-modal').fadeOut(0);
+                goToStory(nextStoryId);
+
+                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();
+
+                clearInterval(questionTimer);
+
+                $('#detail-col').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                    displayMedia();
+                    $('#home-bar').fadeIn(400);
+                });
             });
 
             //-------------------------------------------------------------------
@@ -392,6 +419,10 @@
 
                 $('#detail-screen').addClass('right-page-hidden');
                 $('#attract-screen').removeClass('left-page-hidden');
+
+                clearInterval(questionTimer);
+                changeQuestion();
+                questionTimer = setInterval(function(){changeQuestion()}, 6000);
             });
 
             //-------------------------------------------------------------------
@@ -541,22 +572,34 @@
                 $('#sub-question').fadeOut(0);
                 $('#sub-question').empty();
                 $('#sub-question').text(additionalPromptArr[nextQuestionIndex]);
-                $('#sub-question').append('<div class="nav"><img class="nav-screen"></div>');
+                $('#sub-question').append('<div class="nav" id="next-story" data-next-story-id=""><img class="nav-screen"></div>');
                 $('#sub-question').fadeIn(600);
 
                 $('#hero-img').fadeOut(0);
                 $('#hero-img').css('background-image', 'url(\"' + imagePath + imgFileName[nextQuestionIndex] + '\")');
                 $('#hero-img').fadeIn(600);
 
-                $('.nav-screen').data('next-story-id', storyIDArr[nextQuestionIndex]);
+
+                $('#next-story').data('next-story-id', storyIDArr[nextQuestionIndex]);
                 $('#question-container').data('question-index', nextQuestionIndex);
             }
 
             $('.page').on('click', '#cycle-questions', function(){
                 clearInterval(questionTimer);
                 changeQuestion();
-                questionTimer = setInterval(function(){changeQuestion()}, 6000)
+                questionTimer = setInterval(function(){changeQuestion()}, 6000);
             });
+
+            function goToStory(storyID){
+                var artifactNum = Math.max((parseInt(storyID.split('-')[1])- 1), 0);
+                var storyNum = Math.max((parseInt(storyID.split('-')[3]) - 1), 0);
+
+                var artifactId = $('.artifact').eq(artifactNum).attr('id');
+                var subQuestionWrapperID = $('.sub-question-wrapper').eq(artifactNum).attr('id');
+                var subQuestionId = $('.sub-question-wrapper').eq(artifactNum).find('.sub-question-item').eq(storyNum).attr('id');
+
+                selectArtifactAndStory('#' + artifactId,'#' +  subQuestionWrapperID,'#' +  subQuestionId);
+            }
         });
     </script>
 </body>

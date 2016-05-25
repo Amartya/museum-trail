@@ -18,16 +18,25 @@ def bigquestion(request):
     all_questions = Question.objects.filter(rail_id=0, active=True).order_by('-pub_date')
 
     if all_questions.count > 0:
-        first_question = all_questions[0]
-
+        selected_story_id = "artifact-0-story-0"
         question_data = {}
+
+        first_question = all_questions[0]
         question_data['first_question'] = first_question.question_text
         question_data['first_additional_prompt'] = first_question.additional_prompt
 
+        if first_question.selected_story_id.strip() != "":
+            selected_story_id = first_question.selected_story_id.strip()
+
+        question_data['first_selected_story_id'] = selected_story_id
+
         question_list = []
         for q in all_questions:
+            if q.selected_story_id.strip() != "":
+                selected_story_id =  q.selected_story_id.strip()
+
             temp_question = {'question': q.question_text, 'additional_prompt': q.additional_prompt,
-                             'story_id': q.selected_story_id, 'img_filename': q.related_img_filename}
+                             'story_id': selected_story_id, 'img_filename': q.related_img_filename}
             question_list.append(temp_question)
 
         question_data['question_list'] = question_list
@@ -41,16 +50,25 @@ def fox(request):
     all_questions = Question.objects.filter(rail_id=1, active=True).order_by('-pub_date')
 
     if all_questions.count > 0:
-        first_question = all_questions[0]
-
+        selected_story_id = "artifact-0-story-0"
         question_data = {}
+
+        first_question = all_questions[0]
         question_data['first_question'] = first_question.question_text
         question_data['first_additional_prompt'] = first_question.additional_prompt
 
+        if first_question.selected_story_id.strip() != "":
+            selected_story_id = first_question.selected_story_id.strip()
+
+        question_data['first_selected_story_id'] = selected_story_id
+
         question_list = []
         for q in all_questions:
+            if q.selected_story_id.strip() != "":
+                selected_story_id = q.selected_story_id.strip()
+
             temp_question = {'question': q.question_text, 'additional_prompt': q.additional_prompt,
-                             'story_id': q.selected_story_id, 'img_filename': q.related_img_filename}
+                             'story_id': selected_story_id, 'img_filename': q.related_img_filename}
             question_list.append(temp_question)
 
         question_data['question_list'] = question_list
