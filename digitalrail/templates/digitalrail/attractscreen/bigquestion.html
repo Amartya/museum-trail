@@ -50,8 +50,6 @@
             <div id="cycle-questions">other questions <i class="ion ion-loop"></i></div>
         </div>
 
-        <div class="page" id="mask"></div>
-
         <!--Three pane layout-->
         <div class="page right-page-hidden" id="detail-screen">
             <div id="info-menu-wrapper" style="z-index: 5000;">
@@ -69,6 +67,7 @@
             </div>
             <!-- column2-->
             <div class="column" id="detail-col">
+                <div id = "detail-image-wrapper"></div>
                 <div id="detail-story-wrapper"></div>
             </div>
 
@@ -86,7 +85,83 @@
             </div>
         </div>
 
+
         <div id="home-bar"><i class="icon ion-home"></i>Home</div>
+
+        <div class="page" style="display: none;" >
+            <div class="page-artifact-wrapper">
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png);"></div>
+                    </div>
+                    <div class="artifact-index">14-16</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Oracle bones</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2">Shang Dynasty (c. 1600–1046 BC)</div>
+                            <div class="line3">121061,121062,121063</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png);"></div>
+                    </div>
+                    <div class="artifact-index">17-18</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Oracle bones</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1">(inscriptions added later)</div>
+                            <div class="line2"> Shang Dynasty (c. 1600–1046 BC)</div>
+                            <div class="line3">125459,125461</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B3.png);"></div>
+                    </div>
+                    <div class="artifact-index" style="display: none;"></div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">More on oracle bones</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2" style="display: none;"></div>
+                            <div class="line3" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png);"></div>
+                    </div>
+                    <div class="artifact-index">19-21</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Ceramic vessels and sherd</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2">Shang–Zhou period (c. 1600–256 BC)</div>
+                            <div class="line3">235949,117374,235955A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png);"></div>
+                    </div>
+                    <div class="artifact-index">22-24</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Cowrie shells</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2">Early Zhou Dynasty (1046–256 BC)</div>
+                            <div class="line3">124503,124500,124504</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="question-content">
@@ -154,13 +229,7 @@
 
                           setArtifactLabel(objectData, val);
 
-                          //set case id for objects
-                          if(objectData['id'].length == 0 ){
-                            $('#artifact-' + val.toString()).find('.line3').fadeOut(0);
-                          }
-                          else{
-                            $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
-                          }
+                          setCaseID(objectData, val);
 
                           var stories = objectData['stories'];
 
@@ -173,6 +242,7 @@
                                                     stories[i].label + "<div>";
                                   var textDiv = "<div class=\"detail-text\" id=\"" + storyTextId + "\">" +
                                                     stories[i].content + "<div>";
+
                                   $('#detail-story-wrapper').append(headerDiv);
                                   $('#detail-story-wrapper').append(textDiv);
 
@@ -206,33 +276,8 @@
                   //getJSON is async, and can make the order of items with the
                   {#$.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {#}
               });
-                //select the first artifact by default
-                var firstArtifactId = '#' + $('#artifacts-col').find('.artifact').first().attr('id');
-                var firstSubQuestionWrapperId = '#' + 'sub-question-wrapper-' + firstArtifactId.split('-')[1];
-                var firstSubQuestionId = '#' + firstArtifactId.split('-')[1] + '-item-0';
-
-                //selectArtifactAndStory(firstArtifactId, firstSubQuestionWrapperId, firstSubQuestionId);
-
-                //displayMedia();
             });
 
-            function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
-                $('.artifact').removeClass('selected');
-                $('.sub-question-item').removeClass('selected');
-
-                if($(subQuestionWrapperID).css('display') == "none"){
-                    $('.sub-question-wrapper').slideUp(400);
-                    $(subQuestionWrapperID).slideDown(400);
-                }
-
-                $(artifactId).addClass('selected');
-                $(subQuestionId).addClass('selected');
-
-                if($(subQuestionId).find('i').css('display') == "none"){
-                    $('.sub-question-item').find('i').fadeOut(0);
-                    $(subQuestionId).find('i').fadeIn(400);
-                }
-            }
 
             function displayMedia(){
                 var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
@@ -334,6 +379,17 @@
                             + "<i class=\"ion-ios-checkmark\"></i></div>");
                 }
             }
+
+            function setCaseID(objectData, val){
+              if(objectData['id'].length == 0 ){
+                $('#artifact-' + val.toString()).find('.line3').fadeOut(0);
+              }
+              else{
+                $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
+              }
+            }
+
+
 
             //-------------------------------------------------------------------
             // Sets the state (white font)for a label in the collapsible menu
@@ -487,6 +543,25 @@
                     }
                 }
             });
+
+
+            function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
+                $('.artifact').removeClass('selected');
+                $('.sub-question-item').removeClass('selected');
+
+                if($(subQuestionWrapperID).css('display') == "none"){
+                    $('.sub-question-wrapper').slideUp(400);
+                    $(subQuestionWrapperID).slideDown(400);
+                }
+
+                $(artifactId).addClass('selected');
+                $(subQuestionId).addClass('selected');
+
+                if($(subQuestionId).find('i').css('display') == "none"){
+                    $('.sub-question-item').find('i').fadeOut(0);
+                    $(subQuestionId).find('i').fadeIn(400);
+                }
+            }
 
             $('.large-media-wrapper').on('click','.media-next', function(){
                 var imgURLList = getImageList();

@@ -101,6 +101,88 @@ body {
   flex-direction: row;
   justify-content: space-between;
   @include x-browser-transition(transform 0.8s ease, opacity 1s ease);
+
+  .page-artifact-wrapper{
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .artifact{
+      opacity: 1.0;
+      display: flex;
+      width:500px;
+      height: 120px;
+
+      .artifact-img-clipper{
+        display: flex;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: $line-color;
+        border: 5px solid $outline-color;
+
+        .artifact-img{
+          background-size:contain;
+          background-repeat: no-repeat;
+          width: 60px;
+          height: 60px;
+          margin: auto;
+        }
+      }
+
+      .artifact-index{
+        width: 40px;
+        height: 25px;
+        margin-left: 10px;
+        background-color: $red-color;
+        font-size: 7pt;
+        font-family: "BauOT-Medium", sans-serif;
+        margin-top: 10px;
+
+        @include center-align(25px)
+      }
+
+      .description-wrapper{
+        display: flex;
+        flex-direction: column;
+      }
+
+      .artifact-description{
+        height: 25px;
+        width: 300px;
+        margin-left: 10px;
+        font-size: 16pt;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left;
+        margin-top: 10px;
+      }
+
+      .artifact-sub-description{
+        height: 20px;
+        width: 300px;
+        margin-left: 10px;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left;
+
+        .line1, .line2{
+          font-size: 12pt;
+        }
+
+        .line3{
+          font-size: 10pt;
+          color: #777;
+        }
+      }
+
+      &:active, &:hover{
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 #mask{
@@ -351,6 +433,15 @@ body {
     margin-top: 25px;
     height: 385px;
     overflow-x: hidden;
+
+    .detail-image-wrapper{
+      background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100px;
+      height: 100px;
+      margin: auto;
+    }
   }
 }
 

@@ -52,6 +52,66 @@ body {
   -moz-transition: transform 0.8s ease, opacity 1s ease;
   -o-transition: transform 0.8s ease, opacity 1s ease;
   -webkit-backface-visibility: hidden; }
+  .page .page-artifact-wrapper {
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; }
+    .page .page-artifact-wrapper .artifact {
+      opacity: 1.0;
+      display: flex;
+      width: 500px;
+      height: 120px; }
+      .page .page-artifact-wrapper .artifact .artifact-img-clipper {
+        display: flex;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #E1DDC6;
+        border: 5px solid #888678; }
+        .page .page-artifact-wrapper .artifact .artifact-img-clipper .artifact-img {
+          background-size: contain;
+          background-repeat: no-repeat;
+          width: 60px;
+          height: 60px;
+          margin: auto; }
+      .page .page-artifact-wrapper .artifact .artifact-index {
+        width: 40px;
+        height: 25px;
+        margin-left: 10px;
+        background-color: #bc4c4e;
+        font-size: 7pt;
+        font-family: "BauOT-Medium", sans-serif;
+        margin-top: 10px;
+        line-height: 25px;
+        text-align: center; }
+      .page .page-artifact-wrapper .artifact .description-wrapper {
+        display: flex;
+        flex-direction: column; }
+      .page .page-artifact-wrapper .artifact .artifact-description {
+        height: 25px;
+        width: 300px;
+        margin-left: 10px;
+        font-size: 16pt;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left;
+        margin-top: 10px; }
+      .page .page-artifact-wrapper .artifact .artifact-sub-description {
+        height: 20px;
+        width: 300px;
+        margin-left: 10px;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left; }
+        .page .page-artifact-wrapper .artifact .artifact-sub-description .line1, .page .page-artifact-wrapper .artifact .artifact-sub-description .line2 {
+          font-size: 12pt; }
+        .page .page-artifact-wrapper .artifact .artifact-sub-description .line3 {
+          font-size: 10pt;
+          color: #777; }
+      .page .page-artifact-wrapper .artifact:active, .page .page-artifact-wrapper .artifact:hover {
+        cursor: pointer; }
 
 #mask {
   display: none;
@@ -253,6 +313,13 @@ body {
     margin-top: 25px;
     height: 385px;
     overflow-x: hidden; }
+    #detail-col .detail-text .detail-image-wrapper {
+      background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100px;
+      height: 100px;
+      margin: auto; }
 
 #media-col {
   position: relative;

@@ -253,6 +253,13 @@ body {
     margin-top: 25px;
     height: 385px;
     overflow-x: hidden; }
+    #detail-col .detail-text .detail-image-wrapper {
+      background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100px;
+      height: 100px;
+      margin: auto; }
 
 #media-col {
   position: relative;
