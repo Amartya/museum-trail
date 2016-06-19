@@ -24,6 +24,7 @@ def bigquestion(request):
         first_question = all_questions[0]
         question_data['first_question'] = first_question.question_text
         question_data['first_additional_prompt'] = first_question.additional_prompt
+        question_data['first_img_filename'] = first_question.related_img_filename
 
         if first_question.selected_story_id.strip() != "":
             selected_story_id = first_question.selected_story_id.strip()

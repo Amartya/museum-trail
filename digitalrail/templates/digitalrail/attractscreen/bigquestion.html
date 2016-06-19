@@ -174,7 +174,7 @@
     </div>
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function(){
             var caseId = "2-1_M2";
             var jsonPath = "/static/attractscreen/media/" + caseId + "/assets/json/";
             var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
@@ -182,6 +182,7 @@
             var stories = {};
             var preventScrollEvent = false;
 
+            $('#hero-img').css('background-image', 'url(\"' + imagePath + "{{ first_img_filename }}" + '\")');
             //$('#detail-screen').removeClass('right-page-hidden');
             //$('#attract-screen').addClass('left-page-hidden');
 
