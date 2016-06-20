@@ -1,0 +1,692 @@
+{% load staticfiles %}
+<!--
+  Cyrus Tang Hall of China 
+  Digial Rail Design
+
+  This project was funded by the National Science Foundation (grant IIS-1550051).
+  Any opinions, findings and conclusions or recommendations expressed in this
+  material are those of the author(s) and do not necessarily reflect the views
+  of the National Science Foundation (NSF).
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <link href="{% static "common/css/fonts.css" %}" type="text/css" rel="stylesheet" />
+    <link href="{% static "common/css/ionicons.min.css" %}" type="text/css" rel="stylesheet" />
+    <link href="{% static "attractscreen/css/altbigquestion.css" %}" type="text/css" rel="stylesheet" />
+    <script src="{% static "common/js/jquery-1.12.3.min.js" %}"></script>
+    <title>Case 201: Cyrus Tang Hall of China</title>
+</head>
+<body oncontextmenu="return false">
+    <div id="screen">
+        <!--Attract Screen-->
+        <div class="page" id="attract-screen">
+            <div id="artifact-menu">
+                <div id="artifact-menu-wrapper">
+                    <div class="attract-screen-artifact">
+                        <div class="menu-artifact">
+                            <div class="menu-artifact-img"></div>
+                        </div>
+                        <div class="artifact-label-large">14 - 16</div>
+                    </div>
+                    <div class="attract-screen-artifact">
+                        <div class="menu-artifact"></div>
+                        <div class="artifact-label-large">14 - 16</div>
+                    </div>
+                    <div class="attract-screen-artifact">
+                        <div class="menu-artifact"></div>
+                        <div class="artifact-label-large">14 - 16</div>
+                    </div>
+                    <div class="attract-screen-artifact">
+                        <div class="menu-artifact"></div>
+                        <div class="artifact-label-large">14 - 16</div>
+                    </div>
+                    <div class="attract-screen-artifact">
+                        <div class="menu-artifact"></div>
+                        <div class="artifact-label-large">14 - 16</div>
+                    </div>
+                </div>
+            </div>
+            <div id="img-container">
+              <div class="artifact-label">14-16</div>
+              <div id="img-clipper" class="shadow">
+
+                  <div id="hero-img"></div>
+              </div>
+            </div>
+            <div id="question-container" data-question-index="0">
+              <div class="attract-text" id="main-question">
+                  {% if first_question %}
+                    {{ first_question }}
+                  {% else %}
+                    What does the future hold?
+                  {% endif %}
+              </div>
+
+              <div class="attract-text" id="sub-question">
+                  {% if first_additional_prompt %}
+                    {{ first_additional_prompt }}
+                  {% else %}
+                    ...
+                  {% endif %}
+                  <div class="nav" id="next-story" data-next-story-id="{{first_selected_story_id}}"><img class="nav-screen"></div>
+              </div>
+            </div>
+            <div id="cycle-questions">other questions <i class="ion ion-loop"></i></div>
+        </div>
+
+        <!--Three pane layout-->
+        <div class="page right-page-hidden" id="detail-screen">
+            <!-- column1-->
+            <div class="column" id="artifacts-col">
+                <div id="artifacts-wrapper">
+                </div>
+            </div>
+            <!-- column2-->
+            <div class="column" id="detail-col">
+                <div id = "detail-image-wrapper"></div>
+                <div id="detail-story-wrapper"></div>
+            </div>
+
+            <!-- column3-->
+            <div class="column" id="media-col">
+                <div class="large-media-wrapper">
+                    <div class="media-nav media-prev"><i class="ion-ios-arrow-back"></i></div>
+                    <div id="selected-media-wrapper">
+                        <div id="selected-media" data-index="0"></div>
+                        <div id="selected-media-status"></div>
+                        <div id="selected-media-caption"></div>
+                    </div>
+                    <div class="media-nav media-next"><i class="ion-ios-arrow-forward"></i></div>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="home-bar"><i class="icon ion-home"></i>Home</div>
+
+        <div class="page" style="display: none;" >
+            <div class="page-artifact-wrapper">
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png);"></div>
+                    </div>
+                    <div class="artifact-index">14-16</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Oracle bones</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2">Shang Dynasty (c. 1600–1046 BC)</div>
+                            <div class="line3">121061,121062,121063</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png);"></div>
+                    </div>
+                    <div class="artifact-index">17-18</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Oracle bones</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1">(inscriptions added later)</div>
+                            <div class="line2"> Shang Dynasty (c. 1600–1046 BC)</div>
+                            <div class="line3">125459,125461</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B3.png);"></div>
+                    </div>
+                    <div class="artifact-index" style="display: none;"></div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">More on oracle bones</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2" style="display: none;"></div>
+                            <div class="line3" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png);"></div>
+                    </div>
+                    <div class="artifact-index">19-21</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Ceramic vessels and sherd</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2">Shang–Zhou period (c. 1600–256 BC)</div>
+                            <div class="line3">235949,117374,235955A</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="artifact">
+                    <div class="artifact-img-clipper shadow">
+                        <div class="artifact-img" style="background-image: url(http://digitalrail.xyz/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png);"></div>
+                    </div>
+                    <div class="artifact-index">22-24</div>
+                    <div class="description-wrapper">
+                        <div class="artifact-description">Cowrie shells</div>
+                        <div class="artifact-sub-description">
+                            <div class="line1" style="display: none;"></div>
+                            <div class="line2">Early Zhou Dynasty (1046–256 BC)</div>
+                            <div class="line3">124503,124500,124504</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="question-content">
+        <ul>
+            {% for i in question_list %}
+                <li data-question="{{i.question}}" data-additional-prompt="{{i.additional_prompt}}"
+                    data-selected-story="{{i.story_id}}" data-img-filename="{{i.img_filename}}"></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var caseId = "2-1_M2";
+            var jsonPath = "/static/attractscreen/media/" + caseId + "/assets/json/";
+            var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
+            var railName = caseId;
+            var stories = {};
+            var preventScrollEvent = false;
+
+            $('#hero-img').css('background-image', 'url(\"' + imagePath + "{{first_img_filename}}" + '\")');
+
+            //-------------------------------------------------------------------
+            // Load the collection data and top-level menu
+            //-------------------------------------------------------------------
+            $.getJSON(jsonPath + "collection.json", function(collectionData) {
+              $('#header').html(collectionData['header']);
+              $('#headerText').html(collectionData['headerText']);
+              railName = collectionData['railName'];
+
+              //strings to create dom structure for artifact column
+              var tempArtifactInitStr = "<div class=\"artifact\" ";
+              var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
+                      "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\"></div>" +
+                      "<div class=\"description-wrapper\"><div class=\"artifact-description\"></div>" +
+                      "<div class=\"artifact-sub-description\"><div class=\"line1\"></div> " +
+                      "<div class=\"line2\"></div><div class=\"line3\"></div>" +
+                      " </div> </div> </div> " + "<div class=\"sub-question-wrapper\""
+
+              var tempArtifactEndStr = "></div>";
+
+              $.each(collectionData['collectionPanel'], function(index, val) {
+                  var myURL = jsonPath + railName + "_" + val + ".json";
+
+                  $.ajax({
+                      url: myURL,
+                      dataType: 'json',
+                      async: false,
+                      success: function(objectData) {
+                          //set id of artifact element
+                          $('#artifacts-wrapper').append(tempArtifactInitStr + "id=artifact-" + val.toString() + tempArtifactMidStr +
+                          "id=sub-question-wrapper-" + val.toString() + tempArtifactEndStr);
+
+                          //set clipped small image of artifact on the left
+                          $('#artifact-' + val.toString()).find('.artifact-img').css('background-image',
+                                  'url("/static/attractscreen/media/2-1_M2/assets/media/image/' +
+                                  objectData['thumbnail'] + '\")');
+
+                          setCaseNumber(objectData, val);
+
+                          setArtifactDescription(objectData, val);
+
+                          setArtifactDate(objectData, val);
+
+                          setArtifactLabel(objectData, val);
+
+                          setCaseID(objectData, val);
+
+                          var stories = objectData['stories'];
+
+                          for(var i=0; i<=stories.length; i++){
+                              if(!(stories[i] === undefined)){
+                                  var storyHeaderId = val.toString() + "-detail-story-" + i.toString();
+                                  var storyTextId = val.toString() + "-detail-story-" + i.toString();
+
+                                  var headerDiv = "<div class=\"detail-header\" id=\"" + storyHeaderId + "\">" +
+                                                    stories[i].label + "<div>";
+                                  var textDiv = "<div class=\"detail-text\" id=\"" + storyTextId + "\">" +
+                                                    stories[i].content + "<div>";
+
+                                  $('#detail-story-wrapper').append(headerDiv);
+                                  $('#detail-story-wrapper').append(textDiv);
+
+                                  var mediaId = val.toString() + "-media-" + i.toString();
+                                  if(stories[i].type == "slideshow"){
+                                      var mediaContentDiv = "<div class=\"slideshow\" id=\"" + mediaId + "\"></div>";
+                                      $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
+                                      $('#' + mediaId).append("<ul class=\"slide\">");
+
+                                      for(var j=0; j<=stories[i].link.length; j++ ){
+                                        if(!(stories[i].link[j]===undefined)){
+                                            var liItem = "<li title=\"" + stories[i].link[j].caption + "\">"+ imagePath + stories[i].link[j].name + "</li>";
+                                            $('#' + mediaId).find('.slide').append(liItem);
+                                        }
+                                      }
+                                  }
+                                  else if(stories[i].type == "image"){
+                                      var mediaContentDiv = "<div class=\"media-image\" id=\"" + mediaId + "\"></div>";
+                                      var imgPath = imagePath + stories[i].link;
+                                      var imgCaption = stories[i].caption;
+
+                                      $('#media-col').find('.large-media-wrapper').append(mediaContentDiv);
+                                      $('#' + mediaId).text(imgPath);
+                                      $('#' + mediaId).data('caption', imgCaption);
+                                  }
+                              }
+                          }
+                      }
+                  });
+
+                  //getJSON is async, and can make the order of items with the
+                  {#$.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {#}
+              });
+            });
+
+
+            function displayMedia(){
+                var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+                var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+                if($(mediaId).length){
+                    if($(mediaId).hasClass('slideshow')){
+                        var imgURL = 'url(\"' + $(mediaId).find('li').first().text() + "\")";
+                        var caption = $(mediaId).find('li').first().attr("title");
+
+                        $('#selected-media').css('background-image',imgURL);
+                        $('#selected-media').data("index", 0);
+
+                        $('#selected-media-status').text('1 of ' + $(mediaId).find('li').length);
+                        $('#selected-media-caption').text(caption);
+
+                        $('.media-nav').fadeIn(200);
+                        $('#selected-media-status').fadeIn(200);
+                        $('#selected-media-caption').fadeIn(200);
+                    }
+                    else{
+                        var imgURL = 'url(\"' + $(mediaId).text()+ "\")";
+                        $('.media-nav').fadeOut(200);
+                        $('#selected-media-status').fadeOut(200);
+
+                        $('#selected-media').css('background-image',imgURL);
+                        $('#selected-media-caption').text($(mediaId).data('caption'));
+                        $('#selected-media-caption').fadeIn(200);
+                    }
+                }
+                else{
+                    $('.media-nav').css('display', 'none');
+                    $('#selected-media-caption').css('display', 'none');
+                    $('#selected-media-status').css('display', 'none');
+
+                    var dragonImgURL = "url(/static/attractscreen/media/dragon-450.png)";
+                    $('#selected-media').css('background-image',dragonImgURL);
+                }
+            }
+            //-------------------------------------------------------------------
+            // Sets the case number (e.g. 16-17, 18-19) for each artifact in col1
+            //-------------------------------------------------------------------
+            function setCaseNumber(objectData, val){
+                if(objectData['isTopicLabel'] == false){
+                  $('#artifact-' + val.toString()).find('.artifact-index').text(objectData['caseNumber'].replace(/ /g,''));
+                }
+                else{
+                  $('#artifact-' + val.toString()).find('.artifact-index').fadeOut(0);
+                }
+            }
+
+            //-------------------------------------------------------------------
+            // Sets the artifact description in the first column
+            //-------------------------------------------------------------------
+            function setArtifactDescription(objectData, val){
+                if(objectData['title'].indexOf('<br>')>=0){
+                    $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title'].split('<br>')[0]);
+                    $('#artifact-' + val.toString()).find('.line1').text(objectData['title'].split('<br>')[1]);
+
+                    $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
+                    $('#artifact-' + val.toString()).find('.line3').text(objectData['id']);
+                }
+                else{
+                    $('#artifact-' + val.toString()).find('.line1').fadeOut(0);
+                    $('#artifact-' + val.toString()).find('.artifact-description').text(objectData['title']);
+                }
+            }
+
+            //-------------------------------------------------------------------
+            // Sets the artifact era/date info. in the first column
+            //-------------------------------------------------------------------
+            function setArtifactDate(objectData, val){
+                if(objectData['date'] === undefined){
+                    $('#artifact-' + val.toString()).find('.line2').fadeOut(0);
+                }
+                else{
+                    $('#artifact-' + val.toString()).find('.line2').text(objectData['date'].replace(/<br>/g,' '));
+                }
+            }
+
+            //-------------------------------------------------------------------
+            // Sets the labels in the collapsible menu for each artifact
+            //-------------------------------------------------------------------
+            function setArtifactLabel(objectData, val){
+                var artifact = $('#artifact-' + val.toString());
+                var subQuestionWrapper = $('#sub-question-wrapper-' + val.toString());
+
+                if(artifact.find('.line1').css('display') != "none"){
+                    subQuestionWrapper.css('margin-top', '15px');
+                }
+                else if(artifact.find('.line1').css('display') == "none" &&
+                        artifact.find('.line2').css('display') == "none"){
+                    subQuestionWrapper.css('margin-top', '-35px');
+                }
+
+                for(var i=0; i<objectData['stories'].length; i++){
+                    subQuestionWrapper.append("<div class=\"sub-question-item\" id=\"" + val.toString()
+                            + "-item-" + i.toString() + "\">"+ objectData['stories'][i]['label']
+                            + "<i class=\"ion-ios-checkmark\"></i></div>");
+                }
+            }
+
+            function setCaseID(objectData, val){
+              if(objectData['id'].length == 0 ){
+                $('#artifact-' + val.toString()).find('.line3').fadeOut(0);
+              }
+              else{
+                $('#artifact-' + val.toString()).find('.line3').text(objectData['id'])
+              }
+            }
+
+
+
+            //-------------------------------------------------------------------
+            // Sets the state (white font)for a label in the collapsible menu
+            //-------------------------------------------------------------------
+            $('.page').on('click','.sub-question-item', function(){
+                preventScrollEvent = true;
+
+                $('.sub-question-item').removeClass('selected');
+                $('.sub-question-item').find('i').fadeOut(0);
+
+                $(this).addClass('selected');
+                showSelectedLabelIcon($(this));
+
+                var targetDiv = '#' + $(this).attr('id').split('-')[0] +  "-detail-story-" +
+                                $(this).attr('id').split('-')[2];
+
+                $('#detail-col').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                });
+
+                displayMedia();
+            });
+
+            //-------------------------------------------------------------------
+            // Sets the checkmark icon next to the labels in the collapsible menu
+            //-------------------------------------------------------------------
+            function showSelectedLabelIcon(selectedLabel){
+                selectedLabel.find('i').fadeIn(400);
+            }
+
+            //-------------------------------------------------------------------
+            // Callback for moving from the attract screen to the 3-pane screen
+            //-------------------------------------------------------------------
+            $('.page').on('click', '.nav-screen, .attract-text', function(event){
+                event.stopPropagation();
+
+                $('#attract-screen').addClass('left-page-hidden');
+                $('#detail-screen').removeClass('right-page-hidden');
+
+                preventScrollEvent = true;
+
+                var nextStoryId = ""
+                var artifactId = ""
+                var storyNum = ""
+                try{
+                    nextStoryId = $('#next-story').data('next-story-id');
+                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);
+                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);
+                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];
+                }
+                catch(err){
+                    nextStoryId =  "artifact-0-story-0";
+                    var artifact = $('.artifact').first().attr('id');
+                    artifactId = artifact.split('-')[1];
+                    storyNum = "0";
+                }
+
+                goToStory(nextStoryId);
+
+                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();
+
+                clearInterval(questionTimer);
+
+                $('#detail-col').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                    displayMedia();
+                    $('#home-bar').fadeIn(400);
+                });
+            });
+
+            //-------------------------------------------------------------------
+            // Callback for going back to home/attract screen
+            //-------------------------------------------------------------------
+            $('#home-bar').click(function(){
+                $('#home-bar').fadeOut(0);
+                $('#tab-bar').fadeOut(0);
+
+                $('#detail-screen').addClass('right-page-hidden');
+                $('#attract-screen').removeClass('left-page-hidden');
+
+                clearInterval(questionTimer);
+                changeQuestion();
+                questionTimer = setInterval(function(){changeQuestion()}, 6000);
+            });
+
+            //-------------------------------------------------------------------
+            // Callback to set detail & media screen contents from artifact column
+            //-------------------------------------------------------------------
+            $('.page').on('click', '.artifact', function(){
+                preventScrollEvent = true;
+
+                $('.artifact-sub-description').fadeOut(0);
+
+                $('.artifact').removeClass('selected');
+                var selectedItem = $(this);
+                selectedItem.addClass('selected');
+                selectedItem.find('.artifact-sub-description').fadeIn(200);
+
+                var collectionNum = $(this).first().attr('id').split('-')[1]; //e.g. B1, B2, B3 etc.
+
+                var firstSubQuestionItem = '#' + collectionNum.toString() + '-item-0';
+                var subQuestionWrapper = $('#sub-question-wrapper-' + collectionNum);
+
+                $('.sub-question-item').removeClass('selected');
+                $('.sub-question-item').find('i').fadeOut(0);
+                subQuestionWrapper.find(firstSubQuestionItem).addClass('selected');
+                showSelectedLabelIcon(subQuestionWrapper.find(firstSubQuestionItem));
+
+                if(subQuestionWrapper.css('display') == "none"){
+                    $('.sub-question-wrapper').slideUp(400);
+                    subQuestionWrapper.slideDown(400);
+                }
+
+                var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
+                $('#detail-col').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                });
+
+                displayMedia();
+            });
+
+            //-------------------------------------------------------------------
+            // Callback to check for scroll and highlighting the
+            // correct artifact and the sub-question for it
+            //-------------------------------------------------------------------
+            $( '#detail-col' ).scroll(function() {
+                if(!preventScrollEvent){
+                    var detailHeaders = $('#detail-col').find('.detail-header');
+
+                    for(var i=0; i<detailHeaders.length; i++){
+                        var $this = $(detailHeaders[i]);
+
+                        if ( $this.position().top + $this.height() > $('#detail-col').scrollTop()
+                                && $this.position().top < $('#detail-col').scrollTop()+$('#detail-col').height() ) {
+
+                            var collectionID = $this.attr('id').split('-')[0];
+                            var storyID = $this.attr('id').split('-')[3];
+                            var artifactId = "#artifact-" + collectionID;
+                            var subQuestionWrapperID = "#sub-question-wrapper-" + collectionID;
+                            var subQuestionId = "#" + collectionID + '-item-' + storyID;
+
+                            selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId);
+                            break;
+                        }
+                    }
+                }
+            });
+
+
+            function selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId){
+                $('.artifact').removeClass('selected');
+                $('.sub-question-item').removeClass('selected');
+
+                if($(subQuestionWrapperID).css('display') == "none"){
+                    $('.sub-question-wrapper').slideUp(400);
+                    $(subQuestionWrapperID).slideDown(400);
+                }
+
+                $(artifactId).addClass('selected');
+                $(subQuestionId).addClass('selected');
+
+                if($(subQuestionId).find('i').css('display') == "none"){
+                    $('.sub-question-item').find('i').fadeOut(0);
+                    $(subQuestionId).find('i').fadeIn(400);
+                }
+            }
+
+            $('.large-media-wrapper').on('click','.media-next', function(){
+                var imgURLList = getImageList();
+                var imgCaptionList = getCaptionList();
+                var nextImgIndex = ($('#selected-media').data('index') + 1) % imgURLList.length;
+
+                $('#selected-media').css('background-image',imgURLList[nextImgIndex]);
+                $('#selected-media-caption').text(imgCaptionList[nextImgIndex]);
+                $('#selected-media').data('index', nextImgIndex);
+
+                $('#selected-media-status').text((nextImgIndex+1).toString() + ' of ' + imgURLList.length);
+            });
+
+            $('.large-media-wrapper').on('click','.media-prev', function(){
+                var imgURLList = getImageList();
+                var imgCaptionList = getCaptionList();
+                var prevImgIndex = ($('#selected-media').data('index') - 1);
+                if(prevImgIndex < 0){
+                    prevImgIndex = imgURLList.length - 1;
+                }
+
+                $('#selected-media').css('background-image',imgURLList[prevImgIndex]);
+                $('#selected-media-caption').text(imgCaptionList[prevImgIndex]);
+                $('#selected-media').data('index', prevImgIndex);
+
+                $('#selected-media-status').text((prevImgIndex+1).toString() + ' of ' + imgURLList.length);
+            });
+
+            function getImageList(){
+                var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+                var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+                var imgURLList = [];
+                $(mediaId).find('li').each(function() {
+                    imgURLList.push('url(\"' +$( this ).text()+ '\")');
+
+                });
+
+                return imgURLList;
+            }
+
+            function getCaptionList(){
+                var selectedSubQuestionId = $('.sub-question-item.selected').attr('id');
+                var mediaId = "#" + selectedSubQuestionId.split('-')[0] + "-media-" + selectedSubQuestionId.split('-')[2];
+
+                var imgCaptionList = [];
+                $(mediaId).find('li').each(function() {
+                    imgCaptionList.push($( this ).attr('title'));
+                });
+                return imgCaptionList;
+            }
+
+            var questionTimer = setInterval(function(){changeQuestion()}, 6000);
+
+            function changeQuestion(){
+                var questionContent = $('#question-content').find('li');
+                var questionArr = [];
+                var additionalPromptArr = [];
+                var storyIDArr = [];
+                var imgFileName = [];
+
+                for(var i=0; i<questionContent.length; i++ ){
+                    questionArr.push($(questionContent[i]).data('question'));
+                    additionalPromptArr.push($(questionContent[i]).data('additional-prompt'));
+                    storyIDArr.push($(questionContent[i]).data('selected-story'));
+                    imgFileName.push($(questionContent[i]).data('img-filename'));
+                }
+
+                var nextQuestionIndex =  ($('#question-container').data('question-index') + 1) % questionArr.length;
+
+                $('#main-question').fadeOut(0);
+                $('#main-question').text(questionArr[nextQuestionIndex]);
+                $('#main-question').fadeIn(600);
+
+                $('#sub-question').fadeOut(0);
+                $('#sub-question').empty();
+                $('#sub-question').text(additionalPromptArr[nextQuestionIndex]);
+                $('#sub-question').append('<div class="nav" id="next-story" data-next-story-id=""><img class="nav-screen"></div>');
+                $('#sub-question').fadeIn(600);
+
+                $('#hero-img').fadeOut(0);
+                $('#hero-img').css('background-image', 'url(\"' + imagePath + imgFileName[nextQuestionIndex] + '\")');
+                $('#hero-img').fadeIn(600);
+
+
+                $('#next-story').data('next-story-id', storyIDArr[nextQuestionIndex]);
+                $('#question-container').data('question-index', nextQuestionIndex);
+            }
+
+            $('.page').on('click', '#cycle-questions', function(){
+                clearInterval(questionTimer);
+                changeQuestion();
+                questionTimer = setInterval(function(){changeQuestion()}, 6000);
+            });
+
+            function goToStory(storyID){
+                var artifactNum = Math.max((parseInt(storyID.split('-')[1])- 1), 0);
+                var storyNum = Math.max((parseInt(storyID.split('-')[3]) - 1), 0);
+
+                var artifactId = $('.artifact').eq(artifactNum).attr('id');
+                var subQuestionWrapperID = $('.sub-question-wrapper').eq(artifactNum).attr('id');
+                var subQuestionId = $('.sub-question-wrapper').eq(artifactNum).find('.sub-question-item').eq(storyNum).attr('id');
+
+                selectArtifactAndStory('#' + artifactId,'#' +  subQuestionWrapperID,'#' +  subQuestionId);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -23,7 +23,7 @@ from  digitalrail.views import landingpage
 urlpatterns = [
     url(r'^$', landingpage.index, name='index'),
     url(r'^bigquestion/', landingpage.bigquestion, name='bigquestion'),
-    url(r'^fox/', landingpage.fox, name='fox'),
+    url(r'^altbigquestion/', landingpage.altbigquestion, name='altbigquestion'),
     url(r'^admin/', admin.site.urls),
 ] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
