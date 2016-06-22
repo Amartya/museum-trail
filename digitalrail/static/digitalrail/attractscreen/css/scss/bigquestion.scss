@@ -298,6 +298,7 @@ body {
         text-align: justify;
         line-height: 30px;
         cursor: pointer;
+        overflow: hidden;
 
         i{
           display:none;
@@ -411,14 +412,12 @@ body {
     background-color: $background-color;
     height: 50px;
     width: 640px;
-    margin-bottom: 20px;
     font-size: 25pt;
-
-    @include center-align(50px);
+    text-align: center;
   }
 
   .detail-text{
-    margin-top: 25px;
+    margin-top: 30px;
     height: 385px;
     overflow-x: hidden;
 

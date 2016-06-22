@@ -210,7 +210,8 @@ body {
         height: 30px;
         text-align: justify;
         line-height: 30px;
-        cursor: pointer; }
+        cursor: pointer;
+        overflow: hidden; }
         #artifacts-col #artifacts-wrapper .sub-question-wrapper .sub-question-item i {
           display: none;
           padding: 3px 0px 3px 10px;
@@ -295,12 +296,10 @@ body {
     background-color: #333333;
     height: 50px;
     width: 640px;
-    margin-bottom: 20px;
     font-size: 25pt;
-    line-height: 50px;
     text-align: center; }
   #detail-col .detail-text {
-    margin-top: 25px;
+    margin-top: 30px;
     height: 385px;
     overflow-x: hidden; }
     #detail-col .detail-text .detail-image-wrapper {

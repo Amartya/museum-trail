@@ -10,12 +10,12 @@
     "thumbnail":"2.1_M2_B5.png",
     "stories":[
             {
-                "label":"Cowrie shells as currency",
+                "label":"Why were shells used as money?",
                 "content":"Most societies, as they form larger and larger trade networks, turn to some kind of small, portable, and standardized item to use as currency. These cowrie shells were easier to carry over long distances for trade than a sack of grain. Many early societies used cowrie shells as a form of currency.",
                 "textWidth":10
             },
             {
-                "label":"The value of cowries",
+                "label":"What makes a shell valuable?",
                 "content":"These cowries from the east coast of China are probably either <span class='italics'>Cypraea moneta</span> or <span class='italics'>Cypraea annulus</span>. Inland, they would be considered exotic and rare, and therefore valuable. Oracle bone inscriptions record gifts of strings of cowries, and by the Shang Dynasty (c. 1600–1046 BC), strings of five or 10 cowries were basic units of money. The earliest Chinese charcter for “money” is a pictograph of a cowrie shell.",
                 "type":"image",
                 "link":"G2.1_M2_B5_S2.png",
@@ -24,7 +24,7 @@
                 "credit":"©The Field Museum, Illustrator Sayaka Isowa"
             },
             {
-                "label":"Money for the afterlife",
+                "label":"Why were shells buried with the dead?",
                 "content":"Like many other valuable goods, cowrie shells or replicas of shells are often found in early Chinese graves among other necessities for the afterlife. These shells were probably excavated in present-day Shangdong Province. Grave goods were supposed to supply everything a person needed in the afterlife, and once money became important in society, it began to appear in graves as well."
             }
         ],

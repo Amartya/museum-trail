@@ -20,7 +20,7 @@
     <script src="{% static "common/js/jquery-1.12.3.min.js" %}"></script>
     <title>Case 201: Cyrus Tang Hall of China</title>
 </head>
-<body oncontextmenu="return false">
+<body oncontextmenu="return true">
     <div id="screen">
         <!--Attract Screen-->
         <div class="page" id="attract-screen">
@@ -375,8 +375,15 @@
                 }
 
                 for(var i=0; i<objectData['stories'].length; i++){
+                    var subQuestionText = objectData['stories'][i]['label'];
+                    var maxLength = 50;
+
+                    if(subQuestionText.length > maxLength){
+                        subQuestionText = subQuestionText.substring(0, maxLength - 1) + "...";
+                    }
+
                     subQuestionWrapper.append("<div class=\"sub-question-item\" id=\"" + val.toString()
-                            + "-item-" + i.toString() + "\">"+ objectData['stories'][i]['label']
+                            + "-item-" + i.toString() + "\">"+ subQuestionText
                             + "<i class=\"ion-ios-checkmark\"></i></div>");
                 }
             }
