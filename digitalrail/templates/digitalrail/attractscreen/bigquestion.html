@@ -546,6 +546,7 @@
                             var subQuestionId = "#" + collectionID + '-item-' + storyID;
 
                             selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId);
+                            scrollArtifactsWrapper(artifactId);
                             break;
                         }
                     }
@@ -568,6 +569,27 @@
                 if($(subQuestionId).find('i').css('display') == "none"){
                     $('.sub-question-item').find('i').fadeOut(0);
                     $(subQuestionId).find('i').fadeIn(400);
+                }
+            }
+
+            function scrollArtifactsWrapper(artifactId){
+                var currentArtifactViewport = $(artifactId).position().top + $(artifactId).height();
+                var top = 0;
+
+                console.log(currentArtifactViewport.toString() + " , " + $('#artifacts-wrapper').height().toString());
+                if(currentArtifactViewport> $('#artifacts-wrapper').height()){
+                    top = $($(artifactId)).position().top + $(artifactId).find('.sub-question-wrapper').height();
+                }
+                else if(currentArtifactViewport <= 0){
+                    top = $($(artifactId)).position().top - $(artifactId).find('.sub-question-wrapper').height();
+                }
+
+                if(top !=0){
+                    $('#artifacts-wrapper').animate({
+                    scrollTop: top
+                    }, 1000, "swing", function(){
+                        preventScrollEvent = false;
+                    });
                 }
             }
 
