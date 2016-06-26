@@ -11,6 +11,7 @@ class Question(models.Model):
     additional_prompt = models.CharField(max_length=500)
     selected_story_id = models.CharField(max_length=50)
     related_img_filename = models.CharField(max_length=100)
+    case_number = models.CharField(max_length=25, blank=True)
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

@@ -179,6 +179,24 @@ body {
   background-color: #666666;
 }
 
+#attract-screen {
+  .artifact-label {
+    width: 65px;
+    height: 35px;
+    background-color: $red-color;
+    font-size: 9pt;
+    font-family: "BauOT-Medium", sans-serif;
+
+    @include center-align(35px);
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+    left: 50%;
+    top: 87%;
+    border: 3px $outline-color solid;
+  }
+}
+
 #img-container {
   display: flex;
   width: $screen-third;
@@ -187,8 +205,8 @@ body {
 
 #img-clipper{
   display: flex;
-  height: 445px;
-  width: 445px;
+  height: 435px;
+  width: 435px;
   border-radius: 50%;
   background-color: $line-color;
   margin: auto;
@@ -197,9 +215,9 @@ body {
   #hero-img{
     background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
     background-repeat: no-repeat;
-    background-size: contain;
-    width: 300px;
-    height: 300px;
+    background-size:contain;
+    width: 295px;
+    height: 295px;
     margin: auto;
   }
 }

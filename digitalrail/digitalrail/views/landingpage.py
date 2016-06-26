@@ -26,6 +26,13 @@ def bigquestion(request):
         question_data['first_additional_prompt'] = first_question.additional_prompt
         question_data['first_img_filename'] = first_question.related_img_filename
 
+        if first_question.case_number.strip() != "":
+            question_data['first_case_number'] = first_question.case_number
+        else:
+            question_data['first_case_number'] = False
+
+        print(question_data['first_case_number'])
+
         if first_question.selected_story_id.strip() != "":
             selected_story_id = first_question.selected_story_id.strip()
 
@@ -37,7 +44,8 @@ def bigquestion(request):
                 selected_story_id =  q.selected_story_id.strip()
 
             temp_question = {'question': q.question_text, 'additional_prompt': q.additional_prompt,
-                             'story_id': selected_story_id, 'img_filename': q.related_img_filename}
+                             'story_id': selected_story_id, 'img_filename': q.related_img_filename,
+                             'case_number': q.case_number}
             question_list.append(temp_question)
 
         question_data['question_list'] = question_list

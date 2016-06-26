@@ -24,10 +24,13 @@
     <div id="screen">
         <!--Attract Screen-->
         <div class="page" id="attract-screen">
-            <div id="img-container">
-              <div id="img-clipper" class="shadow">
-                  <div id="hero-img"></div>
-              </div>
+            <div id="img-container" >
+                <div id="attract-case-number" class="artifact-label" {% if first_case_number = False%}style="display: none"{% endif %}>
+                    {{ first_case_number }}
+                </div>
+                <div id="img-clipper" class="shadow">
+                    <div id="hero-img"></div>
+                </div>
             </div>
             <div id="question-container" data-question-index="0">
               <div class="attract-text" id="main-question">
@@ -168,7 +171,7 @@
         <ul>
             {% for i in question_list %}
                 <li data-question="{{i.question}}" data-additional-prompt="{{i.additional_prompt}}"
-                    data-selected-story="{{i.story_id}}" data-img-filename="{{i.img_filename}}"></li>
+                    data-selected-story="{{i.story_id}}" data-img-filename="{{i.img_filename}}" data-case-number="{{ i.case_number }}"></li>
             {% endfor %}
         </ul>
     </div>
@@ -273,9 +276,6 @@
                           }
                       }
                   });
-
-                  //getJSON is async, and can make the order of items with the
-                  {#$.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {#}
               });
             });
 
@@ -306,7 +306,7 @@
 
                         $('#selected-media').css('background-image',imgURL);
                         $('#selected-media-caption').text($(mediaId).data('caption'));
-                        $('#selected-media-caption').fadeIn(200);
+                        $('#selected-media-caption').fadeIn(400);
                     }
                 }
                 else{
@@ -547,6 +547,7 @@
 
                             selectArtifactAndStory(artifactId, subQuestionWrapperID, subQuestionId);
                             scrollArtifactsWrapper(artifactId);
+                            displayMedia();
                             break;
                         }
                     }
@@ -651,13 +652,15 @@
                 var questionArr = [];
                 var additionalPromptArr = [];
                 var storyIDArr = [];
-                var imgFileName = [];
+                var imgFileNameArr = [];
+                var caseNumberArr = [];
 
                 for(var i=0; i<questionContent.length; i++ ){
                     questionArr.push($(questionContent[i]).data('question'));
                     additionalPromptArr.push($(questionContent[i]).data('additional-prompt'));
                     storyIDArr.push($(questionContent[i]).data('selected-story'));
-                    imgFileName.push($(questionContent[i]).data('img-filename'));
+                    imgFileNameArr.push($(questionContent[i]).data('img-filename'));
+                    caseNumberArr.push($(questionContent[i]).data('case-number'));
                 }
 
                 var nextQuestionIndex =  ($('#question-container').data('question-index') + 1) % questionArr.length;
@@ -673,9 +676,16 @@
                 $('#sub-question').fadeIn(600);
 
                 $('#hero-img').fadeOut(0);
-                $('#hero-img').css('background-image', 'url(\"' + imagePath + imgFileName[nextQuestionIndex] + '\")');
+                $('#hero-img').css('background-image', 'url(\"' + imagePath + imgFileNameArr[nextQuestionIndex] + '\")');
                 $('#hero-img').fadeIn(600);
 
+                $('#attract-case-number').css('visibility', 'hidden');
+                if(caseNumberArr[nextQuestionIndex].trim() != ""){
+                    $('#attract-case-number').css('visibility', 'visible');
+                    $('#attract-case-number').fadeOut(0);
+                    $('#attract-case-number').text(caseNumberArr[nextQuestionIndex]);
+                    $('#attract-case-number').fadeIn(600);
+                }
 
                 $('#next-story').data('next-story-id', storyIDArr[nextQuestionIndex]);
                 $('#question-container').data('question-index', nextQuestionIndex);
