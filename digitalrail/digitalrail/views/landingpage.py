@@ -31,8 +31,6 @@ def bigquestion(request):
         else:
             question_data['first_case_number'] = False
 
-        print(question_data['first_case_number'])
-
         if first_question.selected_story_id.strip() != "":
             selected_story_id = first_question.selected_story_id.strip()
 
@@ -50,7 +48,10 @@ def bigquestion(request):
 
         question_data['question_list'] = question_list
 
-        return render(request, 'digitalrail/attractscreen/bigquestion.html', question_data)
+        if "bigquestiontimeline" in request.get_full_path():
+            return render(request, 'digitalrail/attractscreen/imodel.html', question_data)
+        else:
+            return render(request, 'digitalrail/attractscreen/bigquestion.html', question_data)
 
 def altbigquestion(request):
     all_questions = Question.objects.filter(rail_id=0, active=True).order_by('pub_date')

@@ -294,6 +294,7 @@ body {
   content: "";
   background: #E6E1D0;
   position: absolute;
+  top: 0px;
   bottom: 0px;
   height: 100%;
   width: 3px;
@@ -302,54 +303,28 @@ body {
 #detail-col {
   position: relative;
   width: 700px;
-  font-size: 14pt; }
-  #detail-col #detail-content-scroll {
-    position: relative;
-    width: 700px;
-    height: 400px;
-    padding: 30px 30px 0px 30px;
-    overflow-y: scroll; }
-    #detail-col #detail-content-scroll #detail-story-wrapper {
-      position: relative; }
-    #detail-col #detail-content-scroll .detail-header {
-      background-color: #333333;
-      height: 50px;
-      width: 640px;
-      font-size: 25pt;
-      text-align: center; }
-    #detail-col #detail-content-scroll .detail-text {
-      margin-top: 30px;
-      height: 385px;
-      overflow-x: hidden; }
-      #detail-col #detail-content-scroll .detail-text .detail-image-wrapper {
-        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
-        background-repeat: no-repeat;
-        background-size: contain;
-        width: 100px;
-        height: 100px;
-        margin: auto; }
-  #detail-col #detail-rail-info {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    bottom: 0px;
-    width: 100%;
-    height: 80px;
-    background-color: #262627;
-    border-top: 7px solid #222; }
-    #detail-col #detail-rail-info #info-header {
-      font-size: 12pt;
-      font-family: "BauOT-Medium", sans-serif;
-      padding-left: 30px;
-      padding-right: 30px;
-      padding-top: 5px;
-      text-align: center; }
-    #detail-col #detail-rail-info #info-detail {
-      font-size: 9pt;
-      font-family: "BauOT-Medium", sans-serif;
-      padding-left: 30px;
-      padding-right: 30px;
-      text-align: justify; }
+  overflow-y: scroll;
+  font-size: 14pt;
+  padding: 30px 30px 0px 30px; }
+  #detail-col #detail-story-wrapper {
+    position: relative; }
+  #detail-col .detail-header {
+    background-color: #333333;
+    height: 50px;
+    width: 640px;
+    font-size: 25pt;
+    text-align: center; }
+  #detail-col .detail-text {
+    margin-top: 30px;
+    height: 385px;
+    overflow-x: hidden; }
+    #detail-col .detail-text .detail-image-wrapper {
+      background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      width: 100px;
+      height: 100px;
+      margin: auto; }
 
 #media-col {
   position: relative;
@@ -401,6 +376,7 @@ body {
   content: "";
   background: #E6E1D0;
   position: absolute;
+  top: 0px;
   bottom: 0px;
   height: 100%;
   width: 3px;
@@ -513,4 +489,4 @@ body {
   top: 16px;
   left: -10px; }
 
-/*# sourceMappingURL=bigquestion.css.map */
+/*# sourceMappingURL=imodel.css.map */

@@ -16,9 +16,9 @@
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
     <link href="{% static "common/css/fonts.css" %}" type="text/css" rel="stylesheet" />
     <link href="{% static "common/css/ionicons.min.css" %}" type="text/css" rel="stylesheet" />
-    <link href="{% static "attractscreen/css/bigquestion.css" %}" type="text/css" rel="stylesheet" />
+    <link href="{% static "attractscreen/css/imodel.css" %}" type="text/css" rel="stylesheet" />
     <script src="{% static "common/js/jquery-1.12.3.min.js" %}"></script>
-    <title>Case 201: Cyrus Tang Hall of China</title>
+    <title> Case 201: Cyrus Tang Hall of China</title>
 </head>
 <body oncontextmenu="return true">
     <div id="screen">
@@ -70,13 +70,8 @@
             </div>
             <!-- column2-->
             <div class="column" id="detail-col">
-                <div id="detail-content-scroll">
-                    <div id="detail-story-wrapper"></div>
-                </div>
-                <div id="detail-rail-info">
-                    <div id="info-header"></div>
-                    <div id="info-detail"></div>
-                </div>
+                <div id = "detail-image-wrapper"></div>
+                <div id="detail-story-wrapper"></div>
             </div>
 
             <!-- column3-->
@@ -191,30 +186,29 @@
             var preventScrollEvent = false;
 
             $('#hero-img').css('background-image', 'url(\"' + imagePath + "{{ first_img_filename }}" + '\")');
+            //$('#detail-screen').removeClass('right-page-hidden');
+            //$('#attract-screen').addClass('left-page-hidden');
 
             //-------------------------------------------------------------------
             // Load the collection data and top-level menu
             //-------------------------------------------------------------------
             $.getJSON(jsonPath + "collection.json", function(collectionData) {
-                $('#header').html(collectionData['header']);
-                $('#headerText').html(collectionData['headerText']);
-                railName = collectionData['railName'];
+              $('#header').html(collectionData['header']);
+              $('#headerText').html(collectionData['headerText']);
+              railName = collectionData['railName'];
 
-                $('#info-header').text(collectionData['header']);
-                $('#info-detail').text(collectionData['headerText']);
-
-                //strings to create dom structure for artifact column
-                var tempArtifactInitStr = "<div class=\"artifact\" ";
-                var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
+              //strings to create dom structure for artifact column
+              var tempArtifactInitStr = "<div class=\"artifact\" ";
+              var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
                       "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\"></div>" +
                       "<div class=\"description-wrapper\"><div class=\"artifact-description\"></div>" +
                       "<div class=\"artifact-sub-description\"><div class=\"line1\"></div> " +
                       "<div class=\"line2\"></div><div class=\"line3\"></div>" +
                       " </div> </div> </div> " + "<div class=\"sub-question-wrapper\""
 
-                var tempArtifactEndStr = "></div>";
+              var tempArtifactEndStr = "></div>";
 
-                $.each(collectionData['collectionPanel'], function(index, val) {
+              $.each(collectionData['collectionPanel'], function(index, val) {
                   var myURL = jsonPath + railName + "_" + val + ".json";
 
                   $.ajax({
@@ -420,7 +414,7 @@
                 var targetDiv = '#' + $(this).attr('id').split('-')[0] +  "-detail-story-" +
                                 $(this).attr('id').split('-')[2];
 
-                $('#detail-content-scroll').animate({
+                $('#detail-col').animate({
                     scrollTop: $(targetDiv).position().top
                 }, 1000, "swing", function(){
                     preventScrollEvent = false;
@@ -469,7 +463,7 @@
 
                 clearInterval(questionTimer);
 
-                $('#detail-content-scroll').animate({
+                $('#detail-col').animate({
                     scrollTop: $(targetDiv).position().top
                 }, 1000, "swing", function(){
                     preventScrollEvent = false;
@@ -522,7 +516,7 @@
                 }
 
                 var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
-                $('#detail-content-scroll').animate({
+                $('#detail-col').animate({
                     scrollTop: $(targetDiv).position().top
                 }, 1000, "swing", function(){
                     preventScrollEvent = false;
@@ -535,15 +529,15 @@
             // Callback to check for scroll and highlighting the
             // correct artifact and the sub-question for it
             //-------------------------------------------------------------------
-            $( '#detail-content-scroll' ).scroll(function() {
+            $( '#detail-col' ).scroll(function() {
                 if(!preventScrollEvent){
                     var detailHeaders = $('#detail-col').find('.detail-header');
 
                     for(var i=0; i<detailHeaders.length; i++){
                         var $this = $(detailHeaders[i]);
 
-                        if ( $this.position().top + $this.height() > $('#detail-content-scroll').scrollTop()
-                                && $this.position().top < $('#detail-content-scroll').scrollTop()+$('#detail-content-scroll').height() ) {
+                        if ( $this.position().top + $this.height() > $('#detail-col').scrollTop()
+                                && $this.position().top < $('#detail-col').scrollTop()+$('#detail-col').height() ) {
 
                             var collectionID = $this.attr('id').split('-')[0];
                             var storyID = $this.attr('id').split('-')[3];
@@ -583,6 +577,7 @@
                 var currentArtifactViewport = $(artifactId).position().top + $(artifactId).height();
                 var top = 0;
 
+                console.log(currentArtifactViewport.toString() + " , " + $('#artifacts-wrapper').height().toString());
                 if(currentArtifactViewport> $('#artifacts-wrapper').height()){
                     top = $($(artifactId)).position().top + $(artifactId).find('.sub-question-wrapper').height();
                 }
