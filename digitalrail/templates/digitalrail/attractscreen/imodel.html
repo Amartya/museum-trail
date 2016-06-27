@@ -24,7 +24,7 @@
     <div id="screen">
         <!--imodel artifacts -->
         <div class="page" id="attract-artifacts">
-            <div class="attract-artifact-wrapper">
+            <div id="attract-artifact-1" class="attract-artifact-wrapper" data-next-story-id="artifact-0-story-0">
                 <div class="attract-artifact-question">Is this the earliest Chinese writing?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png')"></div>
@@ -34,7 +34,7 @@
                     <div class="attract-artifact-title">Oracle Bones</div>
                 </div>
             </div>
-            <div class="attract-artifact-wrapper">
+            <div id="attract-artifact-2"  class="attract-artifact-wrapper" data-next-story-id="artifact-1-story-0">
                 <div class="attract-artifact-question">Did these bones tell the future?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png')"></div>
@@ -44,7 +44,8 @@
                     <div class="attract-artifact-title">Oracle Bones</div>
                 </div>
             </div>
-            <div class="attract-artifact-wrapper">
+
+            <div id="attract-artifact-3"  class="attract-artifact-wrapper" data-next-story-id="artifact-3-story-0">
                 <div class="attract-artifact-question">How did a pot shape a city?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png')"></div>
@@ -54,7 +55,7 @@
                     <div class="attract-artifact-title">Ceramic vessels and sherd</div>
                 </div>
             </div>
-            <div class="attract-artifact-wrapper">
+            <div id="attract-artifact-4" class="attract-artifact-wrapper" data-next-story-id="artifact-4-story-0">
                 <div class="attract-artifact-question">What is a shell worth?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png')"></div>
@@ -464,7 +465,7 @@
             }
 
             //-------------------------------------------------------------------
-            // Callback for moving from the attract screen to the 3-pane screen
+            // Callback for moving from the attract screen to the imodel screen
             //-------------------------------------------------------------------
             $('.page').on('click', '#theme-question-wrapper', function(event){
                 event.stopPropagation();
@@ -473,39 +474,50 @@
                 $('.attract-artifact-wrapper').css('visibility', 'visible');
                 $('.attract-artifact-wrapper').css('filter', '');
                 $('#attract-artifacts').css('opacity','0.85');
+            });
+
+            //-------------------------------------------------------------------
+            // Callback for moving from the imodel screen to the 3-pane screen
+            //-------------------------------------------------------------------
+            $('.page').on('click', '.attract-artifact-wrapper', function(event){
+                event.stopPropagation();
+
+                $('#attract-artifacts').addClass('left-page-hidden');
+                $('#detail-screen').removeClass('right-page-hidden');
 
                 preventScrollEvent = true;
 
+                var nextStoryId = ""
+                var artifactId = ""
+                var storyNum = ""
 
+                try{
+                    var artifact = '#' + $(this).attr('id');
+                    nextStoryId = $(artifact).data('next-story-id');
+                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);
+                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);
+                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];
+                }
+                catch(err){
+                    nextStoryId =  "artifact-0-story-0";
+                    var artifact = $('.artifact').first().attr('id');
+                    artifactId = artifact.split('-')[1];
+                    storyNum = "0";
+                }
 
-{#                var nextStoryId = ""#}
-{#                var artifactId = ""#}
-{#                var storyNum = ""#}
-{#                try{#}
-{#                    nextStoryId = $('#next-story').data('next-story-id');#}
-{#                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);#}
-{#                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);#}
-{#                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];#}
-{#                }#}
-{#                catch(err){#}
-{#                    nextStoryId =  "artifact-0-story-0";#}
-{#                    var artifact = $('.artifact').first().attr('id');#}
-{#                    artifactId = artifact.split('-')[1];#}
-{#                    storyNum = "0";#}
-{#                }#}
-{##}
-{#                goToStory(nextStoryId);#}
-{##}
-{#                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();#}
-{##}
-{#                $('#detail-content-scroll').animate({#}
-{#                    scrollTop: $(targetDiv).position().top#}
-{#                }, 1000, "swing", function(){#}
-{#                    preventScrollEvent = false;#}
-{#                    displayMedia();#}
-{#                    $('#home-bar').fadeIn(400);#}
-{#                });#}
+                goToStory(nextStoryId);
+
+                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();
+
+                $('#detail-content-scroll').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                    displayMedia();
+                    $('#home-bar').fadeIn(400);
+                });
             });
+
 
             //-------------------------------------------------------------------
             // Callback for going back to home/attract screen
@@ -514,8 +526,10 @@
                 $('#home-bar').fadeOut(0);
                 $('#tab-bar').fadeOut(0);
 
+
                 $('#detail-screen').addClass('right-page-hidden');
                 $('#attract-screen').removeClass('left-page-hidden');
+                $('#attract-artifacts').removeClass('left-page-hidden');
             });
 
             //-------------------------------------------------------------------
