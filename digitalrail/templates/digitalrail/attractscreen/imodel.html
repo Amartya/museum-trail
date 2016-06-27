@@ -18,39 +18,63 @@
     <link href="{% static "common/css/ionicons.min.css" %}" type="text/css" rel="stylesheet" />
     <link href="{% static "attractscreen/css/imodel.css" %}" type="text/css" rel="stylesheet" />
     <script src="{% static "common/js/jquery-1.12.3.min.js" %}"></script>
-    <title> Case 201: Cyrus Tang Hall of China</title>
+    <title>Case 201: Cyrus Tang Hall of China</title>
 </head>
 <body oncontextmenu="return true">
     <div id="screen">
+        <!--imodel artifacts -->
+        <div class="page" id="attract-artifacts">
+            <div class="attract-artifact-wrapper">
+                <div class="attract-artifact-question">Is this the earliest Chinese writing?</div>
+                <div class="artifact-img-clipper">
+                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png')"></div>
+                </div>
+                <div class="attract-artifact-footer">
+                    <div class="attract-artifact-index">14-16</div>
+                    <div class="attract-artifact-title">Oracle Bones</div>
+                </div>
+            </div>
+            <div class="attract-artifact-wrapper">
+                <div class="attract-artifact-question">Did these bones tell the future?</div>
+                <div class="artifact-img-clipper">
+                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png')"></div>
+                </div>
+                <div class="attract-artifact-footer">
+                    <div class="attract-artifact-index">17-18</div>
+                    <div class="attract-artifact-title">Oracle Bones</div>
+                </div>
+            </div>
+            <div class="attract-artifact-wrapper">
+                <div class="attract-artifact-question">How did a pot shape a city?</div>
+                <div class="artifact-img-clipper">
+                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png')"></div>
+                </div>
+                <div class="attract-artifact-footer">
+                    <div class="attract-artifact-index">19-21</div>
+                    <div class="attract-artifact-title">Ceramic vessels and sherd</div>
+                </div>
+            </div>
+            <div class="attract-artifact-wrapper">
+                <div class="attract-artifact-question">What is a shell worth?</div>
+                <div class="artifact-img-clipper">
+                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png')"></div>
+                </div>
+                <div class="attract-artifact-footer">
+                    <div class="attract-artifact-index">14-16</div>
+                    <div class="attract-artifact-title">Cowrie shells</div>
+                </div>
+            </div>
+        </div>
+
         <!--Attract Screen-->
         <div class="page" id="attract-screen">
-            <div id="img-container" >
-                <div id="attract-case-number" class="artifact-label" {% if first_case_number = False%}style="display: none"{% endif %}>
-                    {{ first_case_number }}
-                </div>
-                <div id="img-clipper" class="shadow">
-                    <div id="hero-img"></div>
+            <!--Attract Theme Question-->
+            <div id="theme-question-wrapper">
+                <div id="theme-question">What ancient innovations shaped the Bronze Age?</div>
+                <div id="sub-text">Tap here to find out..
+                    <div class="nav" id="next-story" data-next-story-id=""><img class="nav-screen"></div>
                 </div>
             </div>
-            <div id="question-container" data-question-index="0">
-              <div class="attract-text" id="main-question">
-                  {% if first_question %}
-                    {{ first_question }}
-                  {% else %}
-                    What does the future hold?
-                  {% endif %}
-              </div>
-
-              <div class="attract-text" id="sub-question">
-                  {% if first_additional_prompt %}
-                    {{ first_additional_prompt }}
-                  {% else %}
-                    ...
-                  {% endif %}
-                  <div class="nav" id="next-story" data-next-story-id="{{first_selected_story_id}}"><img class="nav-screen"></div>
-              </div>
-            </div>
-            <div id="cycle-questions">other questions <i class="ion ion-loop"></i></div>
         </div>
 
         <!--Three pane layout-->
@@ -70,8 +94,13 @@
             </div>
             <!-- column2-->
             <div class="column" id="detail-col">
-                <div id = "detail-image-wrapper"></div>
-                <div id="detail-story-wrapper"></div>
+                <div id="detail-content-scroll">
+                    <div id="detail-story-wrapper"></div>
+                </div>
+                <div id="detail-rail-info">
+                    <div id="info-header"></div>
+                    <div id="info-detail"></div>
+                </div>
             </div>
 
             <!-- column3-->
@@ -87,7 +116,6 @@
                 </div>
             </div>
         </div>
-
 
         <div id="home-bar"><i class="icon ion-home"></i>Home</div>
 
@@ -186,29 +214,34 @@
             var preventScrollEvent = false;
 
             $('#hero-img').css('background-image', 'url(\"' + imagePath + "{{ first_img_filename }}" + '\")');
-            //$('#detail-screen').removeClass('right-page-hidden');
-            //$('#attract-screen').addClass('left-page-hidden');
+
+            $('.attract-artifact-wrapper').css('visibility','hidden');
+            $('.attract-artifact-wrapper').css('filter', 'blur(5px)');
+            $('.artifact-img-clipper').css('visibility','visible');
 
             //-------------------------------------------------------------------
             // Load the collection data and top-level menu
             //-------------------------------------------------------------------
             $.getJSON(jsonPath + "collection.json", function(collectionData) {
-              $('#header').html(collectionData['header']);
-              $('#headerText').html(collectionData['headerText']);
-              railName = collectionData['railName'];
+                $('#header').html(collectionData['header']);
+                $('#headerText').html(collectionData['headerText']);
+                railName = collectionData['railName'];
 
-              //strings to create dom structure for artifact column
-              var tempArtifactInitStr = "<div class=\"artifact\" ";
-              var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
+                $('#info-header').text(collectionData['header']);
+                $('#info-detail').text(collectionData['headerText']);
+
+                //strings to create dom structure for artifact column
+                var tempArtifactInitStr = "<div class=\"artifact\" ";
+                var tempArtifactMidStr = "><div class =\"artifact-img-clipper shadow\">" +
                       "<div class=\"artifact-img\"></div></div><div class=\"artifact-index\"></div>" +
                       "<div class=\"description-wrapper\"><div class=\"artifact-description\"></div>" +
                       "<div class=\"artifact-sub-description\"><div class=\"line1\"></div> " +
                       "<div class=\"line2\"></div><div class=\"line3\"></div>" +
                       " </div> </div> </div> " + "<div class=\"sub-question-wrapper\""
 
-              var tempArtifactEndStr = "></div>";
+                var tempArtifactEndStr = "></div>";
 
-              $.each(collectionData['collectionPanel'], function(index, val) {
+                $.each(collectionData['collectionPanel'], function(index, val) {
                   var myURL = jsonPath + railName + "_" + val + ".json";
 
                   $.ajax({
@@ -414,7 +447,7 @@
                 var targetDiv = '#' + $(this).attr('id').split('-')[0] +  "-detail-story-" +
                                 $(this).attr('id').split('-')[2];
 
-                $('#detail-col').animate({
+                $('#detail-content-scroll').animate({
                     scrollTop: $(targetDiv).position().top
                 }, 1000, "swing", function(){
                     preventScrollEvent = false;
@@ -433,43 +466,45 @@
             //-------------------------------------------------------------------
             // Callback for moving from the attract screen to the 3-pane screen
             //-------------------------------------------------------------------
-            $('.page').on('click', '.nav-screen, .attract-text', function(event){
+            $('.page').on('click', '#theme-question-wrapper', function(event){
                 event.stopPropagation();
 
-                $('#attract-screen').addClass('left-page-hidden');
-                $('#detail-screen').removeClass('right-page-hidden');
+                $('#attract-screen').fadeOut(100);
+                $('.attract-artifact-wrapper').css('visibility', 'visible');
+                $('.attract-artifact-wrapper').css('filter', '');
+                $('#attract-artifacts').css('opacity','0.85');
 
                 preventScrollEvent = true;
 
-                var nextStoryId = ""
-                var artifactId = ""
-                var storyNum = ""
-                try{
-                    nextStoryId = $('#next-story').data('next-story-id');
-                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);
-                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);
-                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];
-                }
-                catch(err){
-                    nextStoryId =  "artifact-0-story-0";
-                    var artifact = $('.artifact').first().attr('id');
-                    artifactId = artifact.split('-')[1];
-                    storyNum = "0";
-                }
 
-                goToStory(nextStoryId);
 
-                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();
-
-                clearInterval(questionTimer);
-
-                $('#detail-col').animate({
-                    scrollTop: $(targetDiv).position().top
-                }, 1000, "swing", function(){
-                    preventScrollEvent = false;
-                    displayMedia();
-                    $('#home-bar').fadeIn(400);
-                });
+{#                var nextStoryId = ""#}
+{#                var artifactId = ""#}
+{#                var storyNum = ""#}
+{#                try{#}
+{#                    nextStoryId = $('#next-story').data('next-story-id');#}
+{#                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);#}
+{#                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);#}
+{#                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];#}
+{#                }#}
+{#                catch(err){#}
+{#                    nextStoryId =  "artifact-0-story-0";#}
+{#                    var artifact = $('.artifact').first().attr('id');#}
+{#                    artifactId = artifact.split('-')[1];#}
+{#                    storyNum = "0";#}
+{#                }#}
+{##}
+{#                goToStory(nextStoryId);#}
+{##}
+{#                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();#}
+{##}
+{#                $('#detail-content-scroll').animate({#}
+{#                    scrollTop: $(targetDiv).position().top#}
+{#                }, 1000, "swing", function(){#}
+{#                    preventScrollEvent = false;#}
+{#                    displayMedia();#}
+{#                    $('#home-bar').fadeIn(400);#}
+{#                });#}
             });
 
             //-------------------------------------------------------------------
@@ -481,10 +516,6 @@
 
                 $('#detail-screen').addClass('right-page-hidden');
                 $('#attract-screen').removeClass('left-page-hidden');
-
-                clearInterval(questionTimer);
-                changeQuestion();
-                questionTimer = setInterval(function(){changeQuestion()}, 6000);
             });
 
             //-------------------------------------------------------------------
@@ -516,7 +547,7 @@
                 }
 
                 var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
-                $('#detail-col').animate({
+                $('#detail-content-scroll').animate({
                     scrollTop: $(targetDiv).position().top
                 }, 1000, "swing", function(){
                     preventScrollEvent = false;
@@ -529,15 +560,15 @@
             // Callback to check for scroll and highlighting the
             // correct artifact and the sub-question for it
             //-------------------------------------------------------------------
-            $( '#detail-col' ).scroll(function() {
+            $( '#detail-content-scroll' ).scroll(function() {
                 if(!preventScrollEvent){
                     var detailHeaders = $('#detail-col').find('.detail-header');
 
                     for(var i=0; i<detailHeaders.length; i++){
                         var $this = $(detailHeaders[i]);
 
-                        if ( $this.position().top + $this.height() > $('#detail-col').scrollTop()
-                                && $this.position().top < $('#detail-col').scrollTop()+$('#detail-col').height() ) {
+                        if ( $this.position().top + $this.height() > $('#detail-content-scroll').scrollTop()
+                                && $this.position().top < $('#detail-content-scroll').scrollTop()+$('#detail-content-scroll').height() ) {
 
                             var collectionID = $this.attr('id').split('-')[0];
                             var storyID = $this.attr('id').split('-')[3];
@@ -577,7 +608,6 @@
                 var currentArtifactViewport = $(artifactId).position().top + $(artifactId).height();
                 var top = 0;
 
-                console.log(currentArtifactViewport.toString() + " , " + $('#artifacts-wrapper').height().toString());
                 if(currentArtifactViewport> $('#artifacts-wrapper').height()){
                     top = $($(artifactId)).position().top + $(artifactId).find('.sub-question-wrapper').height();
                 }
@@ -644,58 +674,6 @@
                 });
                 return imgCaptionList;
             }
-
-            var questionTimer = setInterval(function(){changeQuestion()}, 6000);
-
-            function changeQuestion(){
-                var questionContent = $('#question-content').find('li');
-                var questionArr = [];
-                var additionalPromptArr = [];
-                var storyIDArr = [];
-                var imgFileNameArr = [];
-                var caseNumberArr = [];
-
-                for(var i=0; i<questionContent.length; i++ ){
-                    questionArr.push($(questionContent[i]).data('question'));
-                    additionalPromptArr.push($(questionContent[i]).data('additional-prompt'));
-                    storyIDArr.push($(questionContent[i]).data('selected-story'));
-                    imgFileNameArr.push($(questionContent[i]).data('img-filename'));
-                    caseNumberArr.push($(questionContent[i]).data('case-number'));
-                }
-
-                var nextQuestionIndex =  ($('#question-container').data('question-index') + 1) % questionArr.length;
-
-                $('#main-question').fadeOut(0);
-                $('#main-question').text(questionArr[nextQuestionIndex]);
-                $('#main-question').fadeIn(600);
-
-                $('#sub-question').fadeOut(0);
-                $('#sub-question').empty();
-                $('#sub-question').text(additionalPromptArr[nextQuestionIndex]);
-                $('#sub-question').append('<div class="nav" id="next-story" data-next-story-id=""><img class="nav-screen"></div>');
-                $('#sub-question').fadeIn(600);
-
-                $('#hero-img').fadeOut(0);
-                $('#hero-img').css('background-image', 'url(\"' + imagePath + imgFileNameArr[nextQuestionIndex] + '\")');
-                $('#hero-img').fadeIn(600);
-
-                $('#attract-case-number').css('visibility', 'hidden');
-                if(caseNumberArr[nextQuestionIndex].trim() != ""){
-                    $('#attract-case-number').css('visibility', 'visible');
-                    $('#attract-case-number').fadeOut(0);
-                    $('#attract-case-number').text(caseNumberArr[nextQuestionIndex]);
-                    $('#attract-case-number').fadeIn(600);
-                }
-
-                $('#next-story').data('next-story-id', storyIDArr[nextQuestionIndex]);
-                $('#question-container').data('question-index', nextQuestionIndex);
-            }
-
-            $('.page').on('click', '#cycle-questions', function(){
-                clearInterval(questionTimer);
-                changeQuestion();
-                questionTimer = setInterval(function(){changeQuestion()}, 6000);
-            });
 
             function goToStory(storyID){
                 var artifactNum = Math.max((parseInt(storyID.split('-')[1])- 1), 0);

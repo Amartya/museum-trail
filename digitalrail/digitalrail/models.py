@@ -6,8 +6,10 @@ class Question(models.Model):
         return 'RailId: ' + str(self.rail_id) + ' Question: ' + self.question_text
     rail_id = models.IntegerField(default=0)
     question_text = models.CharField(max_length=500)
+    imodel_question_text = models.CharField(max_length=500, blank=True)
     pub_date = models.DateTimeField('date published')
     active = models.BooleanField(default=False)
+    imodel = models.BooleanField(default=False)
     additional_prompt = models.CharField(max_length=500)
     selected_story_id = models.CharField(max_length=50)
     related_img_filename = models.CharField(max_length=100)

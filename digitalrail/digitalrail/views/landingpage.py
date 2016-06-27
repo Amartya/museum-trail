@@ -48,7 +48,7 @@ def bigquestion(request):
 
         question_data['question_list'] = question_list
 
-        if "bigquestiontimeline" in request.get_full_path():
+        if "imodel" in request.get_full_path():
             return render(request, 'digitalrail/attractscreen/imodel.html', question_data)
         else:
             return render(request, 'digitalrail/attractscreen/bigquestion.html', question_data)
