@@ -19,7 +19,9 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     //makes the keyboard disappear while tapping outside the textfield 
     //make sure that the view tapped is changed to be an instance of UIControl, instead of UIView in IB
     @IBAction func dismissKeyboard(sender: AnyObject) {
-        participantInput.resignFirstResponder()
+        if let tempParticipantInput = participantInput{
+            tempParticipantInput.resignFirstResponder()
+        }
     }
     
     override func viewDidLoad() {
