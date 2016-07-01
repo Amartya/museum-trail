@@ -120,8 +120,40 @@ body {
   margin-left: 10px;
   margin-top: 10px;
   left: 50%;
-  top: 87%;
+  top: 410px;
   border: 3px #888678 solid; }
+#attract-screen #case-highlight {
+  width: 350px;
+  height: 100%;
+  background-image: url("/static/attractscreen/media/dragon-450-light.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center; }
+  #attract-screen #case-highlight #case-highlight-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%; }
+    #attract-screen #case-highlight #case-highlight-wrapper .case-highlight-title {
+      font-size: 16pt;
+      font-family: "BauOT-Medium", sans-serif;
+      text-transform: capitalize;
+      padding: 0px 5px 0px 20px; }
+    #attract-screen #case-highlight #case-highlight-wrapper .case-highlight-description {
+      margin-top: 10px;
+      font-size: 13pt;
+      font-family: "Avenir Next Regular", sans-serif;
+      text-align: justify;
+      padding: 0px 5px 0px 20px; }
+#attract-screen #case-highlight:after {
+  content: "";
+  background: #E6E1D0;
+  position: absolute;
+  bottom: 10%;
+  height: 80%;
+  width: 3px;
+  left: 325px; }
 
 #img-container {
   display: flex;
@@ -130,8 +162,8 @@ body {
 
 #img-clipper {
   display: flex;
-  height: 435px;
-  width: 435px;
+  height: 400px;
+  width: 400px;
   border-radius: 50%;
   background-color: #E1DDC6;
   margin: auto;
@@ -140,8 +172,8 @@ body {
     background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
     background-repeat: no-repeat;
     background-size: contain;
-    width: 295px;
-    height: 295px;
+    width: 270px;
+    height: 270px;
     margin: auto; }
 
 #question-content {
@@ -166,7 +198,7 @@ body {
   align-items: flex-start; }
 
 .attract-text {
-  width: 1100px;
+  width: 1000px;
   cursor: pointer;
   font-family: "Avenir Next Regular", sans-serif;
   text-align: center;
@@ -178,14 +210,14 @@ body {
   user-select: none; }
 
 #main-question {
-  font-size: 45pt; }
+  font-size: 35pt; }
 
 #sub-question {
   display: flex;
   justify-content: center;
-  width: 1100px;
-  font-size: 30pt;
-  color: #838787; }
+  width: 1000px;
+  color: #838787;
+  font-size: 28pt; }
 
 .nav {
   width: 50px;

@@ -24,6 +24,12 @@
     <div id="screen">
         <!--Attract Screen-->
         <div class="page" id="attract-screen">
+            <div id="case-highlight">
+                <div id="case-highlight-wrapper">
+                    <div class="case-highlight-title"></div>
+                    <div class="case-highlight-description"></div>
+                </div>
+            </div>
             <div id="img-container" >
                 <div id="attract-case-number" class="artifact-label" {% if first_case_number = False%}style="display: none"{% endif %}>
                     {{ first_case_number }}
@@ -72,10 +78,6 @@
             <div class="column" id="detail-col">
                 <div id="detail-content-scroll">
                     <div id="detail-story-wrapper"></div>
-                </div>
-                <div id="detail-rail-info">
-                    <div id="info-header"></div>
-                    <div id="info-detail"></div>
                 </div>
             </div>
 
@@ -200,8 +202,8 @@
                 $('#headerText').html(collectionData['headerText']);
                 railName = collectionData['railName'];
 
-                $('#info-header').text(collectionData['header']);
-                $('#info-detail').text(collectionData['headerText']);
+                $('.case-highlight-title').text(collectionData['header']);
+                $('.case-highlight-description').text(collectionData['headerText']);
 
                 //strings to create dom structure for artifact column
                 var tempArtifactInitStr = "<div class=\"artifact\" ";
