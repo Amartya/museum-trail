@@ -199,6 +199,39 @@ body {
         width: 225px; }
   #attract-artifacts .attract-artifact-wrapper:hover {
     opacity: 0.5; }
+  #attract-artifacts #case-highlight {
+    width: 350px;
+    height: 100%;
+    background-image: url("/static/attractscreen/media/dragon-450-light.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    margin-left: -20px; }
+    #attract-artifacts #case-highlight #case-highlight-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%; }
+      #attract-artifacts #case-highlight #case-highlight-wrapper .case-highlight-title {
+        font-size: 16pt;
+        font-family: "BauOT-Medium", sans-serif;
+        text-transform: capitalize;
+        padding: 0px 5px 0px 20px; }
+      #attract-artifacts #case-highlight #case-highlight-wrapper .case-highlight-description {
+        margin-top: 10px;
+        font-size: 13pt;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: justify;
+        padding: 0px 5px 0px 20px; }
+  #attract-artifacts #case-highlight:after {
+    content: "";
+    background: #E6E1D0;
+    position: absolute;
+    bottom: 10%;
+    height: 80%;
+    width: 3px;
+    left: 400px; }
 
 #img-container {
   display: flex;
@@ -373,28 +406,32 @@ body {
 #detail-col {
   position: relative;
   width: 700px;
-  overflow-y: scroll;
-  font-size: 14pt;
-  padding: 30px 30px 0px 30px; }
-  #detail-col #detail-story-wrapper {
-    position: relative; }
-  #detail-col .detail-header {
-    background-color: #333333;
-    height: 50px;
-    width: 640px;
-    font-size: 25pt;
-    text-align: center; }
-  #detail-col .detail-text {
-    margin-top: 30px;
-    height: 385px;
-    overflow-x: hidden; }
-    #detail-col .detail-text .detail-image-wrapper {
-      background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
-      background-repeat: no-repeat;
-      background-size: contain;
-      width: 100px;
-      height: 100px;
-      margin: auto; }
+  font-size: 14pt; }
+  #detail-col #detail-content-scroll {
+    position: relative;
+    width: 700px;
+    height: 100%;
+    padding: 30px 30px 0px 30px;
+    overflow-y: scroll; }
+    #detail-col #detail-content-scroll #detail-story-wrapper {
+      position: relative; }
+    #detail-col #detail-content-scroll .detail-header {
+      background-color: #333333;
+      height: 50px;
+      width: 640px;
+      font-size: 25pt;
+      text-align: center; }
+    #detail-col #detail-content-scroll .detail-text {
+      margin-top: 30px;
+      height: 385px;
+      overflow-x: hidden; }
+      #detail-col #detail-content-scroll .detail-text .detail-image-wrapper {
+        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 100px;
+        height: 100px;
+        margin: auto; }
 
 #media-col {
   position: relative;
@@ -477,35 +514,26 @@ body {
   #home-bar:active, #home-bar:hover {
     opacity: 0.95; }
 
-#tab-bar {
+#back-bar {
   display: none;
-  justify-content: space-around;
   cursor: pointer;
   position: fixed;
   top: 455px;
-  left: 705px;
-  width: 410px;
-  height: 40px; }
-  #tab-bar .tab {
-    display: flex;
-    width: 125px;
-    background-color: #bc4c4e;
-    font-size: 12pt;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    font-family: "Avenir Next";
-    line-height: 40px;
-    text-align: center; }
-    #tab-bar .tab i {
-      margin-left: 3px;
-      margin-right: 3px;
-      width: 25px; }
-    #tab-bar .tab .tab-text {
-      padding-right: 10px;
-      max-width: 88px;
-      text-align: left; }
-    #tab-bar .tab:active, #tab-bar .tab:hover {
-      opacity: 0.95; }
+  left: 160px;
+  width: 100px;
+  height: 40px;
+  background-color: #bc4c4e;
+  font-size: 12pt;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: "Avenir Next Regular", sans-serif;
+  line-height: 45px;
+  text-align: center; }
+  #back-bar i {
+    padding-left: 5px;
+    padding-right: 5px; }
+  #back-bar:active, #back-bar:hover {
+    opacity: 0.95; }
 
 .right-page-hidden {
   -webkit-transform: translateX(1920px);

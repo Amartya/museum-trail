@@ -309,6 +309,9 @@ body {
   font-size: 28pt;
 }
 
+.italics{
+  font-style: italic;
+}
 
 .nav{
   width: 50px;
@@ -465,7 +468,7 @@ body {
   #detail-content-scroll{
     position: relative;
     width: 700px;
-    height: 400px;
+    height: 100%;
     padding: 30px 30px 0px 30px;
     overflow-y: scroll;
 
@@ -494,34 +497,6 @@ body {
         height: 100px;
         margin: auto;
       }
-    }
-  }
-
-  #detail-rail-info{
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    bottom: 0px;
-    width: 100%;
-    height:80px;
-    background-color: #262627;
-    border-top: 7px solid #222;
-
-    #info-header{
-      font-size: 12pt;
-      font-family: "BauOT-Medium", sans-serif;
-      padding-left: 30px;
-      padding-right: 30px;
-      padding-top: 5px;
-      text-align: center;
-    }
-
-    #info-detail{
-      font-size: 9pt;
-      font-family: "BauOT-Medium", sans-serif;
-      padding-left: 30px;
-      padding-right: 30px;
-      text-align: justify;
     }
   }
 }

@@ -24,7 +24,14 @@
     <div id="screen">
         <!--imodel artifacts -->
         <div class="page" id="attract-artifacts">
-            <div id="attract-artifact-1" class="attract-artifact-wrapper" data-next-story-id="artifact-0-story-0">
+            <div id="case-highlight">
+                <div id="case-highlight-wrapper">
+                    <div class="case-highlight-title"></div>
+                    <div class="case-highlight-description"></div>
+                </div>
+            </div>
+
+            <div id="attract-artifact-1" class="attract-artifact-wrapper" data-next-story-id="artifact-1-story-0">
                 <div class="attract-artifact-question">Is this the earliest Chinese writing?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png')"></div>
@@ -34,7 +41,7 @@
                     <div class="attract-artifact-title">Oracle Bones</div>
                 </div>
             </div>
-            <div id="attract-artifact-2"  class="attract-artifact-wrapper" data-next-story-id="artifact-1-story-0">
+            <div id="attract-artifact-2"  class="attract-artifact-wrapper" data-next-story-id="artifact-2-story-0">
                 <div class="attract-artifact-question">Did these bones tell the future?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png')"></div>
@@ -45,7 +52,7 @@
                 </div>
             </div>
 
-            <div id="attract-artifact-3"  class="attract-artifact-wrapper" data-next-story-id="artifact-3-story-0">
+            <div id="attract-artifact-3"  class="attract-artifact-wrapper" data-next-story-id="artifact-4-story-0">
                 <div class="attract-artifact-question">How did a pot shape a city?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png')"></div>
@@ -55,7 +62,7 @@
                     <div class="attract-artifact-title">Ceramic vessels and sherd</div>
                 </div>
             </div>
-            <div id="attract-artifact-4" class="attract-artifact-wrapper" data-next-story-id="artifact-4-story-0">
+            <div id="attract-artifact-4" class="attract-artifact-wrapper" data-next-story-id="artifact-5-story-0">
                 <div class="attract-artifact-question">What is a shell worth?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png')"></div>
@@ -73,7 +80,7 @@
             <div id="theme-question-wrapper">
                 <div id="theme-question">What ancient innovations shaped the Bronze Age?</div>
                 <div id="sub-text">Tap here to find out..
-                    <div class="nav" id="next-story" data-next-story-id=""><img class="nav-screen"></div>
+                    <div class="nav" id="next-story"><img class="nav-screen"></div>
                 </div>
             </div>
         </div>
@@ -118,7 +125,8 @@
             </div>
         </div>
 
-        <div id="home-bar"><i class="icon ion-home"></i>Home</div>
+        <div id="home-bar"><i class="icon ion-arrow-left-b"></i>Back</div>
+        <div id="back-bar"><i class="icon ion-arrow-left-b"></i>Back</div>
 
         <div class="page" style="display: none;" >
             <div class="page-artifact-wrapper">
@@ -220,6 +228,8 @@
             $('.attract-artifact-wrapper').css('filter', 'blur(5px)');
             $('.artifact-img-clipper').css('visibility','visible');
 
+            $('#case-highlight').fadeOut(0);
+
             //-------------------------------------------------------------------
             // Load the collection data and top-level menu
             //-------------------------------------------------------------------
@@ -228,8 +238,8 @@
                 $('#headerText').html(collectionData['headerText']);
                 railName = collectionData['railName'];
 
-                $('#info-header').text(collectionData['header']);
-                $('#info-detail').text(collectionData['headerText']);
+                $('.case-highlight-title').text(collectionData['header']);
+                $('.case-highlight-description').text(collectionData['headerText']);
 
                 //strings to create dom structure for artifact column
                 var tempArtifactInitStr = "<div class=\"artifact\" ";
@@ -464,81 +474,12 @@
                 selectedLabel.find('i').fadeIn(400);
             }
 
-            //-------------------------------------------------------------------
-            // Callback for moving from the attract screen to the imodel screen
-            //-------------------------------------------------------------------
-            $('.page').on('click', '#theme-question-wrapper', function(event){
-                event.stopPropagation();
-
-                $('#attract-screen').fadeOut(100);
-                $('.attract-artifact-wrapper').css('visibility', 'visible');
-                $('.attract-artifact-wrapper').css('filter', '');
-                $('#attract-artifacts').css('opacity','0.85');
-            });
-
-            //-------------------------------------------------------------------
-            // Callback for moving from the imodel screen to the 3-pane screen
-            //-------------------------------------------------------------------
-            $('.page').on('click', '.attract-artifact-wrapper', function(event){
-                event.stopPropagation();
-
-                $('#attract-artifacts').addClass('left-page-hidden');
-                $('#detail-screen').removeClass('right-page-hidden');
-
-                preventScrollEvent = true;
-
-                var nextStoryId = ""
-                var artifactId = ""
-                var storyNum = ""
-
-                try{
-                    var artifact = '#' + $(this).attr('id');
-                    nextStoryId = $(artifact).data('next-story-id');
-                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);
-                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);
-                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];
-                }
-                catch(err){
-                    nextStoryId =  "artifact-0-story-0";
-                    var artifact = $('.artifact').first().attr('id');
-                    artifactId = artifact.split('-')[1];
-                    storyNum = "0";
-                }
-
-                goToStory(nextStoryId);
-
-                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();
-
-                $('#detail-content-scroll').animate({
-                    scrollTop: $(targetDiv).position().top
-                }, 1000, "swing", function(){
-                    preventScrollEvent = false;
-                    displayMedia();
-                    $('#home-bar').fadeIn(400);
-                });
-            });
-
-
-            //-------------------------------------------------------------------
-            // Callback for going back to home/attract screen
-            //-------------------------------------------------------------------
-            $('#home-bar').click(function(){
-                $('#home-bar').fadeOut(0);
-                $('#tab-bar').fadeOut(0);
-
-
-                $('#detail-screen').addClass('right-page-hidden');
-                $('#attract-screen').removeClass('left-page-hidden');
-                $('#attract-artifacts').removeClass('left-page-hidden');
-            });
 
             //-------------------------------------------------------------------
             // Callback to set detail & media screen contents from artifact column
             //-------------------------------------------------------------------
             $('.page').on('click', '.artifact', function(){
                 preventScrollEvent = true;
-
-                $('.artifact-sub-description').fadeOut(0);
 
                 $('.artifact').removeClass('selected');
                 var selectedItem = $(this);
@@ -611,6 +552,8 @@
 
                 $(artifactId).addClass('selected');
                 $(subQuestionId).addClass('selected');
+
+                $(artifactId).find('.artifact-sub-description').fadeIn(200);
 
                 if($(subQuestionId).find('i').css('display') == "none"){
                     $('.sub-question-item').find('i').fadeOut(0);
@@ -699,6 +642,92 @@
 
                 selectArtifactAndStory('#' + artifactId,'#' +  subQuestionWrapperID,'#' +  subQuestionId);
             }
+
+            //-------------------------------------------------------------------
+            // Callback for moving from the attract screen to the imodel screen
+            //-------------------------------------------------------------------
+            $('.page').on('click', '#theme-question-wrapper', function(event){
+                event.stopPropagation();
+
+                $('#back-bar').fadeIn(400);
+
+                $('#attract-screen').fadeOut(100);
+                $('.attract-artifact-wrapper').css('visibility', 'visible');
+                $('.attract-artifact-wrapper').css('filter', '');
+                $('#attract-artifacts').css('opacity','0.85');
+
+                $('#case-highlight').fadeIn(400);
+            });
+
+            //-------------------------------------------------------------------
+            // Callback for moving from the imodel screen to the 3-pane screen
+            //-------------------------------------------------------------------
+            $('.page').on('click', '.attract-artifact-wrapper', function(event){
+                event.stopPropagation();
+
+                $('#attract-artifacts').addClass('left-page-hidden');
+                $('#detail-screen').removeClass('right-page-hidden');
+
+                $('#back-bar').fadeOut(0);
+
+                preventScrollEvent = true;
+
+                var nextStoryId = ""
+                var artifactId = ""
+                var storyNum = ""
+
+                try{
+                    var artifact = '#' + $(this).attr('id');
+                    nextStoryId = $(artifact).data('next-story-id');
+                    storyNum = Math.max((parseInt(nextStoryId.split('-')[3]) - 1), 0);
+                    var artifactNum = Math.max(parseInt(nextStoryId.split('-')[1] - 1),0);
+                    artifactId = $('.artifact').eq(artifactNum).attr('id').split('-')[1];
+                }
+                catch(err){
+                    nextStoryId =  "artifact-0-story-0";
+                    var artifact = $('.artifact').first().attr('id');
+                    artifactId = artifact.split('-')[1];
+                    storyNum = "0";
+                }
+
+                goToStory(nextStoryId);
+
+                var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();
+
+                $('#detail-content-scroll').animate({
+                    scrollTop: $(targetDiv).position().top
+                }, 1000, "swing", function(){
+                    preventScrollEvent = false;
+                    displayMedia();
+                    $('#home-bar').fadeIn(400);
+                });
+            });
+
+            //-------------------------------------------------------------------
+            // Callback for going back to home/attract screen
+            //-------------------------------------------------------------------
+            $('#home-bar').click(function(){
+                $('#home-bar').fadeOut(0);
+                $('#back-bar').fadeIn(400);
+
+                $('#detail-screen').addClass('right-page-hidden');
+                $('#attract-artifacts').removeClass('left-page-hidden');
+            });
+
+            //-------------------------------------------------------------------
+            // Callback for going back to home/attract screen
+            //-------------------------------------------------------------------
+            $('#back-bar').click(function(){
+                $('#back-bar').fadeOut(0);
+                $('#attract-screen').fadeIn(100);
+
+                $('#attract-artifacts').css('opacity', '0.08');
+                $('.attract-artifact-wrapper').css('visibility','hidden');
+                $('.attract-artifact-wrapper').css('filter', 'blur(5px)');
+                $('.artifact-img-clipper').css('visibility','visible');
+
+                $('#case-highlight').fadeOut(0);
+            });
         });
     </script>
 </body>

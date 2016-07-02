@@ -298,6 +298,48 @@ body {
     opacity: 0.5;
   }
 
+  #case-highlight{
+    width: 350px;
+    height: 100%;
+    background-image: url("/static/attractscreen/media/dragon-450-light.png");
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    margin-left: -20px;
+
+    #case-highlight-wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      .case-highlight-title{
+        font-size: 16pt;
+        font-family: "BauOT-Medium", sans-serif;
+        text-transform: capitalize;
+        padding: 0px 5px 0px 20px;
+      }
+
+      .case-highlight-description{
+        margin-top: 10px;
+        font-size: 13pt;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: justify;
+        padding: 0px 5px 0px 20px;
+      }
+    }
+  }
+
+  #case-highlight:after {
+    content:"";
+    background: $font-color;
+    position: absolute;
+    bottom: 10%;
+    height: 80%;
+    width: 3px;
+    left: 400px;
+  }
 }
 
 
@@ -506,34 +548,40 @@ body {
 #detail-col{
   position: relative;
   width: 700px;
-  overflow-y:scroll;
   font-size: 14pt;
-  padding: 30px 30px 0px 30px;
 
-  #detail-story-wrapper{
+  #detail-content-scroll{
     position: relative;
-  }
+    width: 700px;
+    height: 100%;
+    padding: 30px 30px 0px 30px;
+    overflow-y: scroll;
 
-  .detail-header{
-    background-color: $background-color;
-    height: 50px;
-    width: 640px;
-    font-size: 25pt;
-    text-align: center;
-  }
+    #detail-story-wrapper{
+      position: relative;
+    }
 
-  .detail-text{
-    margin-top: 30px;
-    height: 385px;
-    overflow-x: hidden;
+    .detail-header{
+      background-color: $background-color;
+      height: 50px;
+      width: 640px;
+      font-size: 25pt;
+      text-align: center;
+    }
 
-    .detail-image-wrapper{
-      background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
-      background-repeat: no-repeat;
-      background-size: contain;
-      width: 100px;
-      height: 100px;
-      margin: auto;
+    .detail-text{
+      margin-top: 30px;
+      height: 385px;
+      overflow-x: hidden;
+
+      .detail-image-wrapper{
+        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 100px;
+        height: 100px;
+        margin: auto;
+      }
     }
   }
 }
@@ -643,41 +691,29 @@ body {
   }
 }
 
-#tab-bar{
+#back-bar{
   display: none;
-  justify-content: space-around;
   cursor: pointer;
   position: fixed;
   top: 455px;
-  left: 705px;
-  width: 410px;
+  left: 160px;
+  width: 100px;
   height: 40px;
+  background-color: $red-color;
+  font-size: 12pt;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: $body-font, sans-serif;
 
+  i{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
 
-  .tab{
-    display: flex;
-    width: 125px;
-    background-color: $red-color;
-    font-size: 12pt;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    font-family: "Avenir Next";
+  @include center-align(45px);
 
-    i{
-      margin-left: 3px;
-      margin-right: 3px;
-      width: 25px;
-    }
-    .tab-text{
-      padding-right: 10px;
-      max-width: 88px;
-      text-align: left;
-    }
-
-    @include center-align(40px);
-    &:active, &:hover{
-      opacity: 0.95;
-    }
+  &:active, &:hover{
+    opacity: 0.95;
   }
 }
 
