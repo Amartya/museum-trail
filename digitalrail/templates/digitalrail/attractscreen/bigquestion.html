@@ -486,6 +486,7 @@
                     }, 1000, "swing", function(){
                         preventScrollEvent = false;
                         displayMedia();
+                        scrollArtifactsWrapper('#artifact-' + artifactId );
                         $('#home-bar').fadeIn(400);
                     });
                 });
@@ -592,9 +593,11 @@
 
                 function scrollArtifactsWrapper(artifactId){
                     var currentArtifactViewport = $(artifactId).position().top + $(artifactId).height();
+                    var artifactMargin = 50;
+
                     var top = 0;
 
-                    if(currentArtifactViewport> $('#artifacts-wrapper').height()){
+                    if(currentArtifactViewport > ($('#artifacts-wrapper').height()) - artifactMargin){
                         top = $($(artifactId)).position().top + $(artifactId).find('.sub-question-wrapper').height();
                     }
                     else if(currentArtifactViewport <= 0){

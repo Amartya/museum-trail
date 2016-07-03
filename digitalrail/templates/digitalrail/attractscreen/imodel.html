@@ -31,7 +31,7 @@
                 </div>
             </div>
 
-            <div id="attract-artifact-1" class="attract-artifact-wrapper" data-next-story-id="artifact-1-story-0">
+            <div id="attract-artifact-1" class="attract-artifact-wrapper" data-next-story-id="artifact-1-story-1">
                 <div class="attract-artifact-question">Is this the earliest Chinese writing?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png')"></div>
@@ -41,7 +41,7 @@
                     <div class="attract-artifact-title">Oracle Bones</div>
                 </div>
             </div>
-            <div id="attract-artifact-2"  class="attract-artifact-wrapper" data-next-story-id="artifact-2-story-0">
+            <div id="attract-artifact-2"  class="attract-artifact-wrapper" data-next-story-id="artifact-2-story-1">
                 <div class="attract-artifact-question">Did these bones tell the future?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png')"></div>
@@ -52,7 +52,7 @@
                 </div>
             </div>
 
-            <div id="attract-artifact-3"  class="attract-artifact-wrapper" data-next-story-id="artifact-4-story-0">
+            <div id="attract-artifact-3"  class="attract-artifact-wrapper" data-next-story-id="artifact-4-story-3">
                 <div class="attract-artifact-question">How did a pot shape a city?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png')"></div>
@@ -62,7 +62,7 @@
                     <div class="attract-artifact-title">Ceramic vessels and sherd</div>
                 </div>
             </div>
-            <div id="attract-artifact-4" class="attract-artifact-wrapper" data-next-story-id="artifact-5-story-0">
+            <div id="attract-artifact-4" class="attract-artifact-wrapper" data-next-story-id="artifact-5-story-1">
                 <div class="attract-artifact-question">What is a shell worth?</div>
                 <div class="artifact-img-clipper">
                     <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png')"></div>
@@ -563,15 +563,17 @@
 
             function scrollArtifactsWrapper(artifactId){
                 var currentArtifactViewport = $(artifactId).position().top + $(artifactId).height();
+                var artifactMargin = 50;
+
                 var top = 0;
 
-                if(currentArtifactViewport> $('#artifacts-wrapper').height()){
+                if(currentArtifactViewport > ($('#artifacts-wrapper').height()) - artifactMargin){
                     top = $($(artifactId)).position().top + $(artifactId).find('.sub-question-wrapper').height();
                 }
                 else if(currentArtifactViewport <= 0){
                     top = $($(artifactId)).position().top - $(artifactId).find('.sub-question-wrapper').height();
                 }
-
+                
                 if(top !=0){
                     $('#artifacts-wrapper').animate({
                     scrollTop: top
@@ -699,6 +701,7 @@
                 }, 1000, "swing", function(){
                     preventScrollEvent = false;
                     displayMedia();
+                    scrollArtifactsWrapper('#artifact-' + artifactId );
                     $('#home-bar').fadeIn(400);
                 });
             });
