@@ -45,5 +45,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Field Recorder is being used for research purposes. Kindly allow location services.</string>
 </dict>
 </plist>
