@@ -9,9 +9,14 @@ import Foundation
 import UIKit
 
 //add the EILIndoorLocationManagerDelegate protocol to hook into the Estimote SDK
-class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
+class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate, ESTTriggerManagerDelegate, ESTBeaconManagerDelegate  {
+    let beaconManager = ESTBeaconManager()
+    
     //add the location manager
     let locationManager = EILIndoorLocationManager()
+    
+    //add the trigger manager for the nearables
+    let triggerManager = ESTTriggerManager()
     
     //location being tracked
     var location: EILLocation!
@@ -39,6 +44,8 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
         
         setupIndoorLocation()
         
+        setupStickers()
+        
         estimoteLocation.directoryURL = Utility.getAppDirectoryURL()
         
         estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(participant))
@@ -51,6 +58,9 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
         //set the location manager's delegate
         self.locationManager.delegate = self
         
+        self.beaconManager.delegate = self
+        
+        self.beaconManager.requestAlwaysAuthorization()
         /**
          Uncomment this block to get a list of all saved locations
          let fetchLocations = EILRequestFetchLocations()
@@ -131,6 +141,19 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
         self.locationManager.startPositionUpdatesForLocation(self.location)
     }
     
+    func setupStickers(){
+        self.triggerManager.delegate = self
+        
+        // add this below:
+        let rule1 = ESTOrientationRule.orientationEquals(
+            .Horizontal, forNearableIdentifier: "9468e46cd9e542d8")
+        let rule2 = ESTMotionRule.motionStateEquals(
+            true, forNearableType: .Door)
+        let trigger = ESTTrigger(rules: [rule1, rule2], identifier: "door")
+        
+        self.triggerManager.startMonitoringForTrigger(trigger)
+    }
+    
     func indoorLocationManager(manager: EILIndoorLocationManager,
         didFailToUpdatePositionWithError error: NSError) {
             print("failed to update position: \(error)")
@@ -163,6 +186,15 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             
             //update position in the location view setup earlier
             self.locationView.updatePosition(position)    
+    }
+    
+    func triggerManager(manager: ESTTriggerManager,
+                        triggerChangedState trigger: ESTTrigger) {
+        if (trigger.identifier == "door" && trigger.state == true) {
+            print("Close to the door")
+        } else {
+            print("Outside the door")
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
