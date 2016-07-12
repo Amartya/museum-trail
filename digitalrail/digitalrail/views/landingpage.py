@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import loader
 
 
-from digitalrail.models import Question
+from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion
 
 def index(request):
     #return HttpResponse("Hello Digital Rail")
@@ -54,3 +54,7 @@ def bigquestion(request):
             return render(request, 'digitalrail/attractscreen/bigquestion.html', question_data)
     else:
         return HttpResponse("No data found for current request")
+
+
+def imodel(request):
+    thematic_question = iModelThematicQuestion.objects.filter(rail_id=0, active=True).first()
