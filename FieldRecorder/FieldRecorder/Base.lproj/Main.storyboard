@@ -356,23 +356,23 @@
                                             <constraint firstAttribute="width" constant="280" id="mzM-d5-DZ8"/>
                                             <constraint firstAttribute="height" constant="60" id="rqv-Ov-7r3"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                        <state key="normal" title="Start Audio and Trail">
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <state key="normal" title="Audio and Trail">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <segue destination="DI4-Df-hZH" kind="show" identifier="showAudioTrail" id="9mQ-6T-YWB"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufn-qR-Rh6">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ufn-qR-Rh6">
                                         <rect key="frame" x="140" y="255" width="140" height="60"/>
                                         <color key="backgroundColor" red="0.34901960784313724" green="0.49803921568627452" blue="0.52941176470588236" alpha="0.40000000000000002" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="140" id="KRC-1u-kgF"/>
                                             <constraint firstAttribute="height" constant="60" id="grf-fN-2dx"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                        <state key="normal" title="        Start Trail">
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <state key="normal" title="Trail">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -386,8 +386,8 @@
                                             <constraint firstAttribute="height" constant="60" id="0wl-58-g5c"/>
                                             <constraint firstAttribute="width" constant="140" id="mRb-3T-oZZ"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                        <state key="normal" title="        Start Audio">
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <state key="normal" title="      Audio">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -395,13 +395,13 @@
                                         </connections>
                                     </button>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sound-icon" translatesAutoresizingMaskIntoConstraints="NO" id="Uqh-1U-UQq">
-                                        <rect key="frame" x="8" y="270" width="30" height="30"/>
+                                        <rect key="frame" x="15" y="265" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="RMm-vo-jeT"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="Wem-me-604"/>
-                                            <constraint firstAttribute="height" constant="30" id="cG6-rG-8iP"/>
+                                            <constraint firstAttribute="height" constant="40" id="cG6-rG-8iP"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="cla-kU-zJn"/>
-                                            <constraint firstAttribute="width" constant="30" id="kho-Dk-Kce"/>
+                                            <constraint firstAttribute="width" constant="40" id="kho-Dk-Kce"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -423,12 +423,12 @@
                                         <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     </textField>
                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="estimote" translatesAutoresizingMaskIntoConstraints="NO" id="ZOB-AL-nvC">
-                                        <rect key="frame" x="148" y="270" width="18" height="30"/>
+                                        <rect key="frame" x="155" y="265" width="25" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="9I6-dc-5gf"/>
+                                            <constraint firstAttribute="height" constant="40" id="9I6-dc-5gf"/>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="17" id="RNT-wQ-ih6"/>
                                             <constraint firstAttribute="width" constant="24" id="cFr-14-VDo"/>
-                                            <constraint firstAttribute="width" constant="18" id="gL2-0a-1LZ"/>
+                                            <constraint firstAttribute="width" constant="25" id="gL2-0a-1LZ"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="xRM-0F-bKZ"/>
                                         </constraints>
                                         <variation key="default">
@@ -448,7 +448,7 @@
                                     <constraint firstItem="hRm-84-XgV" firstAttribute="top" secondItem="PEh-iG-GAL" secondAttribute="bottom" constant="25" id="B54-Dd-PW1"/>
                                     <constraint firstItem="ZOB-AL-nvC" firstAttribute="centerY" secondItem="ufn-qR-Rh6" secondAttribute="centerY" id="JN4-Kf-F43"/>
                                     <constraint firstItem="hRm-84-XgV" firstAttribute="centerX" secondItem="lxG-Nj-EBz" secondAttribute="centerX" id="JxM-5N-8Xx"/>
-                                    <constraint firstItem="Uqh-1U-UQq" firstAttribute="leading" secondItem="lxG-Nj-EBz" secondAttribute="leading" constant="8" id="Kw5-RI-BCK"/>
+                                    <constraint firstItem="Uqh-1U-UQq" firstAttribute="leading" secondItem="lxG-Nj-EBz" secondAttribute="leading" constant="15" id="Kw5-RI-BCK"/>
                                     <constraint firstItem="ufn-qR-Rh6" firstAttribute="leading" secondItem="Uqh-1U-UQq" secondAttribute="trailing" constant="100" id="LLl-1x-Yxs"/>
                                     <constraint firstItem="PEh-iG-GAL" firstAttribute="centerX" secondItem="lxG-Nj-EBz" secondAttribute="centerX" id="Q4n-6G-bmv"/>
                                     <constraint firstAttribute="height" constant="375" id="S5G-Xy-a8o"/>
@@ -457,7 +457,7 @@
                                     <constraint firstItem="ufn-qR-Rh6" firstAttribute="centerY" secondItem="8bP-jT-SBP" secondAttribute="centerY" id="WHM-Ur-3BW"/>
                                     <constraint firstItem="x6i-sI-B0q" firstAttribute="top" secondItem="hRm-84-XgV" secondAttribute="bottom" constant="10" id="aRK-xq-qLp"/>
                                     <constraint firstItem="8bP-jT-SBP" firstAttribute="centerY" secondItem="Uqh-1U-UQq" secondAttribute="centerY" id="cE9-vu-MNU"/>
-                                    <constraint firstItem="ZOB-AL-nvC" firstAttribute="leading" secondItem="8bP-jT-SBP" secondAttribute="trailing" constant="8" id="gb7-Lt-JTr"/>
+                                    <constraint firstItem="ZOB-AL-nvC" firstAttribute="leading" secondItem="8bP-jT-SBP" secondAttribute="trailing" constant="15" id="gb7-Lt-JTr"/>
                                     <constraint firstItem="x6i-sI-B0q" firstAttribute="centerX" secondItem="lxG-Nj-EBz" secondAttribute="centerX" id="hAJ-24-ezy"/>
                                     <constraint firstItem="fNf-cu-88I" firstAttribute="top" secondItem="8bP-jT-SBP" secondAttribute="bottom" id="ht2-Ug-b0n"/>
                                     <constraint firstAttribute="width" constant="280" id="mCX-k2-eqJ"/>
@@ -1112,10 +1112,10 @@
                                 <rect key="frame" x="0.0" y="520" width="600" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3V-FG-IQH">
-                                        <rect key="frame" x="344.5" y="14.5" width="50" height="50"/>
+                                        <rect key="frame" x="362" y="17" width="45" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="P5r-o1-df0"/>
-                                            <constraint firstAttribute="height" constant="50" id="iDK-Kf-C1L"/>
+                                            <constraint firstAttribute="width" constant="45" id="P5r-o1-df0"/>
+                                            <constraint firstAttribute="height" constant="45" id="iDK-Kf-C1L"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="play"/>
                                         <connections>
@@ -1123,10 +1123,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g3C-E8-fPf">
-                                        <rect key="frame" x="274.5" y="14.5" width="50" height="50"/>
+                                        <rect key="frame" x="267" y="7" width="65" height="65"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="HLa-s6-uas"/>
-                                            <constraint firstAttribute="width" constant="50" id="q0i-eJ-TXP"/>
+                                            <constraint firstAttribute="height" constant="65" id="HLa-s6-uas"/>
+                                            <constraint firstAttribute="width" constant="65" id="q0i-eJ-TXP"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="record"/>
                                         <connections>
@@ -1134,10 +1134,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9b-sq-TI1">
-                                        <rect key="frame" x="204.5" y="14.5" width="50" height="50"/>
+                                        <rect key="frame" x="192" y="17" width="45" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="5jo-Bi-8H2"/>
-                                            <constraint firstAttribute="height" constant="50" id="B1M-YB-aKk"/>
+                                            <constraint firstAttribute="width" constant="45" id="5jo-Bi-8H2"/>
+                                            <constraint firstAttribute="height" constant="45" id="B1M-YB-aKk"/>
                                         </constraints>
                                         <state key="normal" title="Button" image="stop"/>
                                         <connections>
@@ -1154,8 +1154,8 @@
                                     <constraint firstItem="g3C-E8-fPf" firstAttribute="centerY" secondItem="w9b-sq-TI1" secondAttribute="centerY" id="MVa-4u-uWf"/>
                                     <constraint firstItem="g3C-E8-fPf" firstAttribute="leading" secondItem="w9b-sq-TI1" secondAttribute="trailing" constant="45" id="Sd0-Rj-LeX"/>
                                     <constraint firstItem="R3V-FG-IQH" firstAttribute="centerY" secondItem="g3C-E8-fPf" secondAttribute="centerY" id="ev4-EO-Eiy"/>
-                                    <constraint firstItem="R3V-FG-IQH" firstAttribute="leading" secondItem="g3C-E8-fPf" secondAttribute="trailing" constant="20" id="h1U-jM-McK"/>
-                                    <constraint firstItem="g3C-E8-fPf" firstAttribute="leading" secondItem="w9b-sq-TI1" secondAttribute="trailing" constant="20" id="prq-sF-pNa"/>
+                                    <constraint firstItem="R3V-FG-IQH" firstAttribute="leading" secondItem="g3C-E8-fPf" secondAttribute="trailing" constant="30" id="h1U-jM-McK"/>
+                                    <constraint firstItem="g3C-E8-fPf" firstAttribute="leading" secondItem="w9b-sq-TI1" secondAttribute="trailing" constant="30" id="prq-sF-pNa"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
