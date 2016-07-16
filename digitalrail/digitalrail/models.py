@@ -55,6 +55,19 @@ class iModelQuestion(models.Model):
     related_img_filename = models.CharField(max_length=100)
     case_number = models.CharField(max_length=25, blank=True)
 
+# --------------------------------------------------------- #
+# --------------------For Rail Settings ------------------- #
+# --------------------------------------------------------- #
+class RailSettings(models.Model):
+    def __unicode__(self):
+        return 'RailId: ' + str(self.rail_id) + ' - Timeout: ' + str(self.timeout_seconds)
+
+    class Meta:
+        verbose_name = 'Rail Setting'
+        verbose_name_plural = 'Rail Settings'
+
+    rail_id = models.IntegerField(default=0)
+    timeout_seconds = models.IntegerField(default=180)
 
 # --------------------------------------------------------- #
 # ------------------------For Polls ----------------------- #

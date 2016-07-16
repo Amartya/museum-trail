@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Question, iModelThematicQuestion, iModelQuestion
+from .models import Question, iModelThematicQuestion, iModelQuestion, RailSettings
 
 def duplicate_question(modeladmin, request, queryset):
     for question in queryset:
@@ -38,6 +38,11 @@ class iModelQuestionAdmin(admin.ModelAdmin):
     ordering = ['id']
     actions = [duplicate_imodel_question]
 
+class railSettingsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'rail_id', 'timeout_seconds']
+    ordering = ['id']
+
 admin.site.register(Question, bigQuestionAdmin)
 admin.site.register(iModelThematicQuestion, thematicQuestionAdmin)
 admin.site.register(iModelQuestion, iModelQuestionAdmin)
+admin.site.register(RailSettings, railSettingsAdmin)

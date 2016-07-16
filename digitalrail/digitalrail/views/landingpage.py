@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import loader
 
 
-from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion
+from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings
 
 def index(request):
     #return HttpResponse("Hello Digital Rail")
@@ -17,9 +17,18 @@ def index(request):
 def bigquestion(request):
     all_questions = Question.objects.filter(rail_id=0, active=True).order_by('pub_date')
 
+    timeout = 0
+    try:
+        timeout = RailSettings.objects.get(rail_id=0).timeout_seconds
+    except:
+        print("timeout settings for rail not found")
+
     if all_questions.count() > 0 :
         selected_story_id = "artifact-0-story-0"
         question_data = {}
+
+        #return the timeout for the rail to reset to the home screen
+        question_data['timeout'] = timeout
 
         first_question = all_questions[0]
         question_data['first_question'] = first_question.question_text
@@ -58,3 +67,4 @@ def bigquestion(request):
 
 def imodel(request):
     thematic_question = iModelThematicQuestion.objects.filter(rail_id=0, active=True).first()
+    imodel_questions = iModelQuestion.objects.filter(thematic_question=thematic_question)
