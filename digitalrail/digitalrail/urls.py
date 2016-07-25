@@ -24,6 +24,6 @@ urlpatterns = [
     url(r'^$', landingpage.index, name='index'),
                   url(r'^admin/', admin.site.urls),
     url(r'^bigquestion/', landingpage.bigquestion, name='bigquestion'),
-    url(r'^imodel/', landingpage.bigquestion, name='imodel'),
+    url(r'^imodel/', landingpage.imodel, name='imodel'),
 ] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

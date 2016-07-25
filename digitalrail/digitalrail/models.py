@@ -52,6 +52,7 @@ class iModelQuestion(models.Model):
     imodel_question_text = models.CharField(max_length=500, blank=True)
     imodel_additional_prompt = models.CharField(max_length=500)
     pub_date = models.DateTimeField('date published')
+    selected_story_id = models.CharField(max_length=50)
     related_img_filename = models.CharField(max_length=100)
     case_number = models.CharField(max_length=25, blank=True)
 
