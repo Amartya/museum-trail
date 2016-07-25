@@ -41,54 +41,25 @@
                 </div>
             </div>
 
-            <div id="attract-artifact-1" class="attract-artifact-wrapper" data-next-story-id="artifact-1-story-1">
-                <div class="attract-artifact-question">Is this the earliest Chinese writing?</div>
+            {% for question in question_list%}
+            <div id="attract-artifact-{{ forloop.counter }}" class="attract-artifact-wrapper" data-next-story-id="{{ question.story_id }}">
+                <div class="attract-artifact-question">{{ question.question }}</div>
                 <div class="artifact-img-clipper">
-                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png')"></div>
+                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/{{ question.img_filename }}')"></div>
                 </div>
                 <div class="attract-artifact-footer">
-                    <div class="attract-artifact-index">14-16</div>
-                    <div class="attract-artifact-title">Oracle Bones</div>
+                    <div class="attract-artifact-index">{{ question.case_number }}</div>
+                    <div class="attract-artifact-title">{{ question.artifact_name }}</div>
                 </div>
             </div>
-            <div id="attract-artifact-2"  class="attract-artifact-wrapper" data-next-story-id="artifact-2-story-1">
-                <div class="attract-artifact-question">Did these bones tell the future?</div>
-                <div class="artifact-img-clipper">
-                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png')"></div>
-                </div>
-                <div class="attract-artifact-footer">
-                    <div class="attract-artifact-index">17-18</div>
-                    <div class="attract-artifact-title">Oracle Bones</div>
-                </div>
-            </div>
-
-            <div id="attract-artifact-3"  class="attract-artifact-wrapper" data-next-story-id="artifact-4-story-3">
-                <div class="attract-artifact-question">How did a pot shape a city?</div>
-                <div class="artifact-img-clipper">
-                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png')"></div>
-                </div>
-                <div class="attract-artifact-footer">
-                    <div class="attract-artifact-index">19-21</div>
-                    <div class="attract-artifact-title">Ceramic vessels and sherd</div>
-                </div>
-            </div>
-            <div id="attract-artifact-4" class="attract-artifact-wrapper" data-next-story-id="artifact-5-story-1">
-                <div class="attract-artifact-question">What is a shell worth?</div>
-                <div class="artifact-img-clipper">
-                    <div class="artifact-img" style="background-image: url('/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png')"></div>
-                </div>
-                <div class="attract-artifact-footer">
-                    <div class="attract-artifact-index">14-16</div>
-                    <div class="attract-artifact-title">Cowrie shells</div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
 
         <!--Attract Screen-->
         <div class="page" id="attract-screen">
             <!--Attract Theme Question-->
             <div id="theme-question-wrapper">
-                <div id="theme-question">What ancient innovations shaped the Bronze Age?</div>
+                <div id="theme-question">{{ thematic_question }}</div>
                 <div id="sub-text">Tap here to find out..
                     <div class="nav" id="next-story"><img class="nav-screen"></div>
                 </div>

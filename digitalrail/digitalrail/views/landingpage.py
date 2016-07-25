@@ -82,12 +82,10 @@ def imodel(request):
     for q in imodel_questions:
         temp_question = {'question': q.imodel_question_text, 'additional_prompt': q.imodel_additional_prompt,
                          'story_id': q.selected_story_id.strip(), 'img_filename': q.related_img_filename,
-                         'case_number': q.case_number}
+                         'case_number': q.case_number, 'artifact_name': q.imodel_artifact_name}
         question_list.append(temp_question)
 
     question_data['question_list'] = question_list
-
-    print(thematic_question)
-    print(imodel_questions)
+    question_data['thematic_question'] = thematic_question.thematic_question
 
     return render(request, 'digitalrail/attractscreen/imodel.html', question_data)
