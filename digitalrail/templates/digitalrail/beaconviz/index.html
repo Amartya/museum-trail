@@ -1,0 +1,191 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+	<div id="assumptions">
+		Note
+		<ul>
+			<li>Almost raw data</li>
+			<li>Only corrects jitter/noise upto 2.5 meters/timestep></li>
+		</ul>
+	</div>
+	<h3>Beacon Placement</h3>
+	<div id="gallery-map-beacons"></div>
+	
+	<h3>Scatter Plot</h3>
+	<div id="gallery-map"></div>
+	
+	<h3>Interactive Map</h3>
+	<div id="gallery-map-interactive"></div>
+	<div id="playback">Pause</div>
+<style>
+
+path {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+circle {
+  fill: steelblue;
+  stroke: #fff;
+  stroke-width: 2px;
+}
+
+body{
+	background-color: #4a525a;
+}
+
+h3{
+	font-family: sans-serif;
+	font-size: 18pt;
+	font-weight: lighter;
+	color: white;
+	margin-top: 50px;
+}
+
+#assumptions{
+	font-family: sans-serif;
+	font-size: 20pt;
+	font-weight: lighter;
+	color: white;
+	margin-top: 50px;
+}
+
+#gallery-map-interactive, #gallery-map{
+	width: 100%;
+	height: 500px;
+	background: url("{% static "beaconviz/media/gallery-map.png" %}");
+	background-repeat: no-repeat;
+	opacity: 0.85;
+}
+
+#gallery-map-beacons{
+	width: 1936px;
+	height: 500px;
+	background: url("{% static "beaconviz/media/layout.png" %}");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+#playback{
+	width: 100px;
+	height: 60px;
+	font-family: sans-serif;
+	font-size: 16pt;
+	color: white;
+	background-color: #4682b4;
+	cursor: pointer;
+	text-align: center;
+	line-height: 60px;
+	vertical-align: middle;
+	border: 3px solid white;
+	border-radius: 5px;
+    margin-bottom: 100px;
+}
+
+#playback:hover{
+	background-color: #6a96bb;
+}
+
+#playback:active{
+	background-color: #222;
+}
+
+</style>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<!-- contains the (x,y) coordinates from the beacons -->
+<script src="{% static "beaconviz/js/vars.js"%}"></script>
+
+<script>
+//----------------scatter plot-----------------------------------------//
+var svgStatic = d3.select("#gallery-map").append("svg")
+    .attr("width", 1936)
+    .attr("height", 488)
+    .attr("xlink:href","gallery-map.png");
+
+svgStatic.selectAll(".point")
+    .data(points)
+  .enter().append("circle")
+    .attr("r", 7)
+    .attr("transform", function(d) { return "translate(" + d + ")"; });
+//================end scatter plot====================================//
+
+
+//----------------time lapse plot------------------------------------//
+var pauseValues = {
+  lastT: 0,
+  currentT: 0
+};
+
+var svg = d3.select("#gallery-map-interactive").append("svg")
+    .attr("width", 1936)
+    .attr("height", 488)
+    .attr("xlink:href","gallery-map.png");
+
+var path = svg.append("path")
+    .data([points])
+    .attr("d", d3.svg.line()
+    .tension(0) // Catmull–Rom
+    .interpolate("linear"));
+
+svg.selectAll(".point")
+    .data(points)
+  .enter().append("circle")
+    .attr("r", 6)
+    .attr("transform", function(d) { return "translate(" + d + ")"; });
+
+var circle = svg.append("circle")
+    .attr("r", 13)
+    .style("fill", "#c74848")
+    .style("stroke", "#4a525a")
+    .style("stroke-width", "3px")
+    .attr("transform", "translate(" + points[0] + ")");
+
+
+function transition() {
+  circle.transition()
+      .duration(50000)
+      //.ease("linear")
+      .attrTween("transform", translateAlong(path.node()))
+      .each("end", function(){
+        pauseValues = {
+          lastT: 0,
+          currentT: 0
+        };
+        transition()
+      });
+}
+
+// Returns an attrTween for translating along the specified path element.
+function translateAlong(path) {
+  var l = path.getTotalLength();
+  return function(d, i, a) {
+    return function(t) {
+      t += pauseValues.lastT;
+      pauseValues.currentT = t;
+      var p = path.getPointAtLength(t * l);
+      return "translate(" + p.x + "," + p.y + ")";
+    };
+  };
+}
+
+d3.select('#playback').on('click',function(d,i){
+  var self = d3.select(this);
+  if (self.text() == "Pause"){
+    self.text('Play');
+    circle.transition()
+      .duration(0);
+    setTimeout(function(){
+      pauseValues.lastT = pauseValues.currentT;
+    }, 100);
+  }else{
+    self.text('Pause');
+    transition();
+  }
+});
+
+transition();
+//----------------end time lapse plot--------------------------------//
+</script>

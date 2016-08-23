@@ -13,6 +13,9 @@ def index(request):
     #return HttpResponse("Hello Digital Rail")
     return render_to_response('digitalrail/landingpage/index.html',context_instance=RequestContext(request))
 
+def beaconviz(request):
+    #return HttpResponse("Hello Digital Rail")
+    return render_to_response('digitalrail/beaconviz/index.html',context_instance=RequestContext(request))
 
 def bigquestion(request):
     all_questions = Question.objects.filter(rail_id=0, active=True).order_by('pub_date')

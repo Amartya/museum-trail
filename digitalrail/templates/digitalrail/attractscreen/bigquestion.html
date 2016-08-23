@@ -31,7 +31,7 @@
     </script>
     <title>Case 201: Cyrus Tang Hall of China</title>
 </head>
-<body oncontextmenu="return true">
+<body oncontextmenu="return false">
     <div id="screen">
         <!--Attract Screen-->
         <div class="page" id="attract-screen">
@@ -207,6 +207,15 @@
                 var railTimer;
 
                 $('#hero-img').css('background-image', 'url(\"' + imagePath + "{{ first_img_filename }}" + '\")');
+
+                //check for fullscreenstatus and disable cursor in kiosk mode
+                this.fullScreenMode = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+                console.log(this.fullScreenMode);
+
+                if(this.fullScreenMode){
+                    $('html').css('cursor', 'none');
+                    $('.page').css('cursor', 'none');
+                }
 
                 //-------------------------------------------------------------------
                 // Load the collection data and top-level menu
