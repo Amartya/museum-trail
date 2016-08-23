@@ -1,5 +1,9 @@
 {% load staticfiles %}
 <!DOCTYPE html>
+<head>
+    <!-- contains the (x,y) coordinates from the beacons -->
+    <script src="{% static "beaconviz/js/vars.js"%}"></script>
+</head>
 <meta charset="utf-8">
 <body>
 	<div id="assumptions">
@@ -34,6 +38,7 @@ circle {
 
 body{
 	background-color: #4a525a;
+    zoom: 67%;
 }
 
 h3{
@@ -95,9 +100,6 @@ h3{
 </style>
 
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<!-- contains the (x,y) coordinates from the beacons -->
-<script src="{% static "beaconviz/js/vars.js"%}"></script>
-
 <script>
 //----------------scatter plot-----------------------------------------//
 var svgStatic = d3.select("#gallery-map").append("svg")
