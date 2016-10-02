@@ -89,3 +89,29 @@ def imodel(request):
     question_data['thematic_question'] = thematic_question.thematic_question
 
     return render(request, 'digitalrail/attractscreen/imodel.html', question_data)
+
+
+def slidemain(request):
+    thematic_question = iModelThematicQuestion.objects.filter(rail_id=0, active=True).first()
+    imodel_questions = iModelQuestion.objects.filter(thematic_question=thematic_question)
+
+    timeout = 0
+    try:
+        timeout = RailSettings.objects.get(rail_id=0).timeout_seconds
+    except:
+        print("timeout settings for rail not found")
+
+    question_data = {}
+    question_data['timeout'] = timeout
+
+    question_list = []
+    for q in imodel_questions:
+        temp_question = {'question': q.imodel_question_text, 'additional_prompt': q.imodel_additional_prompt,
+                         'story_id': q.selected_story_id.strip(), 'img_filename': q.related_img_filename,
+                         'case_number': q.case_number, 'artifact_name': q.imodel_artifact_name}
+        question_list.append(temp_question)
+
+    question_data['question_list'] = question_list
+    question_data['thematic_question'] = thematic_question.thematic_question
+
+    return render(request, 'digitalrail/attractscreen/slidemain.html', question_data)

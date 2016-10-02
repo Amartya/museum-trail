@@ -1,0 +1,701 @@
+$screen-width: 1920px;
+$screen-height: 502px;
+$outline-color: #888678;
+$background-color: #333333;
+$font-color: #E6E1D0;
+$line-color: #E1DDC6;
+$red-color: #bc4c4e;
+$green-color: #88DBB2;
+
+$screen-third: 640px;
+$screen-two-third: 1200px;
+
+$header-font: 'BauOT-Bold';
+$body-font: 'Avenir Next Regular';
+
+@mixin noselect() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin x-browser-transition($property...){
+  -transition: $property;
+  -webkit-transition: $property;
+  -moz-transition: $property;
+  -o-transition: $property;
+  -webkit-backface-visibility: hidden;
+}
+
+@mixin x-browser-transform($property){
+  -webkit-transform: $property;
+  -moz-transform: $property;
+  -o-transform: $property;
+  -transform: $property;
+}
+
+@mixin semi-border(){
+  content:"";
+  background: $font-color;
+  position: absolute;
+  bottom: 0px;
+  height: 100%;
+  width: 3px;
+}
+
+@mixin center-align($lineheight){
+  line-height: $lineheight;
+  text-align: center;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+  color: $font-color;
+  font-family: $body-font, sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+::-webkit-scrollbar{
+  width: 0px;
+}
+
+#screen {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: $screen-width;
+  height: $screen-height;
+  background-color: $background-color;
+  font-family: $body-font;
+  font-size: 12pt;
+  border: 7px solid $line-color;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin: 0px;
+  padding: 0px;
+  z-index: 0;
+
+  @include noselect();
+}
+
+.page{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  @include x-browser-transition(transform 0.8s ease, opacity 1s ease);
+
+  .page-artifact-wrapper{
+    display: flex;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .artifact{
+      opacity: 1.0;
+      display: flex;
+      width:500px;
+      height: 120px;
+
+      .artifact-img-clipper{
+        display: flex;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: $line-color;
+        border: 5px solid $outline-color;
+
+        .artifact-img{
+          background-size:contain;
+          background-repeat: no-repeat;
+          width: 60px;
+          height: 60px;
+          margin: auto;
+        }
+      }
+
+      .description-wrapper{
+        display: flex;
+        flex-direction: column;
+      }
+
+      .artifact-description{
+        height: 25px;
+        width: 300px;
+        margin-left: 10px;
+        font-size: 16pt;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left;
+        margin-top: 10px;
+      }
+
+      .artifact-sub-description{
+        height: 20px;
+        width: 300px;
+        margin-left: 10px;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left;
+
+        .line1, .line2{
+          font-size: 12pt;
+        }
+
+        .line3{
+          font-size: 10pt;
+          color: #777;
+        }
+      }
+
+      &:active, &:hover{
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+#mask{
+  display: none;
+  opacity: 0.65;
+  background-color: #666666;
+}
+
+#attract-screen {
+  .artifact-label {
+    width: 65px;
+    height: 35px;
+    background-color: $red-color;
+    font-size: 9pt;
+    font-family: "BauOT-Medium", sans-serif;
+
+    @include center-align(35px);
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+    left: 50%;
+    top: 410px;
+    border: 3px $outline-color solid;
+  }
+  #case-highlight{
+    width: 350px;
+    height: 100%;
+    background-image: url("/static/attractscreen/media/dragon-450-light.png");
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+
+
+    #case-highlight-wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+
+      .case-highlight-title{
+        font-size: 16pt;
+        font-family: "BauOT-Medium", sans-serif;
+        text-transform: capitalize;
+        padding: 0px 5px 0px 20px;
+      }
+
+      .case-highlight-description{
+        margin-top: 10px;
+        font-size: 13pt;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: justify;
+        padding: 0px 5px 0px 20px;;
+      }
+    }
+  }
+
+  #case-highlight:after {
+    content:"";
+    background: $font-color;
+    position: absolute;
+    bottom: 10%;
+    height: 80%;
+    width: 3px;
+    left: 325px;
+  }
+}
+
+#img-container {
+  display: flex;
+  width: $screen-third;
+  height: 100%;
+}
+
+#img-clipper{
+  display: flex;
+  height: 400px;
+  width: 400px;
+  border-radius: 50%;
+  background-color: $line-color;
+  margin: auto;
+  border: 8px solid $outline-color;
+
+  #hero-img{
+    background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+    background-repeat: no-repeat;
+    background-size:contain;
+    width: 270px;
+    height: 270px;
+    margin: auto;
+  }
+}
+
+#question-content{
+  display: none;
+}
+
+#cycle-questions{
+  width: 200px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 450px;
+  left: 1700px;
+  font-size: 14pt;
+  color: $outline-color;
+}
+
+#question-container {
+  display: flex;
+  flex-direction: column;
+  width: $screen-two-third;
+  height: 100%;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.attract-text{
+  width: 1000px;
+  cursor: pointer;
+  font-family: $body-font, sans-serif;
+  text-align: center;
+
+  @include noselect();
+}
+
+#main-question{
+  font-size: 35pt;
+}
+
+#sub-question{
+  display: flex;
+  justify-content: center;
+  width: 1000px;
+  color: #838787;
+  font-size: 28pt;
+}
+
+.italics{
+  font-style: italic;
+}
+
+.nav{
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+
+  .nav-screen {
+    padding-left: 10px;
+    content:url("/static/common/media/nextarrow.png");
+  }
+
+  &:active, &:hover{
+    opacity: 0.5;
+  }
+}
+
+.column{
+  overflow-x:hidden;
+  overflow-y:hidden;
+  height: 100%;
+  text-align: justify;
+}
+
+#artifacts-col{
+  position: relative;
+  width: 560px;
+
+  #artifacts-wrapper{
+    overflow-y:scroll;
+    width: 100%;
+    height: 488px;
+    padding-bottom: 25px;
+
+    .sub-question-wrapper {
+      display: none;
+      width: 100%;
+      padding-left: 150px;
+      font-size: 12pt;
+      border-top: 1px solid #333;
+      -webkit-box-shadow: 0px -4px 3px #444;
+      -moz-box-shadow:    0px -4px 3px #444;
+      box-shadow:         0px -4px 3px #444;
+      background-color: #555;
+
+      .sub-question-item{
+        height: 30px;
+        text-align: justify;
+        line-height: 30px;
+        cursor: pointer;
+        overflow: hidden;
+
+        i{
+          display:none;
+          padding: 3px 0px 3px 10px;
+          color: #fff;
+          font-size: 12pt;
+        }
+      }
+
+      .selected{
+          color: #fff;
+      }
+    }
+
+    .artifact{
+      opacity: 0.40;
+      display: flex;
+      width:100%;
+      height: 120px;
+      padding: 40px 10px 10px 40px;
+
+      .artifact-img-clipper{
+        display: flex;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: $line-color;
+        border: 5px solid $outline-color;
+
+        .artifact-img{
+          background-size:contain;
+          background-repeat: no-repeat;
+          width: 60px;
+          height: 60px;
+          margin: auto;
+        }
+      }
+
+      .artifact-index{
+        width: 40px;
+        height: 25px;
+        margin-left: 10px;
+        background-color: $red-color;
+        font-size: 7pt;
+        font-family: "BauOT-Medium", sans-serif;
+        margin-top: 10px;
+
+        @include center-align(25px)
+      }
+
+      .description-wrapper{
+        display: flex;
+        flex-direction: column;
+      }
+
+      .artifact-description{
+        height: 25px;
+        width: 300px;
+        margin-left: 10px;
+        font-size: 16pt;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left;
+        margin-top: 10px;
+      }
+
+      .artifact-sub-description{
+        height: 20px;
+        width: 300px;
+        margin-left: 10px;
+        font-family: "Avenir Next Regular", sans-serif;
+        text-align: left;
+
+        .line1, .line2{
+          font-size: 12pt;
+        }
+
+        .line3{
+          font-size: 10pt;
+          color: #777;
+        }
+      }
+
+      &:active, &:hover{
+        cursor: pointer;
+      }
+    }
+
+    .artifact.selected{
+      opacity: 1.0;
+    }
+  }
+}
+
+#artifacts-col:after {
+  @include semi-border();
+  right: 0;
+}
+
+#detail-col{
+  position: relative;
+  width: 700px;
+  font-size: 14pt;
+
+  #detail-content-scroll{
+    position: relative;
+    width: 700px;
+    height: 100%;
+    padding: 30px 30px 0px 30px;
+    overflow-y: scroll;
+
+    #detail-story-wrapper{
+      position: relative;
+    }
+
+    .detail-header{
+      background-color: $background-color;
+      height: 50px;
+      width: 640px;
+      font-size: 25pt;
+      text-align: center;
+    }
+
+    .detail-text{
+      margin-top: 30px;
+      height: 385px;
+      overflow-x: hidden;
+
+      .detail-image-wrapper{
+        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1_large.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 100px;
+        height: 100px;
+        margin: auto;
+      }
+    }
+  }
+}
+
+
+#media-col{
+  position: relative;
+  width: 660px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  align-items: center;
+
+  .slide, .media-image{
+    display:none;
+  }
+
+  .large-media-wrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    #selected-media-wrapper{
+      width: 500px;
+      height: 80%;
+      display:flex;
+      flex-direction: column;
+
+      #selected-media{
+        height: 85%;
+        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_large.png");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+
+      #selected-media-status{
+        height: 5%;
+        font-size: 8pt;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 5px;
+        text-align: center;
+      }
+
+      #selected-media-caption{
+        height: 5%;
+        padding-top: 10px;
+        text-align: center;
+      }
+
+    }
+    .media-prev, .media-next{
+      font-size: 20pt;
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+
+  }
+
+  .media-prev{
+    cursor: pointer;
+  }
+
+  .media-next{
+    cursor: pointer;
+  }
+}
+
+#media-col:after {
+  @include semi-border();
+  left: 0;
+}
+
+
+.shadow {
+  -webkit-box-shadow: 0 7px 12px -8px black;
+  box-shadow: 0 7px 12px -8px black;
+}
+
+
+#home-bar {
+  display: none;
+  cursor: pointer;
+  position: fixed;
+  top: 455px;
+  left: 1800px;
+  width: 100px;
+  height: 40px;
+  background-color: $red-color;
+  font-size: 12pt;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  font-family: $body-font, sans-serif;
+
+  i{
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  @include center-align(45px);
+
+  &:active, &:hover{
+    opacity: 0.95;
+  }
+}
+
+#tab-bar{
+  display: none;
+  justify-content: space-around;
+  cursor: pointer;
+  position: fixed;
+  top: 455px;
+  left: 705px;
+  width: 410px;
+  height: 40px;
+
+
+  .tab{
+    display: flex;
+    width: 125px;
+    background-color: $red-color;
+    font-size: 12pt;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-family: "Avenir Next";
+
+    i{
+      margin-left: 3px;
+      margin-right: 3px;
+      width: 25px;
+    }
+    .tab-text{
+      padding-right: 10px;
+      max-width: 88px;
+      text-align: left;
+    }
+
+    @include center-align(40px);
+    &:active, &:hover{
+      opacity: 0.95;
+    }
+  }
+}
+
+//********************transition related classes********************//
+.right-page-hidden{
+  @include x-browser-transform(translateX($screen-width));
+  opacity: 0;
+}
+
+.left-page-hidden{
+  @include x-browser-transform(translateX(-$screen-width));
+  opacity: 0;
+}
+
+
+#info-menu-wrapper{
+  display:none;
+  position: absolute;
+  height: 150px;
+}
+
+#info-menu {
+  display: flex;
+  flex-direction: column;
+  float: left;
+  width: 150px;
+  background: $line-color;
+  padding: 3px;
+  border-radius: 5px;
+  color: #FFF;
+  position: absolute;
+  left: 50px;
+
+  .info-item{
+    cursor: pointer;
+    height: 40px;
+    background: $outline-color;
+    margin-bottom: 3px;
+    font-size: 10pt;
+    padding: 3px 5px 3px 5px;
+    &:active, &:hover{
+      opacity: 0.95;
+    }
+  }
+}
+
+#info-menu:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid $line-color;
+  position: absolute;
+  top: 16px;
+  left: -10px;
+}

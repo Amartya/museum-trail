@@ -25,6 +25,7 @@ urlpatterns = [
                   url(r'^admin/', admin.site.urls),
     url(r'^bigquestion/', landingpage.bigquestion, name='bigquestion'),
     url(r'^imodel/', landingpage.imodel, name='imodel'),
+    url(r'^slidemain/', landingpage.slidemain, name='slidemain'),
     url(r'^beaconviz/', landingpage.beaconviz, name='beaconviz'),
 ] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
