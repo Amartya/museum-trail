@@ -64,18 +64,28 @@ body {
       vertical-align: middle;
       padding-left: 50px;
       color: #fff;
-      opacity: 0.85; }
-    .page .left-segment .img-caption {
-      font-size: 24px;
-      padding-left: 50px;
-      color: #fff;
-      opacity: 0.85; }
-    .page .left-segment .img-rights {
-      font-size: 12pt;
-      text-transform: uppercase;
-      padding-left: 50px;
-      color: #fff;
-      opacity: 0.85; }
+      opacity: 0.85;
+      font-weight: 300; }
+    .page .left-segment #content-wrapper {
+      margin-bottom: 100px; }
+      .page .left-segment #content-wrapper .img-container {
+        height: 180px;
+        padding: 30px 10px 30px 10px;
+        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_5_Long.png");
+        background-repeat: no-repeat;
+        background-size: 1400px; }
+      .page .left-segment #content-wrapper .img-caption {
+        font-size: 24px;
+        padding-left: 50px;
+        color: #fff;
+        opacity: 0.85; }
+      .page .left-segment #content-wrapper .img-rights {
+        font-size: 12pt;
+        text-transform: uppercase;
+        padding-left: 50px;
+        margin-top: 5px;
+        color: #fff;
+        opacity: 0.85; }
     .page .left-segment .left-navigation-wrapper {
       float: bottom;
       background-color: #1a1a1a;
@@ -105,6 +115,42 @@ body {
     width: 480px;
     height: 100%;
     border-left: #E1DDC6 solid 3px; }
+    .page .right-segment #right-content-wrapper {
+      display: flex;
+      height: 100px; }
+      .page .right-segment #right-content-wrapper .question-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100px;
+        margin-top: 30px; }
+        .page .right-segment #right-content-wrapper .question-container .question {
+          width: 350px;
+          text-align: right;
+          font-size: 18pt;
+          margin-right: 20px;
+          margin-left: 20px;
+          color: #fff; }
+        .page .right-segment #right-content-wrapper .question-container .answer-btn {
+          width: 60px;
+          height: 60px;
+          background-color: #333333;
+          border-radius: 50%;
+          font-size: 26pt;
+          line-height: 60px;
+          vertical-align: middle;
+          text-align: center; }
+          .page .right-segment #right-content-wrapper .question-container .answer-btn i {
+            padding-top: 12px; }
+          .page .right-segment #right-content-wrapper .question-container .answer-btn:active, .page .right-segment #right-content-wrapper .question-container .answer-btn:hover {
+            cursor: pointer;
+            background-color: black; }
+      .page .right-segment #right-content-wrapper .right-img-container {
+        height: 280px;
+        padding: 30px 10px 30px 10px;
+        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png");
+        background-repeat: no-repeat;
+        background-size: 250px; }
 
 #mask {
   display: none;
