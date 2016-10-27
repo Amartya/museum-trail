@@ -1,7 +1,7 @@
 $screen-width: 1920px;
 $screen-height: 502px;
 $outline-color: #888678;
-$background-color: #232323;
+$background-color: #171718;
 $nav-background-color: #1a1a1a;
 $font-color: #E6E1D0;
 $line-color: #E1DDC6;
@@ -112,73 +112,80 @@ body {
     justify-content: flex-end;
     @include x-browser-transition(transform 0.8s ease, opacity 1s ease);
 
-    .title{
-      font-size: 36px;
-      line-height: 36px;
-      vertical-align: middle;
-      padding-left: 50px;
-      color: #fff;
-      opacity: 0.85;
-      font-weight: 300;
-    }
-
     #content-wrapper{
-      margin-bottom: 100px;
-      .img-container{
-        height: 180px;
-        padding: 30px 10px 30px 10px;
-        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_5_Long.png");
-        background-repeat: no-repeat;
-        background-size: 1400px;
-      }
+      height: $screen-height;
 
-      .img-caption{
-        font-size: 24px;
+      .content-header{
+        font-size: 26pt;
+        line-height: 36px;
+        vertical-align: middle;
+        margin-top: 30px;
         padding-left: 50px;
         color: #fff;
         opacity: 0.85;
+        font-weight: 300;
       }
 
-      .img-rights{
-        font-size: 12pt;
-        text-transform: uppercase;
+      .content-subheader{
+        font-size: 20pt;
+        line-height: 36px;
+        vertical-align: middle;
         padding-left: 50px;
-        margin-top: 5px;
+        margin-top: 30px;
         color: #fff;
         opacity: 0.85;
-      }
-    }
-
-
-    .left-navigation-wrapper{
-      float: bottom;
-      background-color: $nav-background-color;
-      width: 100%;
-      height: 50px;
-      display: flex;
-      font-size: 16pt;
-      color: $line-color;
-      justify-content: flex-end;
-
-      .slide-num-text{
-        width: 200px;
-        height: 50px;
-        line-height: 50px;
-        text-align: center;
-        padding-right: 25px;
+        font-weight: 300;
       }
 
-      .slide-next, .slide-prev{
-        width: 70px;
-        height: 50px;
-        font-size: 22pt;
-        line-height: 50px;
-        text-align: center;
-        border-left: $background-color solid 3px;
+      #media-wrapper{
 
-        &:active, &:hover{
-          cursor: pointer;
-          background-color: black;
+        .media-container{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+
+          .media-content{
+            height: 180px;
+            width: 1250px;
+            padding: 10px 10px 10px 10px;
+            background: url("/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_1_Long.png") no-repeat center;
+            background-size: 1150px;
+          }
+
+          .slide-next, .slide-prev{
+            width: 50px;
+            height: 50px;
+            font-size: 20pt;
+            line-height: 50px;
+            padding-top: 4px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #424342;
+
+            &:active, &:hover{
+              cursor: pointer;
+              background-color: black;
+            }
+          }
+        }
+
+        .media-caption{
+          font-size: 24px;
+          padding-left: 50px;
+          margin-top: 15px;
+          color: #fff;
+          opacity: 0.85;
+        }
+
+        .media-rights{
+          font-size: 12pt;
+          text-transform: uppercase;
+          padding-left: 50px;
+          margin-top: 5px;
+          color: #fff;
+          opacity: 0.65;
         }
       }
     }
