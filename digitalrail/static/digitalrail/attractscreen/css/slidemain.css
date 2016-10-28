@@ -172,9 +172,11 @@ body {
           text-align: center; }
           .page .right-segment #artifact-wrapper .artifact .more i {
             font-size: 15pt; }
+        .page .right-segment #artifact-wrapper .artifact:active, .page .right-segment #artifact-wrapper .artifact:hover {
+          cursor: pointer; }
       .page .right-segment #artifact-wrapper .artifact.selected {
         background-color: #424242;
-        opacity: 1; }
+        opacity: 1.0; }
       .page .right-segment #artifact-wrapper .selected-anim-left {
         transform: translateX(-45px);
         transition: opacity 0.2s ease-out, transform 0.2s; }

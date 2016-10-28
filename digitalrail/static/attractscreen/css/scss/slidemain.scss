@@ -263,11 +263,16 @@ body {
           }
         }
 
+        &:active, &:hover{
+          cursor: pointer;
+        }
       }
+
+
 
       .artifact.selected{
         background-color: #424242;
-        opacity: 1;
+        opacity: 1.0;
       }
 
       .selected-anim-left {

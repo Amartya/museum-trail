@@ -55,40 +55,37 @@
                         <div class="main">
                             <div class="img"></div>
                             <div class="name">Oracle Bones</div>
-                            <div class="label">22-26</div>
+                            <div class="label">14-16</div>
                         </div>
                         <div class="more">
-                            <i class="ion ion-android-arrow-forward"></i>
-                            <div>More</div>
+                            <div><i class="ion ion-android-list"></i> More</div>
                         </div>
                     </div>
                     <div class="artifact">
                         <div class="main">
                             <div class="img"></div>
                             <div class="name">Oracle Bones</div>
-                            <div class="label">22-26</div>
+                            <div class="label">17-18</div>
                         </div>
                         <div class="more">
-                            <i class="ion ion-android-arrow-forward"></i>
-                            <div>More</div>
+                            <div><i class="ion ion-android-list"></i> More</div>
                         </div>
                     </div>
                     <div class="artifact">
                         <div class="main">
                             <div class="img"></div>
                             <div class="name">Ceramic Vessels</div>
-                            <div class="label">22-26</div>
+                            <div class="label">19-21</div>
                         </div>
                         <div class="more">
-                            <i class="ion ion-android-arrow-forward"></i>
-                            <div>More</div>
+                            <div><i class="ion ion-android-list"></i> More</div>
                         </div>
                     </div>
                     <div class="artifact selected">
                         <div class="main">
                             <div class="img"></div>
                             <div class="name">Cowrie Shells</div>
-                            <div class="label">22-26</div>
+                            <div class="label">22-24</div>
                         </div>
                         <div class="more">
                             <div><i class="ion ion-android-list"></i> More</div>
@@ -358,51 +355,45 @@
                 displayMedia();
             });
 
-            //-------------------------------------------------------------------
-            // Sets the checkmark icon next to the labels in the collapsible menu
-            //-------------------------------------------------------------------
-            function showSelectedLabelIcon(selectedLabel){
-                selectedLabel.find('i').fadeIn(400);
-            }
-
 
             //-------------------------------------------------------------------
-            // Callback to set detail & media screen contents from artifact column
+            // Callback to set media screen contents from artifact column
             //-------------------------------------------------------------------
             $('.page').on('click', '.artifact', function(){
-                preventScrollEvent = true;
+                if(!$(this).hasClass('selected')){
+                    $('.artifact').removeClass('selected');
+                    $('.artifact').removeClass('selected-anim-left');
+                    $('.artifact').find('.more').css('display','none');
 
-                $('.artifact').removeClass('selected');
-                var selectedItem = $(this);
-                selectedItem.addClass('selected');
-                selectedItem.find('.artifact-sub-description').fadeIn(200);
+                    //-------------------------------------------------------------------
+                    //detect whether it's an even/odd element in grid, to ensure that
+                    //only the items on the first/left column slide to the left.
+                    var artifactArr = $("#artifact-wrapper .artifact:nth-child(even)");
+                    var clickedArtifact = $(this)[0];
 
-                var collectionNum = $(this).first().attr('id').split('-')[1]; //e.g. B1, B2, B3 etc.
+                    var oddElement = true;
+                    for(var i=0; i < artifactArr.length; i++){
+                        if($(clickedArtifact).is(artifactArr[i])){
+                            oddElement = false;
+                            break;
+                        }
+                    }
 
-                var firstSubQuestionItem = '#' + collectionNum.toString() + '-item-0';
-                var subQuestionWrapper = $('#sub-question-wrapper-' + collectionNum);
+                    $(this).addClass("selected");
+                    if(oddElement){
+                        $(this).addClass('selected-anim-left');
+                    }
 
-                $('.sub-question-item').removeClass('selected');
-                $('.sub-question-item').find('i').fadeOut(0);
-                subQuestionWrapper.find(firstSubQuestionItem).addClass('selected');
-                showSelectedLabelIcon(subQuestionWrapper.find(firstSubQuestionItem));
+                    $(this).find('.more').fadeIn(400);
+                    //-------------------------------------------------------------------
 
-                if(subQuestionWrapper.css('display') == "none"){
-                    $('.sub-question-wrapper').slideUp(400);
-                    subQuestionWrapper.slideDown(400);
                 }
+            });
 
-                var targetDiv = '#' + collectionNum.toString()  +  "-detail-story-0";
-                $('#detail-content-scroll').animate({
-                    scrollTop: $(targetDiv).position().top
-                }, 1000, "swing", function(){
-                    preventScrollEvent = false;
-                });
+            $('.artifact').on('click', '.more', function(){
+                $('#artifact-wrapper').fadeOut(400);
 
-                displayMedia();
-
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                console.log($(this).closest('.artifact'));
             });
 
             //-------------------------------------------------------------------
@@ -634,11 +625,12 @@
                 railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
             });
 
+
             function selectArtifact(artifactId){
                 if(artifactId == ""){
                     $('.artifact').find('.more').css('display','none');
                     //$('.artifact.selected').addClass('selected-anim-left');
-                    $('.artifact.selected').find('.more').css('display','block');
+                    $('.artifact.selected').find('.more').fadeIn(400);
                 }
             }
         });
