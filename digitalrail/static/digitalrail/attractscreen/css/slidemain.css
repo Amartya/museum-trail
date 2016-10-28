@@ -119,42 +119,65 @@ body {
     width: 480px;
     height: 100%;
     border-left: #E1DDC6 solid 3px; }
-    .page .right-segment #right-content-wrapper {
+    .page .right-segment #artifact-wrapper {
       display: flex;
-      height: 100px; }
-      .page .right-segment #right-content-wrapper .question-container {
+      width: 480px;
+      height: 502px;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      flex-wrap: wrap; }
+      .page .right-segment #artifact-wrapper .artifact {
+        width: 160px;
+        height: 200px;
+        background-color: #222222;
+        opacity: 0.7;
+        margin: 15px;
         display: flex;
-        flex-direction: row;
-        width: 100%;
-        height: 100px;
-        margin-top: 30px; }
-        .page .right-segment #right-content-wrapper .question-container .question {
-          width: 350px;
-          text-align: right;
-          font-size: 18pt;
-          margin-right: 20px;
-          margin-left: 20px;
-          color: #fff; }
-        .page .right-segment #right-content-wrapper .question-container .answer-btn {
-          width: 60px;
-          height: 60px;
-          background-color: #333333;
-          border-radius: 50%;
-          font-size: 26pt;
-          line-height: 60px;
+        flex-direction: row; }
+        .page .right-segment #artifact-wrapper .artifact .main .img {
+          width: 160px;
+          height: 140px;
+          background: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png") no-repeat center;
+          background-size: contain; }
+        .page .right-segment #artifact-wrapper .artifact .main .name {
+          width: 160px;
+          height: 30px;
+          font-size: 12pt;
+          text-transform: uppercase;
+          color: #fff;
+          text-align: center;
           vertical-align: middle;
+          line-height: 30px; }
+        .page .right-segment #artifact-wrapper .artifact .main .label {
+          width: 160px;
+          height: 30px;
+          font-size: 15pt;
+          color: #fff;
+          background-color: #bc4c4e;
+          text-align: center;
+          vertical-align: middle;
+          line-height: 30px; }
+        .page .right-segment #artifact-wrapper .artifact .more {
+          width: 45px;
+          height: 200px;
+          background-color: #292929;
+          font-size: 8pt;
+          padding-top: 50%;
+          padding-left: 5px;
+          padding-right: 5px;
+          text-transform: uppercase;
           text-align: center; }
-          .page .right-segment #right-content-wrapper .question-container .answer-btn i {
-            padding-top: 12px; }
-          .page .right-segment #right-content-wrapper .question-container .answer-btn:active, .page .right-segment #right-content-wrapper .question-container .answer-btn:hover {
-            cursor: pointer;
-            background-color: black; }
-      .page .right-segment #right-content-wrapper .right-img-container {
-        height: 280px;
-        padding: 30px 10px 30px 10px;
-        background-image: url("/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png");
-        background-repeat: no-repeat;
-        background-size: 250px; }
+          .page .right-segment #artifact-wrapper .artifact .more i {
+            font-size: 15pt; }
+      .page .right-segment #artifact-wrapper .artifact.selected {
+        background-color: #424242;
+        opacity: 1; }
+      .page .right-segment #artifact-wrapper .selected-anim-left {
+        transform: translateX(-45px);
+        transition: opacity 0.2s ease-out, transform 0.2s; }
 
 #mask {
   display: none;

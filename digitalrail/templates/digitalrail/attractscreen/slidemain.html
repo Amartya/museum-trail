@@ -50,21 +50,59 @@
                 </div>
             </div>
             <div class="right-segment">
-                <div id="right-content-wrapper">
-                    <div class="question-wrapper">
-                        <div class="question-container">
-                            <div class="question">When did written language first emerge in China?</div>
-                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
+                <div id="artifact-wrapper">
+                    <div class="artifact">
+                        <div class="main">
+                            <div class="img"></div>
+                            <div class="name">Oracle Bones</div>
+                            <div class="label">22-26</div>
                         </div>
-                        <div class="right-img-container"></div>
+                        <div class="more">
+                            <i class="ion ion-android-arrow-forward"></i>
+                            <div>More</div>
+                        </div>
                     </div>
-
+                    <div class="artifact">
+                        <div class="main">
+                            <div class="img"></div>
+                            <div class="name">Oracle Bones</div>
+                            <div class="label">22-26</div>
+                        </div>
+                        <div class="more">
+                            <i class="ion ion-android-arrow-forward"></i>
+                            <div>More</div>
+                        </div>
+                    </div>
+                    <div class="artifact">
+                        <div class="main">
+                            <div class="img"></div>
+                            <div class="name">Ceramic Vessels</div>
+                            <div class="label">22-26</div>
+                        </div>
+                        <div class="more">
+                            <i class="ion ion-android-arrow-forward"></i>
+                            <div>More</div>
+                        </div>
+                    </div>
+                    <div class="artifact selected">
+                        <div class="main">
+                            <div class="img"></div>
+                            <div class="name">Cowrie Shells</div>
+                            <div class="label">22-26</div>
+                        </div>
+                        <div class="more">
+                            <div><i class="ion ion-android-list"></i> More</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
+
+            selectArtifact("");
+
             var caseId = "2-1_M2";
             var jsonPath = "/static/attractscreen/media/" + caseId + "/assets/json/";
             var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
@@ -596,26 +634,13 @@
                 railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
             });
 
-            //-------------------------------------------------------------------
-            // Callback for going back to home/attract screen
-            //-------------------------------------------------------------------
-            $('#home-bar').click(function(){
-                $('#home-bar').fadeOut(0);
-                $('#back-bar').fadeIn(400);
-
-                $('#detail-screen').addClass('right-page-hidden');
-                $('#attract-artifacts').removeClass('left-page-hidden');
-
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
-            });
-
-            //-------------------------------------------------------------------
-            // Callback for going back to home/attract screen
-            //-------------------------------------------------------------------
-            $('#back-bar').click(function(){
-                goBackToHome();
-            });
+            function selectArtifact(artifactId){
+                if(artifactId == ""){
+                    $('.artifact').find('.more').css('display','none');
+                    //$('.artifact.selected').addClass('selected-anim-left');
+                    $('.artifact.selected').find('.more').css('display','block');
+                }
+            }
         });
     </script>
 </body>
