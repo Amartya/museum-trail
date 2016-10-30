@@ -155,13 +155,13 @@ body {
           }
 
           .slide-next, .slide-prev{
-            width: 50px;
-            height: 50px;
+            width: 35px;
+            height: 45px;
             font-size: 20pt;
-            line-height: 50px;
+            line-height: 45px;
             padding-top: 4px;
             text-align: center;
-            border-radius: 50%;
+            border-radius: 10px;
             background-color: #424342;
 
             &:active, &:hover{
@@ -242,7 +242,6 @@ body {
             color: #fff;
             background-color: $red-color;
             text-align: center;
-            vertical-align: middle;
             line-height: 30px;
           }
         }
@@ -268,8 +267,6 @@ body {
         }
       }
 
-
-
       .artifact.selected{
         background-color: #424242;
         opacity: 1.0;
@@ -281,6 +278,82 @@ body {
       }
     }
 
+    #detail-page{
+
+      #detail-header{
+        display: flex;
+        width: $screen-fourth;
+        height: 100px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        .home{
+          font-size: 8pt;
+        }
+        .home i{
+          font-size: 32pt;
+        }
+
+        .name{
+          font-size: 24pt;
+          text-align: center;
+          .sub-description{
+            font-size: 12pt;
+          }
+        }
+
+        .label{
+          width: 80px;
+          height: 30px;
+          font-size: 15pt;
+          color: #fff;
+          text-align: center;
+          line-height: 30px;
+          background-color: #7F8382;
+        }
+      }
+
+
+      #question-wrapper{
+        display: flex;
+        width: 100%;
+        height: 350px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+
+        .question{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 385px;
+          height: 80px;
+          background-color: #424242;
+          border-radius: 7px;
+
+          .text{
+            width: 300px;
+          }
+
+          .answer-btn{
+            width: 50px;
+            height: 50px;
+            font-size: 20pt;
+            line-height: 50px;
+            padding-top: 4px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: #7F8382;
+          }
+
+          &:active, &:hover{
+            cursor: pointer;
+            background-color: #333333;
+          }
+        }
+      }
+    }
   }
 }
 

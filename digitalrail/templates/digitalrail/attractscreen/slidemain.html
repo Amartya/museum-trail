@@ -40,9 +40,9 @@
                     <div class="content-subheader">Character for <span>FISH</span></div>
                     <div id="media-wrapper">
                         <div class="media-container">
-                            <div class="slide-next"><i class="ion ion-android-arrow-back"></i></div>
+                            <div class="slide-prev"><i class="ion ion-ios-arrow-back"></i></div>
                             <div class="media-content"></div>
-                            <div class="slide-prev"><i class="ion ion-android-arrow-forward"></i></div>
+                            <div class="slide-next"><i class="ion ion-ios-arrow-forward"></i></div>
                         </div>
                         <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
                         <div class="media-caption">Characters first seen on Oracle Bones transformed over time. Many are still recognizable in characters used in China today.</div>
@@ -89,6 +89,33 @@
                         </div>
                         <div class="more">
                             <div><i class="ion ion-android-list"></i> More</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="detail-page">
+                    <div id="detail-header">
+                        <div class="home">
+                            <div> BACK </div>
+                            <div><i class="ion ion-grid"></i></div>
+                        </div>
+                        <div class="name">Cowrie Shells
+                            <div class="sub-description">Early Zhou Dynasty | 1046 - 256BC</div>
+                        </div>
+                        <div class="label">22-24</div>
+                    </div>
+
+                    <div id="question-wrapper">
+                        <div class="question">
+                            <div class="text">Why were shells used as money ?</div>
+                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
+                        </div>
+                        <div class="question">
+                            <div class="text">What makes a shell valuable ?</div>
+                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
+                        </div>
+                        <div class="question">
+                            <div class="text">Why were shells buried with the dead ?</div>
+                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
                         </div>
                     </div>
                 </div>
@@ -632,6 +659,8 @@
                     //$('.artifact.selected').addClass('selected-anim-left');
                     $('.artifact.selected').find('.more').fadeIn(400);
                 }
+
+                $('#artifact-wrapper').fadeOut(0);
             }
         });
     </script>
