@@ -118,6 +118,15 @@
                             <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
                         </div>
                     </div>
+
+                    <div id="answer-wrapper">
+                        <div class="close-btn"><i class="ion ion-ios-close"></i></div>
+                        <div class="answer">
+
+                            <div class="question-text">Why were shells used as money</div>
+                            <div class="answer-text">Most societies, as they form larger and larger trade networks, turn to some kind of small, portable, and standardized item to use as currency. <br> These cowrie shells were easier to carry over long distances for trade than a sack of grain. Many early societies used cowrie shells as a form of currency.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -419,8 +428,24 @@
 
             $('.artifact').on('click', '.more', function(){
                 $('#artifact-wrapper').fadeOut(400);
+                $('#detail-page').fadeIn(400);
+                $('#question-wrapper').fadeIn(0);
+            });
 
-                console.log($(this).closest('.artifact'));
+
+            $('#detail-page').on('click', '.home', function(){
+                $('#artifact-wrapper').fadeIn(400);
+                $('#detail-page').fadeOut(400);
+            });
+
+            $('#detail-page').on('click', '.question', function(){
+                $('#question-wrapper').fadeOut(400);
+                $('#answer-wrapper').fadeIn(400);
+            });
+
+            $('#detail-page').on('click', '.close-btn', function(){
+                $('#answer-wrapper').fadeOut(400);
+                $('#question-wrapper').fadeIn(400);
             });
 
             //-------------------------------------------------------------------
@@ -659,8 +684,6 @@
                     //$('.artifact.selected').addClass('selected-anim-left');
                     $('.artifact.selected').find('.more').fadeIn(400);
                 }
-
-                $('#artifact-wrapper').fadeOut(0);
             }
         });
     </script>
