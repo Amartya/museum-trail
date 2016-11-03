@@ -40,8 +40,8 @@
         <div class="page" id="main-screen">
             <div class="left-segment">
                 <div id="content-wrapper">
-                    <div class="content-header">Chinese writing has transformed over time</div>
-                    <div class="content-subheader">Character for <span>FISH</span></div>
+                    <div class="content-header">How has Chinese writing has transformed over time?</div>
+                    <div class="content-subheader">Character for <span>"fish"</span></div>
                     <div id="media-wrapper">
                         <div class="media-container">
                             <div class="slide-prev"><i class="ion ion-ios-arrow-back"></i></div>
@@ -51,7 +51,34 @@
                         <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
                         <div class="media-caption">Characters first seen on Oracle Bones transformed over time. Many are still recognizable in characters used in China today.</div>
                     </div>
-                    <div id="slider"></div>
+                    <div id="slider"><div class="tooltiptext">Hello World</div></div>
+                    <div class="highlight-legend"></div>
+                </div>
+                <div id="highlight"></div>
+                <div id="content-detail-wrapper">
+                    <div id="question-wrapper">
+                        <div class="question">
+                            <div class="text">Why were shells used as money ?</div>
+                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
+                        </div>
+                        <div class="question">
+                            <div class="text">What makes a shell valuable ?</div>
+                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
+                        </div>
+                        <div class="question">
+                            <div class="text">Why were shells buried with the dead ?</div>
+                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
+                        </div>
+                    </div>
+
+                    <div id="answer-wrapper">
+                        <div class="close-btn"><i class="ion ion-ios-close"></i></div>
+                        <div class="answer">
+
+                            <div class="question-text">Why were shells used as money</div>
+                            <div class="answer-text">Most societies, as they form larger and larger trade networks, turn to some kind of small, portable, and standardized item to use as currency. <br> These cowrie shells were easier to carry over long distances for trade than a sack of grain. Many early societies used cowrie shells as a form of currency.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="right-segment">
@@ -107,30 +134,6 @@
                             <div class="sub-description">Early Zhou Dynasty | 1046 - 256BC</div>
                         </div>
                         <div class="label">22-24</div>
-                    </div>
-
-                    <div id="question-wrapper">
-                        <div class="question">
-                            <div class="text">Why were shells used as money ?</div>
-                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
-                        </div>
-                        <div class="question">
-                            <div class="text">What makes a shell valuable ?</div>
-                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
-                        </div>
-                        <div class="question">
-                            <div class="text">Why were shells buried with the dead ?</div>
-                            <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
-                        </div>
-                    </div>
-
-                    <div id="answer-wrapper">
-                        <div class="close-btn"><i class="ion ion-ios-close"></i></div>
-                        <div class="answer">
-
-                            <div class="question-text">Why were shells used as money</div>
-                            <div class="answer-text">Most societies, as they form larger and larger trade networks, turn to some kind of small, portable, and standardized item to use as currency. <br> These cowrie shells were easier to carry over long distances for trade than a sack of grain. Many early societies used cowrie shells as a form of currency.</div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -691,7 +694,59 @@
                 }
             }
 
-            $( "#slider" ).slider();
+            $( "#slider" ).slider({
+                min: 0,
+                max: 3400,
+                step: 1,
+                animate: "slow"
+            });
+
+            $( "#slider" ).on( "slidestart", function( event, ui ) {
+                $('.highlight').animate({'border-width': '7px', opacity: "0.25"}, 500);
+            } );
+
+            $( "#slider" ).on( "slide", function( event, ui ) {
+                //console.log($( "#slider" ).slider( "value" ));
+            } );
+
+            $( "#slider" ).on( "slidestop", function( event, ui ) {
+                var currentYear = $( "#slider" ).slider( "value" );
+
+                if(currentYear < 615){
+                    $('.highlight').animate({left: "125px", width: "125px"}, 500);
+                }
+
+                if(currentYear >= 615 && currentYear < 1525){
+                    $('.highlight').animate({left: "250px", width: "265px"}, 500);
+                }
+
+                if(currentYear >= 1525 && currentYear < 2438){
+                    $('.highlight').animate({left: "525px", width: "265px"}, 500);
+                }
+
+                if(currentYear >= 2438 && currentYear < 3175){
+                    $('.highlight').animate({left: "525px", width: "655px"}, 500);
+                }
+
+                if(currentYear >= 3175){
+                    $('.highlight').animate({left: "525px", width: "800px"}, 500);
+                }
+
+                $('.highlight').animate({'border-width': '3px', opacity: "1.0"}, 500);
+            } );
+
+            $( "#slider" ).on( "slide", function( event, ui ) {
+                //TODO update the bounding box on drag
+            });
+
+
+            $('.page').on('click', '.slide-prev', function(event){
+                alert("go to prev slide");
+            });
+
+            $('.page').on('click', '.slide-next', function(event){
+                alert("go to next slide");
+            });
         });
     </script>
     <script>
