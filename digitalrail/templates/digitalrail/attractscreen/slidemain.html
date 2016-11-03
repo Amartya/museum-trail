@@ -702,7 +702,7 @@
             });
 
             $( "#slider" ).on( "slidestart", function( event, ui ) {
-                $('.highlight').animate({'border-width': '7px', opacity: "0.25"}, 500);
+                $('#highlight').animate({'border-width': '7px', opacity: "0.25"}, 500);
             } );
 
             $( "#slider" ).on( "slide", function( event, ui ) {
@@ -713,26 +713,26 @@
                 var currentYear = $( "#slider" ).slider( "value" );
 
                 if(currentYear < 615){
-                    $('.highlight').animate({left: "125px", width: "125px"}, 500);
+                    $('#highlight').animate({left: "125px", width: "125px"}, 500);
                 }
 
                 if(currentYear >= 615 && currentYear < 1525){
-                    $('.highlight').animate({left: "250px", width: "265px"}, 500);
+                    $('#highlight').animate({left: "250px", width: "265px"}, 500);
                 }
 
                 if(currentYear >= 1525 && currentYear < 2438){
-                    $('.highlight').animate({left: "525px", width: "265px"}, 500);
+                    $('#highlight').animate({left: "525px", width: "265px"}, 500);
                 }
 
                 if(currentYear >= 2438 && currentYear < 3175){
-                    $('.highlight').animate({left: "525px", width: "655px"}, 500);
+                    $('#highlight').animate({left: "525px", width: "655px"}, 500);
                 }
 
                 if(currentYear >= 3175){
-                    $('.highlight').animate({left: "525px", width: "800px"}, 500);
+                    $('#highlight').animate({left: "525px", width: "800px"}, 500);
                 }
 
-                $('.highlight').animate({'border-width': '3px', opacity: "1.0"}, 500);
+                $('#highlight').animate({'border-width': '3px', opacity: "1.0"}, 500);
             } );
 
             $( "#slider" ).on( "slide", function( event, ui ) {
