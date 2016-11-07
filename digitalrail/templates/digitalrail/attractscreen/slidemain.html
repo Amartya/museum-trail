@@ -55,6 +55,7 @@
                     <div class="highlight-legend"></div>
                 </div>
                 <div id="highlight"></div>
+                <div id="in-motion-highlight"></div>
                 <div id="content-detail-wrapper">
                     <div id="question-wrapper">
                         <div class="question">
@@ -705,10 +706,6 @@
                 $('#highlight').animate({'border-width': '7px', opacity: "0.25"}, 500);
             } );
 
-            $( "#slider" ).on( "slide", function( event, ui ) {
-                //console.log($( "#slider" ).slider( "value" ));
-            } );
-
             $( "#slider" ).on( "slidestop", function( event, ui ) {
                 var currentYear = $( "#slider" ).slider( "value" );
 
@@ -732,11 +729,25 @@
                     $('#highlight').animate({left: "525px", width: "800px"}, 500);
                 }
 
-                $('#highlight').animate({'border-width': '3px', opacity: "1.0"}, 500);
+                $('#highlight').animate({'border-width': '3px', opacity: "1.0", 'border-color': "#F38A5D"}, 500);
+
+                $("#in-motion-highlight").fadeOut(400);
             } );
 
-            $( "#slider" ).on( "slide", function( event, ui ) {
-                //TODO update the bounding box on drag
+
+            $( "#slider" ).on( "slide", function(event, ui) {
+                var currentYear = $( "#slider" ).slider( "value" );
+
+                $("#in-motion-highlight").fadeIn(400);
+
+                var slope = 1300/3400;
+                var output = slope * currentYear;
+
+                $("#in-motion-highlight").css('left', output);
+
+                console.log($("#in-motion-highlight").css('left'));
+
+                $("#in-motion-highlight").css('left', output);
             });
 
 

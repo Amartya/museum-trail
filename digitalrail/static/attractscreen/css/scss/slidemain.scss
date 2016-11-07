@@ -137,7 +137,6 @@ body {
       }
 
       #media-wrapper{
-
         .media-container{
           display: flex;
           flex-direction: row;
@@ -245,10 +244,21 @@ body {
       position: absolute;
       width: 125px;
       height: 150px;
-      left: 125px;;
+      left: 125px;
       top: 150px;
       border-radius: 60px;
       border: 3px solid #F38A5D;
+    }
+
+    #in-motion-highlight{
+      position: absolute;
+      display: none;
+      width: 125px;
+      height: 150px;
+      left: 125px;;
+      top: 150px;
+      border-radius: 60px;
+      border: 3px solid $outline-color;
     }
 
     .highlight-legend{

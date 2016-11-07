@@ -160,6 +160,15 @@ body {
       top: 150px;
       border-radius: 60px;
       border: 3px solid #F38A5D; }
+    .page .left-segment #in-motion-highlight {
+      position: absolute;
+      display: none;
+      width: 125px;
+      height: 150px;
+      left: 125px;
+      top: 150px;
+      border-radius: 60px;
+      border: 3px solid #888678; }
     .page .left-segment .highlight-legend {
       position: absolute;
       width: 1400px;
@@ -168,7 +177,6 @@ body {
       margin-top: -13px;
       background: transparent url("/static/common/media/timeline-img.png") no-repeat center; }
     .page .left-segment #content-detail-wrapper {
-      display: none;
       display: none;
       height: 502px; }
       .page .left-segment #content-detail-wrapper #question-wrapper {
