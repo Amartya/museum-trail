@@ -715,19 +715,19 @@
             $( "#slider" ).on( "slidestop", function( event, ui ) {
                 var currentYear = $( "#slider" ).slider( "value" );
 
-                if(currentYear < 615){
+                if(currentYear < 300){
                     $('#highlight').animate({left: "125px", width: "125px"}, 500);
                 }
 
-                if(currentYear >= 615 && currentYear < 1525){
+                if(currentYear >= 300 && currentYear < 1100){
                     $('#highlight').animate({left: "250px", width: "265px"}, 500);
                 }
 
-                if(currentYear >= 1525 && currentYear < 2438){
+                if(currentYear >= 1100 && currentYear < 1600){
                     $('#highlight').animate({left: "525px", width: "265px"}, 500);
                 }
 
-                if(currentYear >= 2438 && currentYear < 3175){
+                if(currentYear >= 1600 && currentYear < 3175){
                     $('#highlight').animate({left: "525px", width: "655px"}, 500);
                 }
 
@@ -743,7 +743,7 @@
 
 
             $( "#slider" ).on( "slide", function(event, ui) {
-                var currentYear = $( "#slider" ).slider( "value" );
+                var currentYear = $( "#slider" ).slider( "value");
 
                 $("#in-motion-highlight").fadeIn(400);
 
@@ -754,6 +754,13 @@
                 var output = 125 + slope * (currentYear - 50);
 
                 $("#in-motion-highlight").css('left', output);
+
+                if(currentYear <= 1400){
+                   $(".tooltiptext").text((1400-currentYear).toString() + " BC");
+                }
+                else{
+                   $(".tooltiptext").text((currentYear - 1400).toString() + " AD");
+                }
             });
 
 
