@@ -707,6 +707,9 @@
 
             $( "#slider" ).on( "slidestart", function( event, ui ) {
                 $('#highlight').animate({'border-width': '7px', opacity: "0.25"}, 500);
+
+                $(".tooltip").css('left', $('.ui-slider-handle').position().left + 65);
+                $(".tooltip").fadeIn(400);
             } );
 
             $( "#slider" ).on( "slidestop", function( event, ui ) {
@@ -743,13 +746,14 @@
                 var currentYear = $( "#slider" ).slider( "value" );
 
                 $("#in-motion-highlight").fadeIn(400);
-                $(".tooltip").fadeIn(400);
+
+                //set tooltip position + display
+                $(".tooltip").css('left', $('.ui-slider-handle').position().left + 65);
 
                 var slope = 1100/3400;
                 var output = 125 + slope * (currentYear - 50);
 
                 $("#in-motion-highlight").css('left', output);
-                $(".tooltip").css('left',output);
             });
 
 
