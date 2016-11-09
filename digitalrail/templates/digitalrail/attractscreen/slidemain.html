@@ -20,6 +20,7 @@
     <link href="../../../static/attractscreen/css/slidemain.css" type="text/css" rel="stylesheet" />
     <script src="{% static "common/js/jquery-1.12.3.min.js" %}"></script>
     <script src="{% static "common/js/jquery-ui.min.js" %}"></script>
+    <script src="{% static "common/js/jquery-ui-touch.js" %}"></script>
 
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -51,11 +52,14 @@
                         <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
                         <div class="media-caption">Characters first seen on Oracle Bones transformed over time. Many are still recognizable in characters used in China today.</div>
                     </div>
-                    <div id="slider"><div class="tooltiptext">Hello World</div></div>
+                    <div id="slider"></div>
                     <div class="highlight-legend"></div>
                 </div>
                 <div id="highlight"></div>
                 <div id="in-motion-highlight"></div>
+                <div class="tooltip">
+                  <span class="tooltiptext">1100 BC</span>
+                </div>
                 <div id="content-detail-wrapper">
                     <div id="question-wrapper">
                         <div class="question">
@@ -142,7 +146,6 @@
     </div>
     <script type="text/javascript">
         $(document).ready(function(){
-
             selectArtifact("");
 
             var caseId = "2-1_M2";
@@ -732,6 +735,7 @@
                 $('#highlight').animate({'border-width': '3px', opacity: "1.0", 'border-color': "#F38A5D"}, 500);
 
                 $("#in-motion-highlight").fadeOut(400);
+                $(".tooltip").fadeOut(400);
             } );
 
 
@@ -739,15 +743,13 @@
                 var currentYear = $( "#slider" ).slider( "value" );
 
                 $("#in-motion-highlight").fadeIn(400);
+                $(".tooltip").fadeIn(400);
 
-                var slope = 1300/3400;
-                var output = slope * currentYear;
-
-                $("#in-motion-highlight").css('left', output);
-
-                console.log($("#in-motion-highlight").css('left'));
+                var slope = 1100/3400;
+                var output = 125 + slope * (currentYear - 50);
 
                 $("#in-motion-highlight").css('left', output);
+                $(".tooltip").css('left',output);
             });
 
 
