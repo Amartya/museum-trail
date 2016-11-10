@@ -64,6 +64,9 @@ body {
         color: #fff;
         opacity: 0.85;
         font-weight: 300; }
+        .page .left-segment #content-wrapper .content-header span {
+          font-size: 18pt;
+          color: #888678; }
       .page .left-segment #content-wrapper .content-subheader {
         font-size: 20pt;
         line-height: 36px;
@@ -302,7 +305,10 @@ body {
         background-color: #424242;
         opacity: 1.0; }
       .page .right-segment #artifact-wrapper .selected-anim-left {
-        transform: translateX(-45px);
+        transform: translateX(-20px);
+        transition: opacity 0.2s ease-out, transform 0.2s; }
+      .page .right-segment #artifact-wrapper .selected-anim-right {
+        transform: translateX(20px);
         transition: opacity 0.2s ease-out, transform 0.2s; }
     .page .right-segment #detail-page #detail-header {
       display: flex;

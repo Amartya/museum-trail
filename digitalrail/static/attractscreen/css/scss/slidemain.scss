@@ -123,6 +123,11 @@ body {
         color: #fff;
         opacity: 0.85;
         font-weight: 300;
+
+        span{
+          font-size: 18pt;
+          color: $outline-color;
+        }
       }
 
       .content-subheader{
@@ -439,7 +444,12 @@ body {
       }
 
       .selected-anim-left {
-        transform: translateX(-45px);
+        transform: translateX(-20px);
+        transition: opacity 0.2s ease-out, transform 0.2s;
+      }
+
+      .selected-anim-right {
+        transform: translateX(20px);
         transition: opacity 0.2s ease-out, transform 0.2s;
       }
     }
