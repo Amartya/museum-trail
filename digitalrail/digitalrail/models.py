@@ -70,6 +70,50 @@ class RailSettings(models.Model):
     rail_id = models.IntegerField(default=0)
     timeout_seconds = models.IntegerField(default=180)
 
+
+# --------------------------------------------------------- #
+# ----------------For Interactive Redesign ---------------- #
+# --------------------------------------------------------- #
+class Artifact(models.Model):
+    def __unicode__(self):
+        return 'Artifact: ' + self.artifact_name
+
+    class Meta:
+        verbose_name = 'Artifact'
+        verbose_name_plural = 'Artifacts'
+
+    rail_id = models.IntegerField(default=0)
+    artifact_id = models.IntegerField(default=0)
+    artifact_name = models.CharField(max_length=500, blank=True)
+    label = models.CharField(max_length=25, blank=True)
+    related_img_filename = models.CharField(max_length=100)
+    has_interactive = models.BooleanField(default=True)
+
+class ArtifactDetail(models.Model):
+    def __unicode__(self):
+        return 'Artifact: ' + self.artifact.artifact_name
+
+    class Meta:
+        verbose_name = 'Artifact Detail'
+        verbose_name_plural = 'Artifact Detail'
+
+    artifact = models.ForeignKey(Artifact, on_delete=models.CASCADE)
+    artifact_heading = models.CharField(max_length=500, blank=True);
+    artifact_rights = models.CharField(max_length=500, blank=True);
+    artifact_caption = models.CharField(max_length=500, blank=True);
+
+class InteractiveDetail(models.Model):
+    def __unicode__(self):
+        return 'Artifact: ' + self.artifact.artifact_name
+
+    class Meta:
+        verbose_name = 'Interactive Detail'
+        verbose_name_plural = 'Interactives Detail'
+
+    artifact = models.ForeignKey(Artifact, on_delete=models.CASCADE)
+    interactive_subheading = models.CharField(max_length=500, blank=True);
+    interactive_img_url = models.CharField(max_length=500, blank=True);
+
 # --------------------------------------------------------- #
 # ------------------------For Polls ----------------------- #
 # --------------------------------------------------------- #

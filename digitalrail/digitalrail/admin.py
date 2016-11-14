@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Question, iModelThematicQuestion, iModelQuestion, RailSettings
+from .models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactDetail, \
+    InteractiveDetail
 
 def duplicate_question(modeladmin, request, queryset):
     for question in queryset:
@@ -42,7 +43,22 @@ class railSettingsAdmin(admin.ModelAdmin):
     list_display = ['id', 'rail_id', 'timeout_seconds']
     ordering = ['id']
 
+class artifactsAdmin(admin.ModelAdmin):
+    list_display = ['id', 'rail_id' ,'artifact_id','artifact_name','label','related_img_filename','has_interactive']
+    ordering = ['id']
+
+class artifactDetailAdmin(admin.ModelAdmin):
+    list_display = ['id','artifact','artifact_heading', 'artifact_rights','artifact_caption']
+    ordering = ['id']
+
+class interactiveDetailAdmin(admin.ModelAdmin):
+    list_display = ['id','artifact','interactive_subheading','interactive_img_url']
+    ordering = ['id']
+
 admin.site.register(Question, bigQuestionAdmin)
 admin.site.register(iModelThematicQuestion, thematicQuestionAdmin)
 admin.site.register(iModelQuestion, iModelQuestionAdmin)
 admin.site.register(RailSettings, railSettingsAdmin)
+admin.site.register(Artifact, artifactsAdmin)
+admin.site.register(ArtifactDetail, artifactDetailAdmin)
+admin.site.register(InteractiveDetail, interactiveDetailAdmin)

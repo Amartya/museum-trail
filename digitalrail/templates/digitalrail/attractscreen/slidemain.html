@@ -41,7 +41,7 @@
         <div class="page" id="main-screen">
             <div class="left-segment">
                 <div id="content-wrapper">
-                    <div class="content-header">Chinese writing has transformed over time. <span> (tap here for more) </span></div>
+                    <div class="content-header">How has Chinese writing has transformed over time? <span>tap here for more <i class="ion ion-log-in"></i></span></div>
                     <div class="content-subheader">Character for <span>"horse"</span></div>
                     <div id="media-wrapper">
                         <div class="media-container">
@@ -61,80 +61,88 @@
                   <span class="tooltiptext">1100 BC</span>
                 </div>
                 <div id="content-detail-wrapper">
+                    <div class="line"></div>
+                    <div class="home"><i class="ion ion-ios-arrow-back"></i> Back</div>
+                    <div id="detail-artifact-wrapper">
+                        <div class="detail-img"></div>
+                        <div class="detail-label-wrapper">
+                            <div class="detail-label">14-16</div>
+                            <div class="detail-name">Oracle Bones</div>
+                        </div>
+                        <div class="detail-dynasty">Shang Dynasty | 1600 - 1046BC</div>
+                    </div>
                     <div id="question-wrapper">
-                        <div class="question">
-                            <div class="text">Why were shells used as money ?</div>
+                        <div class="question selected">
+                            <div class="text">When did writing emerge in China?</div>
                             <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
                         </div>
                         <div class="question">
-                            <div class="text">What makes a shell valuable ?</div>
+                            <div class="text">How did ancient kings use animal bones to talk to the dead?</div>
                             <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
                         </div>
                         <div class="question">
-                            <div class="text">Why were shells buried with the dead ?</div>
+                            <div class="text">What did the king talk to his dead ancestors about?</div>
                             <div class="answer-btn"><i class="ion ion-android-arrow-forward"></i></div>
                         </div>
                     </div>
 
                     <div id="answer-wrapper">
-                        <div class="close-btn"><i class="ion ion-ios-close"></i></div>
                         <div class="answer">
-
-                            <div class="question-text">Why were shells used as money</div>
-                            <div class="answer-text">Most societies, as they form larger and larger trade networks, turn to some kind of small, portable, and standardized item to use as currency. <br> These cowrie shells were easier to carry over long distances for trade than a sack of grain. Many early societies used cowrie shells as a form of currency.</div>
+                            <div class="question-text">When did writing emerge in China?</div>
+                            <div class="answer-text">There is no way to tell exactly when or how writing emerged in China because the earliest writing--possibly inscribed on bamboo or fabric--have long since disappeared. <br>But we do have evidence of a fully functioning writing system by the second half of the Shang Dynasty (c. 1600–1046 BC), thanks to the durability of the material it was written on: bone. These pieces were used in rituals to try to foretell the future, so they are known as “oracle bones.”</div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="right-segment">
                 <div id="artifact-wrapper">
-                    <div id="artifact1" class="artifact selected selected-anim-left">
-                        <div class="main">
-                            <div class="img" style="background-image: url(/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B1.png)"></div>
-                            <div class="name">Oracle Bones</div>
-                            <div class="label">14-16</div>
-                        </div>
-                    </div>
-                    <div id="artifact2" class="artifact">
-                        <div class="main">
-                            <div class="img" style="background-image: url(/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2.png)"></div>
-                            <div class="name">Oracle Bones</div>
-                            <div class="label">17-18</div>
-                        </div>
-                    </div>
-                    <div id="artifact3" class="artifact">
-                        <div class="main">
-                            <div class="img" style="background-image: url(/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B4.png)"></div>
-                            <div class="name">Ceramic Vessels</div>
-                            <div class="label">19-21</div>
-                        </div>
-                    </div>
-                    <div id="artifact4" class="artifact">
-                        <div class="main">
-                            <div class="img" style="background-image: url(/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B5.png)"></div>
-                            <div class="name">Cowrie Shells</div>
-                            <div class="label">22-24</div>
-                        </div>
-                    </div>
-                </div>
-                <div id="detail-page">
-                    <div id="detail-header">
-                        <div class="home">
-                            <div> BACK </div>
-                            <div><i class="ion ion-grid"></i></div>
-                        </div>
-                        <div class="name">Cowrie Shells
-                            <div class="sub-description">Early Zhou Dynasty | 1046 - 256BC</div>
-                        </div>
-                        <div class="label">22-24</div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div id="artifact-content" style="display: none;">
+        <ul>
+            {% for i in artifact_list %}
+                <li data-artifact-id="{{i.artifact_id}}" data-artifact-name="{{i.artifact_name}}" data-label="{{i.label}}"
+                    data-img-filename="{{i.img_filename}}" data-has-interactive="{{ i.has_interactive }}"></li>
+            {% endfor %}
+        </ul>
+    </div>
     <script type="text/javascript">
         $(document).ready(function(){
+            var caseId = "2-1_M2";
+            var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
+
+            setArtifactPanel();
             selectArtifact("");
+
+            //-------------------------------------------------------------------
+            // Set contents of artifact panel/right segment
+            //-------------------------------------------------------------------
+            function setArtifactPanel(){
+                var artifactInitStr = "<div id=\"artifact";
+                var artifactEndStr = "\" class=\"artifact\"> <div class=\"main\"> <div class=\"img\"></div> " +
+                        "<div class=\"name\"></div> <div class=\"label\"></div> </div>";
+                var artifactContent = $('#artifact-content').find('li');
+
+                for(var i=0; i<artifactContent.length; i++ ) {
+                    $('#artifact-wrapper').append(artifactInitStr + $(artifactContent[i]).data('artifact-id') +
+                     artifactEndStr);
+
+                    //set the label name and background img
+                    var artifactId = "#artifact" + $(artifactContent[i]).data('artifact-id');
+
+                    $(artifactId).find('.img').css('background-image', 'url(' + imagePath +
+                            $(artifactContent[i]).data('img-filename') + ')');
+                    $(artifactId).find('.name').text($(artifactContent[i]).data('artifact-name'));
+                    $(artifactId).find('.label').text($(artifactContent[i]).data('label'));
+
+                }
+
+                $('.artifact').first().addClass('selected');
+                $('.artifact').first().addClass('selected-anim-left');
+            }
 
             //-------------------------------------------------------------------
             // Callback to set media screen contents from artifact column
@@ -173,13 +181,37 @@
                 }
             });
 
-
-
             $('.content-header').on('click', 'span', function(){
                 $('#content-wrapper').fadeOut(400);
-                $('#content-detail-wrapper').fadeIn(400);
+                $('#highlight').fadeOut(100);
+
+                $('#content-detail-wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}, 800);
             });
 
+            $('#content-detail-wrapper').on('click', '.home', function(){
+                $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
+
+                $('#content-wrapper').fadeIn(400);
+                $('#highlight').fadeIn(100);
+            });
+
+
+            $('#question-wrapper').on('click', '.question', function(){
+                $('.question').removeClass('selected');
+                $('.answer-btn').fadeIn(400);
+
+                if($(this).is($('.question')[0])){
+                    $('.line').css({top: 115});
+                }
+                else if ($(this).is($('.question')[1])){
+                    $('.line').css({top: 250});
+                }
+                else if ($(this).is($('.question')[2])){
+                    $('.line').css({top: 384});
+                }
+
+                $(this).addClass('selected');
+            });
 
             function selectArtifact(artifactId){
                 if(artifactId == ""){
@@ -187,16 +219,15 @@
                     //$('.artifact.selected').addClass('selected-anim-left');
                     $('.artifact.selected').find('.more').fadeIn(400);
                 }
-                else{
-                    console.log(artifactId);
-                }
             }
 
             $( "#slider" ).slider({
                 min: 0,
                 max: 3400,
                 step: 1,
-                animate: "slow"
+                animate: "slow",
+                orientation: "horizontal"
+
             });
 
             $( "#slider" ).on( "slidestart", function( event, ui ) {
@@ -209,31 +240,17 @@
             $( "#slider" ).on( "slidestop", function( event, ui ) {
                 var currentYear = $( "#slider" ).slider( "value" );
 
-                if(currentYear < 300){
-                    $('#highlight').animate({left: "125px", width: "125px"}, 500);
-                }
+                var highlightDims = checkMilestone(currentYear);
 
-                if(currentYear >= 300 && currentYear < 1100){
-                    $('#highlight').animate({left: "250px", width: "265px"}, 500);
-                }
-
-                if(currentYear >= 1100 && currentYear < 1600){
-                    $('#highlight').animate({left: "525px", width: "265px"}, 500);
-                }
-
-                if(currentYear >= 1600 && currentYear < 3175){
-                    $('#highlight').animate({left: "525px", width: "655px"}, 500);
-                }
-
-                if(currentYear >= 3175){
-                    $('#highlight').animate({left: "525px", width: "800px"}, 500);
-                }
-
+                $('#highlight').animate({left: highlightDims[0], width: highlightDims[1]}, 500);
                 $('#highlight').animate({'border-width': '3px', opacity: "1.0", 'border-color': "#F38A5D"}, 500);
 
                 $("#in-motion-highlight").fadeOut(400);
                 $(".tooltip").fadeOut(400);
             } );
+
+            var prevHighlightDims = ["125px","125px"];
+            var moveHighlight = true;
 
 
             $( "#slider" ).on( "slide", function(event, ui) {
@@ -247,7 +264,26 @@
                 var slope = 1100/3400;
                 var output = 125 + slope * (currentYear - 50);
 
-                $("#in-motion-highlight").css('left', output);
+                var highlightDims = checkMilestone(currentYear);
+
+                if(moveHighlight && (highlightDims[0] != prevHighlightDims[0]) &&
+                                (highlightDims[1] != prevHighlightDims[1])){
+                    moveHighlight = false;
+                    $('#in-motion-highlight').animate({left: highlightDims[0], width: highlightDims[1]}, 500, function(){
+                        if(!moveHighlight){
+                           $('#in-motion-highlight').animate({width: "125px"}, 700, function(){
+                                setTimeout(function(){ moveHighlight = true; }, 1000);
+                            });
+                        }
+                    });
+                    prevHighlightDims[0] = highlightDims[0];
+                    prevHighlightDims[1] = highlightDims[1];
+                }
+
+                if(moveHighlight && parseInt($("#in-motion-highlight").css('left')) + $("#in-motion-highlight").width() < 1350) {
+                    console.log("setting left");
+                    $('#in-motion-highlight').css('left', output);
+                }
 
                 if(currentYear <= 1400){
                    $(".tooltiptext").text((1400-currentYear).toString() + " BC");
@@ -257,6 +293,37 @@
                 }
             });
 
+            function checkMilestone(currentYear) {
+                var left = "";
+                var width = "";
+
+                if(currentYear < 300){
+                    left = "125px";
+                    width = "125px";
+                }
+
+                if(currentYear >= 300 && currentYear < 1100){
+                    left = "250px";
+                    width = "265px";
+                }
+
+                if(currentYear >= 1100 && currentYear < 1600){
+                    left = "525px";
+                    width = "265px";
+                }
+
+                if(currentYear >= 1600 && currentYear < 3175){
+                    left = "525px";
+                    width = "655px";
+                }
+
+                if(currentYear >= 3175){
+                    left = "525px";
+                    width = "800px";
+                }
+
+                return [left, width];
+            }
 
             $('.page').on('click', '.slide-prev', function(event){
                 var imgURLList = getImageList(1);

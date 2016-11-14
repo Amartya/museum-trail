@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import loader
 
 
-from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings
+from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact
 
 def index(request):
     #return HttpResponse("Hello Digital Rail")
@@ -92,26 +92,25 @@ def imodel(request):
 
 
 def slidemain(request):
-    thematic_question = iModelThematicQuestion.objects.filter(rail_id=0, active=True).first()
-    imodel_questions = iModelQuestion.objects.filter(thematic_question=thematic_question)
-
+    artifacts = Artifact.objects.filter(rail_id=0)
     timeout = 0
     try:
         timeout = RailSettings.objects.get(rail_id=0).timeout_seconds
     except:
         print("timeout settings for rail not found")
 
-    question_data = {}
-    question_data['timeout'] = timeout
+    rail_data = {}
+    rail_data['timeout'] = timeout
 
-    question_list = []
-    for q in imodel_questions:
-        temp_question = {'question': q.imodel_question_text, 'additional_prompt': q.imodel_additional_prompt,
-                         'story_id': q.selected_story_id.strip(), 'img_filename': q.related_img_filename,
-                         'case_number': q.case_number, 'artifact_name': q.imodel_artifact_name}
-        question_list.append(temp_question)
+    artifact_list = []
+    for artifact in artifacts:
+        temp_artifact = {'artifact_id': artifact.artifact_id, 'artifact_name': artifact.artifact_name,
+                         'label': artifact.label, 'img_filename': artifact.related_img_filename,
+                         'has_interactive': artifact.has_interactive}
+        artifact_list.append(temp_artifact)
 
-    question_data['question_list'] = question_list
-    question_data['thematic_question'] = thematic_question.thematic_question
+    rail_data['artifact_list'] = artifact_list
 
-    return render(request, 'digitalrail/attractscreen/slidemain.html', question_data)
+    print(rail_data)
+
+    return render(request, 'digitalrail/attractscreen/slidemain.html', rail_data)
