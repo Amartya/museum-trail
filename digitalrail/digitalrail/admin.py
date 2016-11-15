@@ -44,7 +44,8 @@ class railSettingsAdmin(admin.ModelAdmin):
     ordering = ['id']
 
 class artifactsAdmin(admin.ModelAdmin):
-    list_display = ['id', 'rail_id' ,'artifact_id','artifact_name','label','related_img_filename','has_interactive']
+    list_display = ['id', 'rail_id' ,'artifact_id','artifact_name','artifact_overlay_text',
+                    'label','related_img_filename','interactive_type']
     ordering = ['id']
 
 class artifactDetailAdmin(admin.ModelAdmin):

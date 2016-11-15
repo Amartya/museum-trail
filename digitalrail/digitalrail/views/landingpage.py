@@ -106,7 +106,7 @@ def slidemain(request):
     for artifact in artifacts:
         temp_artifact = {'artifact_id': artifact.artifact_id, 'artifact_name': artifact.artifact_name,
                          'label': artifact.label, 'img_filename': artifact.related_img_filename,
-                         'has_interactive': artifact.has_interactive}
+                         'overlay_text': artifact.artifact_overlay_text, 'interactive_type': artifact.interactive_type}
         artifact_list.append(temp_artifact)
 
     rail_data['artifact_list'] = artifact_list

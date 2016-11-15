@@ -85,9 +85,10 @@ class Artifact(models.Model):
     rail_id = models.IntegerField(default=0)
     artifact_id = models.IntegerField(default=0)
     artifact_name = models.CharField(max_length=500, blank=True)
+    artifact_overlay_text = models.CharField(max_length=500, blank=True);
     label = models.CharField(max_length=25, blank=True)
     related_img_filename = models.CharField(max_length=100)
-    has_interactive = models.BooleanField(default=True)
+    interactive_type = models.CharField(max_length=20)
 
 class ArtifactDetail(models.Model):
     def __unicode__(self):

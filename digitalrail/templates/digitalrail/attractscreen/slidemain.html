@@ -41,8 +41,8 @@
         <div class="page" id="main-screen">
             <div class="left-segment">
                 <div id="content-wrapper">
-                    <div class="content-header">How has Chinese writing has transformed over time? <span>tap here for more <i class="ion ion-log-in"></i></span></div>
-                    <div class="content-subheader">Character for <span>"horse"</span></div>
+                    <div class="content-header">Ancient innovations that shaped the Bronze Age. </div>
+                    <div class="content-subheader">How have characters first seen on Oracle Bones transformed over time? <span class="more">tap here for more <i class="ion ion-log-in"></i></span></div>
                     <div id="media-wrapper">
                         <div class="media-container">
                             <div class="slide-prev"><i class="ion ion-ios-arrow-back"></i></div>
@@ -50,7 +50,7 @@
                             <div class="slide-next"><i class="ion ion-ios-arrow-forward"></i></div>
                         </div>
                         <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
-                        <div class="media-caption">Characters first seen on Oracle Bones transformed over time. Many are still recognizable in characters used in China today.</div>
+                        <div class="media-caption">Some of these are characters used in China today. Character for <span>"horse"</span></div>
                     </div>
                     <div id="slider"></div>
                     <div class="highlight-legend"></div>
@@ -105,7 +105,9 @@
         <ul>
             {% for i in artifact_list %}
                 <li data-artifact-id="{{i.artifact_id}}" data-artifact-name="{{i.artifact_name}}" data-label="{{i.label}}"
-                    data-img-filename="{{i.img_filename}}" data-has-interactive="{{ i.has_interactive }}"></li>
+                    data-img-filename="{{i.img_filename}}" data-interactive-type="{{ i.interactive_type }}"
+                    data-artifact-overlay-text="{{i.overlay_text}}">
+                </li>
             {% endfor %}
         </ul>
     </div>
@@ -115,15 +117,14 @@
             var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
 
             setArtifactPanel();
-            selectArtifact("");
 
             //-------------------------------------------------------------------
             // Set contents of artifact panel/right segment
             //-------------------------------------------------------------------
             function setArtifactPanel(){
                 var artifactInitStr = "<div id=\"artifact";
-                var artifactEndStr = "\" class=\"artifact\"> <div class=\"main\"> <div class=\"img\"></div> " +
-                        "<div class=\"name\"></div> <div class=\"label\"></div> </div>";
+                var artifactEndStr = "\" class=\"artifact\"> <div class=\"main\"><div class=\"overlay\"></div> " +
+                        "<div class=\"img blur\"></div> " + "<div class=\"name blur\"></div> <div class=\"label\"></div> </div>";
                 var artifactContent = $('#artifact-content').find('li');
 
                 for(var i=0; i<artifactContent.length; i++ ) {
@@ -133,13 +134,17 @@
                     //set the label name and background img
                     var artifactId = "#artifact" + $(artifactContent[i]).data('artifact-id');
 
+                    $(artifactId).find('.overlay').text($(artifactContent[i]).data('artifact-overlay-text'));
                     $(artifactId).find('.img').css('background-image', 'url(' + imagePath +
                             $(artifactContent[i]).data('img-filename') + ')');
                     $(artifactId).find('.name').text($(artifactContent[i]).data('artifact-name'));
                     $(artifactId).find('.label').text($(artifactContent[i]).data('label'));
 
+                    $(artifactId).data('interactive-type',$(artifactContent[i]).data('interactive-type') );
                 }
 
+                $('.artifact').first().find('*').removeClass('blur');
+                $('.artifact').first().find('.overlay').fadeOut(0);
                 $('.artifact').first().addClass('selected');
                 $('.artifact').first().addClass('selected-anim-left');
             }
@@ -153,6 +158,13 @@
                     $('.artifact').removeClass('selected-anim-left');
                     $('.artifact').removeClass('selected-anim-right');
                     $('.artifact').find('.more').css('display','none');
+
+                    $('.artifact').find('.img').addClass('blur');
+                    $('.artifact').find('.name').addClass('blur');
+                    $('.artifact').find('.overlay').fadeIn(100);
+
+                    $(this).find('.overlay').fadeOut(100);
+                    $(this).find('*').removeClass('blur');
 
                     //-------------------------------------------------------------------
                     //detect whether it's an even/odd element in grid, to ensure that
@@ -177,11 +189,11 @@
                     }
                     //-------------------------------------------------------------------
 
-                    selectArtifact($(this).attr('id'));
+                    selectArtifact("#" + $(this).attr('id'));
                 }
             });
 
-            $('.content-header').on('click', 'span', function(){
+            $('.content-subheader').on('click', 'span', function(){
                 $('#content-wrapper').fadeOut(400);
                 $('#highlight').fadeOut(100);
 
@@ -210,15 +222,86 @@
                     $('.line').css({top: 384});
                 }
 
+                $('.question-text').text($(this).find('.text').text());
+
                 $(this).addClass('selected');
             });
 
             function selectArtifact(artifactId){
-                if(artifactId == ""){
-                    $('.artifact').find('.more').css('display','none');
-                    //$('.artifact.selected').addClass('selected-anim-left');
-                    $('.artifact.selected').find('.more').fadeIn(400);
+                if($(artifactId).data('interactive-type') == "slideshow&timeline"){
+                    $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
+                    $('#content-wrapper').fadeIn(400);
+
+                    $('.slide-next').fadeIn(400);
+                    $('.slide-prev').fadeIn(400);
+                    $('#slider').fadeIn(400);
+                    $('.highlight-legend').fadeIn(400);
+                    $('#highlight').fadeIn(400);
+
+                    var imgURLList = getImageList(artifactId);
+                    var imgCaptionList = getCaptionList(artifactId);
+
+                    $('.content-header').html('How has Chinese writing has transformed over time? <span>tap here for more <i class=\"ion ion-log-in\"></i></span>');
+                    $('.media-content').css('background-image',imgURLList[0]);
+                    $('.content-subheader').text(imgCaptionList[0]);
+                    $('.media-caption').text('Characters first seen on Oracle Bones transformed over time. Many are still recognizable in characters used in China today.');
+
+                    //$('.media-container').css({'justify-content': 'space-around'});
+                    $('.media-content').css({'height': '180px', 'width': '1250px', 'background-size': '1150px'});
                 }
+                else if($(artifactId).data('interactive-type') == "slideshow") {
+                    $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
+                    $('#content-wrapper').fadeIn(400);
+
+                    $('.slide-next').fadeIn(400);
+                    $('.slide-prev').fadeIn(400);
+                    $('#slider').fadeOut(400);
+                    $('.highlight-legend').fadeOut(400);
+                    $('#highlight').fadeOut(400);
+
+                    var imgURLList = getImageList(artifactId);
+                    var imgCaptionList = getCaptionList(artifactId);
+
+                    $('.content-header').html('What did the ancestors sound like? <span>tap here for more <i class=\"ion ion-log-in\"></i></span>');
+                    $('.media-content').css('background-image',imgURLList[0]);
+                    $('.content-subheader').text(imgCaptionList[0]);
+                    $('.media-caption').text('');
+
+                    $('.media-content').css({'height': '300px', 'width': '300px', 'background-size': 'contain'});
+                }
+                else if($(artifactId).data('interactive-type') == "timeline") {
+                    $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
+                    $('#content-wrapper').fadeIn(400);
+
+                    $('.slide-next').fadeOut(400);
+                    $('.slide-prev').fadeOut(400);
+                    $('#slider').fadeIn(400);
+                    $('.highlight-legend').fadeIn(400);
+
+
+                    var imgURLList = getImageList(artifactId);
+                    var imgCaptionList = getCaptionList(artifactId);
+
+                    $('.content-header').html('Why were shells used as money? <span>tap here for more <i class=\"ion ion-log-in\"></i></span>');
+                    $('.media-content').css('background-image',imgURLList[0]);
+                    $('.content-subheader').text(imgCaptionList[0]);
+                    $('.media-caption').text('The earliest Chinese character for “money” is a pictograph of a cowrie shell.');
+
+                    $('.media-content').css({'height': '180px', 'width': '1250px', 'background-size': '1150px'});
+                }
+                else{
+                    $('.slide-next').fadeOut(400);
+                    $('.slide-prev').fadeOut(400);
+                    $('#slider').fadeOut(400);
+                    $('.highlight-legend').fadeOut(400);
+                    $('#highlight').fadeOut(400);
+
+                    $('#content-wrapper').fadeOut(400);
+                    $('#highlight').fadeOut(100);
+
+                    $('#content-detail-wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}, 800);
+                }
+
             }
 
             $( "#slider" ).slider({
@@ -271,9 +354,9 @@
                     moveHighlight = false;
                     $('#in-motion-highlight').animate({left: highlightDims[0], width: highlightDims[1]}, 500, function(){
                         if(!moveHighlight){
-                           $('#in-motion-highlight').animate({width: "125px"}, 700, function(){
+{#                           $('#in-motion-highlight').animate({width: "125px"}, 700, function(){#}
                                 setTimeout(function(){ moveHighlight = true; }, 1000);
-                            });
+{#                            });#}
                         }
                     });
                     prevHighlightDims[0] = highlightDims[0];
@@ -281,7 +364,6 @@
                 }
 
                 if(moveHighlight && parseInt($("#in-motion-highlight").css('left')) + $("#in-motion-highlight").width() < 1350) {
-                    console.log("setting left");
                     $('#in-motion-highlight').css('left', output);
                 }
 
@@ -326,9 +408,9 @@
             }
 
             $('.page').on('click', '.slide-prev', function(event){
-                var imgURLList = getImageList(1);
-                var imgCaptionList = getCaptionList();
-                var prevImgIndex = ($('.media-content').data('index') - 1);
+                var artifactId = "#" + $('.artifact.selected').attr('id');
+                var imgURLList = getImageList(artifactId);
+                var imgCaptionList = getCaptionList(artifactId);
                 if(prevImgIndex < 0){
                     prevImgIndex = imgURLList.length - 1;
                 }
@@ -339,38 +421,59 @@
             });
 
             $('.page').on('click', '.slide-next', function(event){
-                var imgURLList = getImageList(1);
-                var imgCaptionList = getCaptionList();
+                var artifactId = "#" + $('.artifact.selected').attr('id');
+                var imgURLList = getImageList(artifactId);
+                var imgCaptionList = getCaptionList(artifactId);
                 var nextImgIndex = ($('.media-content').data('index') + 1) % imgURLList.length;
 
                 $('.media-content').css('background-image',imgURLList[nextImgIndex]);
                 $('.media-content').data('index', nextImgIndex);
 
-                $('.content-subheader').find('span').text("\""+imgCaptionList[nextImgIndex]+"\"");
+                $('.content-subheader').text(imgCaptionList[nextImgIndex]);
             });
 
             function getImageList(artifactId){
                 var imgURLList = [];
 
-                imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_1_Long.png" + '\")');
-                imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_2_Long.png" + '\")');
-                imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_3_Long.png" + '\")');
-                imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_4_Long.png" + '\")');
-                imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_5_Long.png" + '\")');
+                if(artifactId == "#artifact0"){
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_1_Long.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_2_Long.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_3_Long.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_4_Long.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_5_Long.png" + '\")');
+                }
+                else if(artifactId == "#artifact1"){
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_1.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_2.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_3.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_4.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_5.png" + '\")');
+                }
+                else if(artifactId == "#artifact3"){
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B5_S2_Long.png" + '\")');
+                }
 
                 return imgURLList;
             }
 
             function getCaptionList(artifactId){
-                var captionsURLList = [];
+                var captionsList = [];
 
-                captionsURLList.push('horse');
-                captionsURLList.push('fish');
-                captionsURLList.push('mountain');
-                captionsURLList.push('sun');
-                captionsURLList.push('moon');
+                if(artifactId == "#artifact0"){
+                    captionsList.push('Character for \"horse\"');
+                    captionsList.push('Character for \"fish\"');
+                    captionsList.push('Character for \"mountain\"');
+                    captionsList.push('Character for \"sun\"');
+                    captionsList.push('Character for \"moon\"');
+                }
+                else if(artifactId == "#artifact1"){
+                    captionsList.push('The steps for an Oracle Bone divination');
+                }
+                else if(artifactId == "#artifact3"){
+                    captionsList.push('Character for a \"cowrie shell\"');
+                }
 
-                return captionsURLList;
+                return captionsList;
             }
         });
     </script>
