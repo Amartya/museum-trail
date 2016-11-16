@@ -40,17 +40,32 @@
         <!--Attract Screen-->
         <div class="page" id="main-screen">
             <div class="left-segment">
+                <div class="case-header">Ancient innovations that shaped the Bronze Age. </div>
                 <div id="content-wrapper">
-                    <div class="content-header">Ancient innovations that shaped the Bronze Age. </div>
-                    <div class="content-subheader">How have characters first seen on Oracle Bones transformed over time? <span class="more">tap here for more <i class="ion ion-log-in"></i></span></div>
+                    <div class="content-header">How have characters first seen on Oracle Bones transformed over time? <span class="more">tap here for more <i class="ion ion-log-in"></i></span></div>
                     <div id="media-wrapper">
-                        <div class="media-container">
-                            <div class="slide-prev"><i class="ion ion-ios-arrow-back"></i></div>
-                            <div class="media-content" data-index="0"></div>
-                            <div class="slide-next"><i class="ion ion-ios-arrow-forward"></i></div>
+                        <div class="media-content" data-index="0"></div>
+                        <div class="media-caption">
+                            <div class="media-help">Encircled area shows characters in use over time</div>
+                            <div class="media-nav">
+                            <div class="slide-nav-wrapper slide-prev">
+                                <div class = "slide-nav-text">PREV</div>
+                                <div class = "slide-nav-highlight"></div>
+                            </div>
+                            <div class="media-count">
+                                <div class="media-option selected">Character for "horse" <div class="underline"></div></div>
+                                <div class="media-option"></div>
+                                <div class="media-option"></div>
+                                <div class="media-option"></div>
+                                <div class="media-option"></div>
+                            </div>
+                            <div class="slide-nav-wrapper slide-next">
+                                <div class = "slide-nav-text">NEXT</div>
+                                <div class = "slide-nav-highlight"></div>
+                            </div>
                         </div>
-                        <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
-                        <div class="media-caption">Some of these are characters used in China today. Character for <span>"horse"</span></div>
+                            <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
+                        </div>
                     </div>
                     <div id="slider"></div>
                     <div class="highlight-legend"></div>
@@ -332,7 +347,7 @@
                 $(".tooltip").fadeOut(400);
             } );
 
-            var prevHighlightDims = ["125px","125px"];
+            var prevHighlightDims = [$('#highlight').position().left,$('#highlight').width()];
             var moveHighlight = true;
 
 
@@ -342,28 +357,26 @@
                 $("#in-motion-highlight").fadeIn(400);
 
                 //set tooltip position + display
-                $(".tooltip").css('left', $('.ui-slider-handle').position().left + 65);
+                $(".tooltip").css('left', $('.ui-slider-handle').position().left + 70);
 
                 var slope = 1100/3400;
-                var output = 125 + slope * (currentYear - 50);
+                var output = $('#highlight').position().left + slope * (currentYear - 50);
 
                 var highlightDims = checkMilestone(currentYear);
 
                 if(moveHighlight && (highlightDims[0] != prevHighlightDims[0]) &&
                                 (highlightDims[1] != prevHighlightDims[1])){
                     moveHighlight = false;
-                    $('#in-motion-highlight').animate({left: highlightDims[0], width: highlightDims[1]}, 500, function(){
+                    $('#in-motion-highlight').animate({left: highlightDims[0], width: highlightDims[1]}, 400, function(){
                         if(!moveHighlight){
-{#                           $('#in-motion-highlight').animate({width: "125px"}, 700, function(){#}
-                                setTimeout(function(){ moveHighlight = true; }, 1000);
-{#                            });#}
+                            setTimeout(function(){ moveHighlight = true; }, 500);
                         }
                     });
                     prevHighlightDims[0] = highlightDims[0];
                     prevHighlightDims[1] = highlightDims[1];
                 }
 
-                if(moveHighlight && parseInt($("#in-motion-highlight").css('left')) + $("#in-motion-highlight").width() < 1350) {
+                if(moveHighlight && parseInt($("#in-motion-highlight").position().left + $("#in-motion-highlight").width()) < 1350) {
                     $('#in-motion-highlight').css('left', output);
                 }
 
@@ -376,32 +389,34 @@
             });
 
             function checkMilestone(currentYear) {
-                var left = "";
-                var width = "";
+                console.log(currentYear);
+
+                var left = 0;
+                var width = 0;
 
                 if(currentYear < 300){
-                    left = "125px";
-                    width = "125px";
+                    left = 45;
+                    width = 125;
                 }
 
                 if(currentYear >= 300 && currentYear < 1100){
-                    left = "250px";
-                    width = "265px";
+                    left = 170;
+                    width = 300;
                 }
 
-                if(currentYear >= 1100 && currentYear < 1600){
-                    left = "525px";
-                    width = "265px";
+                else if(currentYear >= 1100 && currentYear < 1600){
+                    left = 480;
+                    width = 300;
                 }
 
-                if(currentYear >= 1600 && currentYear < 3175){
-                    left = "525px";
-                    width = "655px";
+                else if(currentYear >= 1600 && currentYear < 3350){
+                    left = 480;
+                    width = 740;
                 }
 
-                if(currentYear >= 3175){
-                    left = "525px";
-                    width = "800px";
+                else if(currentYear >= 3350){
+                    left = 480;
+                    width = 900;
                 }
 
                 return [left, width];
@@ -411,13 +426,15 @@
                 var artifactId = "#" + $('.artifact.selected').attr('id');
                 var imgURLList = getImageList(artifactId);
                 var imgCaptionList = getCaptionList(artifactId);
+
+                var prevImgIndex = $('.media-content').data('index') - 1;
                 if(prevImgIndex < 0){
                     prevImgIndex = imgURLList.length - 1;
                 }
                 $('.media-content').css('background-image',imgURLList[prevImgIndex]);
                 $('.media-content').data('index', prevImgIndex);
 
-                $('.content-subheader').find('span').text("\""+imgCaptionList[prevImgIndex]+"\"");
+                setSlideNavigationStatus(prevImgIndex, imgCaptionList);
             });
 
             $('.page').on('click', '.slide-next', function(event){
@@ -426,10 +443,11 @@
                 var imgCaptionList = getCaptionList(artifactId);
                 var nextImgIndex = ($('.media-content').data('index') + 1) % imgURLList.length;
 
+                //set background img
                 $('.media-content').css('background-image',imgURLList[nextImgIndex]);
                 $('.media-content').data('index', nextImgIndex);
 
-                $('.content-subheader').text(imgCaptionList[nextImgIndex]);
+                setSlideNavigationStatus(nextImgIndex, imgCaptionList);
             });
 
             function getImageList(artifactId){
@@ -474,6 +492,17 @@
                 }
 
                 return captionsList;
+            }
+
+            //sets the status of the slideshow
+            function setSlideNavigationStatus(slideIndex, imgCaptionList){
+                var currentElement = $('.media-count').find('.media-option.selected');
+                currentElement.removeClass('selected');
+                currentElement.html('');
+
+                var nextElement = $($('.media-count').find('.media-option')[slideIndex]);
+                nextElement.html(imgCaptionList[slideIndex] + "<div class=\"underline\"></div></div>");
+                nextElement.addClass('selected');
             }
         });
     </script>
