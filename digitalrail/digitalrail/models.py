@@ -90,6 +90,21 @@ class Artifact(models.Model):
     related_img_filename = models.CharField(max_length=100)
     interactive_type = models.CharField(max_length=20)
 
+class ArtifactQA(models.Model):
+    def __unicode__(self):
+        return 'Artifact: ' + self.artifact.artifact_name
+
+    class Meta:
+        verbose_name = 'Artifact Question Answer'
+        verbose_name_plural = 'Artifact Questions Answers'
+
+    artifact = models.ForeignKey(Artifact, on_delete=models.CASCADE)
+    artifact_name = models.CharField(max_length=500, blank=True);
+    artifact_label = models.CharField(max_length=20, blank=True);
+    artifact_dynasty_age = models.CharField(max_length=50, blank=True);
+    artifact_questions = models.CharField(max_length=500, blank=True);
+    artifact_answers = models.CharField(max_length=2000, blank=True);
+
 class ArtifactDetail(models.Model):
     def __unicode__(self):
         return 'Artifact: ' + self.artifact.artifact_name

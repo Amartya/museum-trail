@@ -334,7 +334,7 @@ body {
         width: 135px;
         height: 3px;
         background-color: #D9D4C2;
-        top: 115px;
+        top: 132px;
         left: 855px;
         position: absolute;
       }
@@ -446,7 +446,7 @@ body {
 
         .question-text{
           width: 385px;
-          height: 45px;
+          height: 20px;
           text-align: center;
           font-size: 14pt;
           padding-top: 15px;
@@ -464,6 +464,7 @@ body {
           line-height: 1.5em;
           overflow-x: hidden;
           overflow-y: scroll;
+          margin-top: 15px;
         }
       }
     }

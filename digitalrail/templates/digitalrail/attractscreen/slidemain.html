@@ -48,22 +48,25 @@
                         <div class="media-caption">
                             <div class="media-help">Encircled area shows characters in use over time</div>
                             <div class="media-nav">
-                            <div class="slide-nav-wrapper slide-prev">
-                                <div class = "slide-nav-text">PREV</div>
-                                <div class = "slide-nav-highlight"></div>
+                                <div class="slide-nav-wrapper slide-prev">
+                                    <div class = "slide-nav-text">PREV</div>
+                                    <div class = "slide-nav-highlight"></div>
+                                </div>
+                                <div class="media-count">
+                                    <div class="media-option selected">Character for "horse" <div class="underline"></div></div>
+                                    <div class="media-option"></div>
+                                    <div class="media-option"></div>
+                                    <div class="media-option"></div>
+                                    <div class="media-option"></div>
+                                </div>
+                                <div class="media-count shell" style="display: none">
+                                    <div class="media-option selected">Character for a "cowrie shell" <div class="underline"></div></div>
+                                </div>
+                                <div class="slide-nav-wrapper slide-next">
+                                    <div class = "slide-nav-text">NEXT</div>
+                                    <div class = "slide-nav-highlight"></div>
+                                </div>
                             </div>
-                            <div class="media-count">
-                                <div class="media-option selected">Character for "horse" <div class="underline"></div></div>
-                                <div class="media-option"></div>
-                                <div class="media-option"></div>
-                                <div class="media-option"></div>
-                                <div class="media-option"></div>
-                            </div>
-                            <div class="slide-nav-wrapper slide-next">
-                                <div class = "slide-nav-text">NEXT</div>
-                                <div class = "slide-nav-highlight"></div>
-                            </div>
-                        </div>
                             <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
                         </div>
                     </div>
@@ -126,10 +129,24 @@
             {% endfor %}
         </ul>
     </div>
+
+    <div id="artifact-detail" style="display: none;">
+        <ul>
+            {% for i in artifact_detail_list %}
+                <li id="artifact{{i.artifact_id}}-detail" data-artifact-id="artifact{{i.artifact_id}}" data-artifact-name="{{i.artifact_name}}" data-label="{{i.label}}"
+                    data-dynasty-age="{{i.artifact_dynasty_age}}" data-questions="{{ i.questions }}"
+                    data-answers="{{i.answers}}">
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
     <script type="text/javascript">
         $(document).ready(function(){
             var caseId = "2-1_M2";
             var imagePath = "/static/attractscreen/media/" + caseId + "/assets/media/image/";
+            var questions = [];
+            var answers = [];
 
             setArtifactPanel();
 
@@ -208,12 +225,35 @@
                 }
             });
 
-            $('.content-subheader').on('click', 'span', function(){
+            $('.page').on('click', '.more', function(){
+
                 $('#content-wrapper').fadeOut(400);
                 $('#highlight').fadeOut(100);
 
+                setQA();
+
                 $('#content-detail-wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}, 800);
             });
+
+            function setQA(){
+                var selectedArtifactId = $('.artifact.selected').attr('id');
+                var artifactDetail = $('#'+ selectedArtifactId+'-detail');
+
+                questions = $(artifactDetail).data('questions').split('##$$##');
+                answers = $(artifactDetail).data('answers').split('##$$##');
+
+                var questionDivs = $('#content-detail-wrapper').find('.question');
+
+                for(var i=0; i < questionDivs.length; i++){
+                    $(questionDivs[i]).find('.text').text(questions[i]);
+                }
+
+                questionDivs.removeClass('selected');
+                questionDivs.first().addClass('selected');
+
+                $('.question-text').text(questions[0]);
+                $('.answer-text').text(answers[0]);
+            }
 
             $('#content-detail-wrapper').on('click', '.home', function(){
                 $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
@@ -222,22 +262,22 @@
                 $('#highlight').fadeIn(100);
             });
 
-
             $('#question-wrapper').on('click', '.question', function(){
                 $('.question').removeClass('selected');
                 $('.answer-btn').fadeIn(400);
 
                 if($(this).is($('.question')[0])){
-                    $('.line').css({top: 115});
+                    $('.line').css({top: 132});
                 }
                 else if ($(this).is($('.question')[1])){
-                    $('.line').css({top: 250});
+                    $('.line').css({top: 267});
                 }
                 else if ($(this).is($('.question')[2])){
-                    $('.line').css({top: 384});
+                    $('.line').css({top: 402});
                 }
 
-                $('.question-text').text($(this).find('.text').text());
+                $('.question-text').html(questions[$(this).index()]);
+                $('.answer-text').html(answers[$(this).index()]);
 
                 $(this).addClass('selected');
             });
@@ -247,8 +287,7 @@
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').fadeIn(400);
 
-                    $('.slide-next').fadeIn(400);
-                    $('.slide-prev').fadeIn(400);
+                    $('#media-wrapper').fadeIn(400);
                     $('#slider').fadeIn(400);
                     $('.highlight-legend').fadeIn(400);
                     $('#highlight').fadeIn(400);
@@ -256,20 +295,20 @@
                     var imgURLList = getImageList(artifactId);
                     var imgCaptionList = getCaptionList(artifactId);
 
-                    $('.content-header').html('How has Chinese writing has transformed over time? <span>tap here for more <i class=\"ion ion-log-in\"></i></span>');
+                    $('.content-header').html('How have characters first seen on Oracle Bones transformed over time? <span class="more">tap here for more <i class="ion ion-log-in"></i>');
+                    $('.media-count').fadeIn(0);
+                    $('.slide-nav-wrapper ').fadeIn(0);
+                    $('.shell').fadeOut(0);
                     $('.media-content').css('background-image',imgURLList[0]);
-                    $('.content-subheader').text(imgCaptionList[0]);
-                    $('.media-caption').text('Characters first seen on Oracle Bones transformed over time. Many are still recognizable in characters used in China today.');
-
-                    //$('.media-container').css({'justify-content': 'space-around'});
-                    $('.media-content').css({'height': '180px', 'width': '1250px', 'background-size': '1150px'});
+                    $('.media-option.selected').html(imgCaptionList[0] + ' <div class="underline"></div>');
+                    $('.media-content').css({'height': '200px', 'width': '1400px', 'background-size': '1250px'});
+                    $('.media-help').text('Encircled area shows characters in use over time');
+                    $('.media-content').css('margin','0 0');
                 }
                 else if($(artifactId).data('interactive-type') == "slideshow") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').fadeIn(400);
 
-                    $('.slide-next').fadeIn(400);
-                    $('.slide-prev').fadeIn(400);
                     $('#slider').fadeOut(400);
                     $('.highlight-legend').fadeOut(400);
                     $('#highlight').fadeOut(400);
@@ -277,12 +316,17 @@
                     var imgURLList = getImageList(artifactId);
                     var imgCaptionList = getCaptionList(artifactId);
 
-                    $('.content-header').html('What did the ancestors sound like? <span>tap here for more <i class=\"ion ion-log-in\"></i></span>');
-                    $('.media-content').css('background-image',imgURLList[0]);
-                    $('.content-subheader').text(imgCaptionList[0]);
-                    $('.media-caption').text('');
+                    $('.content-header').html('What did the ancestors sound like? <span class="more">tap here for more <i class=\"ion ion-log-in\"></i></span>');
 
+                    $('.media-option.selected').html(imgCaptionList[0] + ' <div class="underline"></div>');
+                    $('.media-count').fadeIn(0);
+                    $('.slide-nav-wrapper ').fadeIn(0);
+                    $('.shell').fadeOut(0);
+                    $('.media-content').css('background-image',imgURLList[0]);
                     $('.media-content').css({'height': '300px', 'width': '300px', 'background-size': 'contain'});
+                    $('.media-content').css('margin','0 auto');
+
+                    $('.media-help').text('The steps for Oracle bone divination');
                 }
                 else if($(artifactId).data('interactive-type') == "timeline") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
@@ -293,16 +337,20 @@
                     $('#slider').fadeIn(400);
                     $('.highlight-legend').fadeIn(400);
 
-
                     var imgURLList = getImageList(artifactId);
                     var imgCaptionList = getCaptionList(artifactId);
 
-                    $('.content-header').html('Why were shells used as money? <span>tap here for more <i class=\"ion ion-log-in\"></i></span>');
-                    $('.media-content').css('background-image',imgURLList[0]);
-                    $('.content-subheader').text(imgCaptionList[0]);
-                    $('.media-caption').text('The earliest Chinese character for “money” is a pictograph of a cowrie shell.');
+                    $('.media-count').fadeOut(0);
+                    $('.slide-nav-wrapper ').fadeOut(0);
+                    $('.shell').html('<div class="media-option selected">Character for a "cowrie shell" <div class="underline"></div></div>');
 
-                    $('.media-content').css({'height': '180px', 'width': '1250px', 'background-size': '1150px'});
+                    $('.shell').fadeIn(0);
+                    $('.content-header').html('Why were shells used as money? <span class="more">tap here for more <i class="ion ion-log-in"></i>');
+                    $('.media-content').css('background-image',imgURLList[0]);
+                    $('.media-option.selected').html(imgCaptionList[0] + ' <div class="underline"></div>');
+                    $('.media-content').css({'height': '200px', 'width': '1400px', 'background-size': '1250px'});
+                    $('.media-help').text('Encircled area shows characters in use over time');
+                    $('.media-content').css('margin','0 0');
                 }
                 else{
                     $('.slide-next').fadeOut(400);
@@ -314,9 +362,15 @@
                     $('#content-wrapper').fadeOut(400);
                     $('#highlight').fadeOut(100);
 
+                    setQA();
+
                     $('#content-detail-wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}, 800);
                 }
 
+                $('.detail-img').css('background-image',$('.artifact.selected').find('.img').css('background-image'));
+                $('.detail-label').text($('.artifact.selected').find('.label').text());
+                $('.detail-name').text($('.artifact.selected').find('.name').text());
+                $('.detail-dynasty').text($('#' + $('.artifact.selected').attr('id') + '-detail').data('dynasty-age'));
             }
 
             $( "#slider" ).slider({
@@ -333,6 +387,8 @@
 
                 $(".tooltip").css('left', $('.ui-slider-handle').position().left + 65);
                 $(".tooltip").fadeIn(400);
+
+                console.log($('#in-motion-highlight').position().left);
             } );
 
             $( "#slider" ).on( "slidestop", function( event, ui ) {
@@ -348,8 +404,7 @@
             } );
 
             var prevHighlightDims = [$('#highlight').position().left,$('#highlight').width()];
-            var moveHighlight = true;
-
+            var runningAnimation = false;
 
             $( "#slider" ).on( "slide", function(event, ui) {
                 var currentYear = $( "#slider" ).slider( "value");
@@ -359,25 +414,34 @@
                 //set tooltip position + display
                 $(".tooltip").css('left', $('.ui-slider-handle').position().left + 70);
 
-                var slope = 1100/3400;
-                var output = $('#highlight').position().left + slope * (currentYear - 50);
+                var leftMax = 3400;
+                var leftMin = 0;
+                var rightMax = 1000;
+                var rightMin = 25;
+
+                var leftSpan = leftMax - leftMin;
+                var rightSpan = rightMax - rightMin;
+                var valueScaled = parseFloat(currentYear - leftMin) / parseFloat(leftSpan);
+                var output = rightMin + (valueScaled * rightSpan);
 
                 var highlightDims = checkMilestone(currentYear);
 
-                if(moveHighlight && (highlightDims[0] != prevHighlightDims[0]) &&
-                                (highlightDims[1] != prevHighlightDims[1])){
-                    moveHighlight = false;
-                    $('#in-motion-highlight').animate({left: highlightDims[0], width: highlightDims[1]}, 400, function(){
-                        if(!moveHighlight){
-                            setTimeout(function(){ moveHighlight = true; }, 500);
-                        }
-                    });
+                if(!runningAnimation && highlightDims[1] != prevHighlightDims[1]){
+                    if($('#in-motion-highlight').position().left + highlightDims[1] < 1380){
+                        runningAnimation = true;
+
+                        $('#in-motion-highlight').animate({width: highlightDims[1]}, 400, function(){
+                            runningAnimation = false;
+                        });
+                    }
                     prevHighlightDims[0] = highlightDims[0];
                     prevHighlightDims[1] = highlightDims[1];
                 }
 
-                if(moveHighlight && parseInt($("#in-motion-highlight").position().left + $("#in-motion-highlight").width()) < 1350) {
-                    $('#in-motion-highlight').css('left', output);
+                if(!runningAnimation) {
+                    if($('#in-motion-highlight').position().left + $('#in-motion-highlight').width() < 1380){
+                        $('#in-motion-highlight').css('left', output);
+                    }
                 }
 
                 if(currentYear <= 1400){
@@ -389,8 +453,6 @@
             });
 
             function checkMilestone(currentYear) {
-                console.log(currentYear);
-
                 var left = 0;
                 var width = 0;
 
@@ -485,7 +547,11 @@
                     captionsList.push('Character for \"moon\"');
                 }
                 else if(artifactId == "#artifact1"){
-                    captionsList.push('The steps for an Oracle Bone divination');
+                    captionsList.push('Step 1 of 5');
+                    captionsList.push('Step 2 of 5');
+                    captionsList.push('Step 3 of 5');
+                    captionsList.push('Step 4 of 5');
+                    captionsList.push('Step 4 of 5');
                 }
                 else if(artifactId == "#artifact3"){
                     captionsList.push('Character for a \"cowrie shell\"');

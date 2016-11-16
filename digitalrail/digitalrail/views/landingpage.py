@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import loader
 
 
-from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact
+from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactQA
 
 def index(request):
     #return HttpResponse("Hello Digital Rail")
@@ -111,6 +111,14 @@ def slidemain(request):
 
     rail_data['artifact_list'] = artifact_list
 
-    print(rail_data)
+    artifact_detail_list = []
+    for artifact in artifacts:
+        artifact_qa = ArtifactQA.objects.get(artifact = artifact)
+        temp_artifact_qa = {'artifact_id': artifact.artifact_id, 'artifact_name': artifact_qa.artifact_name,
+                         'label': artifact_qa.artifact_label, 'artifact_dynasty_age': artifact_qa.artifact_dynasty_age,
+                         'questions': artifact_qa.artifact_questions, 'answers': artifact_qa.artifact_answers}
+        artifact_detail_list.append(temp_artifact_qa)
+
+    rail_data['artifact_detail_list'] = artifact_detail_list
 
     return render(request, 'digitalrail/attractscreen/slidemain.html', rail_data)
