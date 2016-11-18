@@ -318,6 +318,7 @@
                 else if($(artifactId).data('interactive-type') == "slideshow") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
+                    $('#highlight').fadeOut(400);
 
 
                     $('.extras').fadeIn(200);
@@ -349,7 +350,7 @@
                     $('.slide-next').fadeOut(400);
                     $('.slide-prev').fadeOut(400);
                     $('#slider').fadeIn(400);
-                    $('#highlight').fadeIn(100);
+                    $('#highlight').fadeIn(400);
                     $('.highlight-legend').fadeIn(400);
 
                     var imgURLList = getImageList(artifactId);
