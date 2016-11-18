@@ -90,13 +90,27 @@ body {
         .page .left-segment #content-wrapper #media-wrapper .media-content {
           height: 200px;
           width: 1400px;
+          margin-top: 10px;
           background: url("/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_1_Long.png") no-repeat center;
           background-size: 1250px; }
+          .page .left-segment #content-wrapper #media-wrapper .media-content .extras {
+            display: none;
+            width: 270px;
+            top: 240px;
+            left: 20px;
+            position: relative;
+            border: #D9D4C2 solid 1px;
+            border-radius: 7px;
+            background-color: #424242;
+            font-size: 10pt;
+            text-align: justify;
+            padding: 2px 4px 2px 4px;
+            opacity: 0.8; }
         .page .left-segment #content-wrapper #media-wrapper .media-caption {
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          margin: 10px 55px 0px 50px; }
+          margin-bottom: 10px; }
           .page .left-segment #content-wrapper #media-wrapper .media-caption .media-help {
             font-size: 10pt;
             text-transform: uppercase;
@@ -118,12 +132,13 @@ body {
                 border-radius: 3px;
                 background-color: #838C9E; }
             .page .left-segment #content-wrapper #media-wrapper .media-caption .media-nav .media-count {
-              width: 300px;
+              width: 330px;
               display: flex;
               flex-direction: row;
               justify-content: space-around;
               padding-left: 10px;
-              padding-right: 10px; }
+              padding-right: 10px;
+              font-size: 14pt; }
               .page .left-segment #content-wrapper #media-wrapper .media-caption .media-nav .media-count .media-option {
                 width: 15px;
                 height: 15px;
@@ -131,17 +146,19 @@ body {
                 border-radius: 50%;
                 border: 2px #888678 solid; }
                 .page .left-segment #content-wrapper #media-wrapper .media-caption .media-nav .media-count .media-option .underline {
-                  width: 160px;
+                  width: 190px;
                   height: 3px;
                   border-radius: 3px;
                   background-color: #838C9E;
                   margin-left: 10px; }
               .page .left-segment #content-wrapper #media-wrapper .media-caption .media-nav .media-count .media-option.selected {
-                width: 185px;
+                width: 215px;
                 border-radius: 0px;
                 background-color: transparent;
                 text-align: center;
                 border: none; }
+              .page .left-segment #content-wrapper #media-wrapper .media-caption .media-nav .media-count .media-option.shell.selected {
+                width: 250px; }
           .page .left-segment #content-wrapper #media-wrapper .media-caption .media-rights {
             font-size: 10pt;
             text-transform: uppercase;
@@ -171,7 +188,7 @@ body {
       width: 130px;
       height: 185px;
       left: 45px;
-      top: 135px;
+      top: 165px;
       border-radius: 60px;
       border: 3px solid #F38A5D;
       opacity: 0.5; }
@@ -181,7 +198,7 @@ body {
       width: 130px;
       height: 150px;
       left: 45px;
-      top: 175px;
+      top: 205px;
       border-bottom: 5px solid #888678; }
     .page .left-segment .tooltip {
       position: absolute;
@@ -226,12 +243,15 @@ body {
       flex-direction: row;
       justify-content: space-around;
       align-items: center;
-      height: 502px; }
+      height: 502px;
+      width: 1440px;
+      position: absolute;
+      top: 0px; }
       .page .left-segment #content-detail-wrapper .line {
         width: 135px;
         height: 3px;
         background-color: #D9D4C2;
-        top: 132px;
+        top: 115px;
         left: 855px;
         position: absolute; }
       .page .left-segment #content-detail-wrapper .home {
@@ -322,7 +342,7 @@ body {
           margin-bottom: 10px; }
         .page .left-segment #content-detail-wrapper #answer-wrapper .answer-text {
           width: 385px;
-          height: 280px;
+          height: 320px;
           text-align: justify;
           font-size: 12.5pt;
           padding: 25px;

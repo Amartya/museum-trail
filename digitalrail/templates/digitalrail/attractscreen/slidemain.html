@@ -40,13 +40,12 @@
         <!--Attract Screen-->
         <div class="page" id="main-screen">
             <div class="left-segment">
-                <div class="case-header">Ancient innovations that shaped the Bronze Age. </div>
+                <div class="case-header">What ancient innovations shaped the Bronze Age? </div>
                 <div id="content-wrapper">
                     <div class="content-header">How have characters first seen on Oracle Bones transformed over time? <span class="more">tap here for more <i class="ion ion-log-in"></i></span></div>
                     <div id="media-wrapper">
-                        <div class="media-content" data-index="0"></div>
                         <div class="media-caption">
-                            <div class="media-help">Encircled area shows characters in use over time</div>
+                            <div class="media-help" style="visibility: hidden">Encircled area shows characters in use over time</div>
                             <div class="media-nav">
                                 <div class="slide-nav-wrapper slide-prev">
                                     <div class = "slide-nav-text">PREV</div>
@@ -67,7 +66,10 @@
                                     <div class = "slide-nav-highlight"></div>
                                 </div>
                             </div>
-                            <div class="media-rights">&#169; the field museum, illustrator sayaka isowa</div>
+                            <div class="media-rights" style="visibility: hidden">&#169; the field museum, illustrator sayaka isowa</div>
+                        </div>
+                        <div class="media-content" data-index="0">
+                            <div class="extras"></div>
                         </div>
                     </div>
                     <div id="slider"></div>
@@ -106,7 +108,6 @@
 
                     <div id="answer-wrapper">
                         <div class="answer">
-                            <div class="question-text">When did writing emerge in China?</div>
                             <div class="answer-text">There is no way to tell exactly when or how writing emerged in China because the earliest writing--possibly inscribed on bamboo or fabric--have long since disappeared. <br>But we do have evidence of a fully functioning writing system by the second half of the Shang Dynasty (c. 1600–1046 BC), thanks to the durability of the material it was written on: bone. These pieces were used in rituals to try to foretell the future, so they are known as “oracle bones.”</div>
                         </div>
                     </div>
@@ -226,13 +227,12 @@
             });
 
             $('.page').on('click', '.more', function(){
-
-                $('#content-wrapper').fadeOut(400);
+                $('#content-wrapper').css('visibility', "hidden");
                 $('#highlight').fadeOut(100);
 
                 setQA();
 
-                $('#content-detail-wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}, 800);
+                $('#content-detail-wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}, 600);
             });
 
             function setQA(){
@@ -251,41 +251,50 @@
                 questionDivs.removeClass('selected');
                 questionDivs.first().addClass('selected');
 
-                $('.question-text').text(questions[0]);
                 $('.answer-text').text(answers[0]);
+                setLine(0);
             }
 
             $('#content-detail-wrapper').on('click', '.home', function(){
-                $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
+                $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 600);
 
-                $('#content-wrapper').fadeIn(400);
+                $('#content-wrapper').css('visibility', "visible");
                 $('#highlight').fadeIn(100);
             });
 
             $('#question-wrapper').on('click', '.question', function(){
+                var index = $(this).index();
                 $('.question').removeClass('selected');
                 $('.answer-btn').fadeIn(400);
 
-                if($(this).is($('.question')[0])){
-                    $('.line').css({top: 132});
-                }
-                else if ($(this).is($('.question')[1])){
-                    $('.line').css({top: 267});
-                }
-                else if ($(this).is($('.question')[2])){
-                    $('.line').css({top: 402});
-                }
-
-                $('.question-text').html(questions[$(this).index()]);
-                $('.answer-text').html(answers[$(this).index()]);
+                setLine(index);
+                $('.answer-text').html(answers[index]);
 
                 $(this).addClass('selected');
             });
 
+            function setLine(index){
+                if(index == 0){
+                    $('.line').animate({top: 115});
+                }
+                else if (index == 1){
+                    $('.line').animate({top: 250});
+                }
+                else if (index == 2){
+                    $('.line').animate({top: 385});
+                }
+            }
+
+            function setExtras(index, stepList){
+                var left = 20 + index * 260;
+                $('.extras').animate({left: left});
+                $('.extras').text(stepList[index]);
+            }
+
             function selectArtifact(artifactId){
                 if($(artifactId).data('interactive-type') == "slideshow&timeline"){
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
-                    $('#content-wrapper').fadeIn(400);
+                    $('#content-wrapper').css('visibility', "visible");
 
                     $('#media-wrapper').fadeIn(400);
                     $('#slider').fadeIn(400);
@@ -299,6 +308,7 @@
                     $('.media-count').fadeIn(0);
                     $('.slide-nav-wrapper ').fadeIn(0);
                     $('.shell').fadeOut(0);
+                    $('.extras').fadeOut(0);
                     $('.media-content').css('background-image',imgURLList[0]);
                     $('.media-option.selected').html(imgCaptionList[0] + ' <div class="underline"></div>');
                     $('.media-content').css({'height': '200px', 'width': '1400px', 'background-size': '1250px'});
@@ -307,7 +317,12 @@
                 }
                 else if($(artifactId).data('interactive-type') == "slideshow") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
-                    $('#content-wrapper').fadeIn(400);
+                    $('#content-wrapper').css('visibility', "visible");
+
+
+                    $('.extras').fadeIn(200);
+                    var stepList = getDivinationSteps();
+                    setExtras(0, stepList);
 
                     $('#slider').fadeOut(400);
                     $('.highlight-legend').fadeOut(400);
@@ -323,18 +338,18 @@
                     $('.slide-nav-wrapper ').fadeIn(0);
                     $('.shell').fadeOut(0);
                     $('.media-content').css('background-image',imgURLList[0]);
-                    $('.media-content').css({'height': '300px', 'width': '300px', 'background-size': 'contain'});
                     $('.media-content').css('margin','0 auto');
 
                     $('.media-help').text('The steps for Oracle bone divination');
                 }
                 else if($(artifactId).data('interactive-type') == "timeline") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
-                    $('#content-wrapper').fadeIn(400);
+                    $('#content-wrapper').css('visibility', "visible");
 
                     $('.slide-next').fadeOut(400);
                     $('.slide-prev').fadeOut(400);
                     $('#slider').fadeIn(400);
+                    $('#highlight').fadeIn(100);
                     $('.highlight-legend').fadeIn(400);
 
                     var imgURLList = getImageList(artifactId);
@@ -342,9 +357,10 @@
 
                     $('.media-count').fadeOut(0);
                     $('.slide-nav-wrapper ').fadeOut(0);
-                    $('.shell').html('<div class="media-option selected">Character for a "cowrie shell" <div class="underline"></div></div>');
+                    $('.shell').html('<div class="media-option shell selected">Character for a "cowrie shell" <div class="underline"></div></div>');
 
                     $('.shell').fadeIn(0);
+                    $('.extras').fadeOut(0);
                     $('.content-header').html('Why were shells used as money? <span class="more">tap here for more <i class="ion ion-log-in"></i>');
                     $('.media-content').css('background-image',imgURLList[0]);
                     $('.media-option.selected').html(imgCaptionList[0] + ' <div class="underline"></div>');
@@ -359,8 +375,9 @@
                     $('.highlight-legend').fadeOut(400);
                     $('#highlight').fadeOut(400);
 
-                    $('#content-wrapper').fadeOut(400);
+                    $('#content-wrapper').css('visibility', "hidden");
                     $('#highlight').fadeOut(100);
+                    $('.extras').fadeOut(100);
 
                     setQA();
 
@@ -387,8 +404,6 @@
 
                 $(".tooltip").css('left', $('.ui-slider-handle').position().left + 65);
                 $(".tooltip").fadeIn(400);
-
-                console.log($('#in-motion-highlight').position().left);
             } );
 
             $( "#slider" ).on( "slidestop", function( event, ui ) {
@@ -493,10 +508,14 @@
                 if(prevImgIndex < 0){
                     prevImgIndex = imgURLList.length - 1;
                 }
-                $('.media-content').css('background-image',imgURLList[prevImgIndex]);
+                if(artifactId != "#artifact1") {
+                    $('.media-content').css('background-image', imgURLList[prevImgIndex]);
+                }
                 $('.media-content').data('index', prevImgIndex);
-
                 setSlideNavigationStatus(prevImgIndex, imgCaptionList);
+
+                var stepList = getDivinationSteps();
+                setExtras(prevImgIndex, stepList);
             });
 
             $('.page').on('click', '.slide-next', function(event){
@@ -505,11 +524,15 @@
                 var imgCaptionList = getCaptionList(artifactId);
                 var nextImgIndex = ($('.media-content').data('index') + 1) % imgURLList.length;
 
-                //set background img
-                $('.media-content').css('background-image',imgURLList[nextImgIndex]);
+                //set background img in slideshow only if it's not the divination slideshow
+                if(artifactId != "#artifact1"){
+                    $('.media-content').css('background-image',imgURLList[nextImgIndex]);
+                }
                 $('.media-content').data('index', nextImgIndex);
-
                 setSlideNavigationStatus(nextImgIndex, imgCaptionList);
+
+                var stepList = getDivinationSteps();
+                setExtras(nextImgIndex, stepList);
             });
 
             function getImageList(artifactId){
@@ -523,7 +546,7 @@
                     imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_5_Long.png" + '\")');
                 }
                 else if(artifactId == "#artifact1"){
-                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_1.png" + '\")');
+                    imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_1_Long.png" + '\")');
                     imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_2.png" + '\")');
                     imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_3.png" + '\")');
                     imgURLList.push('url(\"' + "/static/attractscreen/media/2-1_M2/assets/media/image/2.1_M2_B2_S2_4.png" + '\")');
@@ -551,13 +574,25 @@
                     captionsList.push('Step 2 of 5');
                     captionsList.push('Step 3 of 5');
                     captionsList.push('Step 4 of 5');
-                    captionsList.push('Step 4 of 5');
+                    captionsList.push('Step 5 of 5');
                 }
                 else if(artifactId == "#artifact3"){
                     captionsList.push('Character for a \"cowrie shell\"');
                 }
 
                 return captionsList;
+            }
+
+            function getDivinationSteps(){
+                var stepsList = [];
+
+                stepsList.push('The shoulder blades, or scapulae, from cattle or the front of turtle shells, or plastrons, were cleaned and polished on one side.');
+                stepsList.push('The other side had small pits bored in rows.');
+                stepsList.push('A diviner inserted a heated thorn or piece of metal into one of the pits bored into the bones.');
+                stepsList.push('The bone cracked, making a \"puk\" sound');
+                stepsList.push('The king then interpreted the shape of the crack as a lucky or auspicious answer to his question, or an unlucky or inauspicious answer');
+
+                return stepsList;
             }
 
             //sets the status of the slideshow
