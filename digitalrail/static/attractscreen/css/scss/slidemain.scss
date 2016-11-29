@@ -142,6 +142,7 @@ body {
           cursor: pointer;
           opacity: 1.0;
           margin-left: 10px;
+          color: #838C9E;
         }
       }
 
@@ -186,22 +187,20 @@ body {
           }
 
           .media-nav{
-            width: 425px;
+            width: 450px;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             margin: 0 auto;
 
             .slide-nav-wrapper{
-              width: 40px;
-              height: 20px;
+              width: 60px;
+              height: 30px;
               cursor: pointer;
-
-              .slide-nav-highlight{
-                height: 3px;
-                border-radius: 3px;
-                background-color:#838C9E
-              }
+              border: 2px solid #838C9E;
+              border-radius: 15px;
+              text-align: center;
+              line-height: 30px;
             }
 
             .media-count{
@@ -212,6 +211,7 @@ body {
               padding-left: 10px;
               padding-right: 10px;
               font-size: 14pt;
+              align-items: center;
 
               .media-option{
                 width: 15px;
@@ -283,7 +283,7 @@ body {
       width: 130px;
       height: 185px;
       left: 45px;
-      top: 165px;
+      top: 175px;
       border-radius: 60px;
       border: 3px solid #F38A5D;
       opacity: 0.5;
@@ -295,13 +295,13 @@ body {
       width: 130px;
       height: 150px;
       left: 45px;
-      top: 205px;
+      top: 215px;
       border-bottom: 5px solid #888678;
     }
 
     .tooltip {
       position: absolute;
-      top: 385px;
+      top: 395px;
       left: 15px;
       display: none;
 

@@ -49,7 +49,6 @@
                             <div class="media-nav">
                                 <div class="slide-nav-wrapper slide-prev">
                                     <div class = "slide-nav-text">PREV</div>
-                                    <div class = "slide-nav-highlight"></div>
                                 </div>
                                 <div class="media-count">
                                     <div class="media-option selected">Character for "horse" <div class="underline"></div></div>
@@ -63,7 +62,6 @@
                                 </div>
                                 <div class="slide-nav-wrapper slide-next">
                                     <div class = "slide-nav-text">NEXT</div>
-                                    <div class = "slide-nav-highlight"></div>
                                 </div>
                             </div>
                             <div class="media-rights" style="visibility: hidden">&#169; the field museum, illustrator sayaka isowa</div>
@@ -108,7 +106,7 @@
 
                     <div id="answer-wrapper">
                         <div class="answer">
-                            <div class="answer-text">There is no way to tell exactly when or how writing emerged in China because the earliest writing--possibly inscribed on bamboo or fabric--have long since disappeared. <br>But we do have evidence of a fully functioning writing system by the second half of the Shang Dynasty (c. 1600–1046 BC), thanks to the durability of the material it was written on: bone. These pieces were used in rituals to try to foretell the future, so they are known as “oracle bones.”</div>
+                            <div class="answer-text">There is no way to tell exactly when or how writing emerged in China ackecause the earliest writing--possibly inscribed on bamboo or fabric--have long since disappeared. <br>But we do have evidence of a fully functioning writing system by the second half of the Shang Dynasty (c. 1600–1046 BC), thanks to the durability of the material it was written on: bone. These pieces were used in rituals to try to foretell the future, so they are known as “oracle bones.”</div>
                         </div>
                     </div>
                 </div>
@@ -256,10 +254,17 @@
             }
 
             $('#content-detail-wrapper').on('click', '.home', function(){
-                $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 600);
+                var artifactId = '#' + $('.artifact.selected').attr('id');
 
+                $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 600);
                 $('#content-wrapper').css('visibility', "visible");
-                $('#highlight').fadeIn(100);
+
+                if($(artifactId).data('interactive-type').indexOf('timeline') == -1){
+                    $('#highlight').fadeOut(0);
+                }
+                else{
+                     $('#highlight').fadeIn(100);
+                }
             });
 
             $('#question-wrapper').on('click', '.question', function(){
