@@ -297,6 +297,8 @@
             }
 
             function selectArtifact(artifactId){
+                $('.underline').css('width','190px');
+
                 if($(artifactId).data('interactive-type') == "slideshow&timeline"){
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
@@ -351,9 +353,6 @@
                 else if($(artifactId).data('interactive-type') == "timeline") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
-
-                    $('.slide-next').fadeOut(400);
-                    $('.slide-prev').fadeOut(400);
                     $('#slider').fadeIn(400);
                     $('#highlight').fadeIn(400);
                     $('.highlight-legend').fadeIn(400);
@@ -364,8 +363,8 @@
                     $('.media-count').fadeOut(0);
                     $('.slide-nav-wrapper ').fadeOut(0);
                     $('.shell').html('<div class="media-option shell selected">Character for a "cowrie shell" <div class="underline"></div></div>');
-
                     $('.shell').fadeIn(0);
+
                     $('.extras').fadeOut(0);
                     $('.content-header').html('Why were shells used as money? <span class="more">tap here for more <i class="ion ion-log-in"></i>');
                     $('.media-content').css('background-image',imgURLList[0]);
@@ -373,6 +372,8 @@
                     $('.media-content').css({'height': '200px', 'width': '1400px', 'background-size': '1250px'});
                     $('.media-help').text('Encircled area shows characters in use over time');
                     $('.media-content').css('margin','0 0');
+
+                    $('.underline').css('width','225px');
                 }
                 else{
                     $('.slide-next').fadeOut(400);
