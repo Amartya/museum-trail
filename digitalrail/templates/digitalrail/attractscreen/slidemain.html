@@ -71,6 +71,8 @@
                         </div>
                     </div>
                     <div id="slider"></div>
+                    <div class="shaded-timeline">
+                    </div>
                     <div class="highlight-legend"></div>
                 </div>
                 <div id="highlight"></div>
@@ -147,6 +149,9 @@
             var questions = [];
             var answers = [];
 
+            var timeoutDuration = {{timeout}} * 1000;
+            var railTimer;
+
             setArtifactPanel();
 
             //-------------------------------------------------------------------
@@ -185,42 +190,12 @@
             //-------------------------------------------------------------------
             $('.page').on('click', '.artifact', function(){
                 if(!$(this).hasClass('selected')){
-                    $('.artifact').removeClass('selected');
-                    $('.artifact').removeClass('selected-anim-left');
-                    $('.artifact').removeClass('selected-anim-right');
-                    $('.artifact').find('.more').css('display','none');
-
-                    $('.artifact').find('.img').addClass('blur');
-                    $('.artifact').find('.name').addClass('blur');
-                    $('.artifact').find('.overlay').fadeIn(100);
-
-                    $(this).find('.overlay').fadeOut(100);
-                    $(this).find('*').removeClass('blur');
-
-                    //-------------------------------------------------------------------
-                    //detect whether it's an even/odd element in grid, to ensure that
-                    //only the items on the first/left column slide to the left.
-                    var artifactArr = $("#artifact-wrapper .artifact:nth-child(even)");
-                    var clickedArtifact = $(this)[0];
-
-                    var oddElement = true;
-                    for(var i=0; i < artifactArr.length; i++){
-                        if($(clickedArtifact).is(artifactArr[i])){
-                            oddElement = false;
-                            break;
-                        }
-                    }
-
-                    $(this).addClass("selected");
-                    if(oddElement){
-                        $(this).addClass('selected-anim-left');
-                    }
-                    else{
-                        $(this).addClass('selected-anim-right');
-                    }
-                    //-------------------------------------------------------------------
+                    selectArtifactFromGrid(this);
 
                     selectArtifact("#" + $(this).attr('id'));
+
+                    clearTimeout(railTimer);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
                 }
             });
 
@@ -231,11 +206,21 @@
                 setQA();
 
                 $('#content-detail-wrapper').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0}, 600);
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             });
 
             function setQA(){
                 var selectedArtifactId = $('.artifact.selected').attr('id');
                 var artifactDetail = $('#'+ selectedArtifactId+'-detail');
+
+                if(selectedArtifactId == "artifact2"){
+                    $('.home').fadeOut(0);
+                }
+                else{
+                    $('.home').fadeIn(0);
+                }
 
                 questions = $(artifactDetail).data('questions').split('##$$##');
                 answers = $(artifactDetail).data('answers').split('##$$##');
@@ -265,6 +250,9 @@
                 else{
                      $('#highlight').fadeIn(100);
                 }
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             });
 
             $('#question-wrapper').on('click', '.question', function(){
@@ -276,6 +264,9 @@
                 $('.answer-text').html(answers[index]);
 
                 $(this).addClass('selected');
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             });
 
             function setLine(index){
@@ -305,6 +296,7 @@
 
                     $('#media-wrapper').fadeIn(400);
                     $('#slider').fadeIn(400);
+                    $('.shaded-timeline').fadeIn(400);
                     $('.highlight-legend').fadeIn(400);
                     $('#highlight').fadeIn(400);
 
@@ -325,13 +317,14 @@
                 else if($(artifactId).data('interactive-type') == "slideshow") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
+
                     $('#highlight').fadeOut(400);
 
-
-                    $('.extras').fadeIn(200);
+                    $('.extras').fadeIn(400);
                     var stepList = getDivinationSteps();
                     setExtras(0, stepList);
 
+                    $('.shaded-timeline').fadeOut(200);
                     $('#slider').fadeOut(400);
                     $('.highlight-legend').fadeOut(400);
                     $('#highlight').fadeOut(400);
@@ -353,6 +346,9 @@
                 else if($(artifactId).data('interactive-type') == "timeline") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
+                    $('.extras').fadeOut(0);
+
+                    $('.shaded-timeline').fadeIn(400);
                     $('#slider').fadeIn(400);
                     $('#highlight').fadeIn(400);
                     $('.highlight-legend').fadeIn(400);
@@ -365,7 +361,7 @@
                     $('.shell').html('<div class="media-option shell selected">Character for a "cowrie shell" <div class="underline"></div></div>');
                     $('.shell').fadeIn(0);
 
-                    $('.extras').fadeOut(0);
+
                     $('.content-header').html('Why were shells used as money? <span class="more">tap here for more <i class="ion ion-log-in"></i>');
                     $('.media-content').css('background-image',imgURLList[0]);
                     $('.media-option.selected').html(imgCaptionList[0] + ' <div class="underline"></div>');
@@ -378,9 +374,11 @@
                 else{
                     $('.slide-next').fadeOut(400);
                     $('.slide-prev').fadeOut(400);
+                    $('.shaded-timeline').fadeOut(400);
                     $('#slider').fadeOut(400);
                     $('.highlight-legend').fadeOut(400);
                     $('#highlight').fadeOut(400);
+
 
                     $('#content-wrapper').css('visibility', "hidden");
                     $('#highlight').fadeOut(100);
@@ -397,13 +395,48 @@
                 $('.detail-dynasty').text($('#' + $('.artifact.selected').attr('id') + '-detail').data('dynasty-age'));
             }
 
+            function selectArtifactFromGrid(artifact){
+                $('.artifact').removeClass('selected');
+                $('.artifact').removeClass('selected-anim-left');
+                $('.artifact').removeClass('selected-anim-right');
+                $('.artifact').find('.more').css('display','none');
+
+                $('.artifact').find('.img').addClass('blur');
+                $('.artifact').find('.name').addClass('blur');
+                $('.artifact').find('.overlay').fadeIn(100);
+
+                $(artifact).find('.overlay').fadeOut(100);
+                $(artifact).find('*').removeClass('blur');
+
+                //-------------------------------------------------------------------
+                //detect whether it's an even/odd element in grid, to ensure that
+                //only the items on the first/left column slide to the left.
+                var artifactArr = $("#artifact-wrapper .artifact:nth-child(even)");
+                var clickedArtifact = $(artifact)[0];
+
+                var oddElement = true;
+                for(var i=0; i < artifactArr.length; i++){
+                    if($(clickedArtifact).is(artifactArr[i])){
+                        oddElement = false;
+                        break;
+                    }
+                }
+
+                $(artifact).addClass("selected");
+                if(oddElement){
+                    $(artifact).addClass('selected-anim-left');
+                }
+                else{
+                    $(artifact).addClass('selected-anim-right');
+                }
+            }
+
             $( "#slider" ).slider({
                 min: 0,
                 max: 3400,
                 step: 1,
                 animate: "slow",
                 orientation: "horizontal"
-
             });
 
             $( "#slider" ).on( "slidestart", function( event, ui ) {
@@ -411,6 +444,9 @@
 
                 $(".tooltip").css('left', $('.ui-slider-handle').position().left + 65);
                 $(".tooltip").fadeIn(400);
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             } );
 
             $( "#slider" ).on( "slidestop", function( event, ui ) {
@@ -421,8 +457,13 @@
                 $('#highlight').animate({left: highlightDims[0], width: highlightDims[1]}, 500);
                 $('#highlight').animate({'border-width': '3px', opacity: "1.0", 'border-color': "#F38A5D"}, 500);
 
+                $('.shaded-timeline').animate({left: highlightDims[2], width: highlightDims[3]}, 500);
+
                 $("#in-motion-highlight").fadeOut(400);
                 $(".tooltip").fadeOut(400);
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             } );
 
             var prevHighlightDims = [$('#highlight').position().left,$('#highlight').width()];
@@ -438,7 +479,7 @@
 
                 var leftMax = 3400;
                 var leftMin = 0;
-                var rightMax = 1000;
+                var rightMax = 1225;
                 var rightMin = 25;
 
                 var leftSpan = leftMax - leftMin;
@@ -448,23 +489,24 @@
 
                 var highlightDims = checkMilestone(currentYear);
 
-                if(!runningAnimation && highlightDims[1] != prevHighlightDims[1]){
-                    if($('#in-motion-highlight').position().left + highlightDims[1] < 1380){
-                        runningAnimation = true;
-
-                        $('#in-motion-highlight').animate({width: highlightDims[1]}, 400, function(){
-                            runningAnimation = false;
-                        });
-                    }
-                    prevHighlightDims[0] = highlightDims[0];
-                    prevHighlightDims[1] = highlightDims[1];
-                }
-
-                if(!runningAnimation) {
-                    if($('#in-motion-highlight').position().left + $('#in-motion-highlight').width() < 1380){
-                        $('#in-motion-highlight').css('left', output);
-                    }
-                }
+                $('#in-motion-highlight').css({left: output});
+{#                if(!runningAnimation && highlightDims[1] != prevHighlightDims[1]){#}
+{#                    if($('#in-motion-highlight').position().left + highlightDims[1] < 1380){#}
+{#                        runningAnimation = true;#}
+{##}
+{#                        $('#in-motion-highlight').animate({width: highlightDims[1]}, 400, function(){#}
+{#                            runningAnimation = false;#}
+{#                        });#}
+{#                    }#}
+{#                    prevHighlightDims[0] = highlightDims[0];#}
+{#                    prevHighlightDims[1] = highlightDims[1];#}
+{#                }#}
+{##}
+{#                if(!runningAnimation) {#}
+{#                    if($('#in-motion-highlight').position().left + $('#in-motion-highlight').width() < 1380){#}
+{#                        $('#in-motion-highlight').css('left', output);#}
+{#                    }#}
+{#                }#}
 
                 if(currentYear <= 1400){
                    $(".tooltiptext").text((1400-currentYear).toString() + " BC");
@@ -472,38 +514,53 @@
                 else{
                    $(".tooltiptext").text((currentYear - 1400).toString() + " AD");
                 }
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             });
 
             function checkMilestone(currentYear) {
                 var left = 0;
                 var width = 0;
+                var shadeLeft = 0;
+                var shadeWidth = 0;
 
                 if(currentYear < 300){
                     left = 45;
-                    width = 125;
+                    width = 123;
+                    shadeLeft = 0;
+                    shadeWidth = 125;
                 }
 
                 if(currentYear >= 300 && currentYear < 1100){
                     left = 170;
                     width = 300;
+                    shadeLeft = 114;
+                    shadeWidth = 323;
                 }
 
                 else if(currentYear >= 1100 && currentYear < 1600){
                     left = 480;
                     width = 300;
+                    shadeLeft = 428;
+                    shadeWidth = 201;
                 }
 
                 else if(currentYear >= 1600 && currentYear < 3350){
                     left = 480;
                     width = 740;
+                    shadeLeft = 428;
+                    shadeWidth = 883;
                 }
 
                 else if(currentYear >= 3350){
                     left = 480;
                     width = 900;
+                    shadeLeft = 428;
+                    shadeWidth = 901;
                 }
 
-                return [left, width];
+                return [left, width, shadeLeft, shadeWidth];
             }
 
             $('.page').on('click', '.slide-prev', function(event){
@@ -523,6 +580,9 @@
 
                 var stepList = getDivinationSteps();
                 setExtras(prevImgIndex, stepList);
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             });
 
             $('.page').on('click', '.slide-next', function(event){
@@ -540,6 +600,9 @@
 
                 var stepList = getDivinationSteps();
                 setExtras(nextImgIndex, stepList);
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
             });
 
             function getImageList(artifactId){
@@ -611,6 +674,11 @@
                 var nextElement = $($('.media-count').find('.media-option')[slideIndex]);
                 nextElement.html(imgCaptionList[slideIndex] + "<div class=\"underline\"></div></div>");
                 nextElement.addClass('selected');
+            }
+
+            function goBackToHome(){
+                selectArtifactFromGrid($('#artifact0'));
+                selectArtifact('#artifact0');
             }
         });
     </script>
