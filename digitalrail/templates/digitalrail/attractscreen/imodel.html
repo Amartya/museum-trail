@@ -494,8 +494,8 @@
 
                 displayMedia();
 
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
             });
 
             //-------------------------------------------------------------------
@@ -526,8 +526,8 @@
                         }
                     }
                 }
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
             });
 
 
@@ -584,8 +584,8 @@
 
                 $('#selected-media-status').text((nextImgIndex+1).toString() + ' of ' + imgURLList.length);
 
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
             });
 
             $('.large-media-wrapper').on('click','.media-prev', function(){
@@ -602,8 +602,8 @@
 
                 $('#selected-media-status').text((prevImgIndex+1).toString() + ' of ' + imgURLList.length);
 
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
             });
 
             function getImageList(){
@@ -656,7 +656,7 @@
 
                 $('#case-highlight').fadeIn(400);
 
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
             });
 
             function goBackToHome(){
@@ -676,7 +676,7 @@
 
                 $('#case-highlight').fadeOut(0);
 
-                clearInterval(railTimer);
+                clearTimeout(railTimer);
             }
 
             //-------------------------------------------------------------------
@@ -723,8 +723,8 @@
                     $('#home-bar').fadeIn(400);
                 });
 
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
             });
 
             //-------------------------------------------------------------------
@@ -737,8 +737,8 @@
                 $('#detail-screen').addClass('right-page-hidden');
                 $('#attract-artifacts').removeClass('left-page-hidden');
 
-                clearInterval(railTimer);
-                railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
             });
 
             //-------------------------------------------------------------------

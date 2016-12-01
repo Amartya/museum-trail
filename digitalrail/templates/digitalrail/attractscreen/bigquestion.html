@@ -452,8 +452,8 @@
 
                     displayMedia();
 
-                    clearInterval(railTimer);
-                    railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                    clearTimeout(railTimer);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
                 });
 
                 //-------------------------------------------------------------------
@@ -494,7 +494,7 @@
 
                     var targetDiv = '#' + artifactId +  "-detail-story-" + storyNum.toString();
 
-                    clearInterval(questionTimer);
+                    clearTimeout(questionTimer);
 
                     $('#detail-content-scroll').animate({
                         scrollTop: $(targetDiv).position().top
@@ -506,7 +506,7 @@
                     });
 
                     //set the timer to go back to home screen
-                    railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
                 });
 
                 function goBackToHome(){
@@ -515,11 +515,11 @@
                     $('#detail-screen').addClass('right-page-hidden');
                     $('#attract-screen').removeClass('left-page-hidden');
 
-                    clearInterval(questionTimer);
+                    clearTimeout(questionTimer);
                     changeQuestion();
-                    questionTimer = setInterval(function(){changeQuestion()}, 6000);
+                    questionTimer = setTimeout(function(){changeQuestion()}, 6000);
 
-                    clearInterval(railTimer);
+                    clearTimeout(railTimer);
                 }
 
                 //-------------------------------------------------------------------
@@ -564,8 +564,8 @@
 
                     displayMedia();
 
-                    clearInterval(railTimer);
-                    railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                    clearTimeout(railTimer);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
                 });
 
                 //-------------------------------------------------------------------
@@ -596,8 +596,8 @@
                         }
                     }
 
-                    clearInterval(railTimer);
-                    railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                    clearTimeout(railTimer);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
                 });
 
 
@@ -642,8 +642,8 @@
                         });
                     }
 
-                    clearInterval(railTimer);
-                    railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                    clearTimeout(railTimer);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
                 }
 
                 $('.large-media-wrapper').on('click','.media-next', function(){
@@ -657,8 +657,8 @@
 
                     $('#selected-media-status').text((nextImgIndex+1).toString() + ' of ' + imgURLList.length);
 
-                    clearInterval(railTimer);
-                    railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                    clearTimeout(railTimer);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
                 });
 
                 $('.large-media-wrapper').on('click','.media-prev', function(){
@@ -675,8 +675,8 @@
 
                     $('#selected-media-status').text((prevImgIndex+1).toString() + ' of ' + imgURLList.length);
 
-                    clearInterval(railTimer);
-                    railTimer = setInterval(function(){goBackToHome()}, timeoutSeconds);
+                    clearTimeout(railTimer);
+                    railTimer = setTimeout(function(){goBackToHome()}, timeoutSeconds);
                 });
 
                 function getImageList(){
@@ -703,7 +703,7 @@
                     return imgCaptionList;
                 }
 
-                var questionTimer = setInterval(function(){changeQuestion()}, 6000);
+                var questionTimer = setTimeout(function(){changeQuestion()}, 6000);
 
                 function changeQuestion(){
                     var questionContent = $('#question-content').find('li');
@@ -750,9 +750,9 @@
                 }
 
                 $('.page').on('click', '#cycle-questions', function(){
-                    clearInterval(questionTimer);
+                    clearTimeout(questionTimer);
                     changeQuestion();
-                    questionTimer = setInterval(function(){changeQuestion()}, 6000);
+                    questionTimer = setTimeout(function(){changeQuestion()}, 6000);
                 });
 
                 function goToStory(storyID){
