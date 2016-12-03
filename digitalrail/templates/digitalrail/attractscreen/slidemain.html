@@ -40,7 +40,7 @@
         <!--Attract Screen-->
         <div class="page" id="main-screen">
             <div class="left-segment">
-                <div class="case-header">What ancient innovations shaped the Bronze Age? </div>
+                <div class="case-header">Bronze Age Innovations</div>
                 <div id="content-wrapper">
                     <div class="content-header">How have characters first seen on Oracle Bones transformed over time? <span class="more">tap here for more <i class="ion ion-log-in"></i></span></div>
                     <div id="media-wrapper">
@@ -69,10 +69,30 @@
                         <div class="media-content" data-index="0">
                             <div class="extras"></div>
                         </div>
+
+                        <div id="timeline-touch-overlay" class="media-touch-overlay">
+                            <div class="char-touch-area" data-char-id="0"></div>
+                            <div class="char-touch-area" data-char-id="1"></div>
+                            <div class="char-touch-area" data-char-id="2"></div>
+                            <div class="char-touch-area" data-char-id="3"></div>
+                            <div class="char-touch-area" data-char-id="4"></div>
+                            <div class="char-touch-area" data-char-id="5"></div>
+                            <div class="char-touch-area" data-char-id="6"></div>
+                            <div class="char-touch-area" data-char-id="7"></div>
+                            <div class="char-touch-area" data-char-id="8"></div>
+                        </div>
+
+                        <div id="divination-touch-overlay" class="media-touch-overlay">
+                            <div class="char-touch-area" data-char-id="0"></div>
+                            <div class="char-touch-area" data-char-id="1"></div>
+                            <div class="char-touch-area" data-char-id="2"></div>
+                            <div class="char-touch-area" data-char-id="3"></div>
+                            <div class="char-touch-area" data-char-id="4"></div>
+                        </div>
                     </div>
                     <div id="slider"></div>
-                    <div class="shaded-timeline">
-                    </div>
+                    <div class="shaded-timeline"></div>
+                    <div class="active-timeline"></div>
                     <div class="highlight-legend"></div>
                 </div>
                 <div id="highlight"></div>
@@ -183,6 +203,9 @@
                 $('.artifact').first().find('.overlay').fadeOut(0);
                 $('.artifact').first().addClass('selected');
                 $('.artifact').first().addClass('selected-anim-left');
+
+                $('#timeline-touch-overlay').fadeIn(0);
+                $('#divination-touch-overlay').fadeOut(0);
             }
 
             //-------------------------------------------------------------------
@@ -198,6 +221,68 @@
                     railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
                 }
             });
+
+            $('.page').on('mousedown', '.char-touch-area', function() {
+                var interactiveType = $('.artifact.selected').data('interactive-type');
+                if(interactiveType=="timeline" || interactiveType == "slideshow&timeline"){
+                    var dims = getActiveTimelineDims($(this).data('char-id'));
+                    $('.active-timeline').css('left', dims[0]);
+                    $('.active-timeline').css('width', dims[1]);
+                    $('.active-timeline').fadeIn(300);
+                }
+            });
+
+            $('.page').on('mouseup', '.char-touch-area', function() {
+                var interactiveType = $('.artifact.selected').data('interactive-type');
+
+                if(interactiveType=="timeline" || interactiveType == "slideshow&timeline") {
+                    $('.active-timeline').fadeOut(500);
+                }
+                else if(interactiveType=="slideshow"){
+                    var slideIndex = $(this).data('char-id');
+
+                    var stepList = getDivinationSteps();
+                    var imgCaptionList = getCaptionList('#' + $('.artifact.selected').attr('id'));
+
+                    setExtras(slideIndex, stepList);
+                    setSlideNavigationStatus(slideIndex, imgCaptionList);
+                }
+
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function () {goBackToHome()}, timeoutDuration);
+            });
+
+            function getActiveTimelineDims(charId){
+                var activeCharLeft = 0;
+                var activeCharWidth = 0;
+
+                if(charId == 0){
+                    activeCharLeft = 0;
+                    activeCharWidth = 125;
+                }
+
+                else if(charId <=2){
+                    activeCharLeft = 114;
+                    activeCharWidth = 323;
+                }
+
+                else if(charId <=4){
+                    activeCharLeft = 428;
+                    activeCharWidth = 201;
+                }
+
+                else if(charId <= 7){
+                    activeCharLeft = 620;
+                    activeCharWidth = 690;
+                }
+
+                else if(charId <=9){
+                    activeCharLeft = 1302;
+                    activeCharWidth = 27;
+                }
+
+                return [activeCharLeft, activeCharWidth];
+            }
 
             $('.page').on('click', '.more', function(){
                 $('#content-wrapper').css('visibility', "hidden");
@@ -294,6 +379,9 @@
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
 
+                    $('#divination-touch-overlay').fadeOut(0);
+                    $('#timeline-touch-overlay').fadeIn(0);
+
                     $('#media-wrapper').fadeIn(400);
                     $('#slider').fadeIn(400);
                     $('.shaded-timeline').fadeIn(400);
@@ -302,6 +390,8 @@
 
                     var imgURLList = getImageList(artifactId);
                     var imgCaptionList = getCaptionList(artifactId);
+                    setSlideNavigationStatus(0,imgCaptionList);
+                    $('.media-content').data('index', 0);
 
                     $('.content-header').html('How have characters first seen on Oracle Bones transformed over time? <span class="more">tap here for more <i class="ion ion-log-in"></i>');
                     $('.media-count').fadeIn(0);
@@ -314,11 +404,15 @@
                     $('.media-help').text('Encircled area shows characters in use over time');
                     $('.media-content').css('margin','0 0');
                 }
+
                 else if($(artifactId).data('interactive-type') == "slideshow") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
 
                     $('#highlight').fadeOut(400);
+
+                    $('#timeline-touch-overlay').fadeOut(0);
+                    $('#divination-touch-overlay').fadeIn(0);
 
                     $('.extras').fadeIn(400);
                     var stepList = getDivinationSteps();
@@ -331,6 +425,8 @@
 
                     var imgURLList = getImageList(artifactId);
                     var imgCaptionList = getCaptionList(artifactId);
+                    setSlideNavigationStatus(0,imgCaptionList);
+                    $('.media-content').data('index', 0);
 
                     $('.content-header').html('What did the ancestors sound like? <span class="more">tap here for more <i class=\"ion ion-log-in\"></i></span>');
 
@@ -342,11 +438,16 @@
                     $('.media-content').css('margin','0 auto');
 
                     $('.media-help').text('The steps for Oracle bone divination');
+
                 }
+
                 else if($(artifactId).data('interactive-type') == "timeline") {
                     $('#content-detail-wrapper').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0}, 800);
                     $('#content-wrapper').css('visibility', "visible");
                     $('.extras').fadeOut(0);
+
+                    $('#divination-touch-overlay').fadeOut(0);
+                    $('#timeline-touch-overlay').fadeIn(0);
 
                     $('.shaded-timeline').fadeIn(400);
                     $('#slider').fadeIn(400);
@@ -679,6 +780,9 @@
             function goBackToHome(){
                 selectArtifactFromGrid($('#artifact0'));
                 selectArtifact('#artifact0');
+
+                $('#timeline-touch-overlay').fadeIn(0);
+                $('#divination-touch-overlay').fadeOut(0);
             }
         });
     </script>
