@@ -228,7 +228,7 @@
                     var dims = getActiveTimelineDims($(this).data('char-id'));
                     $('.active-timeline').css('left', dims[0]);
                     $('.active-timeline').css('width', dims[1]);
-                    $('.active-timeline').fadeIn(300);
+                    $('.active-timeline').fadeIn(100);
                 }
             });
 
@@ -236,7 +236,7 @@
                 var interactiveType = $('.artifact.selected').data('interactive-type');
 
                 if(interactiveType=="timeline" || interactiveType == "slideshow&timeline") {
-                    $('.active-timeline').fadeOut(500);
+                    $('.active-timeline').fadeOut(1000);
                 }
                 else if(interactiveType=="slideshow"){
                     var slideIndex = $(this).data('char-id');
@@ -428,7 +428,7 @@
                     setSlideNavigationStatus(0,imgCaptionList);
                     $('.media-content').data('index', 0);
 
-                    $('.content-header').html('What did the ancestors sound like? <span class="more">tap here for more <i class=\"ion ion-log-in\"></i></span>');
+                    $('.content-header').html('How did divination work? <span class="more">tap here for more <i class=\"ion ion-log-in\"></i></span>');
 
                     $('.media-option.selected').html(imgCaptionList[0] + ' <div class="underline"></div>');
                     $('.media-count').fadeIn(0);
