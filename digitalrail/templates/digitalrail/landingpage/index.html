@@ -1,0 +1,308 @@
+{% load staticfiles %}
+<!--
+  Cyrus Tang Hall of China 
+  Digial Rail Design
+
+  This project was funded by the National Science Foundation (grant IIS-1550051).
+  Any opinions, findings and conclusions or recommendations expressed in this
+  material are those of the author(s) and do not necessarily reflect the views
+  of the National Science Foundation (NSF).
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Begin Inspectlet Embed Code -->
+<script type="text/javascript" id="inspectletjs">
+window.__insp = window.__insp || [];
+__insp.push(['wid', 1974051685]);
+(function() {
+function ldinsp(){if(typeof window.__inspld != "undefined") return; window.__inspld = 1; var insp = document.createElement('script'); insp.type = 'text/javascript'; insp.async = true; insp.id = "inspsync"; insp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://cdn.inspectlet.com/inspectlet.js'; var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(insp, x); };
+setTimeout(ldinsp, 500); document.readyState != "complete" ? (window.attachEvent ? window.attachEvent('onload', ldinsp) : window.addEventListener('load', ldinsp, false)) : ldinsp();
+})();
+</script>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <link href="{% static "common/css/fonts.css" %}" type="text/css" rel="stylesheet" />
+  <link href="{% static "index/css/main.css" %}" type="text/css" rel="stylesheet" />
+  <script src="{% static "common/js/jquery-1.12.3.min.js"%}"></script>
+  <title>Case 201: Cyrus Tang Hall of China</title>
+</head>
+<body>
+  <div id="screen">
+    <div id="content">
+
+      <div id="left-column">
+        <div id="collection">
+          <h1 id="header">Collection title</h1>
+          <p id="headerText">Collection text</p>
+        </div>
+
+        <table id="timeline">
+          <tr>
+            <td></td>
+            <td class="bar" colspan="9"></td>
+            <td></td>
+          </tr>
+          <tr class="ticks">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="2">1600 BC</td>
+            <td colspan="2">1200</td>
+            <td colspan="2">800</td>
+            <td colspan="2">400</td>
+            <td colspan="2">AD 1</td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+
+      <div id="collection-panel">
+        <div class="menu-instructions">
+          Tap an object to learn more.
+        </div>
+
+        <div class="menu-item detailed" id="collection-menu-0">
+          <div class="menu-item-case-number left"></div>
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number"></div>
+            <div class="menu-item-title"></div>
+            <div class="menu-item-time-period"></div>
+            <div class="menu-item-origin"></div>
+            <div class="menu-item-id-list"></div>
+          </div>
+        </div>
+
+        <div class="menu-item detailed" id="collection-menu-3">
+          <div class="menu-item-case-number left"></div>
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number"></div>
+            <div class="menu-item-title"></div>
+            <div class="menu-item-time-period"></div>
+            <div class="menu-item-origin"></div>
+            <div class="menu-item-id-list"></div>
+          </div>
+        </div>
+
+        <br>
+
+        <div class="menu-item detailed" id="collection-menu-1">
+          <div class="menu-item-case-number left"></div>
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number"></div>
+            <div class="menu-item-title"></div>
+            <div class="menu-item-time-period"></div>
+            <div class="menu-item-origin"></div>
+            <div class="menu-item-id-list"></div>
+          </div>
+        </div>
+        
+
+        <div class="menu-item detailed" id="collection-menu-4">
+          <div class="menu-item-case-number left"></div>
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number"></div>
+            <div class="menu-item-title"></div>
+            <div class="menu-item-time-period"></div>
+            <div class="menu-item-origin"></div>
+            <div class="menu-item-id-list"></div>
+          </div>
+        </div>
+
+        <br>
+        
+        <div class="menu-item detailed" id="collection-menu-2">
+          <div class="menu-item-thumbnail"></div>
+          <div class="menu-item-data">
+            <div class="menu-item-case-number"></div>
+            <div class="menu-item-title"></div>
+            <div class="menu-item-time-period"></div>
+            <div class="menu-item-origin"></div>
+            <div class="menu-item-id-list"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ALL CONTENT TO THE RIGHT OF THE COLLECTION MENU -->
+      <div id="right-panel">
+
+        <!-- OBJECT MENU -->
+        <div id="object-menu">
+          <div class="menu-item-data">
+            <div class="menu-item-case-number"></div>
+            <div class="menu-item-title"></div>
+            <div class="menu-item-time-period"></div>
+            <div class="menu-item-origin"></div>
+            <div class="menu-item-id-list"></div>
+          </div>
+
+          <div class="menu-instructions">Tap below to learn more.</div>
+          <ul id="story-list"></ul>
+        </div>
+
+        <!-- STORY PANEL -->
+        <div id="story-panel">
+          <h2 id="story-title"></h2>
+          <p id="story-content"></p>
+        </div>
+
+        <!-- STORY GALLERY -->
+        <div id="story-gallery">
+          <div id="image-credit"></div>
+          <div id="gallery-image"></div>
+          <div id="image-caption"></div>
+        </div>
+      </div>
+
+    </div>
+    <div id="tray">
+      <button id="home-button">Home</button>
+    </div>
+
+    <div id="cross-bar-left"></div>
+    <div id="cross-bar-right"></div>
+  </div>
+  <script>
+
+    var caseId = "2-1_M2";
+    var jsonPath = "/static/index/media/" + caseId + "/assets/json/";
+    var imagePath = "/static/index/media/" + caseId + "/assets/media/image/";
+    var railName = caseId;
+    var stories = {};
+
+    //--------------------------------------------------------------
+    // Load the collection data and top-level menu
+    //--------------------------------------------------------------
+    $.getJSON(jsonPath + "collection.json", function(collectionData) {
+      $('#header').html(collectionData['header']);
+      $('#headerText').html(collectionData['headerText']);
+      railName = collectionData['railName'];
+      // set up the collection menu items
+      $.each(collectionData['collectionPanel'], function(index, val) {
+        $.getJSON(jsonPath + railName + "_" + val + ".json", function(objectData) {
+          var parent = "#collection-menu-" + index;
+          $(parent).data("buttonID", objectData['buttonID']);
+          $(parent + " .menu-item-case-number").show();
+          $(parent + " .menu-item-case-number").html(objectData['caseNumber']);
+          $(parent + " .menu-item-title").html(objectData['title']);
+          $(parent + " .menu-item-time-period").html(objectData['date']);
+          $(parent + " .menu-item-origin").html(objectData['origin']);
+          $(parent + " .menu-item-id-list").html(objectData['id'].join(', '));
+          $(parent + " .menu-item-thumbnail").css('background-image', 'url(' + imagePath + objectData['thumbnail'] + ')');
+          if (objectData['isTopicLabel']) {
+            $(parent).addClass("topic-label");
+            $(parent + " .menu-item-case-number").hide();
+          }
+        });
+      });
+    });
+
+
+    //--------------------------------------------------------------
+    // Collection menu callback
+    //--------------------------------------------------------------
+    $('.menu-item').click(function() {
+      var buttonID = $(this).data("buttonID");
+      var parent = "#object-menu";
+      var jpath = jsonPath + railName + "_" + buttonID + ".json";
+      $.getJSON(jpath, function(objectData) {
+        $(parent + " .menu-item-case-number").html(objectData['caseNumber']);
+        $(parent + " .menu-item-title").html(objectData['title']);
+        $(parent + " .menu-item-time-period").html(objectData['date']);
+        $(parent + " .menu-item-origin").html(objectData['origin']);
+        $(parent + " .menu-item-id-list").html(objectData['id'].join(', '));
+        var menuItems = [];
+        $('#story-list').empty();
+        stories = {};
+        $.each(objectData['stories'], function(index, storyData) {
+          var storyLink = $("<li/>", { id: 'story-' + index, class: 'story-link', html: storyData['label'] });
+          $('#story-list').append( storyLink );
+          storyLink.click(expandStory);
+          stories['story-' + index] = storyData;
+        });
+      });
+      $('#collection-panel .menu-item-data').hide(); 
+      $('.menu-item').width("118px");
+      $('.menu-item').addClass("dimmed");
+      $(this).removeClass("dimmed");
+      $('.menu-item-case-number.left').css("opacity", "1.0");
+      $('#right-panel').css("opacity", "1.0");
+      $('#right-panel').css("z-index", "100");
+      window.setTimeout(function() {
+        $('#story-list li').addClass("changed");
+      }, 200);
+      $('#home-button').show();
+      $('#story-panel').css("opacity", "0.0");
+      $('#story-gallery').css("opacity", "0.0");
+    });
+
+
+    //--------------------------------------------------------------
+    // Home button callback
+    //--------------------------------------------------------------
+    $('#home-button').click(function() {
+      window.setTimeout(function() {
+        $('#collection-panel .menu-item-data').show();
+      }, 800);
+      $('.menu-item').width("360px");
+      $('.menu-item').removeClass("dimmed");
+      $('.menu-item-case-number.left').css("opacity", "0.0");
+      $('#right-panel').css("opacity", "0.0");
+      $('#right-panel').css("z-index", "-1");
+      $('#story-panel').css("opacity", "0.0");
+      $('#story-gallery').css("opacity", "0.0");
+      $('#home-button').hide();
+    });
+
+    //--------------------------------------------------------------
+    // Story link callback
+    //--------------------------------------------------------------
+    function expandStory() {
+      var id = $(this).attr('id');
+      $('#story-title').html(stories[id]['label']);
+      $('#story-content').html(stories[id]['content']);
+      $('#story-list li').addClass("dimmed");
+      $(this).removeClass("dimmed");
+      $('#story-panel').css("opacity", "1.0");
+      $('#story-gallery').css("opacity", "0.0");
+      if (stories[id]['type'] == "image") {
+        $('#story-gallery').css("opacity", "1.0");
+        $('#gallery-image').css('background-image', 'url(' + imagePath + stories[id]['link'] + ')');
+        $('#image-credit').html(stories[id]['credit']);
+        $('#image-caption').html(stories[id]['caption']);
+      }
+    }
+
+  </script>
+
+  <script type="text/javascript">
+    
+    document.ontouchmove = function(event) {
+      evt.preventDefault();
+    };
+    
+    window.oncontextmenu = function(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    };
+  </script>
+</body>
+</html>

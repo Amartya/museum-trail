@@ -1,4 +1,6 @@
-*.xcuserstate
-*.xcbkptlist
-*.xcplayground
-/xcuserstate
+*.pyc
+fleldenv/
+.idea
+*.swf
+*.css.map
+.sass-cache

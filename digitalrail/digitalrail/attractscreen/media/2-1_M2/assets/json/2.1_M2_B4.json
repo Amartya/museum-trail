@@ -1,0 +1,31 @@
+{ 
+    "buttonID":"B4",
+    "caseNumber":"19- 21",
+    "title":"Ceramic vessels and sherd",
+    "timePeriod":"Shang–Zhou period<br><span class='avenir'>(c. 1600–256 BC)</span>",
+    "date":"Shang–Zhou period<br>(c. 1600–256 BC)",
+    "dateRange":[-1600, -256],
+    "origin":"China",
+    "id":[235949, 117374, "235955A"],
+    "thumbnail":"2.1_M2_B4.png",
+    "stories":[
+            {
+                "label":"Why are these pots different shapes?",
+                "content":"The shapes of these pots date back to the Neolithic era and help us understand their different uses. Tripods were set in hearths where their hollow legs would cook food quickly, while round pots were used for both cooking and storing food.  These same shapes are echoed in the bronzes in this gallery. Eventually, later pottery would imitate bronze shapes, continuing the cycle of borrowing and reinterpreting shapes. Some of these pots differ in texture as well; these Zhou period pots have markings that resemble fabric impressions."
+            },
+            {
+                "label":"What do bronze and ceramics have in common?",
+                "content":"These ceramics--referred to as proto-porcelains or hard wares--were fired at very high temperatures, making them particularly tough and strong. High heat is also needed for casting bronzes and clay is used to make molds for bronze vessels, so the evolution of pottery and the development of bronze casting are closely related. The ability to smelt metal ores probably emerged as innovations in pottery kiln technologies allowed higher and higher temperatures to be reached."
+            },
+            {
+                "label":"How can a pot shape a city?",
+                "content":"By the end of the Shang Dynasty (c. 1600–1046 BC), production of items like these pots or the decorated fragment had become so specialized that special neighborhoods appear in major cities like Anyang. A district devoted to ceramics removes kilns, clays, and smoke from the main residential area. When scholars find specialized craft districts like the one at Anyang, they know they are seeing a society complex enough that the state can support workers who are not growing their own food but are producing goods for trade, or for use by elite families.",
+                "type":"image",
+                "link":"G2.1_M2_B4_S3.png",
+                "resizable":true,
+                "caption":"A map of archaeological discoveries at Anyang shows the neighborhoods and public buildings of the last capital of the Shang state.",
+                "credit":"©The Field Museum, Illustrator Sayaka Isowa"
+            }
+        ],
+    "isTopicLabel":false
+}

@@ -1,0 +1,48 @@
+/**
+ * Cyrus Tang Hall of China 
+ * Digial Rail Design
+ *
+ * This project was funded by the National Science Foundation (grant IIS-1550051).
+ * Any opinions, findings and conclusions or recommendations expressed in this
+ * material are those of the author(s) and do not necessarily reflect the views
+ * of the National Science Foundation (NSF).
+ */
+@font-face {
+  font-family: "Avenir Next Bold";
+  src: url("../fonts/AvenirNextLTPro-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Avenir Next Regular";
+  src: url("../fonts/AvenirNextLTPro-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-Bold";
+  src: url("../fonts/BauOT-Bold.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-BoldItalic";
+  src: url("../fonts/BauOT-BoldItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-Italic";
+  src: url("../fonts/BauOT-Italic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-Medium";
+  src: url("../fonts/BauOT-Medium.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT-MediumItalic";
+  src: url("../fonts/BauOT-MediumItalic.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "BauOT";
+  src: url("../fonts/BauOT.otf") format("opentype");
+}
