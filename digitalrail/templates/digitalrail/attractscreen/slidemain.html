@@ -252,6 +252,12 @@
                 railTimer = setTimeout(function () {goBackToHome()}, timeoutDuration);
             });
 
+
+            $('.answer-text').scroll(function(){
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function () {goBackToHome()}, timeoutDuration);
+            })
+
             function getActiveTimelineDims(charId){
                 var activeCharLeft = 0;
                 var activeCharWidth = 0;
