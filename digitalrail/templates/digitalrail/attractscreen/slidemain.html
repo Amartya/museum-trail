@@ -323,6 +323,11 @@
                 setLine(0);
             }
 
+            $('.answer-text').scroll(function(){
+                clearTimeout(railTimer);
+                railTimer = setTimeout(function(){goBackToHome()}, timeoutDuration);
+            });
+
             $('#content-detail-wrapper').on('click', '.home', function(){
                 var artifactId = '#' + $('.artifact.selected').attr('id');
 
