@@ -1,0 +1,437 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0821D05B1C7C5D2A00804CE5 /* TrailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0821D05A1C7C5D2A00804CE5 /* TrailViewController.swift */; };
+		0821D05D1C7C5FCE00804CE5 /* AudioVisualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0821D05C1C7C5FCE00804CE5 /* AudioVisualizer.swift */; };
+		083958411C84F7AB0025A47C /* Audio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083958401C84F7AB0025A47C /* Audio.swift */; };
+		083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083986221C78153C00EA9800 /* RecordListViewController.swift */; };
+		0850238B1C88DBC3008F0B11 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238A1C88DBC3008F0B11 /* Utility.swift */; };
+		0850238D1C88E3AA008F0B11 /* EstimoteLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238C1C88E3AA008F0B11 /* EstimoteLocation.swift */; };
+		0850238F1C88EE5C008F0B11 /* AudioTrailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */; };
+		085705AB1C7BD00E0085DCFF /* TableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085705AA1C7BD00E0085DCFF /* TableCell.swift */; };
+		0861216A1C8E033400D39FBC /* FieldFileListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086121691C8E033400D39FBC /* FieldFileListViewController.swift */; };
+		0861216C1C8F796B00D39FBC /* TrailListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0861216B1C8F796B00D39FBC /* TrailListViewController.swift */; };
+		08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A108391C751C940006D1AD /* AppDelegate.swift */; };
+		08A1083F1C751C940006D1AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A1083D1C751C940006D1AD /* Main.storyboard */; };
+		08A108411C751C940006D1AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A108401C751C940006D1AD /* Assets.xcassets */; };
+		08A108441C751C940006D1AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A108421C751C940006D1AD /* LaunchScreen.storyboard */; };
+		08A1084E1C751F360006D1AD /* instrumental.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 08A1084D1C751F360006D1AD /* instrumental.mp3 */; };
+		08EC56E81C7B9CF400029269 /* ParticipantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */; };
+		08EF6C901C753CBB00E7FDE9 /* ParticipantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EF6C8F1C753CBB00E7FDE9 /* ParticipantModel.swift */; };
+		08EF6C921C76538900E7FDE9 /* FullScreenAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EF6C911C76538900E7FDE9 /* FullScreenAudioViewController.swift */; };
+		B5FBB5D52444B354D1A734A7 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F26C73102B04C6EE06D3CB75 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		0821D0591C7C5C0100804CE5 /* ObjCBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ObjCBridge.h; sourceTree = "<group>"; };
+		0821D05A1C7C5D2A00804CE5 /* TrailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailViewController.swift; sourceTree = "<group>"; };
+		0821D05C1C7C5FCE00804CE5 /* AudioVisualizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVisualizer.swift; sourceTree = "<group>"; };
+		083958401C84F7AB0025A47C /* Audio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Audio.swift; sourceTree = "<group>"; };
+		083986221C78153C00EA9800 /* RecordListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordListViewController.swift; sourceTree = "<group>"; };
+		0850238A1C88DBC3008F0B11 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		0850238C1C88E3AA008F0B11 /* EstimoteLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EstimoteLocation.swift; sourceTree = "<group>"; };
+		0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioTrailViewController.swift; sourceTree = "<group>"; };
+		085705AA1C7BD00E0085DCFF /* TableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableCell.swift; sourceTree = "<group>"; };
+		086121691C8E033400D39FBC /* FieldFileListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldFileListViewController.swift; sourceTree = "<group>"; };
+		0861216B1C8F796B00D39FBC /* TrailListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrailListViewController.swift; sourceTree = "<group>"; };
+		08A108361C751C940006D1AD /* FieldRecorder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldRecorder.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		08A108391C751C940006D1AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		08A1083E1C751C940006D1AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		08A108401C751C940006D1AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		08A108431C751C940006D1AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		08A108451C751C940006D1AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08A1084D1C751F360006D1AD /* instrumental.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = instrumental.mp3; sourceTree = "<group>"; };
+		08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantViewController.swift; sourceTree = "<group>"; };
+		08EF6C8F1C753CBB00E7FDE9 /* ParticipantModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantModel.swift; sourceTree = "<group>"; };
+		08EF6C911C76538900E7FDE9 /* FullScreenAudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullScreenAudioViewController.swift; sourceTree = "<group>"; };
+		38366B89EDC2580BF5D08795 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		DFEFD57A885E7D5869A78CAF /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		F26C73102B04C6EE06D3CB75 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		08A108331C751C940006D1AD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5FBB5D52444B354D1A734A7 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08A1082D1C751C940006D1AD = {
+			isa = PBXGroup;
+			children = (
+				08A108381C751C940006D1AD /* FieldRecorder */,
+				08A108371C751C940006D1AD /* Products */,
+				92800DE527D86E52F59AE608 /* Pods */,
+				6D2BD6EA5A84D870802743F6 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		08A108371C751C940006D1AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				08A108361C751C940006D1AD /* FieldRecorder.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		08A108381C751C940006D1AD /* FieldRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				083958401C84F7AB0025A47C /* Audio.swift */,
+				0850238C1C88E3AA008F0B11 /* EstimoteLocation.swift */,
+				0821D05C1C7C5FCE00804CE5 /* AudioVisualizer.swift */,
+				08A108391C751C940006D1AD /* AppDelegate.swift */,
+				08A1083D1C751C940006D1AD /* Main.storyboard */,
+				08A1084D1C751F360006D1AD /* instrumental.mp3 */,
+				08A108401C751C940006D1AD /* Assets.xcassets */,
+				08A108421C751C940006D1AD /* LaunchScreen.storyboard */,
+				08A108451C751C940006D1AD /* Info.plist */,
+				08EF6C911C76538900E7FDE9 /* FullScreenAudioViewController.swift */,
+				08EF6C8F1C753CBB00E7FDE9 /* ParticipantModel.swift */,
+				085705AA1C7BD00E0085DCFF /* TableCell.swift */,
+				083986221C78153C00EA9800 /* RecordListViewController.swift */,
+				0861216B1C8F796B00D39FBC /* TrailListViewController.swift */,
+				086121691C8E033400D39FBC /* FieldFileListViewController.swift */,
+				08EC56E71C7B9CF400029269 /* ParticipantViewController.swift */,
+				0821D0591C7C5C0100804CE5 /* ObjCBridge.h */,
+				0821D05A1C7C5D2A00804CE5 /* TrailViewController.swift */,
+				0850238A1C88DBC3008F0B11 /* Utility.swift */,
+				0850238E1C88EE5C008F0B11 /* AudioTrailViewController.swift */,
+			);
+			path = FieldRecorder;
+			sourceTree = "<group>";
+		};
+		6D2BD6EA5A84D870802743F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F26C73102B04C6EE06D3CB75 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		92800DE527D86E52F59AE608 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				38366B89EDC2580BF5D08795 /* Pods.debug.xcconfig */,
+				DFEFD57A885E7D5869A78CAF /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		08A108351C751C940006D1AD /* FieldRecorder */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08A108481C751C940006D1AD /* Build configuration list for PBXNativeTarget "FieldRecorder" */;
+			buildPhases = (
+				81182FC01499557A4C0AF5DD /* Check Pods Manifest.lock */,
+				08A108321C751C940006D1AD /* Sources */,
+				08A108331C751C940006D1AD /* Frameworks */,
+				08A108341C751C940006D1AD /* Resources */,
+				D580DA31BAA2B7D224D06E85 /* Embed Pods Frameworks */,
+				1BBABAF14A9057184F598BDC /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FieldRecorder;
+			productName = FieldRecorder;
+			productReference = 08A108361C751C940006D1AD /* FieldRecorder.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08A1082E1C751C940006D1AD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = Amartya;
+				TargetAttributes = {
+					08A108351C751C940006D1AD = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = HL7S2EUM3A;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 08A108311C751C940006D1AD /* Build configuration list for PBXProject "FieldRecorder" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 08A1082D1C751C940006D1AD;
+			productRefGroup = 08A108371C751C940006D1AD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				08A108351C751C940006D1AD /* FieldRecorder */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		08A108341C751C940006D1AD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08A1084E1C751F360006D1AD /* instrumental.mp3 in Resources */,
+				08A108441C751C940006D1AD /* LaunchScreen.storyboard in Resources */,
+				08A108411C751C940006D1AD /* Assets.xcassets in Resources */,
+				08A1083F1C751C940006D1AD /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1BBABAF14A9057184F598BDC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		81182FC01499557A4C0AF5DD /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D580DA31BAA2B7D224D06E85 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		08A108321C751C940006D1AD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0850238B1C88DBC3008F0B11 /* Utility.swift in Sources */,
+				083958411C84F7AB0025A47C /* Audio.swift in Sources */,
+				0821D05D1C7C5FCE00804CE5 /* AudioVisualizer.swift in Sources */,
+				0850238D1C88E3AA008F0B11 /* EstimoteLocation.swift in Sources */,
+				08A1083A1C751C940006D1AD /* AppDelegate.swift in Sources */,
+				085705AB1C7BD00E0085DCFF /* TableCell.swift in Sources */,
+				083986231C78153C00EA9800 /* RecordListViewController.swift in Sources */,
+				0861216A1C8E033400D39FBC /* FieldFileListViewController.swift in Sources */,
+				08EF6C901C753CBB00E7FDE9 /* ParticipantModel.swift in Sources */,
+				0821D05B1C7C5D2A00804CE5 /* TrailViewController.swift in Sources */,
+				08EF6C921C76538900E7FDE9 /* FullScreenAudioViewController.swift in Sources */,
+				0850238F1C88EE5C008F0B11 /* AudioTrailViewController.swift in Sources */,
+				08EC56E81C7B9CF400029269 /* ParticipantViewController.swift in Sources */,
+				0861216C1C8F796B00D39FBC /* TrailListViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		08A1083D1C751C940006D1AD /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08A1083E1C751C940006D1AD /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		08A108421C751C940006D1AD /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08A108431C751C940006D1AD /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		08A108461C751C940006D1AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/ObjCBridge.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		08A108471C751C940006D1AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "${PROJECT_NAME}/ObjCBridge.h";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		08A108491C751C940006D1AD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 38366B89EDC2580BF5D08795 /* Pods.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = FieldRecorder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldRecorder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		08A1084A1C751C940006D1AD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFEFD57A885E7D5869A78CAF /* Pods.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = FieldRecorder/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldRecorder;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		08A108311C751C940006D1AD /* Build configuration list for PBXProject "FieldRecorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08A108461C751C940006D1AD /* Debug */,
+				08A108471C751C940006D1AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08A108481C751C940006D1AD /* Build configuration list for PBXNativeTarget "FieldRecorder" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08A108491C751C940006D1AD /* Debug */,
+				08A1084A1C751C940006D1AD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08A1082E1C751C940006D1AD /* Project object */;
+}
