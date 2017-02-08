@@ -78,6 +78,7 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
+  background-color: #171718;
   width: $screen-width;
   height: $screen-height;
   font-family: $body-font;
@@ -89,6 +90,30 @@ body {
   z-index: 0;
 
   @include noselect();
+
+  #watch-container{
+    position: absolute;
+    display: none;
+    width: 480px;
+    height: $screen-height;
+    z-index: 1000;
+  }
+}
+
+.screen-border-left{
+  border-left: 2px solid #424242;
+}
+
+.watch-info{
+  width: 480px;
+  height: 40px;
+  text-transform: capitalize;
+  font-size: 9pt;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  color: white;
+  opacity: 0.8;
 }
 
 .page{

@@ -24,6 +24,7 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
+  background-color: #171718;
   width: 1920px;
   height: 502px;
   font-family: "Avenir Next Regular";
@@ -39,6 +40,26 @@ body {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none; }
+  #screen #watch-container {
+    position: absolute;
+    display: none;
+    width: 480px;
+    height: 502px;
+    z-index: 1000; }
+
+.screen-border-left {
+  border-left: 2px solid #424242; }
+
+.watch-info {
+  width: 480px;
+  height: 40px;
+  text-transform: capitalize;
+  font-size: 9pt;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  color: white;
+  opacity: 0.8; }
 
 .page {
   position: absolute;
