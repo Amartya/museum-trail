@@ -36,7 +36,11 @@
     <title>Case 201: Cyrus Tang Hall of China</title>
 </head>
 <body oncontextmenu="return true">
+
     <div id="screen">
+            <div id="clickme" style=" position: absolute; display: block; width: 200px; height: 100px; z-index: 1000; color: black; background-color: red;">
+      Click here
+    </div>
         <!--Attract Screen-->
         <div class="page" id="main-screen">
             <div class="left-segment">
@@ -207,6 +211,8 @@
                 $('#timeline-touch-overlay').fadeIn(0);
                 $('#divination-touch-overlay').fadeOut(0);
             }
+
+
 
             //-------------------------------------------------------------------
             // Callback to set media screen contents from artifact column

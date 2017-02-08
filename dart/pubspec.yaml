@@ -1,0 +1,4 @@
+name: Shape
+
+dependencies:
+  browser: any

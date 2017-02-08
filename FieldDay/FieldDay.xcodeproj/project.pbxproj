@@ -1,0 +1,611 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0847CDCF1E286AA500A66272 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0847CDCE1E286AA500A66272 /* UserNotifications.framework */; };
+		08DAAE281E24DE5C00016DB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DAAE271E24DE5C00016DB4 /* AppDelegate.swift */; };
+		08DAAE2A1E24DE5C00016DB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DAAE291E24DE5C00016DB4 /* ViewController.swift */; };
+		08DAAE2D1E24DE5C00016DB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08DAAE2B1E24DE5C00016DB4 /* Main.storyboard */; };
+		08DAAE2F1E24DE5C00016DB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08DAAE2E1E24DE5C00016DB4 /* Assets.xcassets */; };
+		08DAAE321E24DE5C00016DB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08DAAE301E24DE5C00016DB4 /* LaunchScreen.storyboard */; };
+		08DAAE371E24DE5D00016DB4 /* FieldDay WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 08DAAE361E24DE5D00016DB4 /* FieldDay WatchKit App.app */; };
+		08DAAE3D1E24DE5D00016DB4 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08DAAE3B1E24DE5D00016DB4 /* Interface.storyboard */; };
+		08DAAE3F1E24DE5D00016DB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08DAAE3E1E24DE5D00016DB4 /* Assets.xcassets */; };
+		08DAAE461E24DE5D00016DB4 /* FieldDay WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 08DAAE451E24DE5D00016DB4 /* FieldDay WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		08DAAE4D1E24DE5D00016DB4 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DAAE4C1E24DE5D00016DB4 /* InterfaceController.swift */; };
+		08DAAE4F1E24DE5D00016DB4 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DAAE4E1E24DE5D00016DB4 /* ExtensionDelegate.swift */; };
+		08DAAE511E24DE5D00016DB4 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DAAE501E24DE5D00016DB4 /* NotificationController.swift */; };
+		08DAAE531E24DE5D00016DB4 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08DAAE521E24DE5D00016DB4 /* ComplicationController.swift */; };
+		08DAAE551E24DE5D00016DB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08DAAE541E24DE5D00016DB4 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		08DAAE381E24DE5D00016DB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08DAAE1C1E24DE5C00016DB4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08DAAE351E24DE5D00016DB4;
+			remoteInfo = "FieldDay WatchKit App";
+		};
+		08DAAE471E24DE5D00016DB4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08DAAE1C1E24DE5C00016DB4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 08DAAE441E24DE5D00016DB4;
+			remoteInfo = "FieldDay WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		08DAAE5C1E24DE5D00016DB4 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				08DAAE461E24DE5D00016DB4 /* FieldDay WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08DAAE601E24DE5D00016DB4 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				08DAAE371E24DE5D00016DB4 /* FieldDay WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0847CDCE1E286AA500A66272 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		08DAAE241E24DE5C00016DB4 /* FieldDay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FieldDay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		08DAAE271E24DE5C00016DB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		08DAAE291E24DE5C00016DB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		08DAAE2C1E24DE5C00016DB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		08DAAE2E1E24DE5C00016DB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		08DAAE311E24DE5C00016DB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		08DAAE331E24DE5C00016DB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08DAAE361E24DE5D00016DB4 /* FieldDay WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FieldDay WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		08DAAE3C1E24DE5D00016DB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		08DAAE3E1E24DE5D00016DB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		08DAAE401E24DE5D00016DB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08DAAE451E24DE5D00016DB4 /* FieldDay WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "FieldDay WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		08DAAE4B1E24DE5D00016DB4 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		08DAAE4C1E24DE5D00016DB4 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		08DAAE4E1E24DE5D00016DB4 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		08DAAE501E24DE5D00016DB4 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		08DAAE521E24DE5D00016DB4 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		08DAAE541E24DE5D00016DB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		08DAAE561E24DE5D00016DB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		08DAAE211E24DE5C00016DB4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0847CDCF1E286AA500A66272 /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08DAAE421E24DE5D00016DB4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0847CDCD1E286AA500A66272 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0847CDCE1E286AA500A66272 /* UserNotifications.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08DAAE1B1E24DE5C00016DB4 = {
+			isa = PBXGroup;
+			children = (
+				08DAAE261E24DE5C00016DB4 /* FieldDay */,
+				08DAAE3A1E24DE5D00016DB4 /* FieldDay WatchKit App */,
+				08DAAE491E24DE5D00016DB4 /* FieldDay WatchKit Extension */,
+				08DAAE251E24DE5C00016DB4 /* Products */,
+				0847CDCD1E286AA500A66272 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		08DAAE251E24DE5C00016DB4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				08DAAE241E24DE5C00016DB4 /* FieldDay.app */,
+				08DAAE361E24DE5D00016DB4 /* FieldDay WatchKit App.app */,
+				08DAAE451E24DE5D00016DB4 /* FieldDay WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		08DAAE261E24DE5C00016DB4 /* FieldDay */ = {
+			isa = PBXGroup;
+			children = (
+				08DAAE271E24DE5C00016DB4 /* AppDelegate.swift */,
+				08DAAE291E24DE5C00016DB4 /* ViewController.swift */,
+				08DAAE2B1E24DE5C00016DB4 /* Main.storyboard */,
+				08DAAE2E1E24DE5C00016DB4 /* Assets.xcassets */,
+				08DAAE301E24DE5C00016DB4 /* LaunchScreen.storyboard */,
+				08DAAE331E24DE5C00016DB4 /* Info.plist */,
+			);
+			path = FieldDay;
+			sourceTree = "<group>";
+		};
+		08DAAE3A1E24DE5D00016DB4 /* FieldDay WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				08DAAE3B1E24DE5D00016DB4 /* Interface.storyboard */,
+				08DAAE3E1E24DE5D00016DB4 /* Assets.xcassets */,
+				08DAAE401E24DE5D00016DB4 /* Info.plist */,
+			);
+			path = "FieldDay WatchKit App";
+			sourceTree = "<group>";
+		};
+		08DAAE491E24DE5D00016DB4 /* FieldDay WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				08DAAE4C1E24DE5D00016DB4 /* InterfaceController.swift */,
+				08DAAE4E1E24DE5D00016DB4 /* ExtensionDelegate.swift */,
+				08DAAE501E24DE5D00016DB4 /* NotificationController.swift */,
+				08DAAE521E24DE5D00016DB4 /* ComplicationController.swift */,
+				08DAAE541E24DE5D00016DB4 /* Assets.xcassets */,
+				08DAAE561E24DE5D00016DB4 /* Info.plist */,
+				08DAAE4A1E24DE5D00016DB4 /* Supporting Files */,
+			);
+			path = "FieldDay WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		08DAAE4A1E24DE5D00016DB4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				08DAAE4B1E24DE5D00016DB4 /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		08DAAE231E24DE5C00016DB4 /* FieldDay */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08DAAE611E24DE5D00016DB4 /* Build configuration list for PBXNativeTarget "FieldDay" */;
+			buildPhases = (
+				08DAAE201E24DE5C00016DB4 /* Sources */,
+				08DAAE211E24DE5C00016DB4 /* Frameworks */,
+				08DAAE221E24DE5C00016DB4 /* Resources */,
+				08DAAE601E24DE5D00016DB4 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08DAAE391E24DE5D00016DB4 /* PBXTargetDependency */,
+			);
+			name = FieldDay;
+			productName = FieldDay;
+			productReference = 08DAAE241E24DE5C00016DB4 /* FieldDay.app */;
+			productType = "com.apple.product-type.application";
+		};
+		08DAAE351E24DE5D00016DB4 /* FieldDay WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08DAAE5D1E24DE5D00016DB4 /* Build configuration list for PBXNativeTarget "FieldDay WatchKit App" */;
+			buildPhases = (
+				08DAAE341E24DE5D00016DB4 /* Resources */,
+				08DAAE5C1E24DE5D00016DB4 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				08DAAE481E24DE5D00016DB4 /* PBXTargetDependency */,
+			);
+			name = "FieldDay WatchKit App";
+			productName = "FieldDay WatchKit App";
+			productReference = 08DAAE361E24DE5D00016DB4 /* FieldDay WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		08DAAE441E24DE5D00016DB4 /* FieldDay WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 08DAAE591E24DE5D00016DB4 /* Build configuration list for PBXNativeTarget "FieldDay WatchKit Extension" */;
+			buildPhases = (
+				08DAAE411E24DE5D00016DB4 /* Sources */,
+				08DAAE421E24DE5D00016DB4 /* Frameworks */,
+				08DAAE431E24DE5D00016DB4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FieldDay WatchKit Extension";
+			productName = "FieldDay WatchKit Extension";
+			productReference = 08DAAE451E24DE5D00016DB4 /* FieldDay WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08DAAE1C1E24DE5C00016DB4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Northwestern University";
+				TargetAttributes = {
+					08DAAE231E24DE5C00016DB4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = HL7S2EUM3A;
+						ProvisioningStyle = Automatic;
+					};
+					08DAAE351E24DE5D00016DB4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = HL7S2EUM3A;
+						ProvisioningStyle = Automatic;
+					};
+					08DAAE441E24DE5D00016DB4 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = HL7S2EUM3A;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 08DAAE1F1E24DE5C00016DB4 /* Build configuration list for PBXProject "FieldDay" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 08DAAE1B1E24DE5C00016DB4;
+			productRefGroup = 08DAAE251E24DE5C00016DB4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				08DAAE231E24DE5C00016DB4 /* FieldDay */,
+				08DAAE351E24DE5D00016DB4 /* FieldDay WatchKit App */,
+				08DAAE441E24DE5D00016DB4 /* FieldDay WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		08DAAE221E24DE5C00016DB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08DAAE321E24DE5C00016DB4 /* LaunchScreen.storyboard in Resources */,
+				08DAAE2F1E24DE5C00016DB4 /* Assets.xcassets in Resources */,
+				08DAAE2D1E24DE5C00016DB4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08DAAE341E24DE5D00016DB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08DAAE3F1E24DE5D00016DB4 /* Assets.xcassets in Resources */,
+				08DAAE3D1E24DE5D00016DB4 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08DAAE431E24DE5D00016DB4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08DAAE551E24DE5D00016DB4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		08DAAE201E24DE5C00016DB4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08DAAE2A1E24DE5C00016DB4 /* ViewController.swift in Sources */,
+				08DAAE281E24DE5C00016DB4 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		08DAAE411E24DE5D00016DB4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				08DAAE511E24DE5D00016DB4 /* NotificationController.swift in Sources */,
+				08DAAE531E24DE5D00016DB4 /* ComplicationController.swift in Sources */,
+				08DAAE4F1E24DE5D00016DB4 /* ExtensionDelegate.swift in Sources */,
+				08DAAE4D1E24DE5D00016DB4 /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		08DAAE391E24DE5D00016DB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08DAAE351E24DE5D00016DB4 /* FieldDay WatchKit App */;
+			targetProxy = 08DAAE381E24DE5D00016DB4 /* PBXContainerItemProxy */;
+		};
+		08DAAE481E24DE5D00016DB4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 08DAAE441E24DE5D00016DB4 /* FieldDay WatchKit Extension */;
+			targetProxy = 08DAAE471E24DE5D00016DB4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		08DAAE2B1E24DE5C00016DB4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08DAAE2C1E24DE5C00016DB4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		08DAAE301E24DE5C00016DB4 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08DAAE311E24DE5C00016DB4 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		08DAAE3B1E24DE5D00016DB4 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				08DAAE3C1E24DE5D00016DB4 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		08DAAE571E24DE5D00016DB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		08DAAE581E24DE5D00016DB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		08DAAE5A1E24DE5D00016DB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				INFOPLIST_FILE = "FieldDay WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldDay.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		08DAAE5B1E24DE5D00016DB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				INFOPLIST_FILE = "FieldDay WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldDay.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		08DAAE5E1E24DE5D00016DB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				IBSC_MODULE = FieldDay_WatchKit_Extension;
+				INFOPLIST_FILE = "FieldDay WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldDay.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Debug;
+		};
+		08DAAE5F1E24DE5D00016DB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				IBSC_MODULE = FieldDay_WatchKit_Extension;
+				INFOPLIST_FILE = "FieldDay WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldDay.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.1;
+			};
+			name = Release;
+		};
+		08DAAE621E24DE5D00016DB4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				INFOPLIST_FILE = FieldDay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldDay;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		08DAAE631E24DE5D00016DB4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				INFOPLIST_FILE = FieldDay/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = tidal.northwestern.FieldDay;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		08DAAE1F1E24DE5C00016DB4 /* Build configuration list for PBXProject "FieldDay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08DAAE571E24DE5D00016DB4 /* Debug */,
+				08DAAE581E24DE5D00016DB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08DAAE591E24DE5D00016DB4 /* Build configuration list for PBXNativeTarget "FieldDay WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08DAAE5A1E24DE5D00016DB4 /* Debug */,
+				08DAAE5B1E24DE5D00016DB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08DAAE5D1E24DE5D00016DB4 /* Build configuration list for PBXNativeTarget "FieldDay WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08DAAE5E1E24DE5D00016DB4 /* Debug */,
+				08DAAE5F1E24DE5D00016DB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		08DAAE611E24DE5D00016DB4 /* Build configuration list for PBXNativeTarget "FieldDay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				08DAAE621E24DE5D00016DB4 /* Debug */,
+				08DAAE631E24DE5D00016DB4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08DAAE1C1E24DE5C00016DB4 /* Project object */;
+}
