@@ -23,12 +23,12 @@ class RecordingCell: UITableViewCell{
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var thumbnailImageView: UIImageView!
     
-    static func recordingURLtoFileName(url: NSURL) -> String?{
-        let fileData = url.lastPathComponent?.componentsSeparatedByString("###")
+    static func recordingURLtoFileName(_ url: URL) -> String?{
+        let fileData = url.lastPathComponent.components(separatedBy: "###")
         
         var fileName = ""
-        if fileData!.count >= 2{
-            fileName = fileData![1] + fileData![2]
+        if fileData.count >= 2{
+            fileName = fileData[1] + fileData[2]
         }
         
         return fileName
@@ -45,12 +45,12 @@ class TrailCell: UITableViewCell{
     @IBOutlet var fileNameLabel: UILabel!
     @IBOutlet var thumbnailImageView: UIImageView!
     
-    static func trailURLtoFileName(url: NSURL) -> String?{
-        let fileData = url.lastPathComponent?.componentsSeparatedByString("###")
+    static func trailURLtoFileName(_ url: URL) -> String?{
+        let fileData = url.lastPathComponent.components(separatedBy: "###")
         
         var fileName = ""
-        if fileData!.count >= 2{
-            fileName = fileData![1] + fileData![2]
+        if fileData.count >= 2{
+            fileName = fileData[1] + fileData[2]
         }
         
         return fileName

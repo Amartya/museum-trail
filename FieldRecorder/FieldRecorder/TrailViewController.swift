@@ -26,22 +26,22 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     @IBOutlet weak var traceSwitch: UISwitch!
     
     //toggle trace display
-    @IBAction func showTrace(sender: UISwitch) {
+    @IBAction func showTrace(_ sender: UISwitch) {
         if let _ = self.locationView{
-            self.locationView.showTrace = sender.on
+            self.locationView.showTrace = sender.isOn
         }
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        traceSwitch.enabled = true
+        traceSwitch.isEnabled = true
         
         setupIndoorLocation()
         
         estimoteLocation.directoryURL = Utility.getAppDirectoryURL()
         
-        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.URLByAppendingPathComponent(estimoteLocation.getTrailFileName(participant))
+        estimoteLocation.trailFileURL = estimoteLocation.directoryURL!.appendingPathComponent(estimoteLocation.getTrailFileName(participant))
     }
     
     func setupIndoorLocation(){
@@ -63,7 +63,7 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
          //try to fetch location from Estimote Cloud, otherwise, build location
          //N.B. the locationIdentifier is different from the name we give to the location using setLocationName
         let fetchLocationRequest = EILRequestFetchLocation(locationIdentifier: "china-hall")
-        fetchLocationRequest.sendRequestWithCompletion { (location, error) in
+        fetchLocationRequest.sendRequest { (location, error) in
             if let location = location {
                 self.location = location
                 self.completeLocationViewerSetup()
@@ -93,19 +93,19 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
                  14-CA:9F:BB:01:B1:0A
                  15-F3:99:71:AC:B4:20
                 */
-                locationBuilder.addBeaconWithIdentifier("E8:C2:89:54:B0:7B", atBoundarySegmentIndex: 0, inDistance: 4.95, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("FD:7d:75:01:A1:C6", atBoundarySegmentIndex: 1, inDistance: 4.9, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("C9:23:FC:8B:79:74", atBoundarySegmentIndex: 2, inDistance: 4.8, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("FB:E0:DE:9B:44:77", atBoundarySegmentIndex: 3, inDistance: 2.0, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("E9:79:81:DD:A0:3C", atBoundarySegmentIndex: 4, inDistance: 3.9, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("EA:1f:87:62:C6:B8", atBoundarySegmentIndex: 5, inDistance: 3.6, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("CA:4a:85:8E:EC:FC", atBoundarySegmentIndex: 6, inDistance: 5.0, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("D6:00:80:94:12:92", atBoundarySegmentIndex: 7, inDistance: 3.08, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("C0:CC:3D:C9:A3:8E", atBoundarySegmentIndex: 8, inDistance: 7.7, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("FC:89:D7:64:DC:A6", atBoundarySegmentIndex: 9, inDistance: 2.6, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("E8:55:F8:AC:45:AA", atBoundarySegmentIndex: 10, inDistance: 2.3, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("D6:55:C3:8E:93:C8", atBoundarySegmentIndex: 11, inDistance: 6.75, fromSide: EILLocationBuilderSide.LeftSide)
-                locationBuilder.addBeaconWithIdentifier("E5:45:02:F4:39:A0", atBoundarySegmentIndex: 12, inDistance: 5.6, fromSide: EILLocationBuilderSide.LeftSide)
+                locationBuilder.addBeacon(withIdentifier: "E8:C2:89:54:B0:7B", atBoundarySegmentIndex: 0, inDistance: 4.95, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "FD:7d:75:01:A1:C6", atBoundarySegmentIndex: 1, inDistance: 4.9, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "C9:23:FC:8B:79:74", atBoundarySegmentIndex: 2, inDistance: 4.8, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "FB:E0:DE:9B:44:77", atBoundarySegmentIndex: 3, inDistance: 2.0, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "E9:79:81:DD:A0:3C", atBoundarySegmentIndex: 4, inDistance: 3.9, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "EA:1f:87:62:C6:B8", atBoundarySegmentIndex: 5, inDistance: 3.6, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "CA:4a:85:8E:EC:FC", atBoundarySegmentIndex: 6, inDistance: 5.0, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "D6:00:80:94:12:92", atBoundarySegmentIndex: 7, inDistance: 3.08, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "C0:CC:3D:C9:A3:8E", atBoundarySegmentIndex: 8, inDistance: 7.7, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "FC:89:D7:64:DC:A6", atBoundarySegmentIndex: 9, inDistance: 2.6, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "E8:55:F8:AC:45:AA", atBoundarySegmentIndex: 10, inDistance: 2.3, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "D6:55:C3:8E:93:C8", atBoundarySegmentIndex: 11, inDistance: 6.75, from: EILLocationBuilderSide.leftSide)
+                locationBuilder.addBeacon(withIdentifier: "E5:45:02:F4:39:A0", atBoundarySegmentIndex: 12, inDistance: 5.6, from: EILLocationBuilderSide.leftSide)
                 
                 locationBuilder.setLocationOrientation(0.0)
                 locationBuilder.setLocationName("China Hall")
@@ -114,7 +114,7 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
                 
                 //after building the location, save it to Estimote Cloud
                 let requestAddLocation = EILRequestAddLocation.init(location: self.location)
-                requestAddLocation.sendRequestWithCompletion({(EILRequestAddLocationBlock) in print("saved location")})
+                requestAddLocation.sendRequest(completion: {(EILRequestAddLocationBlock) in print("saved location")})
                 
                 self.completeLocationViewerSetup()
             }
@@ -123,30 +123,30 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     
     func completeLocationViewerSetup(){
         //configure the location view
-        self.locationView.showTrace = traceSwitch.on
+        self.locationView.showTrace = traceSwitch.isOn
         self.locationView.rotateOnPositionUpdate = false
         self.locationView.drawLocation(self.location)
         
         //setup up handler for position updates
-        self.locationManager.startPositionUpdatesForLocation(self.location)
+        self.locationManager.startPositionUpdates(for: self.location)
     }
     
-    func indoorLocationManager(manager: EILIndoorLocationManager,
+    func indoorLocationManager(_ manager: EILIndoorLocationManager,
         didFailToUpdatePositionWithError error: NSError) {
             print("failed to update position: \(error)")
     }
     
-    func indoorLocationManager(manager: EILIndoorLocationManager,
+    func indoorLocationManager(_ manager: EILIndoorLocationManager,
         didUpdatePosition position: EILOrientedPoint,
-        withAccuracy positionAccuracy: EILPositionAccuracy,
-        inLocation location: EILLocation) {
+        with positionAccuracy: EILPositionAccuracy,
+        in location: EILLocation) {
             var accuracy: String!
             switch positionAccuracy {
-            case .VeryHigh: accuracy = "+/- 1.00m"
-            case .High:     accuracy = "+/- 1.62m"
-            case .Medium:   accuracy = "+/- 2.62m"
-            case .Low:      accuracy = "+/- 4.24m"
-            case .VeryLow:  accuracy = "+/- ? :-("
+            case .veryHigh: accuracy = "+/- 1.00m"
+            case .high:     accuracy = "+/- 1.62m"
+            case .medium:   accuracy = "+/- 2.62m"
+            case .low:      accuracy = "+/- 4.24m"
+            case .veryLow:  accuracy = "+/- ? :-("
             default: print("positioning not working")
             }
             
@@ -165,9 +165,9 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
             self.locationView.updatePosition(position)    
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier! == "showAllTrails"{
-            let navController = segue.destinationViewController as! UINavigationController
+            let navController = segue.destination as! UINavigationController
             let destinationController = navController.viewControllers.first as! TrailListViewController
             
             destinationController.files = estimoteLocation.listTrails()!
@@ -179,7 +179,7 @@ class TrailViewController: UIViewController, EILIndoorLocationManagerDelegate  {
     }
     
     //hides the status bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true;
     }
 }

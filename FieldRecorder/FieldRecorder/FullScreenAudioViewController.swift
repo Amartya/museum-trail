@@ -16,34 +16,34 @@ import UIKit
  and update the user interface when an audio file finishes playing. 
  */
 
-public func ==(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs === rhs || lhs.compare(rhs) == .OrderedSame
+public func ==(lhs: Date, rhs: Date) -> Bool {
+    return lhs === rhs || lhs.compare(rhs) == .orderedSame
 }
 
-public func <(lhs: NSDate, rhs: NSDate) -> Bool {
-    return lhs.compare(rhs) == .OrderedAscending
+public func <(lhs: Date, rhs: Date) -> Bool {
+    return lhs.compare(rhs) == .orderedAscending
 }
 
-extension NSDate: Comparable { }
+extension Date: Comparable { }
 
 class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
     var fieldAudio = Audio()
     
-    var directoryURL: NSURL?
-    var recordings: [NSURL]? = []
+    var directoryURL: URL?
+    var recordings: [URL]? = []
     
-    var selectedAudioFileURL: NSURL?
+    var selectedAudioFileURL: URL?
     var selectedAudioFileLabel: String = ""
     
-    var timer = NSTimer()
+    var timer = Timer()
     
     @IBOutlet weak var audioVisualizer: AudioVisualizer!
 
     let recordingSettings: [String: AnyObject] =  [
-        AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-        AVSampleRateKey: 16000.0,
-        AVNumberOfChannelsKey: 2,
-        AVEncoderAudioQualityKey: AVAudioQuality.High.rawValue
+        AVFormatIDKey: Int(kAudioFormatMPEG4AAC) as AnyObject,
+        AVSampleRateKey: 16000.0 as AnyObject,
+        AVNumberOfChannelsKey: 2 as AnyObject,
+        AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue as AnyObject
     ]
 
     @IBOutlet var stopButton: UIButton!
@@ -56,57 +56,57 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     
     @IBOutlet var currentlySelectedLabel: UILabel!
     
-    @IBAction func stop(sender: UIButton) {
+    @IBAction func stop(_ sender: UIButton) {
         fieldAudio.stopRecording()
         
         //reset the recording button
-        recordButton.setImage(UIImage(named: "record"), forState: UIControlState.Normal)
-        recordButton.selected = false
+        recordButton.setImage(UIImage(named: "record"), for: UIControlState())
+        recordButton.isSelected = false
         
         //reset the play button
-        playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
-        playButton.selected = false
-        playButton.enabled = true
+        playButton.setImage(UIImage(named: "play"), for: UIControlState())
+        playButton.isSelected = false
+        playButton.isEnabled = true
         
-        stopButton.enabled = false
-        volumeLevel.enabled = true
+        stopButton.isEnabled = false
+        volumeLevel.isEnabled = true
     }
     
 
-    @IBAction func playRecording(sender: UIButton) {
+    @IBAction func playRecording(_ sender: UIButton) {
         if let audioPlayer = fieldAudio.audioPlayer {
-            if(audioPlayer.playing){
+            if(audioPlayer.isPlaying){
                 fieldAudio.pausePlayer()
-                playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+                playButton.setImage(UIImage(named: "play"), for: UIControlState())
                 resetAudioVisualizer()
             }
             else{
                 fieldAudio.playAudio()
-                playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
+                playButton.setImage(UIImage(named: "pause"), for: UIControlState())
             }
         }
         else{
             fieldAudio.playAudio()
-            playButton.setImage(UIImage(named: "pause"), forState: UIControlState.Normal)
+            playButton.setImage(UIImage(named: "pause"), for: UIControlState())
         }
 
         fieldAudio.audioPlayer?.delegate = self
     }
     
 
-    @IBAction func toggleRecording(sender: UIButton) {
+    @IBAction func toggleRecording(_ sender: UIButton) {
         //stop the audio player if it's currently playing
         if let player = fieldAudio.audioPlayer{
-            if player.playing{
+            if player.isPlaying{
                 player.stop()
-                playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
-                playButton.selected = false
+                playButton.setImage(UIImage(named: "play"), for: UIControlState())
+                playButton.isSelected = false
             }
         }
         
         //ensure that the playbutton is disabled and the file name is changed to the participant id for which the recording is being done
         currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
-        playButton.enabled = false
+        playButton.isEnabled = false
         
         setupRecorder()
         
@@ -114,11 +114,11 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         
         fieldAudio.audioRecorder?.delegate = self
         
-        stopButton.enabled = true
-        volumeLevel.enabled = false
+        stopButton.isEnabled = true
+        volumeLevel.isEnabled = false
     }
     
-    @IBAction func changeVolume(sender: UISlider) {
+    @IBAction func changeVolume(_ sender: UISlider) {
         fieldAudio.adjustVolume(sender.value)
     }
     
@@ -133,25 +133,25 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         setAudioFileLabel()
         
         //using the timer to read the input levels for the sound
-        if !timer.valid{
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        if !timer.isValid{
+            timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         }
 
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: #selector(pauseTimerOnEnteringBackground), name:UIApplicationWillResignActiveNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(restartTimerOnLoad), name:UIApplicationWillEnterForegroundNotification, object: nil)
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(pauseTimerOnEnteringBackground), name:NSNotification.Name.UIApplicationWillResignActive, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(restartTimerOnLoad), name:NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         
         guard let _ = self.selectedAudioFileURL else{
-            stopButton.enabled = false
-            playButton.enabled = false
-            volumeLevel.enabled = false
+            stopButton.isEnabled = false
+            playButton.isEnabled = false
+            volumeLevel.isEnabled = false
             return
         }
         
         //set the buttons to be deactivated initially
-        stopButton.enabled = false
-        playButton.enabled = true
-        volumeLevel.enabled = true
+        stopButton.isEnabled = false
+        playButton.isEnabled = true
+        volumeLevel.isEnabled = true
         
         fieldAudio.audioFileURL = selectedAudioFileURL
     }
@@ -161,21 +161,21 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     }
     
     func restartTimerOnLoad(){
-        if !timer.valid{
-            timer = NSTimer.scheduledTimerWithTimeInterval(0.001, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+        if !timer.isValid{
+            timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(update), userInfo: nil, repeats: true)
         }
     }
     
     // must be internal or public.
     func update() {
         if let audioPlayer = fieldAudio.audioPlayer{
-            if audioPlayer.playing{
+            if audioPlayer.isPlaying{
                 var power: Double = 0.0;
             
                 audioPlayer.updateMeters()
             
                 for i in 0..<audioPlayer.numberOfChannels{
-                    power += Double(audioPlayer.averagePowerForChannel(i))
+                    power += Double(audioPlayer.averagePower(forChannel: i))
                     power /= Double(audioPlayer.numberOfChannels)
                 }
             
@@ -184,14 +184,14 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         }
         
         if let audioRecorder = fieldAudio.audioRecorder{
-            if audioRecorder.recording{
+            if audioRecorder.isRecording{
                 var power: Double = 0.0;
             
                 audioRecorder.updateMeters()
                 let audioRecorderTemp = audioRecorder
 
                 for i in 0..<2{
-                    power += Double(audioRecorderTemp.averagePowerForChannel(i))
+                    power += Double(audioRecorderTemp.averagePower(forChannel: i))
                     power /= Double(2)
                 }
             updateVisualizer(power, recording: true)
@@ -199,7 +199,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         }   
     }
     
-    func updateVisualizer(power: Double, playing: Bool = false, recording: Bool = false){
+    func updateVisualizer(_ power: Double, playing: Bool = false, recording: Bool = false){
         let scale = CGFloat(AudioVisualizer.scale(power, baseMin: -150, baseMax: 0, limitMin: 0, limitMax: 1))
         let radius = scale * 200
         let center = CGPoint(x:audioVisualizer.bounds.width/2 + audioVisualizer.bounds.origin.x,
@@ -231,7 +231,7 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         fieldAudio.recordingSettings = recordingSettings
         fieldAudio.directoryURL = Utility.getAppDirectoryURL()
         
-        fieldAudio.audioFileURL = fieldAudio.directoryURL!.URLByAppendingPathComponent(fieldAudio.getAudioFileName(participant))
+        fieldAudio.audioFileURL = fieldAudio.directoryURL!.appendingPathComponent(fieldAudio.getAudioFileName(participant))
         
         //the recorder can be setup after the file url and the recording settings have been assigned
         fieldAudio.setupRecorder()
@@ -241,13 +241,13 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
         let tempRecordings = fieldAudio.listRecordings()!
         
         if(tempRecordings.count > 0){
-            if selectedAudioFileLabel.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == "" {
+            if selectedAudioFileLabel.trimmingCharacters(in: CharacterSet.whitespaces) == "" {
                 currentlySelectedLabel?.text = "Participant " + String(participant.participantID) + " Audio.m4a"
-                playButton.enabled = false
+                playButton.isEnabled = false
             }
             else{
                 currentlySelectedLabel?.text = selectedAudioFileLabel
-                playButton.enabled = true
+                playButton.isEnabled = true
             }
         }
         else{
@@ -256,38 +256,38 @@ class FullscreenAudioViewController: UIViewController, AVAudioRecorderDelegate, 
     }
     
     //hides the status bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true;
     }
     
     //part of the AVAudioRecorderDelegate protocol, but this is an optional. Using this to inform that we successfully recorded the audio
-    func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         fieldAudio.audioRecorder?.stop()
         
         if flag{
-            let alertMessage = UIAlertController(title: "Finished Recording", message: "Successfully recorded audio!", preferredStyle: .Alert)
-            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            presentViewController(alertMessage, animated: true, completion: nil)
+            let alertMessage = UIAlertController(title: "Finished Recording", message: "Successfully recorded audio!", preferredStyle: .alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(alertMessage, animated: true, completion: nil)
             resetAudioVisualizer()
         }
     }
     
     //part of the AVAudioPlayerDelegate protocol, but this is an optional as well.
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
         if flag{
-            let alertMessage = UIAlertController(title: "Finish Playing", message:"Finished playing the recording!", preferredStyle: .Alert)
-            alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
-            presentViewController(alertMessage, animated: true, completion: nil)
+            let alertMessage = UIAlertController(title: "Finish Playing", message:"Finished playing the recording!", preferredStyle: .alert)
+            alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+            present(alertMessage, animated: true, completion: nil)
 
-            playButton.setImage(UIImage(named: "play"), forState: UIControlState.Normal)
+            playButton.setImage(UIImage(named: "play"), for: UIControlState())
             resetAudioVisualizer()
         }
     }
     
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier! == "showAllRecordings"{
-                let navController = segue.destinationViewController as! UINavigationController
+                let navController = segue.destination as! UINavigationController
                 let destinationController = navController.viewControllers.first as! RecordListViewController
                 let allRecordings = fieldAudio.listRecordings()!
                 

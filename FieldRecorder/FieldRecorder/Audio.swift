@@ -15,28 +15,28 @@ import AVFoundation
  3. configure the audio recorder's init state (recording format, bitrate etc.)
  */
 class Audio: UIViewController{
-    var directoryURL: NSURL?
-    var audioFileURL: NSURL?
+    var directoryURL: URL?
+    var audioFileURL: URL?
     var recordingSettings: [String: AnyObject]?
     
     var audioPlayer: AVAudioPlayer?
     var audioRecorder: AVAudioRecorder?
     
-    var audioCurrentTime: NSTimeInterval?
+    var audioCurrentTime: TimeInterval?
     
-    func getAudioFileName(participant:ParticipantModel) -> String {
+    func getAudioFileName(_ participant:ParticipantModel) -> String {
         //figure out a default recording file path
-        let calendar = NSCalendar.currentCalendar()
-        let today = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Second], fromDate: participant.date)
+        let calendar = Calendar.current
+        let today = (calendar as NSCalendar).components([.year, .month, .day, .hour, .minute, .second], from: participant.date as Date)
         
-        var fileName = String(today.year) + "-" + String(today.month) + "-" + String(today.day) + "-" + String(today.hour) + ":" + String(today.minute) + ":" + String(today.second) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
+        var fileName = String(describing: today.year) + "-" + String(describing: today.month) + "-" + String(describing: today.day) + "-" + String(describing: today.hour) + ":" + String(describing: today.minute) + ":" + String(describing: today.second) + "###Participant " + String(participant.participantID) + "###Audio.m4a"
         
-        let allFilesNames = listRecordings()!.map({ (name: NSURL) -> String in return name.lastPathComponent!})
+        let allFilesNames = listRecordings()!.map({ (name: URL) -> String in return name.lastPathComponent})
         
         //ensuring that if there's a collision in filenames, recordings are not lost
-        if allFilesNames.indexOf(fileName) != nil{
-            let fileNameComponents = fileName.componentsSeparatedByString("###")
-            fileName = fileNameComponents[0] + "###" + fileNameComponents[1] + "(" + NSUUID().UUIDString + ")" + "###Audio.m4a"
+        if allFilesNames.index(of: fileName) != nil{
+            let fileNameComponents = fileName.components(separatedBy: "###")
+            fileName = fileNameComponents[0] + "###" + fileNameComponents[1] + "(" + UUID().uuidString + ")" + "###Audio.m4a"
         }
         
         return fileName
@@ -45,21 +45,21 @@ class Audio: UIViewController{
     /**
      returns the list of recordings in the file system in a sorted (by date desc) list
      */
-    func listRecordings() -> [NSURL]?{
-        var recordings: [NSURL]?
+    func listRecordings() -> [URL]?{
+        var recordings: [URL]?
         
         do {
             //get all audio files
-            var urls = try NSFileManager.defaultManager().contentsOfDirectoryAtURL(directoryURL!, includingPropertiesForKeys: nil, options: NSDirectoryEnumerationOptions.SkipsHiddenFiles)
-            urls = urls.filter( { (name: NSURL) -> Bool in return name.lastPathComponent!.hasSuffix("###Audio.m4a")})
+            var urls = try FileManager.default.contentsOfDirectory(at: directoryURL!, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            urls = urls.filter( { (name: URL) -> Bool in return name.lastPathComponent.hasSuffix("###Audio.m4a")})
             
             //get lastModified date for each of those files
-            let urlsAndDates = urls.map { url -> (NSURL, NSDate) in var lastModified : AnyObject?
-                _ = try? url.getResourceValue(&lastModified, forKey: NSURLContentModificationDateKey)
-                return (url, (lastModified)! as! NSDate)}
-            let sortedUrlsAndDate = urlsAndDates.sort {$0.1 == $1.1 ? $0.1 > $1.1 : $0.1 > $1.1 }
+            let urlsAndDates = urls.map { url -> (URL, Date) in var lastModified : AnyObject?
+                _ = try? (url as NSURL).getResourceValue(&lastModified, forKey: URLResourceKey.contentModificationDateKey)
+                return (url, (lastModified)! as! Date)}
+            let sortedUrlsAndDate = urlsAndDates.sorted {$0.1 == $1.1 ? $0.1 > $1.1 : $0.1 > $1.1 }
             
-            recordings = sortedUrlsAndDate.map{url -> NSURL in return url.0}
+            recordings = sortedUrlsAndDate.map{url -> URL in return url.0}
         }
         catch let error as NSError {
             print(error.localizedDescription)
@@ -81,11 +81,11 @@ class Audio: UIViewController{
         let audioSession = AVAudioSession.sharedInstance()
         
         do{
-            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, withOptions: AVAudioSessionCategoryOptions.DefaultToSpeaker)
+            try audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord, with: AVAudioSessionCategoryOptions.defaultToSpeaker)
             
             //initialize and prep the recorder
-            audioRecorder = try AVAudioRecorder(URL:audioFileURL!, settings: recordingSettings!)
-            audioRecorder?.meteringEnabled = true
+            audioRecorder = try AVAudioRecorder(url:audioFileURL!, settings: recordingSettings!)
+            audioRecorder?.isMeteringEnabled = true
             //audioRecorder?.prepareToRecord()
             
         } catch{
@@ -103,23 +103,23 @@ class Audio: UIViewController{
     
     func playAudio(){
         if let player = audioPlayer{
-            if !player.playing{
+            if !player.isPlaying{
                 player.play()
             }
         }
         else{
             do{
                 if let selectedToPlay = self.audioFileURL {
-                    try audioPlayer = AVAudioPlayer(contentsOfURL: selectedToPlay)
-                    audioPlayer?.meteringEnabled = true
+                    try audioPlayer = AVAudioPlayer(contentsOf: selectedToPlay)
+                    audioPlayer?.isMeteringEnabled = true
                     
                     audioPlayer?.play()
                 }
             }
             catch{
-                let alertMessage = UIAlertController(title: "Field Audio Player", message:"Issue finding or playing audio file, try a different recording using the list recording option", preferredStyle: .Alert)
-                alertMessage.addAction(UIAlertAction(title: "OK", style: .Default, handler:nil))
-                presentViewController(alertMessage, animated: true, completion: nil)
+                let alertMessage = UIAlertController(title: "Field Audio Player", message:"Issue finding or playing audio file, try a different recording using the list recording option", preferredStyle: .alert)
+                alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+                present(alertMessage, animated: true, completion: nil)
             }
         }
     }
@@ -128,13 +128,13 @@ class Audio: UIViewController{
     func toggleRecording(){
         //stop the audio player if it's currently playing
         if let player = audioPlayer{
-            if player.playing{
+            if player.isPlaying{
                 player.stop()
             }
         }
         
         if let recorder = self.audioRecorder{
-            if !recorder.recording {
+            if !recorder.isRecording {
                 let audioSession = AVAudioSession.sharedInstance()
                 
                 do{
@@ -172,7 +172,7 @@ class Audio: UIViewController{
         }
     }
     
-    func adjustVolume(volume: Float){
+    func adjustVolume(_ volume: Float){
         if let _ = audioPlayer{
             audioPlayer?.volume = volume
         }

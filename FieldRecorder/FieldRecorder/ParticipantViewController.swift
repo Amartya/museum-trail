@@ -18,7 +18,7 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
     
     //makes the keyboard disappear while tapping outside the textfield 
     //make sure that the view tapped is changed to be an instance of UIControl, instead of UIView in IB
-    @IBAction func dismissKeyboard(sender: AnyObject) {
+    @IBAction func dismissKeyboard(_ sender: AnyObject) {
         if let tempParticipantInput = participantInput{
             tempParticipantInput.resignFirstResponder()
         }
@@ -31,38 +31,38 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         self.participantInput.delegate = self
         
         //defaulting to number keyboard
-        participantInput.keyboardType = UIKeyboardType.NumbersAndPunctuation
+        participantInput.keyboardType = UIKeyboardType.numbersAndPunctuation
         
         if participant.participantID != -999{
             self.participantInput.text = String(participant.participantID)
         }
         
         //draw the border around the participant ID input
-        Utility.drawTopAndBottomBorder(UIColor.lightGrayColor().CGColor, textField: self.participantInput)
+        Utility.drawTopAndBottomBorder(UIColor.lightGray.cgColor, textField: self.participantInput)
         
-        let borderColor = UIColor.init(red:0.42, green:0.569, blue:0.6, alpha:1).CGColor
+        let borderColor = UIColor.init(red:0.42, green:0.569, blue:0.6, alpha:1).cgColor
         participantInputView.layer.borderColor = borderColor
         participantInputView.layer.borderWidth = 2
         participantInputView.layer.cornerRadius = 7
         participantInputView.layer.masksToBounds = true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
     //this prevents a transition to the next screen if it returns false
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "showRecordingScreen" || identifier == "showTrailScreen" || identifier == "showAudioTrail"{
             let initX = self.participantInput.center.x
             
-            if participantInput.text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet()) == ""{
+            if participantInput.text?.trimmingCharacters(in: CharacterSet.whitespaces) == ""{
                 //reset the text to show the placeholder text
                 self.participantInput.text = ""
                 
                 //the participant id text box does a tiny shaking animation if there is no participant id provided
-                UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.0, options: UIViewAnimationOptions(), animations: {
                         self.participantInput.center = CGPoint(x:initX + 10, y: self.participantInput.center.y)
                     }, completion: {(Bool)  in self.participantInput.center.x = initX})
                 
@@ -77,7 +77,7 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
                 //reset the text to show the placeholder text
                 self.participantInput.text = ""
                 
-                UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 0.1, initialSpringVelocity: 0.0, options: UIViewAnimationOptions(), animations: {
                     self.participantInput.center = CGPoint(x:initX + 10, y: self.participantInput.center.y)
                     }, completion: {(Bool)  in self.participantInput.center.x = initX})
                 
@@ -88,19 +88,19 @@ class ParticipantViewController: UIViewController, UITextFieldDelegate{
         return true
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let id = Int(participantInput.text!){
-            participant.setIdAndDate(id, date: NSDate())
+            participant.setIdAndDate(id, date: Date())
         }
     }
     
     //hides the navigation bar once the view is about to load
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     //hides the status bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true;
     }
 }

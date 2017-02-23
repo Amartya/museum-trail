@@ -13,13 +13,13 @@ class AudioVisualizer: UIView {
     var rect = CGRect(x: 20, y: 20, width: 0, height: 0)
     var color = UIColor.init(red:0.5, green:0.5, blue: 0.5, alpha: 0.5)
     
-    override func drawRect(rect: CGRect) {
-        let path = UIBezierPath(ovalInRect: self.rect)
+    override func draw(_ rect: CGRect) {
+        let path = UIBezierPath(ovalIn: self.rect)
         self.color.setFill()
         path.fill()
     }
     
-    static func scale(valueIn: Double, baseMin: Double, baseMax: Double, limitMin: Double, limitMax: Double) -> Double {
+    static func scale(_ valueIn: Double, baseMin: Double, baseMax: Double, limitMin: Double, limitMax: Double) -> Double {
         return ((limitMax - limitMin) * (valueIn - baseMin) / (baseMax - baseMin)) + limitMin;
     }
 }

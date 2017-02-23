@@ -13,20 +13,20 @@ let participant = ParticipantModel()
 //final class definition prevents sub-classing. We use the participant variable declared above as a Singleton model instance that is shared across various screens in this app
 final class ParticipantModel{
     var participantID:Int
-    var date:NSDate
+    var date:Date
     
     init(){
         self.participantID = -999
-        self.date = NSDate()
+        self.date = Date()
     }
     
-    convenience init(participantId: Int, date: NSDate){
+    convenience init(participantId: Int, date: Date){
         self.init()
         self.participantID = participantId
         self.date = date
     }
     
-    func setIdAndDate(participantId: Int, date: NSDate){
+    func setIdAndDate(_ participantId: Int, date: Date){
         self.participantID = participantId
         self.date = date
     }

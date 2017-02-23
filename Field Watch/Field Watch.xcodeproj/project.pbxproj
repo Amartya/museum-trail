@@ -21,6 +21,7 @@
 		08A4D0D21E5A5B8B00FD55AD /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A4D0D11E5A5B8B00FD55AD /* NotificationController.swift */; };
 		08A4D0D41E5A5B8B00FD55AD /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A4D0D31E5A5B8B00FD55AD /* ComplicationController.swift */; };
 		08A4D0D61E5A5B8B00FD55AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A4D0D51E5A5B8B00FD55AD /* Assets.xcassets */; };
+		08C90E1E1E5DFA4B00B58060 /* WatchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C90E1D1E5DFA4B00B58060 /* WatchTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		08A4D0D31E5A5B8B00FD55AD /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		08A4D0D51E5A5B8B00FD55AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08A4D0D71E5A5B8B00FD55AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08C90E1D1E5DFA4B00B58060 /* WatchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				08A4D0CF1E5A5B8B00FD55AD /* ExtensionDelegate.swift */,
 				08A4D0D11E5A5B8B00FD55AD /* NotificationController.swift */,
 				08A4D0D31E5A5B8B00FD55AD /* ComplicationController.swift */,
+				08C90E1D1E5DFA4B00B58060 /* WatchTableCell.swift */,
 				08A4D0D51E5A5B8B00FD55AD /* Assets.xcassets */,
 				08A4D0D71E5A5B8B00FD55AD /* Info.plist */,
 				08A4D0CB1E5A5B8B00FD55AD /* Supporting Files */,
@@ -321,6 +324,7 @@
 				08A4D0D41E5A5B8B00FD55AD /* ComplicationController.swift in Sources */,
 				08A4D0D01E5A5B8B00FD55AD /* ExtensionDelegate.swift in Sources */,
 				08A4D0CE1E5A5B8B00FD55AD /* InterfaceController.swift in Sources */,
+				08C90E1E1E5DFA4B00B58060 /* WatchTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -577,6 +581,7 @@
 				08A4D0DC1E5A5B8B00FD55AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		08A4D0DE1E5A5B8B00FD55AD /* Build configuration list for PBXNativeTarget "Field Watch WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -585,6 +590,7 @@
 				08A4D0E01E5A5B8B00FD55AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		08A4D0E21E5A5B8B00FD55AD /* Build configuration list for PBXNativeTarget "Field Watch" */ = {
 			isa = XCConfigurationList;
@@ -593,6 +599,7 @@
 				08A4D0E41E5A5B8B00FD55AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

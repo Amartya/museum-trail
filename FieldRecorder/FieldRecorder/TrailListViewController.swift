@@ -16,45 +16,45 @@ class TrailListViewController: FieldFileListViewController{
         super.viewDidLoad()
         
         if let _ = self.selectedURL{
-            shareBtn.enabled = true
+            shareBtn.isEnabled = true
         }
         else{
-            shareBtn.enabled = false
+            shareBtn.isEnabled = false
         }
     }
     
-    @IBAction func airDrop(sender: AnyObject) {
+    @IBAction func airDrop(_ sender: AnyObject) {
         let airDropController = UIActivityViewController.init(activityItems: [self.selectedURL!], applicationActivities: nil)
-        self.presentViewController(airDropController, animated: true, completion: nil)
+        self.present(airDropController, animated: true, completion: nil)
     }
     
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
             // handle delete (by removing the data from your array and updating the tableview)
             self.removeFileAtPath(self.files[indexPath.row])
             
             //remove from the array and tableview
-            self.files.removeAtIndex(indexPath.row)
+            self.files.remove(at: indexPath.row)
             tableView.reloadData()
             
             //disable the share button if all the files are deleted
             if self.files.count == 0 {
-                shareBtn.enabled = false
+                shareBtn.isEnabled = false
             }
         }
     }
     
     //This method will be called every time a table row is displayed. By using the indexPath object, we can get the current row ( indexPath.row ).
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cellIdentifier = "trailCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier,forIndexPath: indexPath) as! TrailCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier,for: indexPath) as! TrailCell
         
-        let fileData = self.parseFileNamesForDisplay()[indexPath.row].componentsSeparatedByString("###")
+        let fileData = self.parseFileNamesForDisplay()[indexPath.row].components(separatedBy: "###")
         
         if fileData.count > 1 {
             cell.dateLabel.text = fileData[0]
@@ -62,9 +62,9 @@ class TrailListViewController: FieldFileListViewController{
             cell.fileNameLabel.text = fileData[1] + " " + fileData[2]
         }
         else{
-            cell.dateLabel.text = fileData.joinWithSeparator("")
-            cell.participantLabel.text = fileData.joinWithSeparator("")
-            cell.fileNameLabel.text = fileData.joinWithSeparator("")
+            cell.dateLabel.text = fileData.joined(separator: "")
+            cell.participantLabel.text = fileData.joined(separator: "")
+            cell.fileNameLabel.text = fileData.joined(separator: "")
         }
         
         self.setTableViewIcon(indexPath, cell:cell)
@@ -73,15 +73,15 @@ class TrailListViewController: FieldFileListViewController{
     }
     
     //hides the status bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true;
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
        //
     }
 }

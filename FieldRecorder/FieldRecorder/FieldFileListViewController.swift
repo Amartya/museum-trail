@@ -21,15 +21,15 @@ import Foundation
 import UIKit
 
 class FieldFileListViewController: UITableViewController, UIPopoverControllerDelegate {
-    var files:[NSURL] = []
-    var selectedURL: NSURL? = NSURL()
+    var files:[URL] = []
+    var selectedURL: URL? = URL()
     var selectedFileName: String = ""
     
     func parseFileNamesForDisplay() -> [String] {
         var fileNames: [String] = []
         
         for recordURL in self.files {
-            fileNames.append(recordURL.lastPathComponent!)
+            fileNames.append(recordURL.lastPathComponent)
         }
         
         return(fileNames)
@@ -37,16 +37,16 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
     
     
     // total number of rows in a section (a table view can have multiple sections but there is only one by default)
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return files.count
     }
     
     //sets the icon displayed in a row to red OR b/w based on selected track
-    func setTableViewIcon(indexPath: NSIndexPath, cell: AnyObject){
+    func setTableViewIcon(_ indexPath: IndexPath, cell: AnyObject){
         var recordingCell = RecordingCell()
         var trailCell = TrailCell()
         
-        if String(self.dynamicType) == "RecordListViewController"{
+        if String(describing: type(of: self)) == "RecordListViewController"{
             recordingCell = cell as! RecordingCell
         }
         else{
@@ -54,17 +54,17 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
         }
         
         if let _ = self.selectedURL{
-            if let selectedURLIndex = self.files.indexOf(selectedURL!){
-                if indexPath.row == selectedURLIndex && String(self.dynamicType) == "RecordListViewController"{
+            if let selectedURLIndex = self.files.index(of: selectedURL!){
+                if indexPath.row == selectedURLIndex && String(describing: type(of: self)) == "RecordListViewController"{
                     recordingCell.thumbnailImageView!.image = UIImage(named: "sound-icon-playing")
                 }
-                else if String(self.dynamicType) == "RecordListViewController"{
+                else if String(describing: type(of: self)) == "RecordListViewController"{
                     recordingCell.thumbnailImageView!.image = UIImage(named: "sound-icon")
                 }
-                else if indexPath.row == selectedURLIndex && String(self.dynamicType) == "TrailListViewController"{
+                else if indexPath.row == selectedURLIndex && String(describing: type(of: self)) == "TrailListViewController"{
                     trailCell.thumbnailImageView!.image = UIImage(named: "estimote-selected")
                 }
-                else if String(self.dynamicType) == "TrailListViewController"{
+                else if String(describing: type(of: self)) == "TrailListViewController"{
                     trailCell.thumbnailImageView!.image = UIImage(named: "estimote")
                 }
             }
@@ -72,10 +72,10 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
     }
     
     //tells the delegate that the specified row is now selected.
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedURL = files[indexPath.row]
         
-        let fileData = selectedURL?.lastPathComponent?.componentsSeparatedByString("###")
+        let fileData = selectedURL?.lastPathComponent.components(separatedBy: "###")
         if fileData!.count > 1 {
             selectedFileName = fileData![1] + " " + fileData![2]
         }
@@ -88,25 +88,25 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
     }
     
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete) {
             // handle delete (by removing the data from your array and updating the tableview)
             removeFileAtPath(files[indexPath.row])
             
             //remove from the array and tableview
-            files.removeAtIndex(indexPath.row)
+            files.remove(at: indexPath.row)
             tableView.reloadData()
         }
     }
     
-    func removeFileAtPath(fileURL: NSURL){
-        let fileManager = NSFileManager.defaultManager()
+    func removeFileAtPath(_ fileURL: URL){
+        let fileManager = FileManager.default
         do {
-            try fileManager.removeItemAtPath(fileURL.path!)
+            try fileManager.removeItem(atPath: fileURL.path)
         }
         catch let error as NSError {
             print("Ooops! Something went wrong: \(error)")
@@ -115,17 +115,17 @@ class FieldFileListViewController: UITableViewController, UIPopoverControllerDel
     
     
     //hides the status bar
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true;
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goBackToRecorder"{
-            let destinationController = segue.destinationViewController as! FullscreenAudioViewController
+            let destinationController = segue.destination as! FullscreenAudioViewController
             destinationController.selectedAudioFileURL = selectedURL
             destinationController.selectedAudioFileLabel = selectedFileName
         }

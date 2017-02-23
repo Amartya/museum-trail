@@ -17,7 +17,12 @@
                         <table alignment="left" id="hf0-uc-0jd">
                             <items>
                                 <tableRow id="F72-sN-Eiy">
-                                    <group key="rootItem" width="1" alignment="left" id="db8-v8-pKk"/>
+                                    <group key="rootItem" width="1" alignment="left" id="db8-v8-pKk">
+                                        <items>
+                                            <imageView width="45" alignment="left" id="jdI-Hr-6Sb"/>
+                                            <label alignment="left" text="Label" id="rB5-SM-wIj"/>
+                                        </items>
+                                    </group>
                                 </tableRow>
                             </items>
                         </table>

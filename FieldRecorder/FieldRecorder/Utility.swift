@@ -10,58 +10,58 @@ import Foundation
 import UIKit
 
 extension String {
-    func appendLineToURL(fileURL: NSURL) throws {
-        try self.stringByAppendingString("\n").appendToURL(fileURL)
+    func appendLineToURL(_ fileURL: URL) throws {
+        try self + "\n".appendToURL(fileURL)
     }
     
-    func appendToURL(fileURL: NSURL) throws {
-        let data = self.dataUsingEncoding(NSUTF8StringEncoding)!
+    func appendToURL(_ fileURL: URL) throws {
+        let data = self.data(using: String.Encoding.utf8)!
         try data.appendToURL(fileURL)
     }
 }
 
-extension NSData {
-    func appendToURL(fileURL: NSURL) throws {
-        if let fileHandle = try? NSFileHandle(forWritingToURL: fileURL) {
+extension Data {
+    func appendToURL(_ fileURL: URL) throws {
+        if let fileHandle = try? FileHandle(forWritingTo: fileURL) {
             defer {
                 fileHandle.closeFile()
             }
             fileHandle.seekToEndOfFile()
-            fileHandle.writeData(self)
+            fileHandle.write(self)
         }
         else {
-            try writeToURL(fileURL, options: .DataWritingAtomic)
+            try write(to: fileURL, options: .atomic)
         }
     }
 }
 
 class Utility: UIViewController{
-    static func getAppDirectoryURL() -> NSURL {
+    static func getAppDirectoryURL() -> URL {
         //ask for the document directory in the user's home directory
-        guard let tempDirectoryURL = NSFileManager.defaultManager().URLsForDirectory(NSSearchPathDirectory.DocumentDirectory,inDomains: NSSearchPathDomainMask.UserDomainMask).first else{
+        guard let tempDirectoryURL = FileManager.default.urls(for: FileManager.SearchPathDirectory.documentDirectory,in: FileManager.SearchPathDomainMask.userDomainMask).first else{
             print("Failed to get the document directory to record audio. Please try again or enable microphone access")
-            return NSURL()
+            return URL()
         }
     
         return tempDirectoryURL
     }
     
     static func getCurrentDeviceTimestamp() -> String {
-        let date = NSDate()
-        let calendar = NSCalendar.currentCalendar()
-        let components = calendar.components([.Hour, .Minute, .Second], fromDate: date)
+        let date = Date()
+        let calendar = Calendar.current
+        let components = (calendar as NSCalendar).components([.hour, .minute, .second], from: date)
     
-        let dateCompArray = [components.hour, components.minute, components.second].flatMap { String($0) }
+        let dateCompArray = [components.hour, components.minute, components.second].flatMap { String(describing: $0) }
         
-        return dateCompArray.joinWithSeparator(":")
+        return dateCompArray.joined(separator: ":")
     }
     
-    static func drawTopAndBottomBorder(borderColor: CGColor, textField: UITextField){
+    static func drawTopAndBottomBorder(_ borderColor: CGColor, textField: UITextField){
         let bottomBorder = CALayer()
         let topBorder = CALayer()
         
-        topBorder.frame = CGRectMake(0.0, 0.0, textField.frame.size.width - 1, 1.0)
-        bottomBorder.frame = CGRectMake(0.0, textField.frame.size.height - 1, textField.frame.size.width - 1, 1.0)
+        topBorder.frame = CGRect(x: 0.0, y: 0.0, width: textField.frame.size.width - 1, height: 1.0)
+        bottomBorder.frame = CGRect(x: 0.0, y: textField.frame.size.height - 1, width: textField.frame.size.width - 1, height: 1.0)
         
         topBorder.backgroundColor = borderColor
         bottomBorder.backgroundColor = borderColor
