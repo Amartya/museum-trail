@@ -22,7 +22,7 @@ import UIKit
 
 class FieldFileListViewController: UITableViewController, UIPopoverControllerDelegate {
     var files:[URL] = []
-    var selectedURL: URL? = URL()
+    var selectedURL: URL? = URL(string: "")
     var selectedFileName: String = ""
     
     func parseFileNamesForDisplay() -> [String] {

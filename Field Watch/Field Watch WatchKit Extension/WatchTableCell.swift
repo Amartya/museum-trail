@@ -9,6 +9,6 @@
 import WatchKit
 
 class WatchTableCell: NSObject{
-    @IBOutlet weak var rowDescription: WKInterfaceLabel!
     @IBOutlet weak var rowIcon: WKInterfaceImage!
+    @IBOutlet weak var rowDescription: WKInterfaceLabel!
 }

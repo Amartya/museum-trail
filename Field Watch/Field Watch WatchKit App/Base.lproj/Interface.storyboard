@@ -14,22 +14,62 @@
             <objects>
                 <controller animationDuration="1" alwaysBounce="YES" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Field_Watch_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <table alignment="left" id="hf0-uc-0jd">
+                        <table alignment="left" spacing="6" pagingScroll="YES" id="hf0-uc-0jd">
                             <items>
-                                <tableRow id="F72-sN-Eiy">
-                                    <group key="rootItem" width="1" alignment="left" id="db8-v8-pKk">
+                                <tableRow identifier="watchTableIdentifier" id="F72-sN-Eiy" customClass="WatchTableCell" customModule="Field_Watch_WatchKit_Extension">
+                                    <group key="rootItem" width="1" height="60" alignment="left" radius="10" id="db8-v8-pKk">
                                         <items>
-                                            <imageView width="45" alignment="left" id="jdI-Hr-6Sb"/>
-                                            <label alignment="left" text="Label" id="rB5-SM-wIj"/>
+                                            <group width="50" height="50" alignment="left" verticalAlignment="center" radius="10" id="EkQ-2b-h3D">
+                                                <items>
+                                                    <imageView width="40" height="40" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="jdI-Hr-6Sb"/>
+                                                </items>
+                                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </group>
+                                            <label width="70" alignment="left" verticalAlignment="center" text="Label" textAlignment="left" numberOfLines="3" id="rB5-SM-wIj">
+                                                <color key="textColor" red="0.28221294283866882" green="0.28631031513214111" blue="0.28628185391426086" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                            </label>
                                         </items>
+                                        <color key="backgroundColor" red="0.82249190449999998" green="0.83623840709999997" blue="0.8374565491" alpha="1" colorSpace="calibratedRGB"/>
                                     </group>
+                                    <connections>
+                                        <outlet property="rowDescription" destination="rB5-SM-wIj" id="vft-Kg-rYd"/>
+                                        <outlet property="rowIcon" destination="jdI-Hr-6Sb" id="oLi-KI-erY"/>
+                                    </connections>
                                 </tableRow>
                             </items>
                         </table>
                     </items>
+                    <edgeInsets key="margins" left="1" right="1" top="0.0" bottom="0.0"/>
+                    <connections>
+                        <outlet property="questiontable" destination="hf0-uc-0jd" id="7w0-Ar-5R1"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Interface Controller-->
+        <scene sceneID="RR4-00-9bx">
+            <objects>
+                <controller id="ft5-C5-od2">
+                    <items>
+                        <group width="136" height="151" alignment="left" alpha="0.90000000000000002" backgroundImage="watchtorail" contentMode="center" radius="10" id="Ljz-to-fa5">
+                            <items>
+                                <group width="1" alignment="left" verticalAlignment="bottom" id="M0g-hw-HSg">
+                                    <items>
+                                        <label width="103" alignment="center" verticalAlignment="bottom" text="Tap to read on the Rail" textAlignment="center" numberOfLines="2" minimumScaleFactor="0.90000000000000002" id="PMw-Ct-vCG">
+                                            <color key="textColor" red="0.28235294117647058" green="0.28627450980392155" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="516" y="345"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="AEw-b0-oYE">
