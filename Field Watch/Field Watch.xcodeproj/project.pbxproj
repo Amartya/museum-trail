@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08708BCC1E6382F900E2EFDB /* EstimoteSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08708BCB1E6382F900E2EFDB /* EstimoteSDK.framework */; };
+		08708BCD1E6382F900E2EFDB /* EstimoteSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08708BCB1E6382F900E2EFDB /* EstimoteSDK.framework */; };
 		08A4D0A91E5A5B8B00FD55AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A4D0A81E5A5B8B00FD55AD /* AppDelegate.swift */; };
 		08A4D0AB1E5A5B8B00FD55AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A4D0AA1E5A5B8B00FD55AD /* ViewController.swift */; };
 		08A4D0AE1E5A5B8B00FD55AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08A4D0AC1E5A5B8B00FD55AD /* Main.storyboard */; };
@@ -23,6 +25,7 @@
 		08A4D0D61E5A5B8B00FD55AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A4D0D51E5A5B8B00FD55AD /* Assets.xcassets */; };
 		08C90E1E1E5DFA4B00B58060 /* WatchTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C90E1D1E5DFA4B00B58060 /* WatchTableCell.swift */; };
 		08C90E1F1E5FAEBF00B58060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08A4D0BF1E5A5B8B00FD55AD /* Assets.xcassets */; };
+		08C90E211E607E2200B58060 /* DetailQuestionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C90E201E607E2200B58060 /* DetailQuestionController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		08708BCB1E6382F900E2EFDB /* EstimoteSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = EstimoteSDK.framework; sourceTree = "<group>"; };
+		08708BCE1E63832600E2EFDB /* ObjCBridge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ObjCBridge.h; path = "Field Watch/ObjCBridge.h"; sourceTree = "<group>"; };
 		08A4D0A51E5A5B8B00FD55AD /* Field Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Field Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		08A4D0A81E5A5B8B00FD55AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08A4D0AA1E5A5B8B00FD55AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +93,7 @@
 		08A4D0D51E5A5B8B00FD55AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08A4D0D71E5A5B8B00FD55AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08C90E1D1E5DFA4B00B58060 /* WatchTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WatchTableCell.swift; sourceTree = "<group>"; };
+		08C90E201E607E2200B58060 /* DetailQuestionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailQuestionController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08708BCC1E6382F900E2EFDB /* EstimoteSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -102,6 +109,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08708BCD1E6382F900E2EFDB /* EstimoteSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,10 +119,12 @@
 		08A4D09C1E5A5B8B00FD55AD = {
 			isa = PBXGroup;
 			children = (
+				08708BCE1E63832600E2EFDB /* ObjCBridge.h */,
 				08A4D0A71E5A5B8B00FD55AD /* Field Watch */,
 				08A4D0BB1E5A5B8B00FD55AD /* Field Watch WatchKit App */,
 				08A4D0CA1E5A5B8B00FD55AD /* Field Watch WatchKit Extension */,
 				08A4D0A61E5A5B8B00FD55AD /* Products */,
+				08708BCB1E6382F900E2EFDB /* EstimoteSDK.framework */,
 			);
 			sourceTree = "<group>";
 		};
@@ -155,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				08A4D0CD1E5A5B8B00FD55AD /* InterfaceController.swift */,
+				08C90E201E607E2200B58060 /* DetailQuestionController.swift */,
 				08A4D0CF1E5A5B8B00FD55AD /* ExtensionDelegate.swift */,
 				08A4D0D11E5A5B8B00FD55AD /* NotificationController.swift */,
 				08A4D0D31E5A5B8B00FD55AD /* ComplicationController.swift */,
@@ -244,6 +255,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = HL7S2EUM3A;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					08A4D0B61E5A5B8B00FD55AD = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -326,6 +342,7 @@
 				08A4D0D41E5A5B8B00FD55AD /* ComplicationController.swift in Sources */,
 				08A4D0D01E5A5B8B00FD55AD /* ExtensionDelegate.swift in Sources */,
 				08A4D0CE1E5A5B8B00FD55AD /* InterfaceController.swift in Sources */,
+				08C90E211E607E2200B58060 /* DetailQuestionController.swift in Sources */,
 				08C90E1E1E5DFA4B00B58060 /* WatchTableCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,6 +488,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Field Watch WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tidal.northwestern.Field-Watch.watchkitapp.watchkitextension";
@@ -488,6 +509,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Field Watch WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tidal.northwestern.Field-Watch.watchkitapp.watchkitextension";
@@ -541,10 +566,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Field Watch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tidal.northwestern.Field-Watch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Field Watch/ObjCBridge.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -555,10 +585,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = HL7S2EUM3A;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = "Field Watch/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "tidal.northwestern.Field-Watch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Field Watch/ObjCBridge.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

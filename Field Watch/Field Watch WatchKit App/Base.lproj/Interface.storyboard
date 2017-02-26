@@ -48,25 +48,35 @@
             </objects>
             <point key="canvasLocation" x="220" y="345"/>
         </scene>
-        <!--Interface Controller-->
+        <!--detailquestion-->
         <scene sceneID="RR4-00-9bx">
             <objects>
-                <controller id="ft5-C5-od2">
+                <controller identifier="detailquestion" id="ft5-C5-od2" customClass="DetailQuestionController" customModule="Field_Watch_WatchKit_Extension">
                     <items>
-                        <group width="136" height="151" alignment="left" alpha="0.90000000000000002" backgroundImage="watchtorail" contentMode="center" radius="10" id="Ljz-to-fa5">
+                        <group width="1" height="61" alignment="left" id="5q4-HA-JvE">
                             <items>
-                                <group width="1" alignment="left" verticalAlignment="bottom" id="M0g-hw-HSg">
+                                <group width="35" height="35" alignment="left" radius="8" id="otK-Ik-pHF">
                                     <items>
-                                        <label width="103" alignment="center" verticalAlignment="bottom" text="Tap to read on the Rail" textAlignment="center" numberOfLines="2" minimumScaleFactor="0.90000000000000002" id="PMw-Ct-vCG">
-                                            <color key="textColor" red="0.28235294117647058" green="0.28627450980392155" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
-                                        </label>
+                                        <imageView width="25" height="25" alignment="center" verticalAlignment="center" image="future" contentMode="scaleAspectFit" id="LeO-na-cam"/>
                                     </items>
+                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </group>
+                                <label width="98" alignment="left" text="How did the Kings use Oracle Bones to talk to the dead?" textAlignment="left" baselineAdjustment="alignCenters" numberOfLines="4" id="W7Q-4T-brr">
+                                    <color key="textColor" red="0.82249190449999998" green="0.83623840709999997" blue="0.8374565491" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="font" type="system" weight="medium" pointSize="11"/>
+                                </label>
                             </items>
-                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </group>
+                        <imageView width="45" height="45" alignment="center" verticalAlignment="center" image="watchtorail" id="FHD-vJ-XoN"/>
+                        <label width="108" alignment="center" verticalAlignment="bottom" text="Tap to read on the rail" textAlignment="center" numberOfLines="2" id="do1-HD-IM9">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="font" type="system" pointSize="13"/>
+                        </label>
                     </items>
+                    <connections>
+                        <outlet property="questionImage" destination="LeO-na-cam" id="aZt-fx-r8r"/>
+                        <outlet property="questionText" destination="W7Q-4T-brr" id="Akj-Br-P3b"/>
+                    </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="516" y="345"/>
@@ -95,4 +105,5 @@
             <point key="canvasLocation" x="468" y="643"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

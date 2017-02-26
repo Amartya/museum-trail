@@ -9,9 +9,11 @@
 import UIKit
 import UserNotifications
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ESTTriggerManagerDelegate {
 
     @IBOutlet var sendMessage: UIButton!
+    
+    let triggerManager = ESTTriggerManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +28,9 @@ class ViewController: UIViewController {
                 print(error!)
             }
         }
+        
+        self.triggerManager.delegate = self
+        
     }
 
     override func didReceiveMemoryWarning() {
