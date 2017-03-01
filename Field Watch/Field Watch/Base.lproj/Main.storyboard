@@ -28,15 +28,25 @@
                                     <action selector="sendMessage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="LJw-kh-Z0w"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Jj-LR-FyV">
+                                <rect key="frame" x="90" y="309" width="140" height="30"/>
+                                <state key="normal" title="Send Hello to Watch"/>
+                                <connections>
+                                    <action selector="SendDataToWatch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hvT-65-Yf7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7bu-T0-KbA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="20f-UR-H8c"/>
+                            <constraint firstItem="8Jj-LR-FyV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Guj-Pb-HYL"/>
                             <constraint firstItem="7bu-T0-KbA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="MmY-ES-JYE"/>
+                            <constraint firstItem="8Jj-LR-FyV" firstAttribute="top" secondItem="7bu-T0-KbA" secondAttribute="bottom" constant="10" id="nyg-m1-9Y2"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="sendMessage" destination="7bu-T0-KbA" id="8Qq-EZ-RH9"/>
+                        <outlet property="sendSessionMessage" destination="8Jj-LR-FyV" id="RDt-iF-6hm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

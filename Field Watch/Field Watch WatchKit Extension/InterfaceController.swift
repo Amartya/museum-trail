@@ -8,9 +8,9 @@
 
 import WatchKit
 import Foundation
+import WatchConnectivity
 
-
-class InterfaceController: WKInterfaceController {
+class InterfaceController: WKInterfaceController, WCSessionDelegate {
 
     @IBOutlet var questiontable: WKInterfaceTable!
     
@@ -26,6 +26,12 @@ class InterfaceController: WKInterfaceController {
     
         // Configure interface objects here.
         loadQuestionTable()
+        
+        if WCSession.isSupported() {
+            let session = WCSession.default()
+            session.delegate = self
+            session.activate()
+        }
     }
     
     override func willActivate() {
@@ -39,6 +45,26 @@ class InterfaceController: WKInterfaceController {
     }
     
 
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("watch session activation complete")
+    }
+    
+    func session(_ session: WCSession,
+                 didReceiveMessage message: [String : Any],
+                 replyHandler: @escaping ([String : Any]) -> Void){
+        print(message)
+        
+        
+        switch message["watch"] as! String{
+            case "artifact1":
+                let questionData = [questions[1], imageNames[1]]
+                pushController(withName: "detailquestion", context: questionData)
+            default:
+                break
+        }
+        
+        replyHandler(["watch": "watch responded"])
+    }
     
     func loadQuestionTable(){
         questiontable.setNumberOfRows(prompts.count, withRowType: "watchTableIdentifier")

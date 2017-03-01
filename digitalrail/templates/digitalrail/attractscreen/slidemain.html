@@ -39,10 +39,15 @@
 
     <div id="screen">
         <div id="watch-container">
-            <div id="museumwatchanimation_hype_container" style="width:200px;height:200px;overflow:hidden;" aria-live="polite">
+            <div id="watch-animation-wrapper">
+                <div id="museumwatchanimation_hype_container" style="width:200px;height:200px;overflow:hidden;" aria-live="polite">
                 <script type="text/javascript" charset="utf-8" src="{% static "attractscreen/js/museumwatchanimation_hype_generated_script.js" %}"></script>
+                </div>
+                <div class="watch-info">Transfer stories to and from your watch, give it a shot!</div>
             </div>
-            <div class="watch-info">Transfer stories to and from your watch, give it a shot!</div>
+            <div id="watch-story-wrapper" style="display: none;">
+                <img src="{% static "attractscreen/media/temp_watch_img.png" %}" style="width:100%;">
+            </div>
         </div>
 
         <!--Attract Screen-->
@@ -231,13 +236,20 @@
                     else{
                         $('#main-screen').removeClass('screen-border-left');
 
-                        $('#watch-container').fadeOut(100);
+                        $('#watch-container').fadeOut(0);
+                        $('#watch-story-wrapper').fadeOut(0);
+                        $('#watch-animation-wrapper').fadeIn(0);
+
                         $('#main-screen').removeClass('moved');
 
                         $("#main-screen").animate({left: "0"},
                             {duration: 500, specialEasing: {left: "easeOutBack"}, function () {}
                         });
                     }
+                }
+                else if(event.which == 83){
+                    $('#watch-animation-wrapper').fadeOut(100);
+                    $('#watch-story-wrapper').fadeIn(100);
                 }
             });
 

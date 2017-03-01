@@ -8,16 +8,26 @@
 
 import UIKit
 import UserNotifications
+import WatchConnectivity
 
-class ViewController: UIViewController, ESTTriggerManagerDelegate {
-
+class ViewController: UIViewController, ESTTriggerManagerDelegate, WCSessionDelegate {
     @IBOutlet var sendMessage: UIButton!
     
+    @IBOutlet var sendSessionMessage: UIButton!
     let triggerManager = ESTTriggerManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        if(WCSession.isSupported()){
+            let session = WCSession.default()
+            session.delegate = self
+            session.activate()
+        }
+        else{
+            print("this device does not support apple watch communication")
+        }
         
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
@@ -30,15 +40,40 @@ class ViewController: UIViewController, ESTTriggerManagerDelegate {
         }
         
         self.triggerManager.delegate = self
-        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    func sessionDidDeactivate(_ session: WCSession) {
+        print("session deactivated")
+    }
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        print("session inactive")
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("iOS session activation complete")
+    }
+    
+    
+    //is called if the user pairs/unpairs a watch, installs/uninstalls the watch app etc.
+    func sessionWatchStateDidChange(_ session: WCSession) {
+        if(!session.isPaired){
+            print("could not find paired apple watch")
+        }
+        
+        if(!session.isWatchAppInstalled){
+            print("watch app not installed")
+        }
+//        print(session.watchDirectoryURL != nil) //watchDirectoryURL!=nil if isWatchAppInstalled is true, the watchDirectory is best used for preferences and sync states, it gets deleted when the watch app is removed/uninstalled
+//        print(session.isComplicationEnabled)
+    }
+    
+         
     @IBAction func sendMessage(_ sender: Any) {
         let center = UNUserNotificationCenter.current()
         
@@ -78,6 +113,18 @@ class ViewController: UIViewController, ESTTriggerManagerDelegate {
             if let theError = error {
                 print(theError.localizedDescription)
             }
+        }
+    }
+    
+    @IBAction func SendDataToWatch(_ sender: Any) {
+        let session = WCSession.default()
+        let message = ["watch": "artifact1"]
+        
+        if(session.isReachable){
+            session.sendMessage(message,
+                                replyHandler: {data in print("data: \(data)")},
+                                errorHandler: { error in print("error: \(error)")
+            })
         }
     }
 }
