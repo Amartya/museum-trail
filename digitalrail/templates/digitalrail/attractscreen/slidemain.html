@@ -224,27 +224,10 @@
             $( "body" ).keydown(function(event) {
                 if(event.which == 87){
                     if(!$('#main-screen').hasClass('moved')){
-                        $('#main-screen').addClass('screen-border-left');
-                        $('.HYPE_scene').css('margin-left','40px'); //need to figure out a better way to align this
-
-                        $('#main-screen').addClass('moved');
-                        $("#main-screen").animate({left: "480"},
-                            {duration: 500, specialEasing: {left: "easeOutBack"},
-                            complete: function () {$('#watch-container').fadeIn(200);}
-                        });
+                        showWatchAnimation();
                     }
                     else{
-                        $('#main-screen').removeClass('screen-border-left');
-
-                        $('#watch-container').fadeOut(0);
-                        $('#watch-story-wrapper').fadeOut(0);
-                        $('#watch-animation-wrapper').fadeIn(0);
-
-                        $('#main-screen').removeClass('moved');
-
-                        $("#main-screen").animate({left: "0"},
-                            {duration: 500, specialEasing: {left: "easeOutBack"}, function () {}
-                        });
+                        hideWatchAnimation();
                     }
                 }
                 else if(event.which == 83){
@@ -252,6 +235,57 @@
                     $('#watch-story-wrapper').fadeIn(100);
                 }
             });
+
+            function showWatchAnimation() {
+
+                $('#main-screen').addClass('screen-border-left');
+                $('.HYPE_scene').css('margin-left', '40px'); //need to figure out a better way to align this
+
+                $('#main-screen').addClass('moved');
+                $("#main-screen").animate({left: "480"},
+                    {
+                        duration: 500, specialEasing: {left: "easeOutBack"},
+                        complete: function () {
+                            $('#watch-container').fadeIn(200);
+                        }
+                    });
+            }
+
+            function hideWatchAnimation(){
+                $('#main-screen').removeClass('screen-border-left');
+
+                $('#watch-container').fadeOut(0);
+                $('#watch-story-wrapper').fadeOut(0);
+                $('#watch-animation-wrapper').fadeIn(0);
+
+                $('#main-screen').removeClass('moved');
+
+                $("#main-screen").animate({left: "0"},
+                    {duration: 500, specialEasing: {left: "easeOutBack"}, function () {}
+                });
+            }
+
+            var timer = setInterval(getWatchStatus, 1000);
+
+            function getWatchStatus(){
+                $.ajax({
+                    url : "{% url 'digitalrail.views.landingpage.watchstatus' %}",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        'user-level-info' : true,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success : function(data) {
+                        if(data.watchstatus){
+                            if(!$('#main-screen').hasClass('moved')) {
+                                showWatchAnimation();
+                                clearInterval(timer);
+                            }
+                        }
+                    }
+                })
+            }
 
             //-------------------------------------------------------------------
             // Callback to set media screen contents from artifact column

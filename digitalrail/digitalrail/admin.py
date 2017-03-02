@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactDetail, \
-    InteractiveDetail, ArtifactQA
+    InteractiveDetail, ArtifactQA, WatchInteractivity
 
 def duplicate_question(modeladmin, request, queryset):
     for question in queryset:
@@ -60,6 +60,10 @@ class artifactQAAdmin(admin.ModelAdmin):
     list_display = ['id','artifact','artifact_name','artifact_label','artifact_dynasty_age','artifact_questions']
     ordering = ['id']
 
+class watchInteractivityAdmin(admin.ModelAdmin):
+    list_display = ['id','show_watch_area']
+    ordering = ['id']
+
 admin.site.register(Question, bigQuestionAdmin)
 admin.site.register(iModelThematicQuestion, thematicQuestionAdmin)
 admin.site.register(iModelQuestion, iModelQuestionAdmin)
@@ -68,3 +72,4 @@ admin.site.register(Artifact, artifactsAdmin)
 admin.site.register(ArtifactDetail, artifactDetailAdmin)
 admin.site.register(InteractiveDetail, interactiveDetailAdmin)
 admin.site.register(ArtifactQA, artifactQAAdmin)
+admin.site.register(WatchInteractivity, watchInteractivityAdmin)

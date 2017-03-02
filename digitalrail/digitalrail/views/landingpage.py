@@ -7,7 +7,7 @@ from django.shortcuts import render_to_response
 from django.template import loader
 
 
-from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactQA
+from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactQA, WatchInteractivity
 
 def index(request):
     #return HttpResponse("Hello Digital Rail")
@@ -16,6 +16,10 @@ def index(request):
 def beaconviz(request):
     #return HttpResponse("Hello Digital Rail")
     return render_to_response('digitalrail/beaconviz/index.html',context_instance=RequestContext(request))
+
+def experiments(request):
+    #return HttpResponse("Hello Digital Rail")
+    return render_to_response('digitalrail/experiments/index.html',context_instance=RequestContext(request))
 
 def bigquestion(request):
     all_questions = Question.objects.filter(rail_id=0, active=True).order_by('pub_date')
@@ -122,3 +126,11 @@ def slidemain(request):
     rail_data['artifact_detail_list'] = artifact_detail_list
 
     return render(request, 'digitalrail/attractscreen/slidemain.html', rail_data)
+
+def watchstatus(request):
+    watchstatus = WatchInteractivity.objects.get(id=1)
+    print(watchstatus.show_watch_area)
+    watchdata = {'watchstatus': watchstatus.show_watch_area}
+
+    if request.method == "POST":
+        return HttpResponse(json.dumps(watchdata), content_type='application/javascript')

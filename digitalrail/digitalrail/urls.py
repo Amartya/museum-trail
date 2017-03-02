@@ -27,5 +27,8 @@ urlpatterns = [
     url(r'^imodel/', landingpage.imodel, name='imodel'),
     url(r'^slidemain/', landingpage.slidemain, name='slidemain'),
     url(r'^beaconviz/', landingpage.beaconviz, name='beaconviz'),
+    url(r'^experiments/', landingpage.experiments, name='experiments'),
+    url(r'^watchstatus/$', landingpage.watchstatus, name='watchstatus'),
+
 ] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

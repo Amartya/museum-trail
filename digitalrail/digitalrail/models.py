@@ -120,7 +120,7 @@ class ArtifactDetail(models.Model):
 
 class InteractiveDetail(models.Model):
     def __unicode__(self):
-        return 'Artifact: ' + self.artifact.artifact_name
+        return 'Interactive: ' + self.artifact.artifact_name
 
     class Meta:
         verbose_name = 'Interactive Detail'
@@ -130,6 +130,12 @@ class InteractiveDetail(models.Model):
     interactive_subheading = models.CharField(max_length=500, blank=True);
     interactive_img_url = models.CharField(max_length=500, blank=True);
 
+class WatchInteractivity(models.Model):
+    class Meta:
+        verbose_name = 'Watch Property'
+        verbose_name_plural = 'Watch Properties'
+
+    show_watch_area = models.BooleanField(blank=True, default=False)
 # --------------------------------------------------------- #
 # ------------------------For Polls ----------------------- #
 # --------------------------------------------------------- #
