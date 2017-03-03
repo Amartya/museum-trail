@@ -269,19 +269,21 @@
 
             function getWatchStatus(){
                 $.ajax({
-                    url : "{% url 'digitalrail.views.landingpage.watchstatus' %}",
+                    url : "{% url 'digitalrail.views.landingpage.getwatchstatus' %}",
                     type : "POST",
                     dataType: "json",
                     data : {
-                        'user-level-info' : true,
+                        'name': "rail",
                         csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     success : function(data) {
                         if(data.watchstatus){
                             if(!$('#main-screen').hasClass('moved')) {
                                 showWatchAnimation();
-                                clearInterval(timer);
                             }
+                        }
+                        else{
+                            hideWatchAnimation();
                         }
                     }
                 })

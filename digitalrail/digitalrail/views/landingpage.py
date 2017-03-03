@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.template import loader
-
+from django.views.decorators.csrf import csrf_exempt
 
 from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactQA, WatchInteractivity
 
@@ -127,10 +127,24 @@ def slidemain(request):
 
     return render(request, 'digitalrail/attractscreen/slidemain.html', rail_data)
 
-def watchstatus(request):
-    watchstatus = WatchInteractivity.objects.get(id=1)
-    print(watchstatus.show_watch_area)
-    watchdata = {'watchstatus': watchstatus.show_watch_area}
-
+@csrf_exempt
+def getwatchstatus(request):
     if request.method == "POST":
-        return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
+        if request.POST.get('name') == "rail":
+            watchstatus = WatchInteractivity.objects.get(id=1)
+            watchdata = {'watchstatus': watchstatus.show_watch_area}
+            return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
+
+@csrf_exempt
+def setwatchstatus(request):
+    if request.method == "POST":
+        request_body = request.body
+        try:
+            data = json.loads(request_body)
+            if data['name'] == "ios":
+                watchstatus = WatchInteractivity.objects.get(id=1)
+                watchstatus.show_watch_area = not watchstatus.show_watch_area
+                watchstatus.save()
+                return HttpResponse(json.dumps({'watchstatus': True}), content_type='application/javascript')
+        except:
+            print("error parsing request data")
