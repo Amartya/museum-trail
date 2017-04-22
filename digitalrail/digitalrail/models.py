@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # --------------------------------------------------------- #
 # ---------------Model for the Big Question --------------- #
 # --------------------------------------------------------- #
@@ -136,6 +137,16 @@ class WatchInteractivity(models.Model):
         verbose_name_plural = 'Watch Properties'
 
     show_watch_area = models.BooleanField(blank=True, default=False)
+    show_story = models.BooleanField(blank=True, default=False)
+    selected_story_id = models.IntegerField(blank= True, default=-1)
+
+class SavedData(models.Model):
+    class Meta:
+        verbose_name = 'Saved Data'
+        verbose_name_plural = 'Saved Data'
+    selected_story_id = models.IntegerField(blank= True, default=-1)
+    saved_timestamp  = models.DateTimeField(blank= True, auto_now_add=True)
+
 # --------------------------------------------------------- #
 # ------------------------For Polls ----------------------- #
 # --------------------------------------------------------- #

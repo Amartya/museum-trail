@@ -43,10 +43,23 @@
                 <div id="museumwatchanimation_hype_container" style="width:200px;height:200px;overflow:hidden;" aria-live="polite">
                 <script type="text/javascript" charset="utf-8" src="{% static "attractscreen/js/museumwatchanimation_hype_generated_script.js" %}"></script>
                 </div>
-                <div class="watch-info">Transfer stories to and from your watch, give it a shot!</div>
+                <div class="watch-info">Tap here to read the story shown on your watch</div>
             </div>
-            <div id="watch-story-wrapper" style="display: none;">
-                <img src="{% static "attractscreen/media/temp_watch_img.png" %}" style="width:100%;">
+            <div class="answer-stage" data-story-id="-1">
+                <div class="answer">
+                    <div class="answer-img"></div>
+                    <p>There is no way to tell exactly when or how writing emerged in China because the earliest writing--possibly inscribed on bamboo or fabric--have long since disappeared. <br>But we do have evidence of a fully functioning writing system by the second half of the Shang Dynasty (c. 1600–1046 BC), thanks to the durability of the material it was written on: bone. These pieces were used in rituals to try to foretell the future, so they are known as “oracle bones.”</p>
+                </div>
+                <div class = "nav-wrapper">
+                    <div class="back-to-questions">Hide</div>
+                    <div class="save-for-later">Save <i class="ion ion-ios-time-outline"></span></i></div>
+                </div>
+            </div>
+            <div id="modal-wrapper">
+                <div id="modal-save">
+                    <div class="modal-img"><i class="ion ion-checkmark-circled"></i></div>
+                    <div class="modal-text">Saved!</div>
+                </div>
             </div>
         </div>
 
@@ -221,23 +234,85 @@
                 $('#divination-touch-overlay').fadeOut(0);
             }
 
-            $( "body" ).keydown(function(event) {
-                if(event.which == 87){
-                    if(!$('#main-screen').hasClass('moved')){
-                        showWatchAnimation();
+            $( "body" ).on('click', '#watch-animation-wrapper', function(){
+                showAnswer();
+
+                $.ajax({
+                    url : "{% url 'digitalrail.views.landingpage.setdisplaystory' %}",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        'name': "rail"
+                    },
+                    success : function(data) {
+                        console.log("success");
                     }
-                    else{
+                })
+            });
+
+            function showAnswer(){
+                var charId = $('.answer-stage').data("story-id");
+                var artifactContent = $('#artifact-content').find('li');
+
+                $('#watch-animation-wrapper').fadeOut(100);
+
+                if(charId == 0){
+                    $('.answer').find('.answer-img').css('background-image', 'url(' + imagePath + $(artifactContent[1]).data('img-filename') + ')');
+                    $('.answer').find('.answer-img').css('background-size', '80px');
+                    $('.answer').find('p').text('Shang kings used oracle bones like these to consult their ancestors and to ask them to serve as intemediaries to the high god, Di, and to the powers of rivers, mountains, rain, and thunder. A Shang king’s king’s authority depended in part on his ability to speak to his ancestors on behalf of the community and foretell the best course of action.');
+                }
+                else if(charId == 1){
+                    $('.answer').find('.answer-img').css('background-image', 'url(' + imagePath + $(artifactContent[3]).data('img-filename') + ')');
+                    $('.answer').find('.answer-img').css('background-size', '80px');
+                    $('.answer').find('p').text('Most societies, as they form larger and larger trade networks, turn to some kind of small, portable, and standardized item to use as currency. These cowrie shells were easier to carry over long distances for trade than a sack of grain. Many early societies used cowrie shells as a form of currency.');
+                }
+                else if(charId == 2){
+                    $('.answer').find('.answer-img').css('background-image', 'url(' + imagePath + $(artifactContent[0]).data('img-filename') + ')');
+                    $('.answer').find('.answer-img').css('background-size', '80px');
+                    $('.answer').find('p').text('There is no way to tell exactly when or how writing emerged in China because the earliest writing--possibly inscribed on bamboo or fabric--have long since disappeared. But we do have evidence of a fully functioning writing system by the second half of the Shang Dynasty (c. 1600–1046 BC), thanks to the durability of the material it was written on: bone. These pieces were used in rituals to try to foretell the future, so they are known as “oracle bones.”');
+                }
+
+                $('.answer-stage').fadeIn(100);
+                $('.nav-wrapper').css('visibility', 'visible');
+            }
+
+            $('.nav-wrapper').on('click', '.save-for-later', function() {
+                $('.nav-wrapper').css('pointer-events','none');
+                $('#modal-wrapper').fadeIn(200);
+
+                var storyId = $('.answer-stage').data("story-id");
+
+                $.ajax({
+                    url : "{% url 'digitalrail.views.landingpage.savedata' %}",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        'name': "rail",
+                        'storyId': storyId
+                    },
+                    success : function(data) {
+                        $('.nav-wrapper').css('pointer-events','auto');
+                        $('#modal-wrapper').delay(2000).fadeOut(1000);
+                    }
+                })
+            });
+
+            $('.nav-wrapper').on('click', '.back-to-questions', function() {
+                $.ajax({
+                    url : "{% url 'digitalrail.views.landingpage.setwatchstatus' %}",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        'name': "rail",
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success : function(data) {
                         hideWatchAnimation();
                     }
-                }
-                else if(event.which == 83){
-                    $('#watch-animation-wrapper').fadeOut(100);
-                    $('#watch-story-wrapper').fadeIn(100);
-                }
+                })
             });
 
             function showWatchAnimation() {
-
                 $('#main-screen').addClass('screen-border-left');
                 $('.HYPE_scene').css('margin-left', '40px'); //need to figure out a better way to align this
 
@@ -255,17 +330,21 @@
                 $('#main-screen').removeClass('screen-border-left');
 
                 $('#watch-container').fadeOut(0);
-                $('#watch-story-wrapper').fadeOut(0);
+                $('.answer-stage').fadeOut(0);
+                $('.nav-wrapper').css('visibility', 'hidden');
                 $('#watch-animation-wrapper').fadeIn(0);
 
                 $('#main-screen').removeClass('moved');
 
                 $("#main-screen").animate({left: "0"},
-                    {duration: 500, specialEasing: {left: "easeOutBack"}, function () {}
-                });
+                    {
+                        duration: 500, specialEasing: {left: "easeOutBack"}, function () {}
+                    });
             }
 
             var timer = setInterval(getWatchStatus, 1000);
+            var storyDisplayTimer = setInterval(getDisplayStoryStatus, 1000);
+            var getStoryIdTimer = setInterval(getStoryId, 1000);
 
             function getWatchStatus(){
                 $.ajax({
@@ -274,7 +353,6 @@
                     dataType: "json",
                     data : {
                         'name': "rail",
-                        csrfmiddlewaretoken: '{{ csrf_token }}'
                     },
                     success : function(data) {
                         if(data.watchstatus){
@@ -284,6 +362,41 @@
                         }
                         else{
                             hideWatchAnimation();
+                        }
+                    }
+                })
+            }
+
+            function getDisplayStoryStatus(){
+                $.ajax({
+                    url : "{% url 'digitalrail.views.landingpage.getdisplaystory' %}",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        'name': "rail",
+                    },
+                    success : function(data) {
+                        if(data.displaystory){
+                            showAnswer();
+                        }
+                    }
+                })
+            }
+
+            function getStoryId(){
+                $.ajax({
+                    url : "{% url 'digitalrail.views.landingpage.getwatchstory' %}",
+                    type : "POST",
+                    dataType: "json",
+                    data : {
+                        'name': "rail",
+                    },
+                    success : function(data) {
+                        if(data.watchstory){
+                            $('.answer-stage').data('story-id',data.watchstory);
+                        }
+                        else{
+                            $('.answer-stage').data('story-id',0);
                         }
                     }
                 })

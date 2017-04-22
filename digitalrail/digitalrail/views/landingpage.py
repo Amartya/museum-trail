@@ -1,4 +1,6 @@
 import json
+import sys
+from datetime import datetime
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -7,7 +9,8 @@ from django.shortcuts import render_to_response
 from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
-from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactQA, WatchInteractivity
+from digitalrail.models import Question, iModelThematicQuestion, iModelQuestion, RailSettings, Artifact, ArtifactQA, \
+    WatchInteractivity, SavedData
 
 def index(request):
     #return HttpResponse("Hello Digital Rail")
@@ -128,6 +131,33 @@ def slidemain(request):
     return render(request, 'digitalrail/attractscreen/slidemain.html', rail_data)
 
 @csrf_exempt
+def setwatchstatus(request):
+    if request.method == "POST":
+        request_body = request.body
+        try:
+            data = json.loads(request_body)
+            if data['name'] == "ios":
+                setscreenstatus()
+                return HttpResponse(json.dumps({'watchstatus': True}), content_type='application/javascript')
+        except:
+            if request.POST.get('name') == "rail":
+                setscreenstatus()
+                return HttpResponse(json.dumps({'watchstatus': True}), content_type='application/javascript')
+            else:
+                print("error parsing request data to set watch status")
+
+def setscreenstatus():
+    watchstatus = WatchInteractivity.objects.get(id=1)
+    watchstatus.show_watch_area = not watchstatus.show_watch_area
+    watchstatus.save()
+
+    # resetting the selected story id to the default
+    if (not watchstatus.show_watch_area):
+        watchstatus.selected_story_id = -1
+        watchstatus.show_story = False
+        watchstatus.save()
+
+@csrf_exempt
 def getwatchstatus(request):
     if request.method == "POST":
         if request.POST.get('name') == "rail":
@@ -135,16 +165,87 @@ def getwatchstatus(request):
             watchdata = {'watchstatus': watchstatus.show_watch_area}
             return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
 
+
 @csrf_exempt
-def setwatchstatus(request):
+def setwatchstory(request):
+    if request.method == "POST":
+        request_body = request.body
+        print >> sys.stderr, prettyprint(request_body)
+        try:
+            data = json.loads(request_body)
+
+            if data['name'] == "watch":
+                watchstatus = WatchInteractivity.objects.get(id=1)
+                watchstatus.selected_story_id = data['promptId']
+                watchstatus.save()
+                return HttpResponse(json.dumps({'watchstoryset': True}), content_type='application/javascript')
+        except:
+            print("error parsing request data to set story id")
+
+@csrf_exempt
+def getwatchstory(request):
+    if request.method == "POST":
+        if request.POST.get('name') == "rail":
+            watchstatus = WatchInteractivity.objects.get(id=1)
+            watchdata = {'watchstory': watchstatus.selected_story_id}
+            return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
+
+@csrf_exempt
+def setdisplaystory(request):
     if request.method == "POST":
         request_body = request.body
         try:
             data = json.loads(request_body)
-            if data['name'] == "ios":
-                watchstatus = WatchInteractivity.objects.get(id=1)
-                watchstatus.show_watch_area = not watchstatus.show_watch_area
-                watchstatus.save()
-                return HttpResponse(json.dumps({'watchstatus': True}), content_type='application/javascript')
+
+            if data['name'] == "watch":
+                setstoryhelper()
+                return HttpResponse(json.dumps({'watchstoryset': True}), content_type='application/javascript')
         except:
-            print("error parsing request data")
+            if request.POST.get('name') == "rail":
+                setstoryhelper()
+                return HttpResponse(json.dumps({'watchstoryset': True}), content_type='application/javascript')
+            print("error parsing request data to set display story")
+
+def setstoryhelper():
+    watchstatus = WatchInteractivity.objects.get(id=1)
+    watchstatus.show_story = not watchstatus.show_story
+    watchstatus.save()
+
+@csrf_exempt
+def getdisplaystory(request):
+    #print >> sys.stderr, prettyprint(request)
+    if request.method == "POST":
+        request_body = request.body
+        #print >> sys.stderr, prettyprint(request_body)
+        if request.POST.get('name') == "rail":
+            watchstatus = WatchInteractivity.objects.get(id=1)
+            watchdata = {'displaystory': watchstatus.show_story, 'storyId': watchstatus.selected_story_id}
+            return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
+        else:
+            request_body = request.body
+            try:
+                data = json.loads(request_body)
+                if data['name'] == "ios":
+                    watchstatus = WatchInteractivity.objects.get(id=1)
+                    watchdata = {'displaystory': watchstatus.show_story, 'storyId': watchstatus.selected_story_id}
+                    #print >> sys.stderr, prettyprint(watchdata)
+                    return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
+            except:
+                return HttpResponse(json.dumps({'displaystory': "could not set"}), content_type='application/javascript')
+
+
+@csrf_exempt
+def savedata(request):
+    if request.method == "POST":
+        if request.POST.get('name') == "rail":
+            saved_story_id = request.POST.get('storyId')
+            data = SavedData(selected_story_id = saved_story_id, saved_timestamp = datetime.now())
+            data.save()
+
+            savedata = {'saveddata': True}
+            return HttpResponse(json.dumps(savedata), content_type='application/javascript')
+
+def prettyprint(print_str):
+    print '***************************************************'
+    print(print_str)
+    print '***************************************************'

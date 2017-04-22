@@ -28,8 +28,13 @@ urlpatterns = [
     url(r'^slidemain/', landingpage.slidemain, name='slidemain'),
     url(r'^beaconviz/', landingpage.beaconviz, name='beaconviz'),
     url(r'^experiments/', landingpage.experiments, name='experiments'),
+    url(r'^setwatchstatus/$', landingpage.setwatchstatus, name='setwatchstatus'),
     url(r'^getwatchstatus/$', landingpage.getwatchstatus, name='getwatchstatus'),
-    url(r'^setwatchstatus/$', landingpage.setwatchstatus, name='setwatchstatus')
+    url(r'^setwatchstory/$', landingpage.setwatchstory, name='setwatchstory'),
+    url(r'^getwatchstory/$', landingpage.getwatchstory, name='getwatchstory'),
+    url(r'^setdisplaystory/$', landingpage.setdisplaystory, name='setdisplaystory'),
+    url(r'^getdisplaystory/$', landingpage.getdisplaystory, name='getdisplaystory'),
+    url(r'^savedata/$', landingpage.savedata, name='savedata'),
 
 ] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

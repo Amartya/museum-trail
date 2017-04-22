@@ -54,7 +54,7 @@ body {
   width: 480px;
   height: 40px;
   text-transform: capitalize;
-  font-size: 9pt;
+  font-size: 12pt;
   text-align: center;
   line-height: 40px;
   cursor: pointer;
@@ -85,12 +85,20 @@ body {
       width: 1440px;
       text-align: center;
       font-size: 16pt;
+      font-weight: bold;
       color: #fff;
-      opacity: 0.35;
-      background-color: #424242;
+      background-color: #bc4c4e;
       padding-top: 3px;
       line-height: 35px;
       text-transform: uppercase; }
+      .page .left-segment .case-header #watch-area-toggle {
+        float: left;
+        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+        background-color: #E6E1D0;
+        border-radius: 2px;
+        color: #424242; }
     .page .left-segment #content-wrapper {
       height: 468px; }
       .page .left-segment #content-wrapper .content-header {
@@ -497,5 +505,115 @@ body {
       .page .right-segment #artifact-wrapper .selected-anim-right {
         transform: translateX(20px);
         transition: opacity 0.2s ease-out, transform 0.2s; }
+
+#watch-story-wrapper {
+  display: flex;
+  height: 350px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 50px; }
+  #watch-story-wrapper .question {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 385px;
+    height: 80px;
+    background-color: #424242;
+    border-radius: 7px;
+    font-size: 12pt;
+    opacity: 0.75; }
+    #watch-story-wrapper .question .text {
+      width: 300px; }
+    #watch-story-wrapper .question .answer-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 20pt;
+      line-height: 50px;
+      padding-top: 4px;
+      text-align: center;
+      border-radius: 50%;
+      background-color: #7F8382; }
+    #watch-story-wrapper .question:active, #watch-story-wrapper .question:hover {
+      cursor: pointer;
+      background-color: #333333; }
+  #watch-story-wrapper .selected {
+    opacity: 1.0; }
+
+.answer-stage {
+  display: none;
+  width: 385px;
+  height: 410px;
+  background-color: #424242;
+  font-size: 12pt;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin: 35px auto; }
+  .answer-stage .question-text {
+    width: 385px;
+    height: 20px;
+    text-align: center;
+    font-size: 14pt;
+    padding-top: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-bottom: 10px; }
+  .answer-stage p {
+    margin: 10px;
+    text-align: justify;
+    font-size: 12.5pt;
+    line-height: 1.5em; }
+  .answer-stage .answer-img {
+    width: 100px;
+    height: 100px;
+    background-size: 80px;
+    margin: 10px;
+    border: 2px #9E6E5A solid;
+    border-radius: 5px;
+    background: url("/static/attractscreen/media/2-1_M2/assets/media/image/G2.1_M2_B1_S1_1.png") no-repeat center;
+    float: left; }
+  .answer-stage .answer {
+    height: 325px;
+    overflow-x: hidden;
+    overflow-y: scroll; }
+
+.nav-wrapper {
+  display: flex;
+  visibility: hidden;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px; }
+  .nav-wrapper .save-for-later, .nav-wrapper .back-to-questions {
+    width: 150px;
+    height: 50px;
+    background-color: #bc4c4e;
+    line-height: 50px;
+    text-align: center;
+    font-size: 15pt;
+    color: white; }
+    .nav-wrapper .save-for-later:active, .nav-wrapper .save-for-later:hover, .nav-wrapper .back-to-questions:active, .nav-wrapper .back-to-questions:hover {
+      cursor: pointer;
+      opacity: 0.5; }
+
+#modal-wrapper {
+  height: 502px;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  background-color: rgba(1, 1, 1, 0.75);
+  display: none; }
+  #modal-wrapper #modal-save {
+    width: 200px;
+    height: 300px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 101px auto; }
+    #modal-wrapper #modal-save .modal-img {
+      font-size: 50pt; }
+    #modal-wrapper #modal-save .modal-text {
+      font-size: 20pt; }
 
 /*# sourceMappingURL=slidemain.css.map */
