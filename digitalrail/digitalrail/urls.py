@@ -35,6 +35,7 @@ urlpatterns = [
     url(r'^setdisplaystory/$', landingpage.setdisplaystory, name='setdisplaystory'),
     url(r'^getdisplaystory/$', landingpage.getdisplaystory, name='getdisplaystory'),
     url(r'^savedata/$', landingpage.savedata, name='savedata'),
+    url(r'^getsavedata/$', landingpage.getsavedata, name='getsavedata'),
 
 ] +  static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

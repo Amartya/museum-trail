@@ -170,7 +170,6 @@ def getwatchstatus(request):
 def setwatchstory(request):
     if request.method == "POST":
         request_body = request.body
-        print >> sys.stderr, prettyprint(request_body)
         try:
             data = json.loads(request_body)
 
@@ -179,8 +178,15 @@ def setwatchstory(request):
                 watchstatus.selected_story_id = data['promptId']
                 watchstatus.save()
                 return HttpResponse(json.dumps({'watchstoryset': True}), content_type='application/javascript')
-        except:
-            print("error parsing request data to set story id")
+        except Exception as e:
+            if hasattr(e, 'message'):
+                print >> sys.stderr, prettyprint(e.message)
+            else:
+                print >> sys.stderr, prettyprint(e)
+    elif request.method == "GET":
+        print >> sys.stderr, prettyprint(request.body)
+        return HttpResponse(json.dumps({'watchstoryset': False}), content_type='application/javascript')
+
 
 @csrf_exempt
 def getwatchstory(request):
@@ -213,22 +219,21 @@ def setstoryhelper():
 
 @csrf_exempt
 def getdisplaystory(request):
-    #print >> sys.stderr, prettyprint(request)
     if request.method == "POST":
-        request_body = request.body
-        #print >> sys.stderr, prettyprint(request_body)
         if request.POST.get('name') == "rail":
             watchstatus = WatchInteractivity.objects.get(id=1)
             watchdata = {'displaystory': watchstatus.show_story, 'storyId': watchstatus.selected_story_id}
+
             return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
         else:
             request_body = request.body
+
             try:
                 data = json.loads(request_body)
                 if data['name'] == "ios":
                     watchstatus = WatchInteractivity.objects.get(id=1)
                     watchdata = {'displaystory': watchstatus.show_story, 'storyId': watchstatus.selected_story_id}
-                    #print >> sys.stderr, prettyprint(watchdata)
+
                     return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
             except:
                 return HttpResponse(json.dumps({'displaystory': "could not set"}), content_type='application/javascript')
@@ -244,6 +249,21 @@ def savedata(request):
 
             savedata = {'saveddata': True}
             return HttpResponse(json.dumps(savedata), content_type='application/javascript')
+
+@csrf_exempt
+def getsavedata(request):
+    if request.method == "POST":
+        request_body = request.body
+        try:
+            data = json.loads(request_body)
+            if data['name'] == "ios":
+                save_data = SavedData.objects.order_by('-id').first()
+                response_data = {"id": save_data.id, "success": True}
+                prettyprint(response_data)
+                return HttpResponse(json.dumps(response_data), content_type='application/javascript')
+        except:
+            return HttpResponse(json.dumps({'success': "false"}), content_type='application/javascript')
+
 
 def prettyprint(print_str):
     print '***************************************************'
