@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^experiments/', landingpage.experiments, name='experiments'),
     url(r'^setwatchstatus/$', landingpage.setwatchstatus, name='setwatchstatus'),
     url(r'^getwatchstatus/$', landingpage.getwatchstatus, name='getwatchstatus'),
+    url(r'^resetwatchstatus/$', landingpage.getwatchstatus, name='resetwatchstatus'),
     url(r'^setwatchstory/$', landingpage.setwatchstory, name='setwatchstory'),
     url(r'^getwatchstory/$', landingpage.getwatchstory, name='getwatchstory'),
     url(r'^setdisplaystory/$', landingpage.setdisplaystory, name='setdisplaystory'),

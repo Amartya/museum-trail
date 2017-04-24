@@ -145,6 +145,8 @@ def setwatchstatus(request):
                 return HttpResponse(json.dumps({'watchstatus': True}), content_type='application/javascript')
             else:
                 print("error parsing request data to set watch status")
+    else:
+        print >> sys.stderr,prettyprint(request.body)
 
 def setscreenstatus():
     watchstatus = WatchInteractivity.objects.get(id=1)
@@ -158,12 +160,25 @@ def setscreenstatus():
         watchstatus.save()
 
 @csrf_exempt
+def resetwatchstatus(request):
+    if request.method == "POST":
+        watchstatus = WatchInteractivity.objects.get(id=1)
+        watchstatus.show_watch_area = False
+        watchstatus.selected_story_id = -1
+        watchstatus.show_story = False
+        watchstatus.save()
+
+        return HttpResponse(json.dumps({'watchstatus': True}), content_type='application/javascript')
+
+@csrf_exempt
 def getwatchstatus(request):
     if request.method == "POST":
         if request.POST.get('name') == "rail":
             watchstatus = WatchInteractivity.objects.get(id=1)
             watchdata = {'watchstatus': watchstatus.show_watch_area}
             return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
+    else:
+        print >> sys.stderr,prettyprint(request.body)
 
 
 @csrf_exempt
@@ -211,6 +226,8 @@ def setdisplaystory(request):
                 setstoryhelper()
                 return HttpResponse(json.dumps({'watchstoryset': True}), content_type='application/javascript')
             print("error parsing request data to set display story")
+    else:
+        print >> sys.stderr,prettyprint(request.body)
 
 def setstoryhelper():
     watchstatus = WatchInteractivity.objects.get(id=1)
@@ -237,6 +254,8 @@ def getdisplaystory(request):
                     return HttpResponse(json.dumps(watchdata), content_type='application/javascript')
             except:
                 return HttpResponse(json.dumps({'displaystory': "could not set"}), content_type='application/javascript')
+    else:
+        print >> sys.stderr,prettyprint(request.body)
 
 
 @csrf_exempt
@@ -249,6 +268,8 @@ def savedata(request):
 
             savedata = {'saveddata': True}
             return HttpResponse(json.dumps(savedata), content_type='application/javascript')
+    else:
+        print >> sys.stderr,prettyprint(request.body)
 
 @csrf_exempt
 def getsavedata(request):
@@ -263,6 +284,8 @@ def getsavedata(request):
                 return HttpResponse(json.dumps(response_data), content_type='application/javascript')
         except:
             return HttpResponse(json.dumps({'success': "false"}), content_type='application/javascript')
+    else:
+        print >> sys.stderr,prettyprint(request.body)
 
 
 def prettyprint(print_str):
